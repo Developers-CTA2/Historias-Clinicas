@@ -1,0 +1,25 @@
+// Variables
+@import 'variables';
+
+.input-custom-reports{
+    width: 200px;
+}
+
+.btn-custom-link{
+    width: 200px;
+}
+
+
+
+.btn-custom-full{
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: $bg-color-opacity;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom-full:hover{
+    background-color: $bg-color-opactity-lg;
+}

@@ -1,0 +1,123 @@
+/*
+    Sombra de la card 
+*/
+.card {
+    -webkit-box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
+    -moz-box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
+    box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
+}
+/*
+    Icono de la card 
+*/
+.icon-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //padding-bottom: 5px;
+}
+
+/*
+    Circulo donde esta el icono
+*/
+.rounded-icon {
+    // Tamaño del ciculo 
+    width: 2.5rem; 
+    height: 2.5rem;
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+/*
+    Cuando se coloca el cursor encima 
+*/
+.rounded-icon:hover , .rounded-icon:focus{
+    transform: scale(1.1); /* Aumenta de tamaño */
+    cursor: pointer;
+}
+
+/* Tamaño del icono */
+.rounded-icon i {
+    font-size: 1.2rem;
+}
+.gb-card1 {
+   /* Color de fondo del círculo con transparencia */
+      background-color: rgb(7, 102, 173, 0.25);
+    
+    i {
+        color: rgba(7, 102, 173)
+    }
+}
+
+.gb-card2 {
+     background-color: rgb(175, 68, 68, 0.25);
+    
+    i {
+        color: rgb(175, 68, 68)
+    }
+    
+}
+
+
+.gb-card3 {
+     /* Color de fondo del círculo con transparencia */
+    background-color: rgba(126, 215, 193, 0.25);
+    
+    i {
+        color: rgb(126, 215, 193)
+    }
+   
+}
+
+.gb-card4 {
+    /* Color de fondo del círculo con transparencia */
+      background-color: rgba(231, 192, 51, 0.25);
+    
+    i {
+        color: rgb(231, 192, 51)
+    }
+}
+.gb-card5 {
+    background-color: rgb(142, 122, 181,0.25);
+    
+    i {
+        color: rgb(142, 122, 181)
+    }
+     
+}
+.gb-card6 {
+    /* Color de fondo del círculo con transparencia */
+     background-color: rgba(182, 97, 129, 0.25);
+    
+    i {
+        color: rgb(182, 97, 129)
+    }
+}
+.gb-card7 {
+    /* Color de fondo del círculo con transparencia */
+     background-color: rgb(240, 141, 95, 0.25);
+    
+    i {
+        color: rgb(240, 141, 95)
+    }
+  
+}
+
+.gb-card8 {
+   /* Color de fondo del círculo con transparencia */
+    background-color: rgb(79, 111, 82, 0.25);
+    
+    i {
+        color: rgb(79, 111, 82);
+    }
+}
+
+
+
+.details-icon i{
+    font-size: 4.0rem;
+    color: rgba(0, 0, 0, 0.644);
+    //color: #186D95;
+}

@@ -1,0 +1,201 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+/* Animacion perroncilla Se pone en el Button y el i (icono) se hace mas grande */
+.animated-icon i {
+    transition: transform 0.3s ease-in-out;
+}
+
+.animated-icon:hover i {
+    transform: scale(1.4); /* Aumenta de tamaño */
+}
+
+// SideBar Component Styles
+.sideBar-custom{
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    z-index: 50;
+    background-color: $primary;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-custom{
+    background-color: $secundary;
+}
+
+
+.bg-primary-custom{
+    background-color: $secundary;
+}
+
+.border-custom{
+    border-bottom: 2px solid $primary;
+}
+
+.title-nav-custom{
+    font-size: 1.1rem;
+}
+
+.text-sm-custom{
+    font-size: 1rem;
+}
+
+.color-header-nav{
+    color: $text-white;
+}
+
+.link-custom-nav{
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.link-custom-nav:hover{
+    background-color: $secundary;
+}
+
+.sublink-custom-nav{
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+}
+.sublink-custom-nav:hover{
+    background-color: $primary;
+}
+
+.border-custom-sublinks{
+    border-left: 3px solid $text-white
+}
+
+.text-md-custom{
+    font-size: 1rem;
+}
+
+
+// SideBar
+.px-2 {
+    padding-right: 1.5rem !important; 
+    padding-left: 1.5rem !important; 
+}
+.ps-1 {
+    padding-left: 0.0rem !important; 
+}
+.hide {
+    display: none;
+}
+.hide-sections {
+    display: none;
+}
+.sideBar-custom.collapsed {
+    width: 100px;
+}
+.sidebar-container.collapsed {
+    display: none;
+}
+
+
+
+.container-custom.expanded {
+    margin-left: 120px;
+}
+.container-custom.full-width {
+    width: calc(100% - 150px); 
+}
+
+// Settings Content
+.settings-custom{
+    padding: 0px 15px;
+    width: calc(100% - 30px);
+    height: 40px;   
+    background-color: #011d48;
+    border-radius: 20px;
+}
+
+.icons-custom{
+    width:35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.icons-custom-sm{
+    width:25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.border-none-custom{
+    border: none;
+}
+
+.border-none-custom:focus{
+    border: none;
+}
+// Main Content 
+.container-custom{
+    margin-left: 300px;
+    width: calc(100% - 320px);
+    min-height: 100vh;
+    background-color: $body-bg;
+
+}
+
+.titleView-custom{
+    font-size:1.4rem;
+    font-weight: bold;    
+}
+
+.item-custom-link{
+    color: $secundary;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+}
+
+/* General Styles*/
+.btn-color-format{
+    background-color: $secundary;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-color-format:focus{
+    background-color: $secundary;
+}
+.btn-color-format:hover{
+    background-color: $primary;
+}
+
+.bg-color-opacity{
+    background-color: $bg-color-opacity !important;
+}
+
+.btn-form-logout{
+    border: none;
+    transition: all 0.3s ease-in-out;
+    background-color: $bg-light;
+}
+
+.modal-hover{
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-hover:hover{
+    background-color: $primary;
+    color: $text-white;
+}
+
+
+@media (max-width : 980px){
+    .sideBar-custom{
+       left: -10px;
+    }
+}

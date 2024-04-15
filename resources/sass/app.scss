@@ -1,0 +1,272 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+
+// Login Page Styles 
+.container-custom {
+    width: 100%;
+    height: 100vh;
+    background-color: $bg-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.width-custom{
+    width: 100%;
+    height: 100vh;
+    background-color: $bg-primary;
+
+}
+
+.container-custom-login {
+    width: 90%;
+    height: 85vh;
+    margin: 0 auto;
+    background-color: $bg-light;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.black-screen-custom {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: none;
+
+}
+
+.up-container-custom{
+    position: relative;
+    z-index:10;
+}
+
+.height-custom {
+    height: 100%;
+}
+
+.btn-primary-custom {
+    background-color: $primary;
+    color: $white;
+}
+
+.btn-primary-custom:hover {
+    background-color: $primary;
+    color: $white;
+}
+
+.btn-primary-custom:focus {
+    background-color: $primary;
+    color: $white;
+}
+
+.form-control-custom {
+    background-color: $input-bg;
+    border: 2px solid $border-primary;
+}
+
+.title-custom {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $primary;
+}
+
+.text-sm {
+    font-size: 0.8rem;
+}
+
+.container-custom-image {
+    width: 100%;
+    height: 100%;
+    background-image: url($image-login);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    .width-custom {
+
+        background-image: url($image-login);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container-custom-login {
+        background-color: transparent;
+    }
+
+    .black-screen-custom{
+        display: initial;
+    }
+
+    .title-custom {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: $white;
+    }
+
+    .text-sm {
+        color: $white;
+        font-size: 1.1rem;
+    }
+
+
+    .black-screen-custom {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.6);
+        position: absolute;
+        z-index: 10;
+    }
+
+    .form-control-custom{
+        background-color: $primary-opacity;
+        color: $black;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .form-control-custom:focus{
+        background-color: $primary-opacity;
+        color: $black;
+    }
+
+    .form-label{
+        color: $white;
+    }
+
+    .btn-primary-custom{
+        background-color: $white;
+        color: $primary;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .btn-primary-custom:hover{
+        background-color: $white;
+        color: $primary;
+    }
+}
+
+
+// SideBar Component Styles
+.sideBar-custom{
+    width: 280px;
+    height: 100vh;
+    position: fixed;
+    background-color: #24344B;
+}
+
+.bg-primary-custom{
+    background-color: #24344B;
+}
+
+.title-sideBar-custom{
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.subtitle-sideBar-custom{
+    color: #969CA7;
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 0;
+    
+}
+
+
+
+.hamburger-menu{
+    width: 35px ;
+    height: 35px;
+    cursor: pointer;
+}
+
+.border-custom{
+    border-bottom: 2px solid #3B4F6A;
+}
+
+.title-nav-custom{
+    font-size: 1.1rem;
+}
+
+.text-sm-custom{
+    font-size: 1rem;
+}
+
+.color-header-nav{
+    color: #69788F;
+}
+
+.link-custom-nav{
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.link-custom-nav:hover{
+    background-color: #3B4F6A;
+}
+
+.border-custom-sublinks{
+    border-left: 3px solid #3B4F6A;
+}
+
+
+
+/* Information Perfil */
+.avatar{
+    width: 45px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3B4F6A;
+    display: grid;
+    place-content: center;
+    color: #fff;
+}
+
+.name-user{
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+.more-options-users{
+    color: #969CA7;
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.cursor-pointer-custom{
+    cursor: pointer;
+}
+
+.bg-secondary-custom{
+    background-color: #3B4F6A;
+    color: #fff;
+}
+
+.hover-custom{
+    transition: all 0.3s ease-in-out;
+}
+.hover-custom:hover{
+    background-color: #4b6586;
+}
