@@ -66,7 +66,7 @@ class Persona extends Model
 
     public function persona_taxicomanias()
     {
-        return $this->hasMany(Persona_taxicomanias::class, 'id_persona');
+        return $this->hasMany(Persona_toxicomanias::class, 'id_persona');
     }
 
     public function gyo()
@@ -92,5 +92,9 @@ class Persona extends Model
     public function consulta()
     {
         return $this->hasMany(Consulta::class, 'id_persona');
+    }
+    public function nutricional()
+    {
+        return $this->hasMany(Nutricional::class, 'id_persona');
     }
 }

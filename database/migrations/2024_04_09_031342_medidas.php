@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('circunf_cintura')->nullable();
             $table->string('circunf_cadera')->nullable();
             $table->foreignId('id_nutricional')->constrained('nutricional', 'id_nutricional');
-            $table->timestamps();
         });
     }
 

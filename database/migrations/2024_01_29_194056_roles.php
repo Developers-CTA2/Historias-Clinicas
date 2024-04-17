@@ -14,15 +14,9 @@ return new class extends Migration
     {
         /// Crear los roles 
         $role1 = Role::create(['id' => 1, 'name' => 'Administrador']);
-        $role2 = Role::create(['id' => 2, 'name' => 'Lectura']);
-
-
-        // Schema::create('roles', function (Blueprint $table) {
-        //     $table->id();    // Primary
-        //     $table->string('name')->nullable(false);
-        // });
-        
-       
+        $role2 = Role::create(['id' => 2, 'name' => 'Prestador de medicina']);
+        $role3 = Role::create(['id' => 3, 'name' => 'Prestador de nutrición']);
+        $role4 = Role::create(['id' => 4, 'name' => 'Paciente']);
     }
 
     /**

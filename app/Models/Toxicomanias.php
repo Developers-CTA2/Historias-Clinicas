@@ -15,11 +15,11 @@ class Toxicomanias extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'nombre',
+        'nombre', 
     ];
 
-    public function alergia()
+    public function Persona_toxi()
     {
-        return $this->hasMany(Persona_taxicomanias::class, 'id_toxicomanias');
+        return $this->hasMany(Persona_toxicomanias::class, 'id_toxicomanias');
     }
 }

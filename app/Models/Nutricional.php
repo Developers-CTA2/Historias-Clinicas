@@ -5,32 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Consulta extends Model
+class Nutricional extends Model
 {
     use HasFactory;
 
-    protected $table = 'consulta';
-    protected $primaryKey = 'id_consulta';
+    protected $table = 'nutricional';
+    protected $primaryKey = 'id_nutricional';
     public $incrementing = true;
     public $timestamps = false;
 
     protected $fillable = [
         'fecha',
-        'hora',
-        'turno',
-        'nombre_medico',
+        'motivo_consul',
         'diagnostico',
-        'tratamiento',
-        'observaciones',
     ];
 
     public function persona()
     {
         return $this->belongsTo(Persona::class, 'id_persona');
     }
-
-    public function signos_vitales()
+    public function medidas()
     {
-        return $this->hasMany(Signos_vitales::class, 'id_consulta');
+        return $this->hasMany(Medidas::class, 'id_nutricional');
     }
 }

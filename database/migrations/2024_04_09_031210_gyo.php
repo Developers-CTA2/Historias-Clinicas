@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('diasxdias')->nullable();
             $table->string('ivs')->nullable();
             $table->string('parejas_s')->nullable();
-            $table->string('gestas')->nullable();
-            $table->string('partos')->nullable();
-            $table->string('abortos')->nullable();
-            $table->string('cesarias')->nullable();
+            $table->integer('gestas')->nullable();
+            $table->integer('partos')->nullable();
+            $table->integer('abortos')->nullable();
+            $table->integer('cesarias')->nullable();
             $table->date('fecha_citologia')->nullable();
             $table->string('metodo')->nullable();
-            $table->string('mastografia')->nullable();
+            $table->integer('mastografia')->nullable();
         });
     }
 

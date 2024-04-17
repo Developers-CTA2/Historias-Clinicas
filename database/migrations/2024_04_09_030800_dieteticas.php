@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('alim_no_pref')->nullable();
             $table->string('alergia')->nullable();
             $table->string('alergia_a_que')->nullable();
-            $table->string('suplementos')->nullable();
-            $table->string('vasos_agua')->nullable();
+            $table->integer('suplementos')->nullable();
+            $table->integer('vasos_agua')->nullable();
             $table->string('vasos_bebidas')->nullable();
         });
     }
