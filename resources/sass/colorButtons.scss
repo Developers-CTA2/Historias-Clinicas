@@ -5,31 +5,22 @@
 
 .button-save:hover,
 .button-save:focus{
-   background-color: #007F73;
+   background-color: $primary;
    color: white;
 }
-.button-saveMS:hover,
-.button-saveMS:focus{
-   background-color: #007F73;
-   color: white;
-}
-//4CCD99
+
 .button-next:hover,
 .button-next:focus{ 
-   // text-shadow: 1px 1px 1px rgb(53, 112, 189);
-   background-color: #265073;
+   background-color: $primary;
    color:white;
-
 }
 
-.button-cancel:hover, .button-cancel:focus{
-   // text-shadow: 1px 1px 1px rgb(53, 112, 189);
-   background-color: #B04759;// B80000
+.button-previos:hover, 
+.button-previos:focus{
+   background-color: #B04759;
       color:white;
 }
 .button-add:hover, .button-add:focus{
-   // text-shadow: 1px 1px 1px rgb(53, 112, 189);
-  // background-color: rgba(34, 145, 102, 0.952);
    background-color: #007F73;
    color: white;
 }
