@@ -62,6 +62,7 @@
                         <div class="container pt-4">
                             <!-- cards para ver los diferentes usuarios registrados en el sistema -->
                             <div class="row">
+                                <img src="" alt="">
                                 @foreach ($users as $user)
                                 <div class="col-xl-  col-md-3 mb-4 user-card">
                                     <div class="card text-center shadow" style="height: 100%;">

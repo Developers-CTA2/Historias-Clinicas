@@ -29,10 +29,11 @@
     </div>
 </div>
 <br><br><br>
-<div class="container">
-    <div class="mx-auto" style="width: 1000px;">
+<div class="col-12">
+    <div class="container">
+    <div class="col-12 d-flex justify-content-center">
         <p>
-            <div class="container-xl">
+            <div>
                 <ul class="list-group list-group-horizontal">
                     <li class="list-group-item">
                         <font size=5 color="4f514e">Citas pendientes</font> 
@@ -65,6 +66,7 @@
                 </ul>
             </div>
         </p>
+    </div>
     </div>
 </div>
 
