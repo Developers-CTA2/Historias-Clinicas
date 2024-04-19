@@ -19,6 +19,79 @@
 
 
 @section('content')
+
+<div class="container">
+    <div class="col-12 d-flex justify-content-center">
+        <h5 class="text-center"> Usuarios registrados en el sistema</h5>
+    </div>
+    <div class="col-12 d-flex justify-content-end align-items-center px-0 pt-3">
+        <input type="text" class="form-control" id="search" name="search" placeholder="Buscar por nombre o código." required style="width: 30%;">
+        <!-- Boton para agregar un nuevo usuario  -->
+        <abbr title="Clic para agregar un usuario al sistema.">
+            <a class="btn fst-normal ms-2 animated-icon button-add" type="button" id="confirm-report" tabindex="0" data-bs-toggle="modal" data-bs-target="#Add-User">
+                <i class="fa-solid fa-user-plus pe-1"></i>
+                Nuevo
+            </a>
+        </abbr>
+    </div>
+</div>
+
+
+<!-- Tabla de usuarios -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-3 pt-2">
+            <div class="">
+                <p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <!--th scope="col">#</th-->
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Codigo</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">btn det</th>
+                                    <th scope="col">btn elim</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                <tr>
+                                    <th>
+                                        {{ $user->name }}
+                                        <br>
+                                        {{ $user->role_name }}
+                                    </th>
+                                    <td>
+                                        {{$user->user_name}}
+                                    </td>
+                                    <td>
+                                        Activo
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary">Detalles</button>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <br>
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--
+
+
 <div class="container ">
     <div class="row justify-content-center ">
         <!-- <div class="col-md-12 mt-3 pt-2">
@@ -28,7 +101,7 @@
                     <li class="breadcrumb-item " aria-current="page">Usuarios </li>
                 </ol>
             </nav>
-        </div> -->
+        </div> 
 
 
         <div class="col-12 ">
@@ -43,7 +116,7 @@
                         </div>
                         <div class="col-12 d-flex justify-content-end align-items-center px-0 pt-3">
                             <input type="text" class="form-control" id="search" name="search" placeholder="Buscar por nombre o código." required style="width: 30%;">
-                            <!-- Boton para agregar un nuevo usuario  -->
+                            <!-- Boton para agregar un nuevo usuario  
                             <abbr title="Clic para agregar un usuario al sistema.">
                                 <a class="btn fst-normal ms-2 animated-icon button-add" type="button" id="confirm-report" tabindex="0" data-bs-toggle="modal" data-bs-target="#Add-User">
                                     <i class="fa-solid fa-user-plus pe-1"></i>
@@ -60,9 +133,8 @@
 
 
                         <div class="container pt-4">
-                            <!-- cards para ver los diferentes usuarios registrados en el sistema -->
+                            <!-- cards para ver los diferentes usuarios registrados en el sistema 
                             <div class="row">
-                                <img src="" alt="">
                                 @foreach ($users as $user)
                                 <div class="col-xl-  col-md-3 mb-4 user-card">
                                     <div class="card text-center shadow" style="height: 100%;">
@@ -111,7 +183,7 @@
                                 <p>No se encontraron resultados.</p>
                             </div>
                         </div>
-                        <!-- Cierre de la card  -->
+                        <!-- Cierre de la card  
 
                     </div>
                 </div>
@@ -119,6 +191,7 @@
 
         </div>
     </div>
+-->
 
 
 

@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder{
     public function run(): void
     {
         User::create([
-            'name' => 'LOMELI ZERMEÑO JAZMIN',
-            'user_name' => '216610402',
-            'password' => Hash::make('Aa@1'),
+            'name' => 'Alecs',
+            'user_name' => '286579',
+            'password' => Hash::make('1234'),
         ])->assignRole(1);
     }
 }
