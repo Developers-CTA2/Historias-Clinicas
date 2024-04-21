@@ -25,14 +25,18 @@
     width: 100%;
     height: 100vh;
     background-color: $bg-primary;
+    background-image: url($image-login);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
 
 }
 
 .container-custom-login {
-    width: 90%;
-    height: 85vh;
+    width: 40%;
+    height: 70vh;
     margin: 0 auto;
-    background-color: $bg-light;
+    background-color: $primary;
     box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -53,12 +57,8 @@
     z-index:10;
 }
 
-.height-custom {
-    height: 100%;
-}
-
 .btn-primary-custom {
-    background-color: $primary;
+    background-color: $secundary;
     color: $white;
 }
 
@@ -78,22 +78,17 @@
 }
 
 .title-custom {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: $primary;
+    color: $bg-light;
 }
 
 .text-sm {
     font-size: 0.8rem;
 }
 
-.container-custom-image {
-    width: 100%;
-    height: 100%;
-    background-image: url($image-login);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+.form-label{
+    color: $white;
 }
 
 @media (max-width: 768px) {
@@ -102,7 +97,7 @@
         background-image: url($image-login);
         background-repeat: no-repeat;
         background-size: cover;
-        background-position: center;
+        background-position: bottom;
     }
 
     .container-custom-login {

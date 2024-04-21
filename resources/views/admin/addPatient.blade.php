@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Agregar')
+@section('title', 'Agregar nuevo paciente')
 
 @section('viteConfig')
 @vite(['resources/sass/sideBar.scss','resources/sass/loadingScreen.scss', 'resources/sass/StyleForm.scss','resources/sass/colorButtons.scss', 'resources/js/app.js'])
@@ -8,20 +8,25 @@
 
 <!-- Esto no se que hace pero lo puse jsjsjsj -->
 @section('breadCrumb')
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a class="item-custom-link" href="{{ route('home') }}">Pacientes</a></li>
+        <li class="breadcrumb-item">
+            <a class="item-custom-link" href="{{ route('home') }}">Pacientes</a>
+        </li>
         <li class="breadcrumb-item active" aria-current="page">Dar de alta</li>
     </ol>
+    <span class="text-end">{{ now()->setTimezone('America/Mexico_City')->format('d F Y') }}</span>
 </nav>
 @endsection
-
-@section('titleView','Dar de alta a un paciente')
 
 
 
 @section('content')
 <div class="container ">
+    <div>
+        <h4 class="fw-bold">Dar de alta a un paciente</h4>
+        <h6>Ingresa los datos correspondientes del paciente</h6>
+    </div>
     <div class="row justify-content-center px-0">
         <div class="row">
             <h4 class="text-center pt-3">Datos personales</h4>
@@ -111,7 +116,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-12">                            
+                            <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
@@ -176,7 +181,7 @@
 
                         <div class="row mt-3 justify-content-end text-end">
                             <div class="col-6">
-                                <button class="btn button-next" id="personal-data"> Siguiente</button>
+                                <button type="button" class="btn btn-primary" id="personal-data">Siguiente</button>
                             </div>
                         </div>
 
@@ -187,7 +192,7 @@
     </div>
 
     <!-- Datos AHF  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -222,8 +227,8 @@
                                 <div class="form-group">
                                     <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
-                                            <div class="container">                                               
-                                                
+                                            <div class="container">
+
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +249,7 @@
     </div>
 
     <!-- Datos APNP  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -275,7 +280,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <h5>Toxicomanias</h5>
                                 <div class="form-group">
-                                <div class="row pt-2">
+                                    <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
                                             <label for="ccantidad_toxi">Cantidad:</label>
                                             <input class="form-control" type="text" id="cantidad_toxi" name="cantidad_toxi">
@@ -306,7 +311,7 @@
     </div>
 
     <!-- Formulario para los datos APP  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
 
@@ -320,11 +325,11 @@
                                     <div class="row pt-2">
                                         <label for="Hospitalizaciones">Selecciona:</label>
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
-                                            <div class="form-check form-check-inline">                                               
+                                            <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="respuesta_H" id="si_H" value="si">
                                                 <label class="form-check-label" for="si_H">Sí</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
+                                            </div>
+                                            <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="respuesta_H" id="no_H" value="no">
                                                 <label class="form-check-label" for="no_H">No</label>
                                             </div>
@@ -347,11 +352,11 @@
                                             <div class="row pt-2">
                                                 <label for="Cirugias">Selecciona:</label>
                                                 <div class="form-group col-md-6 col-sm-12 mb-2">
-                                                    <div class="form-check form-check-inline">                                               
+                                                    <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="respuesta_C" id="si_C" value="si">
                                                         <label class="form-check-label" for="si_C">Sí</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="respuesta_C" id="no_C" value="no">
                                                         <label class="form-check-label" for="no_C">No</label>
                                                     </div>
@@ -380,11 +385,11 @@
                                     <div class="row pt-2">
                                         <label for="Transfusiones">Selecciona:</label>
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
-                                            <div class="form-check form-check-inline">                                               
+                                            <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="respuesta_TF" id="si_TF" value="si">
                                                 <label class="form-check-label" for="si_TF">Sí</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
+                                            </div>
+                                            <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="respuesta_TF" id="no_TF" value="no">
                                                 <label class="form-check-label" for="no_TF">No</label>
                                             </div>
@@ -407,11 +412,11 @@
                                             <div class="row pt-2">
                                                 <label for="Traumatismos">Selecciona:</label>
                                                 <div class="form-group col-md-6 col-sm-12 mb-2">
-                                                    <div class="form-check form-check-inline">                                               
+                                                    <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="respuesta_TU" id="si_TU" value="si">
                                                         <label class="form-check-label" for="si_TU">Sí</label>
-                                                        </div>
-                                                        <div class="form-check form-check-inline">
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio" name="respuesta_TU" id="no_TU" value="no">
                                                         <label class="form-check-label" for="no_TU">No</label>
                                                     </div>
@@ -450,16 +455,11 @@
 
 
 </div>
-</div>
-</div>
-</div>
 
 @endsection
 
 
 @section('scripts')
-<!-- <script type="module" src="{{ asset('js/Personas.js') }}"></script> -->
-<!-- Cargar archivo de js -->
 @vite(['resources/js/loading-screen.js','resources/js/SideBar.js'])
 
 @endsection

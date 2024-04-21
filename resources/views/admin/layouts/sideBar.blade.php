@@ -25,7 +25,7 @@
                     <div class="collapse bg-primary-custom ps-3 pt-2" id="reportes">
                         <ul class="list-unstyled m-0">
                             <li class="d-flex ps-1 mb-2 pe-2">
-                                <a href="" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
+                                <a href="{{ route('showPatients') }}" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Ver</span>
                                 </a>
@@ -72,14 +72,14 @@
                     </a>
                     <div class="collapse bg-primary-custom ps-3 pt-2" id="usuarios">
                         <ul class="list-unstyled m-0">
-                            <li class="d-flex border-custom-sublinks ps-1 mb-2 pe-2">
+                            <li class="d-flex ps-1 mb-2 pe-2">
                                 <a href="{{route('usuarios')}}" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Ver</span>
                                 </a>
                             </li>
 
-                            <li class="d-flex border-custom-sublinks ps-1 mb-2 pe-2">
+                            <li class="d-flex ps-1 mb-2 pe-2">
                                 <a href="#" class="sublink-custom-nav w-100 py-2 px-3 animated-icon" data-bs-toggle="modal" data-bs-target="#Add-User">
                                     <i class="fa-solid fa-file-circle-plus"></i>
                                     <span class="ms-3 ">Agregar</span>

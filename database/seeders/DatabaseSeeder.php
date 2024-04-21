@@ -48,6 +48,12 @@ class DatabaseSeeder extends Seeder{
             'password' => Hash::make('1234'),
         ])->assignRole(1);
 
+        User::create([
+            'name' => 'LOMELI ZERMEÑO JAZMIN',
+            'user_name' => '216610402',
+            'password' => Hash::make('Aa@1'),
+        ])->assignRole(1);
+
         Tipo_ahf::insert($Tipo_AHF);
         Toxicomanias::insert($Toxicomanias);
         Alergia::insert($Alergias);

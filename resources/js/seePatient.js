@@ -34,13 +34,13 @@ $(function () {
                         
                     },
                     {
-                        id: "estado",
-                        name: "Estado",
+                        id: "sexo",
+                        name: "Genero",
                         resizable: true, 
                     },
                     {
-                        id: "sexo",
-                        name: "Genero",
+                        id: "consulta",
+                        name: "Última consulta",
                         resizable: true, 
                     },
                     {
@@ -48,7 +48,7 @@ $(function () {
                         name: html('<p class="mb-0 text-center">Acciones</p>'),
                         formatter: (_, row) =>
                             html(
-                                `<div class="d-flex justify-content-center"><a href="/detalles/${row.cells[0].data}" class="btn btn-primary detalles">Detalles</a> </div>`
+                                `<div class="d-flex justify-content-center"><a href="/expediente/${row.cells[0].data}" class="btn btn-primary expediente">Expediente</a> </div>`
                             ),
                         resizable: true, 
                     },
@@ -70,7 +70,7 @@ $(function () {
                     },
                 },
                 server: {
-                    url: "/obt-personal?",
+                    url: "/obt-pacientes?",
                     then: (data) => {
                         console.log("Datos del servidor:", data);
                         //Mapear los datos según tu lógica
@@ -78,8 +78,8 @@ $(function () {
                             person.id,
                             person.codigo,
                             person.nombre,
-                            person.estado.nombre,
                             person.sexo,
+                            person.consulta,
                         ]);
                     },
                     total: (data) => {
@@ -93,11 +93,7 @@ $(function () {
                     search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
                 },
                 autoWidth: true,  /// Se ajusta cada columna de un tamaño automatico
-                sort: {
-                    enabled: true,
-                    multiColumn: false,
-                    initialColumn: 0,
-                },
+                sort: false, 
                 resizable: true,
                 language: traducciones,
             }).render(document.getElementById("Tabla-Personal"));
