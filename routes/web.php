@@ -45,6 +45,10 @@ Route::get('/usuarios', function () {
     return view('admin.Users');
 })->name('usuarios');
 
+Route::get('/agregar_usuario', function () {
+    return view('admin.addUsers');
+})->name('showUsers');
+
 Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
 Route::post('/agregar-usuario', [UserController::class, 'store'])->name('agregar-usuario');
@@ -63,8 +67,6 @@ Route::post('/Change-password', [UserController::class, 'ChangePassword'])->name
 Route::get('/agregar_paciente', function () {
     return view('admin.AddPatient');
 })->name('showForm');
-
-
 
 Route::get('/ver_pacientes', function () {
     return view('admin.seePatient');

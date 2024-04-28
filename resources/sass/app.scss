@@ -36,8 +36,7 @@
     width: 40%;
     height: 70vh;
     margin: 0 auto;
-    background-color: $primary;
-    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 4px 5px 10px #000000;
 }
 
 .black-screen-custom {
@@ -80,7 +79,7 @@
 .title-custom {
     font-size: 2rem;
     font-weight: 700;
-    color: $bg-light;
+    color: $secundary;
 }
 
 .text-sm {
@@ -88,7 +87,7 @@
 }
 
 .form-label{
-    color: $white;
+    color: $primary;
 }
 
 @media (max-width: 768px) {

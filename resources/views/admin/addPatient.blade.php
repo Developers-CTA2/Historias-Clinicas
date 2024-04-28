@@ -3,7 +3,7 @@
 @section('title', 'Agregar nuevo paciente')
 
 @section('viteConfig')
-@vite(['resources/sass/sideBar.scss','resources/sass/loadingScreen.scss', 'resources/sass/StyleForm.scss','resources/sass/colorButtons.scss', 'resources/js/app.js'])
+@vite(['resources/sass/sideBar.scss','resources/sass/loadingScreen.scss', 'resources/sass/StyleForm.scss','resources/sass/colorButtons.scss', 'resources/sass/bar.scss','resources/js/app.js'])
 @endsection
 
 <!-- Esto no se que hace pero lo puse jsjsjsj -->
@@ -26,6 +26,22 @@
     <div>
         <h4 class="fw-bold">Dar de alta a un paciente</h4>
         <h6>Ingresa los datos correspondientes del paciente</h6>
+    </div>
+    <div class="containers">
+        <div class="steps">
+            <span class="circle active"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <div class="progress-bar">
+                <span class="indicator"></span>
+            </div>
+        </div>
+        <div class="buttons d-none">
+            <button id="prev" disabled>Prev</button>
+            <button id="next">Next</button>
+        </div>
     </div>
     <div class="row justify-content-center px-0">
         <div class="row">
@@ -192,7 +208,7 @@
     </div>
 
     <!-- Datos AHF  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 job-data">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -249,7 +265,7 @@
     </div>
 
     <!-- Datos APNP  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 job-data">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -311,7 +327,7 @@
     </div>
 
     <!-- Formulario para los datos APP  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 job-data">
         <div class="row pt-1">
             <div class="col-12 content-custom">
 
