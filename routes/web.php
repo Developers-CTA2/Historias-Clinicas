@@ -74,7 +74,18 @@ Route::get('/ver_pacientes', function () {
 
 Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
 
+Route::get('/expediente/{id}', function ($id) {
+    return view('admin.expediente');
+});
+
+
 // Verificar rol 
 Route::middleware('role:admin')->group(function () {
 
 });
+
+// AGENDAR CITAS
+Route::get('/agendar_citas', function () {
+    return view('admin.agenda');
+})->name('showAgenda');
+

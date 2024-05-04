@@ -15,6 +15,8 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.1",
+        "@fullcalendar/core": "^6.1.11",
+        "@fullcalendar/daygrid": "^6.1.11",
         "gridjs": "^6.1.1",
         "jquery": "^3.7.1",
         "popper.js": "^1.16.1",

@@ -56,7 +56,7 @@
                     </a>  
                 </li>
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('showAgenda')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
                         <i class="fa-solid fa-calendar-days"></i>
                         <span class="ms-3 text-md-custom">Agenda</span>
                     </a>  

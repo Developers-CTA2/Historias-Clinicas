@@ -88,7 +88,17 @@
                                         </div>
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
                                             <label for="sangre">Tipo de sangre</label>
-                                            <input type="text" id="T_sangre" name="T_sangre" class="form-control" />
+                                            <select class="form-control" name="T_sangre" id="T_sangre">
+                                                <option value="" disabled selected>Seleccione una opción</option>
+                                                <option value="1">Grupo A Rh positivo (A+)</option>
+                                                <option value="2">Grupo A Rh negativo (A-)</option>
+                                                <option value="3">Grupo B Rh positivo (B+)</option>
+                                                <option value="4">Grupo B Rh negativo (B-)</option>
+                                                <option value="5">Grupo AB Rh positivo (AB+)</option>
+                                                <option value="6">Grupo AB Rh negativo (AB-)</option>
+                                                <option value="7">Grupo O Rh positivo (O+)</option>
+                                                <option value="8">Grupo O Rh negativo (O-)</option>
+                                            </select>
                                             <span class="text-danger fw-normal" style=" display: none;">Tipo no válido.</span>
 
                                         </div>
@@ -153,7 +163,14 @@
                                     <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
                                             <label for="E_civil">Estado civil:</label>
-                                            <input class="form-control" type="text" id="E_civil" name="E_civil">
+                                            <select class="form-control" name="E_civil" id="E_civil">
+                                                <option value="" disabled selected>Seleccione una opción</option>
+                                                <option value="1">Soltero(a)</option>
+                                                <option value="2">Casado(a)</option>
+                                                <option value="3">Viudo(a)</option>
+                                                <option value="4">Divorciado(a)</option>
+                                                <option value="5">Separado(a)</option>
+                                            </select>
                                             <span class="text-danger fw-normal" style=" display: none;">Estado civil no válida.</span>
 
                                         </div>
@@ -208,7 +225,7 @@
     </div>
 
     <!-- Datos AHF  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -254,8 +271,8 @@
                         </div>
                         <div class="row mt-3 justify-content-end text-end">
                             <div class="col-6">
-                                <button class="btn button-previos" id="personal-data"> Atras</button>
-                                <button class="btn button-next" id="personal-data"> Siguiente</button>
+                                <button class="btn button-eliminar" id="personal-data"> Atras</button>
+                                <button class="btn btn-primary" id="personal-data"> Siguiente</button>
                             </div>
                         </div>
                     </div>
@@ -265,7 +282,7 @@
     </div>
 
     <!-- Datos APNP  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -316,8 +333,8 @@
                         </div>
                         <div class="row mt-3 justify-content-end text-end">
                             <div class="col-6">
-                                <button class="btn button-previos" id="personal-data"> Atras</button>
-                                <button class="btn button-next" id="personal-data"> Siguiente</button>
+                                <button class="btn button-eliminar" id="personal-data"> Atras</button>
+                                <button class="btn btn-primary" id="personal-data"> Siguiente</button>
                             </div>
                         </div>
                     </div>
@@ -327,7 +344,7 @@
     </div>
 
     <!-- Formulario para los datos APP  -->
-    <div class="row pb-3 mt-4 job-data">
+    <div class="row pb-3 mt-4 job-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
 
@@ -459,8 +476,8 @@
                         </div>
                         <div class="row mt-3 justify-content-end text-end">
                             <div class="col-6">
-                                <button class="btn button-previos" id="personal-atras"> Atras</button>
-                                <button class="btn fst-italic animated-icon button-save" id="confirm-register">Guardar</button>
+                                <button class="btn button-eliminar" id="personal-atras"> Atras</button>
+                                <button class="btn fst-italic animated-icon btn-primary" id="confirm-register">Guardar</button>
                             </div>
                         </div>
                     </div>
