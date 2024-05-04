@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 
+use function Laravel\Prompts\search;
+
 class UserController extends Controller
 {
     public function store(Request $request)
@@ -38,7 +40,7 @@ class UserController extends Controller
         $nombre = $data['nombre'];
         $Rol = $data['tipo'];
 
-        $administrativo = Administrativo::where('codigo', $data['codigo'])->first();
+        $administrativo = User::where('codigo', $data['codigo'])->first();
 
         if (!$administrativo) {
             return response()->json(['status' => 404, 'msg' => '¡Error! No se encontró un administrativo con el código proporcionado.']);
@@ -80,7 +82,7 @@ class UserController extends Controller
 
     /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
     public function CheckUsers(Request $request){ 
-         
+        
         $data = $request->validate([
             'code' => 'required',
         ]);
@@ -91,7 +93,7 @@ class UserController extends Controller
             return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
         }
 
-        $Administrativo = Administrativo::where('codigo', $username)->first();
+        $Administrativo = User::where('codigo', $username)->first();
         if (!$Administrativo) {
             // Si el nombre ya existe 
             return response()->json(['status' => 202, 'msg' => '¡Error!, el código agregado no esta enlazado a ningun trabajador.']);
@@ -139,7 +141,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'Password' => 'required',
-          
+            
         ]);
 
         $pass = $data['Password'];
@@ -180,6 +182,37 @@ class UserController extends Controller
 
         return view('admin.Users', compact('users', 'Contador'));      // retornar a vista users 
     }
+
+    public function showData(Request $request){
+
+        $offset = $request->input('offset', 0); // Define el número de registros para omitir antes de comenzar a devolver resultados. 
+        $limit = $request->input('limit', 10); // Es el limite en el numero de consultas
+        $search = $request->input('search', '');  // Esta variable sirve para filtro en el sistema de busqueda
+
+        $query = User::query();
+
+        if(!empty($search)){
+            $query->where(function($q) use ($search){
+                $q -> where('username', 'like', "%$search%")
+                    -> orWhere('name', 'like', "$search");
+            });
+        }
+
+        $count = $query -> count();
+        $data = $query ->offset($offset)->limit($limit)->get();
+
+        $formattedData = $data -> map(function($usuario){
+            return [
+                //'id' => $usuario -> id,
+                'codigo' => $usuario -> user_name,
+                'nombre' => $usuario -> name
+            ];
+        });
+
+        return response() -> json(['results' => $formattedData, 'count' => $count]);
+
+    }
+
     /*
         Funcion para resetear la contraseña de un usuario.
     */
@@ -191,7 +224,7 @@ class UserController extends Controller
 
         $username = $data['Name'];
 
-        $administrativo = Administrativo::where('codigo', $data['Name'])->first();
+        $administrativo = User::where('codigo', $data['Name'])->first();
 
         $mail = $administrativo->correo;
 

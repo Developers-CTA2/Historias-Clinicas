@@ -10,13 +10,16 @@ class PatientsController extends Controller
 {
     public function show(Request $request)
     {
-        $offset = $request->input('offset', 0);
-        $limit = $request->input('limit', 10);
-        $search = $request->input('search', '');
+        $offset = $request->input('offset', 0); //?
+        $limit = $request->input('limit', 10); //?
+        $search = $request->input('search', '');  //?
 
-        $query = Persona::query();
+        $query = Persona::query(); // consulta a tabla persona
 
-        if (!empty($search)) {
+        /*
+            funcion para buscar un dato en particular en la base de datos
+        */
+        if (!empty($search)) { 
             $query->where(function ($q) use ($search) {
                 $q->where('codigo', 'like', "%$search%")
                     ->orWhere('nombre', 'like', "%$search%")

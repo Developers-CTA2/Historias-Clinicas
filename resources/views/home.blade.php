@@ -15,7 +15,7 @@
         <li class="breadcrumb-item active" aria-current="page">Revisa la ultima información</li>
     </ol>
 </nav>
-   
+    
 @endsection
 
 @section('content')

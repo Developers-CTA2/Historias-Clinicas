@@ -5,6 +5,7 @@ import { activeLoading, disableLoading } from "./loading-screen.js";
 import traducciones from "./helpers/translate-gridjs.js";
 
 import "gridjs/dist/theme/mermaid.css";
+import { data } from "jquery";
 
 $(function () {
     disableLoading();
@@ -104,6 +105,6 @@ $(function () {
         }
 
     }
-   
+    
 });
 

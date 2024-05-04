@@ -50,6 +50,7 @@ Route::get('/agregar_usuario', function () {
 })->name('showUsers');
 
 Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
+Route::get('/datos-usuario', [UserController::class, 'showData'])->name('dt-usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
 Route::post('/agregar-usuario', [UserController::class, 'store'])->name('agregar-usuario');
 Route::post('/eliminar-usuario', [UserController::class, 'delete'])->name('eliminar-usuario');

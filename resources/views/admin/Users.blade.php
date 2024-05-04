@@ -37,6 +37,7 @@
 </div>
 
 
+
 <!-- Tabla de usuarios -->
 
 <div class="container">
@@ -52,8 +53,8 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Codigo</th>
                                     <th scope="col">Estado</th>
-                                    <th scope="col">btn det</th>
-                                    <th scope="col">btn elim</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,6 +88,28 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="container ">
+    <div>
+        <h4 class="fw-bold">Lista de usuarios</h4>
+    </div>
+    <!-- Tabla para mostrar los datos  -->
+    <div class="col-12 mt-0 pt-0"> <!-- Ajusta el tamaño de la tabla para dispositivos grandes -->
+        <div class="mt-2 col-12 mb-2 d-flex justify-content-end">
+            <abbr title="Agregar una nuevo paciente al sistena">
+                <a href="{{ route('showForm') }}" class="btn fst-normal px-4 animated-icon button-add" type="button" id="confirm-report" tabindex="0">
+                    <i class="fa-solid fa-user-plus "></i>
+                    Usuarios
+                </a>
+            </abbr>
+        </div>
+        <div id="Tabla-Usuarios"></div>
+    </div>
+</div>
+
+
 
 
 <!--
@@ -329,7 +352,7 @@
 </div> -->
 
 
-@vite(['resources/js/usuarios.js','resources/js/SideBar.js'])
+@vite(['resources/js/usuarios.js','resources/js/SideBar.js', 'resources/js/seeUsers.js'])
 <!-- Cargar archivo de js -->
 <!-- <script src="{{ asset('js/usuarios.js') }}"></script> -->
 
