@@ -79,31 +79,31 @@ class UserController extends Controller
     }
 
     /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
-    public function CheckUsers(Request $request){ 
-         
+    public function CheckUsers(Request $request)
+    {
         $data = $request->validate([
             'code' => 'required',
         ]);
 
-        $username = $data['code'];   
+        $username = $data['code'];
 
         if (!preg_match('/^[0-9]{7,10}$/', $username)) {
             return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
         }
 
-        $Administrativo = Administrativo::where('codigo', $username)->first();
-        if (!$Administrativo) {
-            // Si el nombre ya existe 
-            return response()->json(['status' => 202, 'msg' => '¡Error!, el código agregado no esta enlazado a ningun trabajador.']);
+        $administrativo = Administrativo::on('sistema_personal')->where('codigo', $username)->first();
+        if (!$administrativo) {
+            // Si el código no está enlazado a ningún trabajador
+            return response()->json(['status' => 202, 'msg' => '¡Error!, el código agregado no está enlazado a ningún trabajador.']);
         } else {
-
             $user = User::where('user_name', $username)->first();
 
             if ($user) {
+                // Si ya existe un usuario con el código ingresado
                 return response()->json(['status' => 202, 'msg' => '¡Error!, Ya existe un usuario con el código ingresado.']);
             } else {
-                $nombre = $Administrativo->nombre;
-                // Si el nombre ya existe 
+                $nombre = $administrativo->nombre;
+                // Si el código existe y no hay usuario asociado
                 return response()->json(['status' => 200, 'msg' =>  $nombre, 'code' => $username]);
             }
         }
@@ -139,7 +139,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'Password' => 'required',
-          
+
         ]);
 
         $pass = $data['Password'];
@@ -161,7 +161,7 @@ class UserController extends Controller
     }
 
 
-    
+
     /*
         Funcion para mostrar todos los usuarios del sistema a ecepcion de usuario de la sesion
     */
@@ -207,7 +207,7 @@ class UserController extends Controller
                     $newPassword = bcrypt('Cu@ltos2024');
                     $user->password = $newPassword;
                     $user->save();
-                }               
+                }
             );
             Mail::to($mail)->send(new ResetearMail($username));
             return response()->json(['status' => 200, 'msg' => '¡Éxito! Se reseteo la contraseña con éxito.']);
