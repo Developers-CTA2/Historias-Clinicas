@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder{
 
         User::create([
             'name' => 'LOMELI ZERMEÑO JAZMIN',
-            'user_name' => '216610402',
+            'user_name' => '2166104',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(1);
 

@@ -165,21 +165,35 @@ class UserController extends Controller
     /*
         Funcion para mostrar todos los usuarios del sistema a ecepcion de usuario de la sesion
     */
-    public function show()
+    public function showUser(Request $request)
     {
+        $offset = $request->input('offset', 0);
+        $limit = $request->input('limit', 10);
+        $search = $request->input('search', '');
 
-        $users = DB::table('users')
+        $query = User::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'like', "%$search%")
+                    ->orWhere('users.user_name', 'like', "%$search%");
+            });
+        }        
+
+        $users = $query
             ->select('users.id', 'users.user_name', 'users.name',  'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
             ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
             ->where('users.id', '!=', auth()->user()->id)
             ->get();
 
-
-        $Contador = User::count();
-
-        return view('admin.Users', compact('users', 'Contador'));      // retornar a vista users 
+        return response()->json([
+            'results' => $users,
+            'count' => $users->count(),
+        ]);
     }
+
+
     /*
         Funcion para resetear la contraseña de un usuario.
     */
@@ -192,7 +206,6 @@ class UserController extends Controller
         $username = $data['Name'];
 
         $administrativo = Administrativo::where('codigo', $data['Name'])->first();
-
         $mail = $administrativo->correo;
 
         if (!preg_match('/^[0-9]{7,10}$/', $username)) {

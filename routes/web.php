@@ -44,12 +44,13 @@ Route::get('/a', function () {
 Route::get('/usuarios', function () {
     return view('admin.Users');
 })->name('usuarios');
+Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('obt-usuarios');
 
 Route::get('/agregar_usuario', function () {
     return view('admin.addUsers');
 })->name('showUsers');
 
-Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
+//Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
 Route::post('/agregar-usuario', [UserController::class, 'store'])->name('agregar-usuario');
 Route::post('/eliminar-usuario', [UserController::class, 'delete'])->name('eliminar-usuario');
