@@ -18,6 +18,16 @@ use Illuminate\Contracts\Mail\Mailable;
 
 class UserController extends Controller
 {
+    public function userDetails($id)
+    {
+        $usuario = User::findOrFail($id); // Encuentra al usuario por su ID
+
+        // Consulta el tipo de rol del usuario
+        $roleName = $usuario->roles->first()->name;
+
+        return view('admin.detallesUsers', compact('usuario', 'roleName'));
+    }
+
     public function store(Request $request)
     {
 
@@ -178,7 +188,7 @@ class UserController extends Controller
                 $q->where('users.name', 'like', "%$search%")
                     ->orWhere('users.user_name', 'like', "%$search%");
             });
-        }        
+        }
 
         $users = $query
             ->select('users.id', 'users.user_name', 'users.name',  'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés

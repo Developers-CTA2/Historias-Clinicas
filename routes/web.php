@@ -42,13 +42,17 @@ Route::get('/a', function () {
 
 ///////      USUARIOS 
 Route::get('/usuarios', function () {
-    return view('admin.Users');
+    return view('admin.seeUsers');
 })->name('usuarios');
 Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('obt-usuarios');
 
 Route::get('/agregar_usuario', function () {
     return view('admin.addUsers');
 })->name('showUsers');
+
+Route::get('/detalles/{id}', [UserController::class, 'userDetails'])->name('user.details');
+
+
 
 //Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
