@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        <main class="width-custom py-4 px-4 ">
+        <main class="container-custom d-flex justify-content-center align-items-center ">
             @yield('content')
         </main>
     </div>

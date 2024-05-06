@@ -17,27 +17,29 @@
     @yield('viteConfig')
 
     <!-- Cargar scripts que utilizan jQuery y Bootstrap -->
-    @vite(['resources/sass/colorButtons.scss','resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/modal.js'])
+    @vite(['resources/sass/sideBar.scss', 'resources/sass/colorButtons.scss', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/modal.js'])
 
 </head>
 
 
 <body>
     <div id="app">
-        <!-- Loading Screen -->
-        @include('admin.layouts.loadingScreen')
+        <div class="m-0 p-0">
+            <!-- Loading Screen -->
+            @include('admin.layouts.loadingScreen')
 
-        @include('admin.layouts.sideBar')
+            @include('admin.layouts.sideBar')
 
-        <main class="container-custom">
-            <h2 class="titleView-custom pt-3">@yield('titleView')</h2>
-            @yield('breadCrumb')
-            @yield('content')
-        </main>
+            <main class="container-custom border">
+                <h2 class="titleView-custom pt-3">@yield('titleView')</h2>
+                @yield('breadCrumb')
+                @yield('content')
+            </main>
+        </div>
     </div>
 
 
-    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     @yield('scripts')
 </body>
 

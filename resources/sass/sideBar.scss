@@ -19,7 +19,7 @@
 
 // SideBar Component Styles
 .sideBar-custom{
-    width: 280px;
+    width: 260px;
     height: 100vh;
     position: fixed;
     z-index: 50;
@@ -106,8 +106,9 @@
 
 
 .container-custom.expanded {
-    margin-left: 120px;
+    margin-left: 115px;
 }
+
 .container-custom.full-width {
     width: calc(100% - 150px); 
 }
@@ -142,11 +143,10 @@
 }
 // Main Content 
 .container-custom{
-    margin-left: 300px;
-    width: calc(100% - 320px);
+    margin-left: 260px; /* Ancho del sidebar */
+    width: calc(100% - 260px); /* Resta el ancho del sidebar */
     min-height: 100vh;
     background-color: $body-bg;
-
 }
 
 .titleView-custom{
