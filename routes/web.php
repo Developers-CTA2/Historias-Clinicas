@@ -7,6 +7,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\addPatientsController;
 
 
 
@@ -82,6 +83,12 @@ Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pac
 Route::get('/expediente/{id}', function ($id) {
     return view('admin.expediente');
 });
+
+//AGREGAR PACIENTE
+Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
+Route::get('/agregar_paciente', [AddPatientsController::class, 'showForm'])->name('showForm');
+Route::get('/enfermedades-relacionadas/{tipoAHFId}', [AddPatientsController::class, 'getEnfermedadesRelacionadas'])->name('enfermedades-relacionadas');
+
 
 
 // Verificar rol 

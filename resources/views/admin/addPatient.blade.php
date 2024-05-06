@@ -45,8 +45,8 @@
     </div>
     <div class="row justify-content-center px-0">
         <div class="row">
-            <h4 class="text-center pt-3">Datos personales</h4>
-            <div class="col-12 content-custom">
+            <div class="col-12 content-custom person-data">
+                <h4 class="text-center pt-3">Datos personales</h4>
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
@@ -125,18 +125,18 @@
                                     <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
                                             <label for="F_nacimiento">Calle</label>
-                                            <input type="date" id="calle" name="calle" class="form-control" />
+                                            <input type="text" id="calle" name="calle" class="form-control" />
                                             <span class="text-danger fw-normal" style=" display: none;">Calle no válida.</span>
 
                                         </div>
                                         <div class="form-group col-md-3 col-sm-8 mb-2">
                                             <label for="sangre">Num </label>
-                                            <input type="text" id="num" name="num" class="form-control" />
+                                            <input type="number" id="num" name="num" min="0" pattern="\d*" class="form-control" />
                                             <span class="text-danger fw-normal" style=" display: none;">Número no válido.</span>
                                         </div>
                                         <div class="form-group col-md-3 col-sm-8 mb-2">
                                             <label for="sangre">Num. Int </label>
-                                            <input type="text" id="num_int" name="num_int" class="form-control" />
+                                            <input type="number" id="num_int" name="num_int" min="0" pattern="\d*" class="form-control" />
                                             <span class="text-danger fw-normal" style=" display: none;">Número no válido.</span>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                     <div class="row pt-2">
                                         <div class="form-group col-md-6 col-sm-12 mb-2">
                                             <label for="tel">Teléfono: </label>
-                                            <input type="text" id="tel" name="tel" class="form-control" maxlength="10" />
+                                            <input type="text" id="tel" name="tel" class="form-control" pattern="[0-9]{10}" maxlength="10" />
                                             <span class="text-danger fw-normal" style=" display: none;">Teléfono no válido.</span>
 
                                         </div>
@@ -225,7 +225,7 @@
     </div>
 
     <!-- Datos AHF  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 ahf-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -236,19 +236,23 @@
                                 <div class="form-group">
                                     <div class="row pt-2">
                                         <div class="form-group col-md-8 col-sm-12 mb-4">
+                                            <label for="tipo_AHF">Tipo AHF:</label>
                                             <select class="form-control" name="tipo_AHF" id="tipo_AHF">
                                                 <option value="" disabled selected>Seleccione una opción</option>
+                                                @foreach($tipos_ahf as $tipo_ahf)
+                                                <option value="{{ $tipo_ahf->id_tipo_ahf }}">{{ $tipo_ahf->nombre }}</option>
+                                                @endforeach
                                             </select>
                                             <span class="text-danger fw-normal" style=" display: none;">Tipo no válido.</span>
                                         </div>
                                         <h5>Enfermedad</h5>
-                                        <div class="form-group">
+                                        <div class="form-group" id="enfermedad-container">
                                             <div class="row pt-2">
                                                 <div class="form-group col-md-8 col-sm-12 mb-2">
-                                                    <select class="form-control" name="enfermedad" id="enfermedad">
+                                                    <select class="form-control" name="enfermedad" id="enfermedad" multiple>
                                                         <option value="" disabled selected>Seleccione una opción</option>
                                                     </select>
-                                                    <span class="text-danger fw-normal" style=" display: none;">Enfermedad no válido.</span>
+                                                    <span class="text-danger fw-normal" style=" display: none;">Enfermedad no válida.</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,22 +261,19 @@
                             </div> <!-- FIN contenedor 1  -->
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <h5>Enfermedades seleccionadas</h5>
-                                <div class="form-group">
-                                    <div class="row pt-2">
-                                        <div class="form-group col-md-6 col-sm-12 mb-2">
-                                            <div class="container">
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="form-group" id="enfermedades-seleccionadas">
+                                    <!-- Aquí se mostrarán las enfermedades seleccionadas -->
                                 </div>
                             </div><!-- Fin de contenedor 2 -->
                             <!-- Fin de contenedor 3 -->
-                        </div>
-                        <div class="row mt-3 justify-content-end text-end">
-                            <div class="col-6">
-                                <button class="btn button-eliminar" id="personal-data"> Atras</button>
-                                <button class="btn btn-primary" id="personal-data"> Siguiente</button>
+
+                            <div class="container-fluid fixed-bottom">
+                                <div class="row mt-3 justify-content-end text-end">
+                                    <div class="col-6">
+                                        <button class="btn button-eliminar" id="ant-data" style="margin-block-end: 30px;"> Atras</button>
+                                        <button class="btn btn-primary" id="ahf-data" style="margin-block-end: 30px;"> Siguiente</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,7 +283,7 @@
     </div>
 
     <!-- Datos APNP  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 apnp-data d-none">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -295,6 +296,9 @@
                                         <div class="form-group col-md-8 col-sm-12 mb-4">
                                             <select class="form-control" name="toxico" id="toxico">
                                                 <option value="" disabled selected>Seleccione una opción</option>
+                                                @foreach($toxicomania as $toxicomania)
+                                                <option value="{{ $toxicomania->id }}">{{ $toxicomania->nombre }}</option>
+                                                @endforeach
                                             </select>
                                             <span class="text-danger fw-normal" style=" display: none;">Toxicomanias no válido.</span>
                                         </div>
@@ -310,7 +314,7 @@
                                     </div>
                                 </div>
                             </div> <!-- FIN contenedor 1  -->
-                            <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="col-lg-6 col-md-6 col-sm-12 d-none">
                                 <h5>Toxicomanias</h5>
                                 <div class="form-group">
                                     <div class="row pt-2">
@@ -327,16 +331,28 @@
                                             <span class="text-danger fw-normal" style=" display: none;">Dato no válida.</span>
                                         </div>
                                     </div>
+                                    <div class="text-center"> <!-- Agregado para centrar el botón -->
+                                        <button class="btn btn-primary" id="guardar_toxi">Guardar</button>
+                                    </div>
                                 </div>
                             </div><!-- Fin de contenedor 2 -->
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <h5>Toxicomanias seleccionadas</h5>
+                                <div class="form-group" id="toxicomanias-seleccionadas">
+                                    <!-- Aquí se mostrarán las enfermedades seleccionadas -->
+                                </div>
+                            </div>
                             <!-- Fin de contenedor 3 -->
                         </div>
-                        <div class="row mt-3 justify-content-end text-end">
-                            <div class="col-6">
-                                <button class="btn button-eliminar" id="personal-data"> Atras</button>
-                                <button class="btn btn-primary" id="personal-data"> Siguiente</button>
+                        <div class="container-fluid fixed-bottom">
+                            <div class="row mt-3 justify-content-end text-end">
+                                <div class="col-6">
+                                    <button class="btn button-eliminar" id="ante-data" style="margin-block-end: 30px;"> Atras</button>
+                                    <button class="btn btn-primary" id="apnp-data" style="margin-block-end: 30px;"> Siguiente</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -493,6 +509,6 @@
 
 
 @section('scripts')
-@vite(['resources/js/loading-screen.js','resources/js/SideBar.js'])
+@vite(['resources/js/loading-screen.js','resources/js/SideBar.js','resources/js/addPatients.js'])
 
 @endsection
