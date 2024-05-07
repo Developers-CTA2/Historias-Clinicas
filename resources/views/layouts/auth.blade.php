@@ -15,7 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- login style -->
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/login.css') }}"> --}}
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/app.js'])
@@ -23,7 +23,7 @@
 
 <body>
     <div id="app">
-        <main class="width-custom py-4 px-4 ">
+        <main class="container-custom d-flex justify-content-center align-items-center ">
             @yield('content')
         </main>
     </div>

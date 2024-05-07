@@ -1,4 +1,5 @@
 
+
 // Fonts
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap');
 
@@ -12,29 +13,57 @@
 
 // Login Page Styles 
 .container-custom {
-    width: 100%;
-    height: 100vh;
     background-color: $bg-light;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+}
+.card {
+    width: 50vh; /* Ancho inicial */
+    height: auto; /* Altura automática */
+ 
 }
 
-.width-custom{
+
+.card-bg {
+     background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px); /* Ajusta el valor de desenfoque según sea necesario */
+}
+
+.font-logo {
+    font-family: var(--font-logo);
+    font-style: oblique;
+}
+ 
+.img-login{
+    width: 8rem;
+    height: 8rem;
+    filter: drop-shadow(0 0 0.75rem rgb(170, 169, 169));
+}
+
+.label{
+    color: var($secundary);
+}
+
+.reference-link{
+    text-decoration: none;
+}
+
+.reference-link:hover{
+    color: black;
+}
+
+
+
+.container-custom{
     width: 100%;
     height: 100vh;
-    background-color: $bg-primary;
-
+    background-image: url($image-login);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.container-custom-login {
-    width: 90%;
-    height: 85vh;
-    margin: 0 auto;
-    background-color: $bg-light;
-    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.15);
-}
 
 .black-screen-custom {
     width: 100%;
@@ -53,12 +82,8 @@
     z-index:10;
 }
 
-.height-custom {
-    height: 100%;
-}
-
 .btn-primary-custom {
-    background-color: $primary;
+    background-color: $secundary;
     color: $white;
 }
 
@@ -78,88 +103,82 @@
 }
 
 .title-custom {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: $primary;
+    color: $secundary;
 }
 
 .text-sm {
     font-size: 0.8rem;
 }
 
-.container-custom-image {
-    width: 100%;
-    height: 100%;
-    background-image: url($image-login);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+.form-label{
+    color: $primary;
 }
 
 @media (max-width: 768px) {
-    .width-custom {
+    // .width-custom {
+    //     background-image: url($image-login);
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     background-position: bottom;
+    // }
 
-        background-image: url($image-login);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
+    // .container-custom-login {
+    //     background-color: transparent;
+    // }
 
-    .container-custom-login {
-        background-color: transparent;
-    }
+    // .black-screen-custom{
+    //     display: initial;
+    // }
 
-    .black-screen-custom{
-        display: initial;
-    }
+    // .title-custom {
+    //     font-size: 1.6rem;
+    //     font-weight: 700;
+    //     color: $white;
+    // }
 
-    .title-custom {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: $white;
-    }
-
-    .text-sm {
-        color: $white;
-        font-size: 1.1rem;
-    }
+    // .text-sm {
+    //     color: $white;
+    //     font-size: 1.1rem;
+    // }
 
 
-    .black-screen-custom {
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.6);
-        position: absolute;
-        z-index: 10;
-    }
+    // .black-screen-custom {
+    //     width: 100%;
+    //     height: 100vh;
+    //     background-color: rgba(0, 0, 0, 0.6);
+    //     position: absolute;
+    //     z-index: 10;
+    // }
 
-    .form-control-custom{
-        background-color: $primary-opacity;
-        color: $black;
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
+    // .form-control-custom{
+    //     background-color: $primary-opacity;
+    //     color: $black;
+    //     font-size: 1.2rem;
+    //     font-weight: bold;
+    // }
 
-    .form-control-custom:focus{
-        background-color: $primary-opacity;
-        color: $black;
-    }
+    // .form-control-custom:focus{
+    //     background-color: $primary-opacity;
+    //     color: $black;
+    // }
 
-    .form-label{
-        color: $white;
-    }
+    // .form-label{
+    //     color: $white;
+    // }
 
-    .btn-primary-custom{
-        background-color: $white;
-        color: $primary;
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
+    // .btn-primary-custom{
+    //     background-color: $white;
+    //     color: $primary;
+    //     font-size: 1.2rem;
+    //     font-weight: bold;
+    // }
 
-    .btn-primary-custom:hover{
-        background-color: $white;
-        color: $primary;
-    }
+    // .btn-primary-custom:hover{
+    //     background-color: $white;
+    //     color: $primary;
+    // }
 }
 
 
