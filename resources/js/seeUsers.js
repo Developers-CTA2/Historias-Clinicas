@@ -21,36 +21,47 @@ $(function () {
                         hidden: true,
                     },
                     {
-                        id: "codigo",
-                        name: "Código",
-                        resizable: true, 
-                                    
-
+                        id: "person",
+                        name: "",
+                        resizable: true,
+                        formatter: (_, row) =>
+                            html(`<i class="fa-solid fa-circle-user person-icon"></i>`),
+                        width: "90px",
                     },
                     {
-                        id: "nombre",
+                        id: "name",
                         name: "Nombre",
-                        resizable: true, 
-                        
+                        resizable: true,
+                        formatter: (_, row) =>
+                            html(`<div>${row.cells[1].data}</div><div>${row.cells[2].data}</div>`),
                     },
                     {
-                        id: "estado",
+                        id: "user_name",
+                        name: "Usuario",
+                        resizable: true,
+                    },
+                    {
+                        id: "role_name",
+                        name: "Rol",
+                        hidden: true,
+                    },
+                    {
+                        id: "state",
                         name: "Estado",
-                        resizable: true, 
-                    },
-                    {
-                        id: "sexo",
-                        name: "Genero",
-                        resizable: true, 
+                        resizable: true,
+                        formatter: () => "Activo",
                     },
                     {
                         id: "actions",
-                        name: html('<p class="mb-0 text-center">Acciones</p>'),
+                        name: html('<p class="mb-0 text-center"></p>'),
                         formatter: (_, row) =>
                             html(
-                                `<div class="d-flex justify-content-center"><a href="/detalles/${row.cells[0].data}" class="btn btn-primary detalles">Detalles</a> </div>`
+                                `<div class="d-flex justify-content-center">
+                        <a href="/detalles/${row.cells[0].data}" class="btn btn-primary detalles">Detalles</a>
+                        <button class="btn btn-danger eliminar" data-id="${row.cells[0].data}">Eliminar</button>
+                    </div>`
                             ),
-                        resizable: true, 
+                        resizable: true,
                     },
                 ],
                 // Configuración del grid js
@@ -70,16 +81,15 @@ $(function () {
                     },
                 },
                 server: {
-                    url: "/obt-personal?",
+                    url: "/obt-usuarios?",
                     then: (data) => {
                         console.log("Datos del servidor:", data);
-                        //Mapear los datos según tu lógica
-                        return data.results.map((person) => [
-                            person.id,
-                            person.codigo,
-                            person.nombre,
-                            person.estado.nombre,
-                            person.sexo,
+                        // Mapear los datos según tu lógica
+                        return data.results.map((user) => [
+                            user.id,
+                            user.name, // Nombre del usuario
+                            user.role_name, // Nombre del rol
+                            user.user_name, // Nombre de usuario
                         ]);
                     },
                     total: (data) => {
@@ -93,14 +103,10 @@ $(function () {
                     search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
                 },
                 autoWidth: true,  /// Se ajusta cada columna de un tamaño automatico
-                sort: {
-                    enabled: true,
-                    multiColumn: false,
-                    initialColumn: 0,
-                },
+                sort: false,
                 resizable: true,
                 language: traducciones,
-            }).render(document.getElementById("Tabla-Personal"));
+            }).render(document.getElementById("Tabla-Usuarios"));
         } catch (error) {
             console.log(error);
         } finally {
@@ -108,6 +114,5 @@ $(function () {
         }
 
     }
-   
-});
 
+});

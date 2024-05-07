@@ -25,7 +25,7 @@
                     <div class="collapse bg-primary-custom ps-3 pt-2" id="reportes">
                         <ul class="list-unstyled m-0">
                             <li class="d-flex ps-1 mb-2 pe-2">
-                                <a href="" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
+                                <a href="{{ route('showPatients') }}" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Ver</span>
                                 </a>
@@ -56,7 +56,7 @@
                     </a>  
                 </li>
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('showAgenda')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
                         <i class="fa-solid fa-calendar-days"></i>
                         <span class="ms-3 text-md-custom">Agenda</span>
                     </a>  
@@ -72,19 +72,20 @@
                     </a>
                     <div class="collapse bg-primary-custom ps-3 pt-2" id="usuarios">
                         <ul class="list-unstyled m-0">
-                            <li class="d-flex border-custom-sublinks ps-1 mb-2 pe-2">
+                            <li class="d-flex ps-1 mb-2 pe-2">
                                 <a href="{{route('usuarios')}}" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Ver</span>
                                 </a>
                             </li>
-
-                            <li class="d-flex border-custom-sublinks ps-1 mb-2 pe-2">
-                                <a href="#" class="sublink-custom-nav w-100 py-2 px-3 animated-icon" data-bs-toggle="modal" data-bs-target="#Add-User">
+                            @role('Administrador')
+                            <li class="d-flex ps-1 mb-2 pe-2">
+                                <a href="{{ route('showUsers') }}" class="sublink-custom-nav w-100 py-2 px-3  animated-icon">
                                     <i class="fa-solid fa-file-circle-plus"></i>
-                                    <span class="ms-3 ">Agregar</span>
+                                    <span class="ms-3">Agregar</span>
                                 </a>
                             </li>
+                            @endrole
                         </ul>
                     </div>
 
@@ -175,104 +176,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <!-- <button type="button" class="btn button-cancel close_modal" data-bs-dismiss="modal" aria-label="Close">Cerrar</button> -->
                 <button type="button" class="btn button-cancel close_modal border" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
 
                 <button class="btn button-next d-none border" id="confirm"> Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Modal para agregar a un nuevo usuario al sistema-->
-<div class="modal fade" id="Add-User" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center" id="confirmModalLabel">Agregar un nuevo usuario </h5>
-                <button type="button" class="btn-close close_modal" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-
-                <!-- Alerta de confirmacion o error  -->
-                <div id="alerta" class="alert d-none pb-0 m-0 text-center" role="alert">
-                    <p class="texto"></p>
-                </div>
-                <!-- Inicio del formulario -->
-                <!-- <form id="add-user" method="post">
-                    @csrf -->
-
-                <div id="paso1">
-                    <div class="mt-1 col-12 d-flex justify-content-center align-items-center" id="texto">
-                        <p style="font-size: 1rem;"> Ingresa los datos corrrespondientes </p>
-                    </div>
-                    <div class="row mx-2 mb-3">
-                        <div class="col-8 text-center ">
-                            <label for="user_name" class="fw-normal">Código</label>
-                            <input type="text" class="form-control" id="user_name" placeholder="Código de trabajador" maxlength="7">
-                        </div>
-                        <div class="col-4">
-                            <a class="btn btn-primary fst-normal ms-2 animated-icon px-2 mt-4" type="button" id="SearchCode" tabindex="0">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                Buscar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row d-flex justify-content-center align-items-center paso2 d-none">
-                    <p class="text-center pt-0" style="font-size: 1rem;">Datos del usuario </p>
-                    <div class="row col-12 mb-3">
-                        <div class="col-3">
-                            <div for="code_U" class="fw-normal">Código:</div>
-                            <span id="code_U">2726319</span>
-                        </div>
-
-                        <div class="col-9 ">
-                            <div for="name" class="fw-normal">Nombre completo:</div>
-                            <span id="name">SOLANO GUZMAN EDUARDO</span>
-                        </div>
-
-                        <!-- <input type=" text" class="form-control" id="name" placeholder="Ejemplo: SOLANO GUZMÁN EDUADARDO" oninput="this.value = this.value.toUpperCase()">
-                            <p style="font-size: 0.75rem;">Escribe el nombre completo comenzando por Apellidos <br>La contraseña por defecto será <span class="fw-bold">Cu@ltos2024</span>. </p> -->
-
-                    </div>
-
-                    <hr>
-                    <div class="col-12 mb-3">
-                        <p style="font-size: 1rem;"> Selecciona un tipo de usuario</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Tipo_Usuario" id="op1" value="2" checked>
-                                <label class="form-check-label" for="op1">
-                                    Lectura
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="Tipo_Usuario" id="op2" value="1">
-                                <label class="form-check-label" for="op2">
-                                    Administrador
-                                </label>
-                            </div>
-                        </div>
-                        <p class="mt-2 text-center mb-0" style="font-size: 0.75rem;"> La contraseña por defecto será <span class="fw-bold">Cu@ltos2024</span>.</p>
-                    </div>
-
-                </div>
-                <div class="modal-footer mb-0 pb-0 mt-0">
-                    <!-- <a class="btn btn-primary mt-2 animated-icon" id="SearchCode"> <i class="fa-solid fa-magnifying-glass px-2 "> Buscar </i></a> -->
-
-
-                    <button type="button" class="btn button-cancel close_modal border" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-
-                    <abbr title="Guardar el nuevo usuario en el sistema.">
-                        <button class="btn button-next border" type="button" id="saveUser"> Guardar </button>
-                    </abbr>
-                </div>
-                <!-- </form> -->
-                <!-- Fin del formulario -->
             </div>
         </div>
     </div>

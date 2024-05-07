@@ -21,7 +21,7 @@
       color:white;
 }
 .button-add:hover, .button-add:focus{
-   background-color: #007F73;
+   background-color: $primary;
    color: white;
 }
 
@@ -38,8 +38,7 @@
     color: white; 
 }
 
-.button-eliminar:hover,
-.button-eliminar:focus {
+.button-eliminar {
     background-color: #bb3c3c88;
     color: white; 
 }

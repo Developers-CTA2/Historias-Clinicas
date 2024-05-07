@@ -21,7 +21,6 @@ $(document).ready(function () {
 
 /* Funcion para buscar el código del usuario que se pretende agregar, se necesita validar que este en la base de datos */
 function newUser() {
-    closeModalAdd();
     $("#SearchCode").off("click");
     $("#SearchCode").on("click", function () {
         // Obtenemos los datos
@@ -61,7 +60,7 @@ function SaveDataNewUser(username, name) {
 
     $("#saveUser").off("click");
     $("#saveUser").on("click", function () {
-        var tipoUsuario = $('input[name="Tipo_Usuario"]:checked').val();
+        var tipoUsuario = $("#tipo_user").val();
 
         if (tipoUsuario != "") {
             RequestAddUser(name, username, tipoUsuario);
@@ -229,11 +228,6 @@ async function requestChangePass(password) {
         }
     } catch (error) {
         disableLoading;
-        // Swal.fire({
-        //     title: "¡Error!",
-        //     text: "Algo salio mal, intentalo otra vez.",
-        //     icon: "error",
-        // });
         console.log(error);
     }
 }
@@ -254,7 +248,7 @@ async function RequestACodeVerify(code) {
         let timerInterval;
         if (status == 200) {
             $("#paso1").addClass("d-none");
-            $("#code_U").text(response.code);
+            $("#code_U").text(data.code);
             $("#name").text(msg);
             $(".paso2").removeClass("d-none");
             SaveDataNewUser(data.code, msg);

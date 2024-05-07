@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('especifica_ahf', function (Blueprint $table) {
+        Schema::create('especificar_ahf', function (Blueprint $table) {
             $table->id('id_especifica_ahf');
             $table->foreignId('id_tipo_ahf')->nullable()->constrained('tipo_ahf', 'id_tipo_ahf');
             $table->string('nombre')->nullable();
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('especifica_ahf');
+        Schema::dropIfExists('especificar_ahf');
     }
 };
