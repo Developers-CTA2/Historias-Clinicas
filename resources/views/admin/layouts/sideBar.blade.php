@@ -1,22 +1,24 @@
-<header class="sideBar-custom active position-fixed z-10 d-flex flex-column">
+<header class="sideBar-custom active d-flex flex-column">
     <div class="w-full flex-grow-1" id="sidebarContainer" class="sidebar-container">
-        <div class="w-full d-flex justify-content-between header-custom py-3 px-2">
+        <div class="w-full d-flex justify-content-between header-custom py-3 px-2 mb-3">
             <h4 class="fw-bold text-white m-0 align-self-center">Consultorio CUAltos</h4>
             <div class=" px-1" id="hamburgerMenu">
                 <img class="icons-custom" src="{{asset('images/hamburger.png')}}" />
             </div>
         </div>
-        <nav class="w-100 mt-4 flex-grow-1 px-3" id="sidebarContent">
+        <nav class="w-100 flex-grow-1 px-1 pt-3" id="sidebarContent">
+                    <span class="ms-3 text-md-custom text-white mb-2">Menú</span>
+
             <ul class="list-unstyled m-0">
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-1 px-2 animated-icon">
                         <i class="fa-solid fa-chart-simple"></i>
-                        <span class="ms-3 text-md-custom">Estadistica</span>
+                        <span class="ms-3 text-md-custom">Estadistíca</span>
                     </a>  
                 </li>
      
                 <li class="ms-2 d-flex flex-column">
-                    <a class="link-custom-nav w-100 py-2 px-3 d-flex justify-content-between align-items-center animated-icon" data-bs-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
+                    <a class="link-custom-nav w-100 py-2 px-2 d-flex justify-content-between align-items-center animated-icon" data-bs-toggle="collapse" href="#reportes" role="button" aria-expanded="false" aria-controls="reportes">
                         <div>
                             <i class="fa-solid fa-hospital-user"></i>
                             <span class="ms-3 text-md-custom">Pacientes</span>
@@ -24,15 +26,15 @@
                     </a>
                     <div class="collapse bg-primary-custom ps-3 pt-2" id="reportes">
                         <ul class="list-unstyled m-0">
-                            <li class="d-flex ps-1 mb-2 pe-2">
-                                <a href="{{ route('showPatients') }}" class="sublink-custom-nav w-100 py-2 px-3 animated-icon">
+                            <li class="d-flex ps-1 pe-2">
+                                <a href="{{ route('showPatients') }}" class="sublink-custom-nav w-100 py-1 px-2 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Ver</span>
                                 </a>
                             </li>
                             @role('Administrador')
-                            <li class="d-flex ps-1 mb-2 pe-2">
-                                <a href="{{ route('showForm') }}" class="sublink-custom-nav w-100 py-2 px-3  animated-icon">
+                            <li class="d-flex ps-1  pe-2">
+                                <a href="{{ route('showForm') }}" class="sublink-custom-nav w-100 py-2 px-2  animated-icon">
                                     <i class="fa-solid fa-file-circle-plus"></i>
                                     <span class="ms-3">Dar de alta</span>
                                 </a>
@@ -43,20 +45,20 @@
                 </li>
 
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-1 px-2 animated-icon">
                         <i class="fa-solid fa-list-ul"></i>
                         <span class="ms-3 text-md-custom">Enfermedades</span>
                     </a>  
                 </li>
 
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('home')}}" class="link-custom-nav w-100 py-1 px-2 animated-icon">
                         <i class="fa-brands fa-nutritionix"></i>
                         <span class="ms-3 text-md-custom">Nutrición</span>
                     </a>  
                 </li>
                 <li class="ms-2 d-flex">
-                    <a href="{{ route('showAgenda')}}" class="link-custom-nav w-100 py-2 px-3 animated-icon">
+                    <a href="{{ route('showAgenda')}}" class="link-custom-nav w-100 py-1 px-2 animated-icon">
                         <i class="fa-solid fa-calendar-days"></i>
                         <span class="ms-3 text-md-custom">Agenda</span>
                     </a>  

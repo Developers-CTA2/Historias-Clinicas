@@ -19,7 +19,7 @@
 
 // SideBar Component Styles
 .sideBar-custom{
-    width: 280px;
+    width: 220px;
     height: 100vh;
     position: fixed;
     z-index: 50;
@@ -58,6 +58,17 @@
     transition: all 0.2s ease-in-out;
     border-radius: 8px;
 }
+.link-custom-nav i{
+    font-size: 1.2rem;
+}
+
+.sidebarContent ul li  {
+   padding-bottom: 10px;
+}
+
+#sidebarContent > ul > li  {
+   padding-bottom: 25px;
+}
 
 .link-custom-nav:hover{
     background-color: $secundary;
@@ -87,17 +98,21 @@
     padding-right: 1.5rem !important; 
     padding-left: 1.5rem !important; 
 }
+
 .ps-1 {
     padding-left: 0.0rem !important; 
 }
+
 .hide {
     display: none;
 }
+
 .hide-sections {
     display: none;
 }
+ 
 .sideBar-custom.collapsed {
-    width: 100px;
+    width: 80px;
 }
 .sidebar-container.collapsed {
     display: none;

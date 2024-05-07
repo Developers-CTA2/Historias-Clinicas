@@ -3,7 +3,7 @@
 @section('title', 'Agregar nuevo paciente')
 
 @section('viteConfig')
-@vite(['resources/sass/sideBar.scss','resources/sass/loadingScreen.scss', 'resources/sass/StyleForm.scss','resources/sass/colorButtons.scss', 'resources/sass/bar.scss','resources/js/app.js'])
+@vite('resources/sass/bar.scss')
 @endsection
 
 <!-- Esto no se que hace pero lo puse jsjsjsj -->
@@ -18,7 +18,6 @@
     <span class="text-end">{{ now()->setTimezone('America/Mexico_City')->format('d F Y') }}</span>
 </nav>
 @endsection
-
 
 
 @section('content')
