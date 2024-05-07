@@ -8,111 +8,29 @@
 @import 'bootstrap/scss/bootstrap';
 @import "@fortawesome/fontawesome-free/css/all.css";
 
-/* Animacion perroncilla Se pone en el Button y el i (icono) se hace mas grande */
-.animated-icon i {
-    transition: transform 0.3s ease-in-out;
+
+
+.header {
+    height: 50px;
+    background-color: rgba(225, 221, 221, 0.6);
+    width: 90;
 }
 
-.animated-icon:hover i {
-    transform: scale(1.4); /* Aumenta de tamaño */
-}
-
-// SideBar Component Styles
+ 
 .sideBar-custom{
-    width: 260px;
-    height: 100vh;
     position: fixed;
-    z-index: 50;
-    background-color: $primary;
-    transition: all 0.3s ease-in-out;
+    background: $primary;
+    width: 80px;
+    color:white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
 }
+ 
 
-.header-custom{
-    background-color: $secundary;
+nav{
+    color: wheat;
 }
-
-
-.bg-primary-custom{
-    background-color: $secundary;
-}
-
-.border-custom{
-    border-bottom: 2px solid $primary;
-}
-
-.title-nav-custom{
-    font-size: 1.1rem;
-}
-
-.text-sm-custom{
-    font-size: 1rem;
-}
-
-.color-header-nav{
-    color: $text-white;
-}
-
-.link-custom-nav{
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    border-radius: 8px;
-}
-
-.link-custom-nav:hover{
-    background-color: $secundary;
-}
-
-.sublink-custom-nav{
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    border-radius: 8px;
-}
-.sublink-custom-nav:hover{
-    background-color: $primary;
-}
-
-.border-custom-sublinks{
-    border-left: 3px solid $text-white
-}
-
-.text-md-custom{
-    font-size: 1rem;
-}
-
-
-// SideBar
-.px-2 {
-    padding-right: 1.5rem !important; 
-    padding-left: 1.5rem !important; 
-}
-.ps-1 {
-    padding-left: 0.0rem !important; 
-}
-.hide {
-    display: none;
-}
-.hide-sections {
-    display: none;
-}
-.sideBar-custom.collapsed {
-    width: 100px;
-}
-.sidebar-container.collapsed {
-    display: none;
-}
-
-
-
-.container-custom.expanded {
-    margin-left: 115px;
-}
-
-.container-custom.full-width {
-    width: calc(100% - 150px); 
-}
-
 // Settings Content
 .settings-custom{
     padding: 0px 15px;
@@ -128,11 +46,33 @@
     cursor: pointer;
 }
 
-.icons-custom-sm{
-    width:25px;
-    height: 25px;
+ 
+.list-unstyled{
+    text-decoration: none;
+}
+
+li{
+    margin-bottom: 10px;
+}
+ul li i{
+    font-size: 1.5rem;
+    
+}
+
+ul li i:hover{
+    font-size: 1.7rem;
+    color: rgb(202, 201, 201);
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
 
 .border-none-custom{
     border: none;
@@ -143,8 +83,9 @@
 }
 // Main Content 
 .container-custom{
-    margin-left: 260px; /* Ancho del sidebar */
-    width: calc(100% - 260px); /* Resta el ancho del sidebar */
+    margin-left: 80px; /* Ancho del sidebar */
+    padding-left: 5px;
+    width: calc(100% - 80px); /* Resta el ancho del sidebar */
     min-height: 100vh;
     background-color: $body-bg;
 }
