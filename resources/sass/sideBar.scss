@@ -19,12 +19,22 @@
 
 /* Sidebar Component Styles */
 .sideBar-custom {
-    width: 220px;
+    width: 280px;
     height: 100vh;
     position: fixed;
     z-index: 50;
     background-color: $primary;
     transition: all 0.3s ease-in-out;
+}
+
+.sideBar-custom.compressed #title, .sideBar-custom.compressed .compressed-text {
+    display: none;
+}
+
+
+.bg-custom{
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f0f0 !important;
 }
 
 /* sidebard minimizado */
@@ -34,10 +44,16 @@
 
 /* Main Content */
 .container-custom {
-    margin-left: 220px;
-    width: calc(100% - 220px); /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
+    margin-left: 300px;
+    padding-top: 100px;
+    width: calc(100% - 300px); /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
     min-height: 100vh; /* Altura mínima del contenedor para ocupar al menos el tamaño de la ventana del navegador */
-    background-color: $body-bg; /* Color de fondo del contenedor */
+    transition:  all 0.3s ease-in-out;
+}
+
+.container-custom.container-expanded{
+    margin-left: 100px;
+    width: calc(100% - 100px);   
 }
 
 /* sidebard expandido */
@@ -74,7 +90,8 @@
 /* Titulo del sistema */
 .header-custom {
     background-color: $secundary;
-    padding: 10px 15px 10px 10px;
+    min-height: 70px;
+    padding: 0 10px;
 }
 
 .bg-primary-custom {
@@ -258,14 +275,139 @@
     color: $text-white;
 }
 
-/* Cuando el ancho de la pantalla sea menor o igual a 850px */
-@media (max-width: 850px) {
-    .sideBar-custom.closed {
-        left: -290px;
+
+/* Styles for SideBar and navbar */ 
+#header-custom {
+    width: 100%;
+    // height: 100vh;
+    position: fixed;
+}
+
+#navBar{
+    padding: 0 20px;
+    width: calc(100% - 280px);
+    height: 70px;   
+    position: fixed;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $bg-light;
+    box-shadow: 0px 13px 36px 0px rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+#navBar.container-expanded{
+    width: calc(100% - 80px);
+}
+
+
+
+#usernameText{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $primary;
+}
+
+#title{
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+
+}
+
+.avatar-container{
+    background-image: url('/public/images/avatar-c.jpg');
+    background-size: cover; 
+    background-position: center;
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;   
+}
+
+.avatar-custom{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+}
+
+.icon-custom{
+    width: 20px;
+    height: 20px;
+    color: #777;
+    margin-right: 5px;
+}
+
+.icon-custom-lg{ 
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+#btnOpenClose{
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+}
+
+#btnOpenClose:hover{
+    background-color: $primary;
+}
+
+.hamburger-custom-btn{
+    width: 35px;
+    height: 35px;
+    color: $primary;
+    cursor: pointer;
+
+}
+
+
+// Sidebar compressed
+.compressed{
+    width: 80px;
+}
+
+
+.sideBar-custom.movil-collapse{
+    // width: 0px !important;
+    left: 0px;
+}
+
+
+// Hover event
+
+
+/* Media Querys Movil*/
+
+@media (max-width : 768px){
+    .sideBar-custom{
+        // width: 0px !important;
+        left: -280px;
     }
 
-    .container-custom, .header-content {
-        margin-left: 0;
+    .sideBar-custom.compressed{
+        left: -80px;
+    }
+
+    #navBar{
+        width: 100% !important;
+    }
+
+    .container-custom.container-expanded{
+        margin-left: 0px;
+        padding: 0 20px;
+        padding-top: 100px;
+        width: 100%;   
+    }
+    
+    .container-custom{
+        margin-left: 0px;
+        padding: 0 20px;
+        padding-top: 100px;
         width: 100%;
+        
     }
 }

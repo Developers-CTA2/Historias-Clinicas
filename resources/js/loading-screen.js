@@ -12,6 +12,6 @@ export function disableLoading() {
 }
 
 window.addEventListener('load', function() {
-    var container = document.querySelector('.container');
-    container.classList.remove('loading');
+    // var container = document.querySelector('.container');
+    // container.classList.remove('loading');
 });

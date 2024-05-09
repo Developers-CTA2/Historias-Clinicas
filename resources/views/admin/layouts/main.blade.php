@@ -22,20 +22,106 @@
 </head>
 
 
-<body>
-    <div id="app">
+<body >
+    <div id="app" class="bg-custom">
         <!-- Loading Screen -->
         @include('admin.layouts.loadingScreen')
 
-        @include('admin.layouts.sideBar')
+        {{-- @include('admin.layouts.sideBar')
         <div class="header-content border">
             @include('admin.layouts.header')
-        </div>
+        </div> --}}
 
-        <main class="container-custom border">
+        @include('admin.layouts.header')
+
+        {{-- <main class="container-custom border">
             <h2 class="titleView-custom pt-3">@yield('titleView')</h2>
             @yield('breadCrumb')
             @yield('content')
+        </main> --}}
+        <main class="container-custom" id="main-container">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nesciunt illo vitae a, ipsam laboriosam quibusdam. Ratione, delectus eligendi? Fuga sint beatae dolore? Neque suscipit, nemo cumque voluptates maxime tempore?
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti quisquam cumque velit ad vero quam. Ad quia repellendus eligendi, dolore molestias sunt aut officiis voluptas, quis aspernatur eum ut quos?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum reprehenderit, distinctio qui doloribus at esse similique, veniam temporibus tempora laboriosam excepturi quaerat assumenda facilis non recusandae maiores dolorum neque velit?
+
+
         </main>
     </div>
 

@@ -22,14 +22,19 @@ use App\Http\Controllers\addPatientsController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
 Auth::routes();
 
-//Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/', function () {
+        return view('auth.login');
+    });
+});
 
+
+
+Route::middleware('auth')->group(function () {
+
+// Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/contadores', [HomeController::class, 'counts'])->name('contadores');
 Route::post('/detailsPeople', [HomeController::class, 'CountDetailsPeople'])->name('detailsPeople');
@@ -94,6 +99,7 @@ Route::get('/enfermedades-relacionadas/{tipoAHFId}', [AddPatientsController::cla
 // Verificar rol 
 Route::middleware('role:admin')->group(function () {
 
+});
 });
 
 // AGENDAR CITAS

@@ -3,7 +3,7 @@ import "sweetalert2/src/sweetalert2.scss";
 import { activeLoading, disableLoading } from "./loading-screen.js";
 
 $(document).ready(function () {
-    Contadores();
+    // Contadores();
 });
 
 async function Contadores() {
