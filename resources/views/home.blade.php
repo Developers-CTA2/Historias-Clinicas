@@ -6,7 +6,8 @@
 @vite(['resources/sass/sideBar.scss', 'resources/sass/home.scss', 'resources/js/app.js'])
 @endsection
 
-@section('titleView','Estadistica')
+
+{{-- @section('titleView','Estadistica') --}}
 
 
 @section('breadCrumb')
@@ -29,7 +30,7 @@
     </div>
 </div>
 <br><br><br>
-<div class="col-12">
+{{-- <div class="col-12">
     <div class="container">
     <div class="col-12 d-flex justify-content-center">
         <p>
@@ -68,7 +69,7 @@
         </p>
     </div>
     </div>
-</div>
+</div> --}}
 
-
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia voluptas placeat laboriosam repellendus unde eum aperiam voluptates asperiores saepe id assumenda doloremque cumque reprehenderit, temporibus, nulla inventore nemo, harum odit!
 @endsection
