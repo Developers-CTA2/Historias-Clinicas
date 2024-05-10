@@ -1,0 +1,68 @@
+/* Tooltip para el hover en ciertos elementos  */
+.tooltip-container {
+    position: relative; /*relative: los elementos se posicionan de forma relativa a su posición normal.*/
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 150px;
+    background-color: #dfdfdfc5;
+    color: #080808;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 115%; /* Posiciona el tooltip bajo del elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.icons-style {
+    padding-right: 5px;
+    width: 2rem;
+    height: 2rem;
+}
+
+/* Estilo base para el botón */
+.btn-blue {
+    border: 1.5px solid $primary;
+}
+
+.btn-red {
+    border: 1.5px solid $red;
+}
+
+.btn-blue, .btn-red {
+    color: black; /* Color del texto */
+    border-radius: 5px;
+    background-color: transparent; /* Fondo transparente */
+    padding: 0.1rem 0.3rem; /* Espaciado interno */
+    text-decoration: none; /* Quitar subrayado */
+    transition: color 0.2s, background-color 0.2s; /* Transiciones suaves */
+    transition-property: background-color, color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+}
+
+/* Estilo para el botón cuando se pasa el cursor sobre él */
+.btn-blue:hover, .btn-blue:active {
+    color: white; /* Cambiar el color del texto */
+    background-color: $primary; /* Cambiar el color de fondo */
+}
+ 
+ 
+/* Estilo para el botón cuando se pasa el cursor sobre él */
+.btn-red:hover, .btn-red:active {
+    color: white; /* Cambiar el color del texto */
+    background-color: $red; /* Cambiar el color de fondo */
+}
+ 

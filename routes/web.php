@@ -38,19 +38,19 @@ Route::middleware('auth')->group(function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
  
 
- 
-
 ///////      USUARIOS 
-Route::get('/usuarios', function () {
-    return view('admin.seeUsers');
-})->name('usuarios');
+Route::get('/users', function () {
+    return view('admin.View-Users');
+})->name('users');
 Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('obt-usuarios');
 
-Route::get('/agregar_usuario', function () {
-    return view('admin.addUsers');
-})->name('showUsers');
+Route::get('/add-user', function () {
+    return view('admin.Add-User');
+})->name('add-user');
 
-Route::get('/detalles/{id}', [UserController::class, 'userDetails'])->name('user.details');
+Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('user-details');
+
+
 
 
 

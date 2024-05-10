@@ -17,7 +17,7 @@
     @yield('viteConfig')
 
     <!-- Cargar scripts que utilizan jQuery y Bootstrap -->
-    @vite(['resources/sass/sideBar.scss',  'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/modal.js'])
+    @vite(['resources/sass/sideBar.scss',  'resources/js/modal.js', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/SideBar.js'])
 
 </head>
 

@@ -1,6 +1,5 @@
 //import {grid} from './helpers/PersonalGridTable'
-import { Grid, html } from "gridjs";
-import axios from "axios";
+import { Grid, html, h } from "gridjs";
 import { activeLoading, disableLoading } from "./loading-screen.js";
 import traducciones from "./helpers/translate-gridjs.js";
 
@@ -17,28 +16,44 @@ $(function () {
                 columns: [
                     {
                         id: "id",
-                        name: "Código",
+                        name: "id",
                         hidden: true,
                     },
                     {
-                        id: "person",
-                        name: "",
-                        resizable: true,
-                        formatter: (_, row) =>
-                            html(`<i class="fa-solid fa-circle-user person-icon"></i>`),
-                        width: "90px",
+                        /* Columna donde se muestra el icono del tipo de usuario */
+                        id: "role_name",
+                        name: "Rol",
+                        formatter: (_, row) => {
+                            const status = row.cells[1].data;
+                         
+                            if (status === 1) {
+                                return h("div", {
+                                    className:
+                                        "d-flex justify-content-center align-items-center avatar avatar-Doctor p-0",
+                                });
+                            } else if (status === 2) {
+                                return h("div", {
+                                    className:
+                                        "d-flex justify-content-center align-items-center avatar avatar-Pasante-m",
+                                });
+                            } else {
+                                return h("div", {
+                                    className:
+                                        "d-flex justify-content-center align-items-center avatar avatar-Nutricion",
+                                });
+                            }
+                        },
+                        sort: false,
                     },
                     {
                         id: "name",
                         name: "Nombre",
-                        resizable: true,
+
                         formatter: (_, row) =>
-                            html(`<div>${row.cells[1].data}</div><div>${row.cells[2].data}</div>`),
-                    },
-                    {
-                        id: "user_name",
-                        name: "Usuario",
-                        resizable: true,
+                            html(
+                                `<div class="fw-bold">${row.cells[3].data}</div>
+                                <div>${row.cells[2].data}</div>`
+                            ),
                     },
                     {
                         id: "role_name",
@@ -46,20 +61,55 @@ $(function () {
                         hidden: true,
                     },
                     {
-                        id: "state",
-                        name: "Estado",
-                        resizable: true,
-                        formatter: () => "Activo",
+                        id: "user_name",
+                        name: "Código",
+                    },
+
+                    {
+                        id: "estado",
+                        name: html('<p class="mb-0 text-center">Estado</p>'),
+                        formatter: (cell, row) => {
+                            const status = row.cells[5].data;
+                            let statusHtml = null;
+                            if (status === "Activo") {
+                                statusHtml = h(
+                                    "span",
+                                    {
+                                        className: "badge bg-success",
+                                    },
+                                    " Activo "
+                                );
+                            } else {
+                                statusHtml = h(
+                                    "span",
+                                    {
+                                        className: "badge bg-warning text-dark",
+                                    },
+                                    " Inactivo "
+                                );
+                            }
+
+                            return h(
+                                "div",
+                                {
+                                    className:
+                                        "d-flex justify-content-center align-items-center",
+                                },
+                                statusHtml
+                            );
+                        },
+                        sort: false,
                     },
                     {
                         id: "actions",
-                        name: html('<p class="mb-0 text-center"></p>'),
+                        name: html('<p class="text-center">Opciones</p>'),
                         formatter: (_, row) =>
                             html(
-                                `<div class="d-flex justify-content-center">
-                        <a href="/detalles/${row.cells[0].data}" class="btn btn-primary detalles">Detalles</a>
-                        <button class="btn btn-danger eliminar" data-id="${row.cells[0].data}">Eliminar</button>
-                    </div>`
+                                `<div class="d-flex justify-content-center gap-2">
+                                    <a href="/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
+                    
+                                    <button data-id="${row.cells[0].data}" class="btn-red fst-normal tooltip-container" type="button">Inhabilitar<span class="tooltip-text">Quitar acceso</span>  </button>
+                                 </div>`
                             ),
                         resizable: true,
                     },
@@ -87,9 +137,11 @@ $(function () {
                         // Mapear los datos según tu lógica
                         return data.results.map((user) => [
                             user.id,
-                            user.name, // Nombre del usuario
+                            user.role_id,
                             user.role_name, // Nombre del rol
+                            user.name, // Nombre del usuario
                             user.user_name, // Nombre de usuario
+                            user.estado,
                         ]);
                     },
                     total: (data) => {
@@ -100,9 +152,10 @@ $(function () {
 
                 className: {
                     th: "thead-color text-black",
-                    search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
+                    search: "d-flex justify-content-center justify-content-lg-end w-100",
+                    
                 },
-                autoWidth: true,  /// Se ajusta cada columna de un tamaño automatico
+                autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
                 sort: false,
                 resizable: true,
                 language: traducciones,
@@ -112,7 +165,5 @@ $(function () {
         } finally {
             disableLoading();
         }
-
     }
-
 });

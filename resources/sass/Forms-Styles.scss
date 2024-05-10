@@ -4,6 +4,8 @@
 
 // Variables
 @import "variables";
+// Estilos de los botones y de los tooltips 
+@import "buttons";
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
@@ -14,3 +16,29 @@
     background-color: white;
     border-radius: 10px;
 }
+
+.avatar{
+    background-size: cover; 
+    background-position: center;
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #b1b1b1;
+    cursor: pointer;   
+}
+/* Imagen segun el rol del usuario*/ 
+.avatar-Doctor{
+   
+    background-image: url('/public/images/doctor_1.png');  
+}
+
+.avatar-Pasante-m{
+   
+    background-image: url('/public/images/doctor.png');  
+}
+
+.avatar-Nutricion{
+    background-image: url('/public/images/Nutricion.png');  
+
+}
+
