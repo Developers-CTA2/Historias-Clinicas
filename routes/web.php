@@ -36,15 +36,9 @@ Route::middleware('auth')->group(function () {
 
 // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/contadores', [HomeController::class, 'counts'])->name('contadores');
-Route::post('/detailsPeople', [HomeController::class, 'CountDetailsPeople'])->name('detailsPeople');
+ 
 
-
-///////      USUARIOS 
-Route::get('/a', function () {
-    return view('welcome');
-})->name('a');
-
+ 
 
 ///////      USUARIOS 
 Route::get('/usuarios', function () {

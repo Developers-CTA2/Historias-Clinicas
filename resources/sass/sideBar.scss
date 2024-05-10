@@ -45,7 +45,7 @@
 /* Main Content */
 .container-custom {
     margin-left: 300px;
-    padding-top: 100px;
+    padding-top: 80px;
     width: calc(100% - 300px); /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
     min-height: 100vh; /* Altura mínima del contenedor para ocupar al menos el tamaño de la ventana del navegador */
     transition:  all 0.3s ease-in-out;

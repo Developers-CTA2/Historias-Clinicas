@@ -1,0 +1,16 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "bootstrap/scss/bootstrap";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+.cont-principal {
+    padding: 10px 10px;
+    background-color: white;
+    border-radius: 10px;
+}

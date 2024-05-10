@@ -66,7 +66,7 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_OTHER_HOST', '127.0.0.1'),
             'port' => env('DB_OTHER_PORT', '3306'),
-            'database' => env('DB_OTHER_DATABASE', 'sistema_personal'),
+            'database' => env('DB_OTHER_DATABASE', 'Personal'),
             'username' => env('DB_OTHER_USERNAME', 'root'),
             'password' => env('DB_OTHER_PASSWORD', ''),
             'unix_socket' => env('DB_OTHER_SOCKET', ''),
@@ -150,6 +150,7 @@ return [
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_DB', '0'),
         ],
+
 
         'cache' => [
             'url' => env('REDIS_URL'),
