@@ -5,15 +5,14 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #000000;
-    opacity: 0.7;
+    background: white;
+   
     display: none;
 }
 
 .loading.active{
     display: grid;
     place-content: center;
-
 }
 
 .loader .disable{

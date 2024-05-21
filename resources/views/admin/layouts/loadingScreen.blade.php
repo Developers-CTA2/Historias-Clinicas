@@ -7,13 +7,3 @@
              <div></div>
        </div>
  </section>
-
-
- <!-- <section class="loading active">
-       <div class="lds-ring">
-             <div></div>
-             <div></div>
-             <div></div>
-             <div></div>
-       </div>
- </section> -->

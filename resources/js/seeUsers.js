@@ -6,7 +6,7 @@ import traducciones from "./helpers/translate-gridjs.js";
 import "gridjs/dist/theme/mermaid.css";
 
 $(function () {
-    disableLoading();
+ 
     initialData();
 
     async function initialData() {
@@ -163,7 +163,7 @@ $(function () {
         } catch (error) {
             console.log(error);
         } finally {
-            disableLoading();
+           //disableLoading();
         }
     }
 });

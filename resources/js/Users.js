@@ -229,56 +229,6 @@ async function requestDelete(Username) {
 
 
 
-
-
-    // $.ajax({
-    //     type: "POST",
-    //     url: "eliminar-usuario", // Ruta desde la vista Blade
-    //     data: {
-    //         Codigo: Username,
-    //         _token: $('meta[name="csrf-token"]').attr("content"), // token
-    //     },
-    //     success: function (response) {
-    //         const { status, msg } = response;
-
-    //         if (status == 200) {
-    //             //Alerta de confirmacion
-    //             let timerInterval;
-    //             timerInterval = AlertaSweerAlert(
-    //                 2000,
-    //                 "¡Éxito!",
-    //                 msg,
-    //                 "success",
-    //                 1
-    //             );
-
-    //             //showModalWithMessage("¡Éxito!", msg, 4000);
-    //         } else {
-    //             //Alerta de confirmacion
-    //             let timerInterval;
-    //             timerInterval = AlertaSweerAlert(
-    //                 2000,
-    //                 "¡Error!",
-    //                 msg,
-    //                 "success",
-    //                 0
-    //             );
-    //         }
-    //     },
-    //     error: function () {
-    //         //Alerta de confirmacion
-    //         let timerInterval;
-    //         timerInterval = AlertaSweerAlert(
-    //             3000,
-    //             "¡Error!",
-    //             "Hubo un error en el sistema, por favor intenta más tarde.",
-    //             "error",
-    //             1
-    //         );
-    //     },
-    // });
-}
-
 function requestEdit(id_usuario, Code, Nombre_Usuario, Rol_usuario) {
     console.log(id_usuario, Rol_usuario);
     $.ajax({

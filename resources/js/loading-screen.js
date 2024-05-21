@@ -11,7 +11,4 @@ export function disableLoading() {
     ldsRing.addClass("disable");
 }
 
-window.addEventListener('load', function() {
-    // var container = document.querySelector('.container');
-    // container.classList.remove('loading');
-});
+ 
