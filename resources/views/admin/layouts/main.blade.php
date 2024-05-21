@@ -40,7 +40,8 @@
         <main class="container-custom" id="main-container">
 
             <h2 class="titleView-custom">@yield('titleView')</h2>
-            @yield('breadCrumb')
+              @include('admin.layouts.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+
             @yield('content')
         </main>
     </div>

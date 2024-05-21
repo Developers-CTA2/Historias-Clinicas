@@ -18,12 +18,20 @@ use Illuminate\Contracts\Mail\Mailable;
 
 class UserController extends Controller
 {
+
     public function userDetails($id)
     {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', 'url' => route('users')],
+            ['name' => 'Detalles', '' => ''],
+
+        ];
+
+       // return view('admin.View-Users', compact('breadcrumbs'));
         $usuario = User::findOrFail($id); // Encuentra al usuario por su ID                   
         $roleName = $usuario->roles->first()->name; // Consulta el tipo de rol del usuario
-
-        return view('admin.User-Details', compact('usuario', 'roleName'));
+        $count = 0;
+        return view('admin.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count'));
     }
 
     public function store(Request $request)
@@ -168,6 +176,25 @@ class UserController extends Controller
         return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
     }
 
+    public function breadCrumb()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', '' => ''],
+
+        ];
+
+        return view('admin.View-Users', compact('breadcrumbs'));
+    }
+    public function breadCrumbAdd()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', 'url' => route("users")],
+            ['name' => 'Agregar usuario', '' => ''],
+
+        ];
+
+        return view('admin.Add-User', compact('breadcrumbs'));
+    }
 
 
     /*

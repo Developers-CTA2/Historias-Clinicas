@@ -24,9 +24,7 @@ class User extends Authenticatable
         'user_name',
         'estado',
         'password',
+        'email',
+        'cedula',
     ];
-
-
-
-
 }

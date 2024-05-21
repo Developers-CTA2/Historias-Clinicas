@@ -224,7 +224,7 @@
     </div>
 
     <!-- Datos AHF  -->
-    <div class="row pb-3 mt-4 ahf-data d-none">
+    <div class="row pb-3 mt-4 ahf-data ">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -282,7 +282,7 @@
     </div>
 
     <!-- Datos APNP  -->
-    <div class="row pb-3 mt-4 apnp-data d-none">
+    <div class="row pb-3 mt-4 apnp-data ">
         <div class="row pt-1">
             <div class="col-12 content-custom">
                 <div class="row">
@@ -359,7 +359,7 @@
     </div>
 
     <!-- Formulario para los datos APP  -->
-    <div class="row pb-3 mt-4 job-data d-none">
+    <div class="row pb-3 mt-4 job-data">
         <div class="row pt-1">
             <div class="col-12 content-custom">
 

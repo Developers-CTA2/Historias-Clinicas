@@ -10,14 +10,14 @@
 {{-- @section('titleView','Estadistica') --}}
 
 
-@section('breadCrumb')
+{{-- @section('breadCrumb')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active" aria-current="page">Revisa la ultima información</li>
     </ol>
 </nav>
    
-@endsection
+@endsection --}}
 
 @section('content')
 <div class="container">

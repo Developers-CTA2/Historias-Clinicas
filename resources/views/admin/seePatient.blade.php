@@ -6,17 +6,6 @@
     @vite('resources/sass/Forms-Styles.scss')
 @endsection
 
-<!-- Esto no se que hace pero lo puse jsjsjsj -->
-@section('breadCrumb')
-    <nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a class="item-custom-link" href="{{ route('showPatients') }}">Pacientes</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Lista de pacientes</li>
-        </ol>
-    </nav>
-@endsection
 
 @section('content')
     <div class="container">

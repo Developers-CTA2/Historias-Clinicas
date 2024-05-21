@@ -3,29 +3,16 @@
 @section('title', 'Agregar nuevo paciente')
 
 @section('viteConfig')
-@vite(['resources/sass/sideBar.scss','resources/sass/loadingScreen.scss', 'resources/sass/StyleForm.scss','resources/sass/colorButtons.scss', 'resources/sass/bar.scss','resources/js/app.js'])
-@endsection
-
-<!-- Esto no se que hace pero lo puse jsjsjsj -->
-@section('breadCrumb')
-<nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a class="item-custom-link" href="{{ route('home') }}">Usuarios</a>
-        </li>
-        <li class="breadcrumb-item active" aria-current="page">Dar de alta</li>
-    </ol>
-    <span class="text-end">{{ now()->setTimezone('America/Mexico_City')->format('d F Y') }}</span>
-</nav>
+@vite( 'resources/sass/StyleForm.scss')
 @endsection
 
 @section('content')
 <div class="container ">
-    <div>
+    {{-- <div>
         <h4 class="fw-bold">Agregar un usuario</h4>
         <h5>Ingresa los datos correspondientes</h5>
-    </div>
-    <hr>
+    </div> --}}
+   
     <div id="paso1" class="mb-5">
         <div class="mt-1 col-12 d-flex align-items-center" id="texto">
             <p style="font-size: 0.9rem;"> Escribe el código del usuario a agregar</p>

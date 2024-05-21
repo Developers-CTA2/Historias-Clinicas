@@ -26,7 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $breadcrumbs = [
+            ['name' => 'Home', '' => ''],
+
+        ];
+        
+        return view('home',compact('breadcrumbs'));
     }
 
     public function counts()

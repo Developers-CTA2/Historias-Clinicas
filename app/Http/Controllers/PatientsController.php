@@ -40,4 +40,16 @@ class PatientsController extends Controller
 
         return response()->json(['results' => $formattedData, 'count' => $count]);
     }
+
+
+    public function breadCrumb()
+    {
+        $breadcrumbs = [
+            ['name' => 'Pacientes', '' => ''],
+        ];
+        
+        return view('admin.seePatient', compact('breadcrumbs'));
+    }
 }
+
+

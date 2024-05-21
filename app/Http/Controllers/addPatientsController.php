@@ -45,9 +45,15 @@ class addPatientsController extends Controller
     //METODO PARA OBTENER LOS TIPOS DE AHF
     public function showForm()
     {
+
+        $breadcrumbs = [
+            ['name' => 'Pacientes', 'url' => route('showPatients')],
+            ['name' => 'Agregar paciente', ''=> ''],
+
+        ];
         $tipos_ahf = Tipo_ahf::all();
         $toxicomania = Toxicomanias::all();
-        return view('admin.AddPatient', compact('tipos_ahf','toxicomania'));
+        return view('admin.AddPatient', compact('tipos_ahf','toxicomania','breadcrumbs'));
     }
 
     public function getEnfermedadesRelacionadas($tipoAHFId)

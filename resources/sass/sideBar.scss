@@ -18,6 +18,17 @@
     transform: scale(1.4); /* Aumenta de tamaño */
 }
 
+/* Caso de ser un svg */ 
+.animated-icon svg {
+    transition: transform 0.3s ease-in-out;
+}
+
+.animated-icon:hover svg {
+    transform: scale(1.4); /* Aumenta de tamaño */
+}
+
+
+
 /* Sidebar Component Styles */
 .sideBar-custom {
     width: 280px;

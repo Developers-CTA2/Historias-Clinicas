@@ -13,4 +13,19 @@
 .card .card-header {
     color: white;
     background-color: $primary;
+    position: relative;
+}
+
+.bg-blue {
+    background-color: $primary;
+    color: white;
+}
+
+.btn-custom-close{
+    position: absolute;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    right: 2px;
 }

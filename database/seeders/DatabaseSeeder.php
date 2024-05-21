@@ -74,6 +74,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'Alecs',
             'user_name' => '286579',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('1234'),
         ])->assignRole(2);
 
@@ -81,6 +82,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'LOMELI ZERMEÑO JAZMIN',
             'user_name' => '2166104',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
 
@@ -88,6 +90,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'CTA',
             'user_name' => '010101',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(1);
 
@@ -95,6 +98,8 @@ class DatabaseSeeder extends Seeder{
             'name' => 'SOLANO GUZMÁN EDUARDO',
             'user_name' => '2921073',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
+            'cedula' => '12771247',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(1);
 
@@ -102,6 +107,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'GONZALEZ RAMIREZ JOSELIN',
             'user_name' => '2175917',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
 
@@ -110,6 +116,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'GONZÁLEZ CERVANTES JUAN LUIS',
             'user_name' => '2726319',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(3);
 
@@ -117,6 +124,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'DOMINGUEZ PADILLA JUAN PEDRO',
             'user_name' => '2168827',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(1);
 
@@ -124,6 +132,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'GÓMEZ FRANCO LUIS FRANCISCO',
             'user_name' => '2965531',
             'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(3);
 

@@ -2,11 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\addPatientsController;
 
 
@@ -43,16 +41,15 @@ Route::get('/users', function () {
     return view('admin.View-Users');
 })->name('users');
 Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('obt-usuarios');
+Route::get('/users', [UserController::class, 'breadCrumb'])->name('users');
 
 Route::get('/add-user', function () {
     return view('admin.Add-User');
 })->name('add-user');
 
+Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('add-user');
+
 Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('user-details');
-
-
-
-
 
 //Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
@@ -68,15 +65,17 @@ Route::post('/Verify-password', [UserController::class, 'verifyPass'])->name('Ve
 Route::post('/Change-password', [UserController::class, 'ChangePassword'])->name('Change-password');
 
 ///// REGISTROS DE PACIENTES
-
 Route::get('/agregar_paciente', function () {
     return view('admin.AddPatient');
 })->name('showForm');
 
+
+
+///// VER PACIENTES
 Route::get('/ver_pacientes', function () {
     return view('admin.seePatient');
 })->name('showPatients');
-
+Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
 Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
 
 Route::get('/expediente/{id}', function ($id) {
