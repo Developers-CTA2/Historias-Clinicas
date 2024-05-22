@@ -163,7 +163,7 @@ $(function () {
         } catch (error) {
             console.log(error);
         } finally {
-           //disableLoading();
+           disableLoading();
         }
     }
 });

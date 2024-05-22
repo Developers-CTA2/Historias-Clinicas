@@ -1,18 +1,43 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-
 import {AlertaSweerAlert} from "./helpers/Alertas.js";
-
 import { activeLoading, disableLoading } from "./loading-screen.js";
+import { validarCampo } from "./helpers/ValidateFuntions.js";
 
 $(document).ready(function () {
-    disableLoading();
-
-    buscarUsuario(); // buscar
-    resetPass(); // clic en card de resetear contraseña
-    confirmDelete();
-    confirmEdit();
+   console.log("Users")
+    //EditUser
+    ClicEditUser();
 });
+
+function ClicEditUser(){
+    $("#EditUser").off("click");
+    $("#EditUser").click(function (e) {
+        Confirm();
+     });
+}
+
+
+function Confirm() {
+    Swal.fire({
+        title: "¿Estás seguro de editar los datos?",
+        text: "Revisa que los datos sean correctos",
+        icon: "warning",
+        showCancelButton: true,
+        reverseButtons: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, editar",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+              console.log("Validar datos para guardar")
+        }
+    });
+}
+
+
+
 
 /* Buscar mediante ajax coincidencias en la barra de busqueda */
 function buscarUsuario() {
@@ -223,6 +248,7 @@ async function requestDelete(Username) {
         );
 
         console.log(error);
+    }
     }
 
 

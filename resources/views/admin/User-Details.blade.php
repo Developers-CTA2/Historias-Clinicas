@@ -6,18 +6,6 @@
     @vite(['resources/sass/User-Details.scss'])
 @endsection
 
-<!-- Esto no se que hace pero lo puse jsjsjsj -->
-@section('breadCrumb')
-    <nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a class="item-custom-link" href="{{ route('users') }}">Usuarios</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Detalles</li>
-        </ol>
-    </nav>
-@endsection
-
 @section('content')
     <div class="container ml-2">
         <!-- Card para mostrar todos los datos  -->
@@ -196,7 +184,7 @@
 
 @endsection
 
-{{-- 
-@section('content')
 
-@endsection --}}
+@section('scripts')
+    @vite('resources/js/Users.js')
+@endsection
