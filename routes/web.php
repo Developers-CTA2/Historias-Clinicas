@@ -50,8 +50,10 @@ Route::get('/add-user', function () {
 Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('add-user');
 
 Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('user-details');
+Route::post('/edit-user', [UserController::class, 'Update'])->name('edit-user');
 
-//Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
+
+    //Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');
 Route::post('/editar-usuario', [UserController::class, 'Update'])->name('editar-usuario');
 Route::post('/agregar-usuario', [UserController::class, 'store'])->name('agregar-usuario');
 Route::post('/eliminar-usuario', [UserController::class, 'delete'])->name('eliminar-usuario');
@@ -59,7 +61,6 @@ Route::post('/verificar-codigo', [UserController::class, 'CheckUsers'])->name('v
 
 //CheckUsers
 ///// SEGURIDAD  
-Route::post('/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
 
 Route::post('/Verify-password', [UserController::class, 'verifyPass'])->name('Verify-password');
 Route::post('/Change-password', [UserController::class, 'ChangePassword'])->name('Change-password');

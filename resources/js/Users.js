@@ -1,40 +1,141 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import {AlertaSweerAlert} from "./helpers/Alertas.js";
+import { AlertaSweerAlert } from "./helpers/Alertas.js";
 import { activeLoading, disableLoading } from "./loading-screen.js";
-import { validarCampo } from "./helpers/ValidateFuntions.js";
+import { validarCampo, ocultarerr } from "./helpers/ValidateFuntions.js";
+import { regexCorreo, regexNumero } from "./helpers/Regex.js";
 
 $(document).ready(function () {
-   console.log("Users")
+    console.log("Users")
     //EditUser
     ClicEditUser();
 });
 
-function ClicEditUser(){
+function ClicEditUser() {
     $("#EditUser").off("click");
     $("#EditUser").click(function (e) {
-        Confirm();
-     });
-}
-
-
-function Confirm() {
-    Swal.fire({
-        title: "¿Estás seguro de editar los datos?",
-        text: "Revisa que los datos sean correctos",
-        icon: "warning",
-        showCancelButton: true,
-        reverseButtons: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, editar",
-        cancelButtonText: "Cancelar"
-    }).then((result) => {
-        if (result.isConfirmed) {
-              console.log("Validar datos para guardar")
-        }
+        ValidateData()
+        //Confirm();
     });
 }
+
+/* Funcion para confimar que los datos seran editados  */
+async function Confirm(datos) {
+    try {
+        const result = await Swal.fire({
+            title: "¿Estás seguro de editar los datos?",
+            text: "Revisa que los datos sean correctos",
+            icon: "warning",
+            showCancelButton: true,
+            reverseButtons: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, editar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                RequestEdit(datos)
+            }
+        });
+    } catch (error) {
+        // Manejo de errores
+        console.error(error);
+    }
+}
+
+/* Funcion para validar los datos ingresados en el modal de edición */ 
+function ValidateData() {
+    // Jalamos los nuevos datos
+    //let V_email = validarCampo($("#email").val().trim(), regexCorreo, "#email");
+
+    var email = $("#m-email").val().trim();
+    var cedula = $("#m-cedula").val().trim();
+    var type = $("#user-type").val();
+    var status = $("#m-estado").val();
+
+    let V_email = validarCampo(email, regexCorreo, "#m-email");
+    let V_type = validarCampo(type, regexNumero, "#user-type");
+    let v_status = validarCampo(status, regexNumero, "#m-estado");
+    console.log(cedula)
+    let V_cedula = true;
+    if (cedula !== "") {
+        V_cedula = validarCampo(cedula, regexNumero, "#m-cedula");
+    } else {
+        V_cedula = true;
+        ocultarerr("#m-cedula")
+    }
+    console.log(V_cedula)
+
+    if (V_cedula, V_email, V_type, v_status) {
+        window.id = $("#detalles-container").data("id");
+
+        const datos = {
+            Id: id,
+            Cedula: cedula,
+            Email: email,
+            Status: status,
+            Type: type,
+        };
+        Confirm(datos);
+    }
+}
+
+/* Peticion al controlador para cambiar la contraseña */
+async function RequestEdit(Data) {
+    console.log(Data);
+    activeLoading();
+    try {
+        const response = await axios.post("/edit-user", Data);
+        console.log(response.data)
+        const { data } = response
+        const { status, msg, errors } = data;
+        let timerInterval;
+        disableLoading();
+       
+        if (status == 200) {
+           
+            timerInterval = AlertaSweerAlert(
+                2500,
+                "¡Éxito!",
+                msg,
+                "success",
+                1
+            );
+
+        } else if(status == 202){
+             showErrors(errors);
+        }
+    } catch (error) {
+        disableLoading();
+        console.log("Error")
+        console.log(error)
+    }
+}
+
+
+function showErrors(errors){
+    if (errors) {
+        const errorList = $('#errorList');
+        errorList.empty(); // Limpiar la lista de errores existente
+        $.each(errors, function (key, value) {
+            // Agregar cada mensaje de error como un elemento de lista a la lista de errores
+            $.each(value, function (index, errorMessage) {
+                errorList.append($('<li>').text(errorMessage));
+            });
+        });
+        // Mostrar la alerta de error
+        $('#errorAlert').show();
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -155,57 +256,11 @@ function saveEdit(Id) {
     });
 }
 
-/* Peticion al controlador para cambiar la contraseña */
-async function requestResetPass(Username) {
-    activeLoading();
-
-    const datos = {
-        Name: Username,
-    };
-    console.log(datos);
-
-    try {
-        const response = await axios.post("/reset-password", datos);
-        const { data } = response;
-        const { status, msg } = data;
-         let timerInterval;
-        disableLoading();
-        if (status == 200) {
-           
-            //Alerta de confirmacion
-           
-            timerInterval = AlertaSweerAlert(
-                2000,
-                "¡Éxito!",
-                msg,
-                "success",
-                0
-            ); 
-            // showModalWithMessage("¡Éxito!", msg, 4000);
-        } else {
-          
-           timerInterval = AlertaSweerAlert("¡Error!", msg, "error", 0);
-        }
-    } catch (error) {
-        disableLoading();
-        //Alerta de confirmacion
-       
-        timerInterval = AlertaSweerAlert(
-            3000,
-            "¡Error!",
-            "Algo salio mal, intentalo otra vez.",
-            "error",
-            0
-        );
-
-        console.log(error);
-    }
-}
 
 /* Peticion al controlador para eliminar a un usuario */
 async function requestDelete(Username) {
 
- activeLoading();
+    activeLoading();
 
     const datos = {
         Codigo: Username,
@@ -216,10 +271,10 @@ async function requestDelete(Username) {
         const response = await axios.post("/eliminar-usuario", datos);
         const { data } = response;
         const { status, msg } = data;
-         let timerInterval;
+        let timerInterval;
         disableLoading();
         if (status == 200) {
-           
+
             //Alerta de confirmacion
             timerInterval = AlertaSweerAlert(
                 2000,
@@ -227,18 +282,18 @@ async function requestDelete(Username) {
                 msg,
                 "success",
                 0
-            ); 
+            );
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
         } else {
-          
-           timerInterval = AlertaSweerAlert("¡Error!", msg, "error", 0);
+
+            timerInterval = AlertaSweerAlert("¡Error!", msg, "error", 0);
         }
     } catch (error) {
         disableLoading();
         //Alerta de confirmacion
-       
+
         timerInterval = AlertaSweerAlert(
             3000,
             "¡Error!",
@@ -249,78 +304,10 @@ async function requestDelete(Username) {
 
         console.log(error);
     }
-    }
-
-
-
-
-
-function requestEdit(id_usuario, Code, Nombre_Usuario, Rol_usuario) {
-    console.log(id_usuario, Rol_usuario);
-    $.ajax({
-        type: "POST",
-        url: "editar-usuario", // Ruta desde la vista Blade
-        data: {
-            Id: id_usuario,
-            Username: Code,
-            Name: Nombre_Usuario,
-            Rol: Rol_usuario,
-            _token: $('meta[name="csrf-token"]').attr("content"), // token
-        },
-        success: function (response) {
-            const { status, msg } = response;
-            console.log(response);
-            if (status == 200) {
-                $("#EditData").modal("hide"); // Ocultar el modal de confirmacion
-                //Alerta de confirmacion
-                let timerInterval;
-                timerInterval = AlertaSweerAlert(
-                    2000,
-                    "¡Éxito!",
-                    msg,
-                    "success",
-                    0
-                );
-                //showModalWithMessage("¡Éxito!", msg, 4000);
-            } else {
-                $("#EditData").modal("hide"); // Ocultar el modal de confirmacion
-                //showModalWithMessage("¡Error!", msg, 4000);
-                //Alerta de confirmacion
-                let timerInterval;
-                timerInterval = AlertaSweerAlert(
-                    2000,
-                    "¡Error!",
-                    msg,
-                    "Error",
-                    0
-                );
-            }
-        },
-        error: function () {
-            //Alerta de confirmacion
-            let timerInterval;
-            timerInterval = AlertaSweerAlert(
-                3000,
-                "¡Error!",
-                "Hubo un error en el sistema, por favor intenta más tarde.",
-                "Error",
-                0
-            );
-        },
-    });
 }
 
-/* Modal para mostrar exito o error */
-function showModalWithMessage(estado, texto, time) {
-    // Cambia el texto del modal con el mensaje recibido
-    $("#title").text(estado);
-    $("#texto-info").text(texto);
-    // Muestra el modal
-    $("#InfoModal").modal("show");
 
-    // Cerrar el modal después de 3 segundos y recargar la página
-    setTimeout(function () {
-        location.reload(); // Esto recargará la página
-    }, time);
-}
 
+
+ 
+ 

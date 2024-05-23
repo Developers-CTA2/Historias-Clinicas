@@ -15,20 +15,51 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
+    // Breadcrumb para la vista de agregar usuario 
+    public function breadCrumbAdd()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', 'url' => route("users")],
+            ['name' => 'Agregar usuario', '' => ''],
 
+        ];
+
+        return view('admin.Add-User', compact('breadcrumbs'));
+    }
+
+    // Breadcrumb para la vista de ver usuarios 
+    public function breadCrumb()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', '' => ''],
+
+        ];
+
+        return view('admin.View-Users', compact('breadcrumbs'));
+    }
+
+    // Funcion para ver los detalles del usuario selecciondo 
     public function userDetails($id)
     {
+        $usuario = User::find($id);
+        if (!$usuario) {
+            $breadcrumbs = [
+                ['name' => 'Usuarios', '' => ''],
+
+            ];
+            return view('admin.View-Users', compact('breadcrumbs'));
+        }
+
         $breadcrumbs = [
             ['name' => 'Usuarios', 'url' => route('users')],
             ['name' => 'Detalles', '' => ''],
 
         ];
-
-       // return view('admin.View-Users', compact('breadcrumbs'));
-        $usuario = User::findOrFail($id); // Encuentra al usuario por su ID                   
         $roleName = $usuario->roles->first()->name; // Consulta el tipo de rol del usuario
         $count = 0;
         return view('admin.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count'));
@@ -78,7 +109,7 @@ class UserController extends Controller
                     $user->name = $nombre;
                     $user->password = bcrypt('Cu@ltos2024');
                     $user->save(); // Guarda el usuario en la base de datos
-
+    
                     $role = Role::find($Rol); //Buscar si el rol existe
                     if ($role) {
                         $user->syncRoles($role);  // Asignarle su rol 
@@ -93,6 +124,103 @@ class UserController extends Controller
 
         return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
     }
+
+
+    /*
+        Funcion para mostrar todos los usuarios del sistema a excepcion de usuario de la sesion
+    */
+    public function showUser(Request $request)
+    {
+        $offset = $request->input('offset', 0);
+        $limit = $request->input('limit', 10);
+        $search = $request->input('search', '');
+
+        $query = User::query();
+
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'like', "%$search%")
+                    ->orWhere('users.user_name', 'like', "%$search%")
+                    ->orWhere('users.estado', 'like', "%$search%");
+            });
+        }
+
+        $users = $query
+            ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
+            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
+            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+            ->where('users.id', '!=', auth()->user()->id)
+            ->get();
+
+        return response()->json([
+            'results' => $users,
+            'count' => $users->count(),
+        ]);
+    }
+    /*
+     Funcion para actualizar los datos de un usuario
+    */
+    public function update(Request $request)
+    {
+        // Errores en español 
+        $messages = [
+            'Id.required' => 'El campo ID es obligatorio.',
+            'Id.numeric' => 'El campo ID debe ser un número.',
+            'Id.exists' => 'El usuario no existe en la base de datos.',
+            'Email.required' => 'El campo Email es obligatorio.',
+            'Email.email' => 'El campo Email debe ser una dirección de correo válida.',
+            'Type.required' => 'El campo Tipo es obligatorio.',
+            'Type.numeric' => 'El campo Tipo debe ser un número.',
+            'Type.in' => 'El campo Tipo de usuario no es válido.',
+            'Status.required' => 'El campo Estado es obligatorio.',
+            'Status.numeric' => 'El campo Estado debe ser un número.',
+            'Status.in' => 'El campo Estado no es válido.',
+            'Cedula.numeric' => 'El campo Cedula debe ser un número válido.',
+        ];
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'Id' => 'required|numeric|exists:users,id',
+            'Email' => 'required|email',
+            'Type' => 'required|numeric|in:1,2,3',
+            'Status' => 'required|numeric|in:1,2',
+            'Cedula' => 'nullable|numeric',
+        ], $messages);
+
+        // Error en algun dato
+        if ($validator->fails()) {
+            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+        }
+
+        $Id = $request['Id'];
+        $Email = $request['Email'];
+        $Tipo = intval($request['Type']);
+        $Status = $request['Status'];
+        $Cedula = $request['Cedula'];
+        
+        if ($Status == 1) {
+            $Status = "Activo";
+        } else {
+            $Status = "Inactivo";
+        }
+        $user = User::where('id', $Id)->first();
+
+        if ($user) {
+            DB::transaction(function () use ($Email, $Tipo, $Status, $Cedula, $user) {
+                $user->update([
+                    'email' => $Email,
+                    'estado' => $Status,
+                    'cedula' => $Cedula,
+                    'updated_at' => now(),
+                ]);
+                $user->syncRoles([$Tipo]);
+            });
+
+            return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
+        } else {
+            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+        }
+    }
+
 
     /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
     public function CheckUsers(Request $request)
@@ -120,7 +248,7 @@ class UserController extends Controller
             } else {
                 $nombre = $administrativo->nombre;
                 // Si el código existe y no hay usuario asociado
-                return response()->json(['status' => 200, 'msg' =>  $nombre, 'code' => $username]);
+                return response()->json(['status' => 200, 'msg' => $nombre, 'code' => $username]);
             }
         }
     }
@@ -176,58 +304,9 @@ class UserController extends Controller
         return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
     }
 
-    public function breadCrumb()
-    {
-        $breadcrumbs = [
-            ['name' => 'Usuarios', '' => ''],
-
-        ];
-
-        return view('admin.View-Users', compact('breadcrumbs'));
-    }
-    public function breadCrumbAdd()
-    {
-        $breadcrumbs = [
-            ['name' => 'Usuarios', 'url' => route("users")],
-            ['name' => 'Agregar usuario', '' => ''],
-
-        ];
-
-        return view('admin.Add-User', compact('breadcrumbs'));
-    }
 
 
-    /*
-        Funcion para mostrar todos los usuarios del sistema a ecepcion de usuario de la sesion
-    */
-    public function showUser(Request $request)
-    {
-        $offset = $request->input('offset', 0);
-        $limit = $request->input('limit', 10);
-        $search = $request->input('search', '');
 
-        $query = User::query();
-
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('users.name', 'like', "%$search%")
-                    ->orWhere('users.user_name', 'like', "%$search%")
-                    ->orWhere('users.estado', 'like', "%$search%");
-            });
-        }
-
-        $users = $query
-            ->select('users.id','users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
-            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('users.id', '!=', auth()->user()->id)
-            ->get();
-
-        return response()->json([
-            'results' => $users,
-            'count' => $users->count(),
-        ]);
-    }
 
 
     /*
@@ -295,53 +374,5 @@ class UserController extends Controller
     }
 
 
-    public function Update(Request $request)
-    {
 
-        if (Auth::check()) {
-            // Obtén el nombre de usuario de la solicitud AJAX
-            $username = $request->input('Username');
-            $Name = $request->input('Name');
-            $Id = $request->input('Id');
-            $Rol = $request->input('Rol');
-
-
-            if (!preg_match('/^[0-9]{7,10}$/', $username) || !preg_match('/^[a-zA-ZáÁéÉíÍóÓúÚÑñ ]+$/', $Name) || $Rol == "" || $Id == "") {
-                return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-            }
-
-            // Verificar que el rol exista 
-            $Rol = Role::where('id', $Rol)->first();
-
-            if ($Rol) { // Si existe el rol 
-
-                // Busca al usuario por el ID 
-                $user = User::where('user_name', $username)->where('id', '!=', $Id)->first();
-
-                if ($user) {  //Exsite ya un usuario con el nuevo código que se desea editar
-
-                    return response()->json(['status' => 404, 'msg' => '¡Error! Ya existe otro usuario con el código ' . $username . '.']);
-                } else {  // Si se llego a cambiar al código y esta disponible. 
-                    $user = User::where('id', $Id)->first();
-
-                    DB::transaction(function () use ($user, $username, $Name, $Id, $Rol) {
-
-                        $user->update([
-                            'name' => $Name,
-                            'user_name' => $username,
-                        ]);
-                        // Asignamos el rol 
-                        $user->syncRoles([$Rol]);
-                    });
-
-                    return response()->json(['status' => 200, 'msg' => '¡Éxito! Los datos del usuario fueron modificados.'],);
-                }
-            } else { // No existe el rol 
-
-                return response()->json(['status' => 404, 'msg' => '¡Error! Hubo un error al realizar la petición ya que un dato es inválido. ' . $username . '.']);
-            }
-
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al realizar la petición.']);
-        }
-    }
 }
