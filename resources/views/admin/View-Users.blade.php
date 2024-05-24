@@ -37,9 +37,6 @@
 
 
 
-
-
-
 @section('scripts')
-    @vite('resources/js/seeUsers.js')
+    @vite('resources/js/users/seeUsers.js')
 @endsection

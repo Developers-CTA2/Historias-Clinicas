@@ -136,6 +136,22 @@ class DatabaseSeeder extends Seeder{
             'password' => Hash::make('Aa@1'),
         ])->assignRole(3);
 
+        User::create([
+            'name' => 'DE ANDA GARCÍA LLIN LU GUADALUPE',
+            'user_name' => '2725819',
+            'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
+            'password' => Hash::make('Aa@1'),
+        ])->assignRole(3);
+
+        User::create([
+            'name' => 'RAMÍREZ RODRÍGUEZ VIRGINIA',
+            'user_name' => '9205195',
+            'estado' => 'Activo',
+            'email' => 'ejemplo@gmail.com',
+            'password' => Hash::make('Aa@1'),
+        ])->assignRole(2);
+
        
 
         Tipo_ahf::insert($Tipo_AHF);

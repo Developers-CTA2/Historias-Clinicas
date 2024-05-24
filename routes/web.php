@@ -51,6 +51,8 @@ Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('add-use
 
 Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('user-details');
 Route::post('/edit-user', [UserController::class, 'Update'])->name('edit-user');
+Route::post('/desactive-user', [UserController::class, 'Desactive'])->name('desactive-user');
+
 
 
     //Route::get('/usuarios', [UserController::class, 'show'])->name('usuarios');

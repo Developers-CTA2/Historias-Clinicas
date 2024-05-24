@@ -67,7 +67,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'codigo' => 'required',
             'nombre' => 'required',
@@ -221,7 +220,63 @@ class UserController extends Controller
         }
     }
 
+    public function Desactive(Request $request)
+    {
+        $data = $request->validate([
+            'Id' => 'required|numeric|',
+        ]);
 
+        $Id = intval($data['Id']);
+    
+          
+        $user = User::where('id', $Id)->first();
+
+        if ($user) {
+            DB::transaction(function () use ($user) {
+                $user->update([
+                    'estado' => "Inactivo",
+                    'updated_at' => now(),
+                ]);
+            });
+
+            return response()->json(['status' => 200, 'msg' => 'Se elimino el acceso al sistema.']);
+        } else {
+            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
     public function CheckUsers(Request $request)
     {

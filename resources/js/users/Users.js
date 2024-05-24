@@ -1,9 +1,9 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "./helpers/Alertas.js";
-import { activeLoading, disableLoading } from "./loading-screen.js";
-import { validarCampo, ocultarerr } from "./helpers/ValidateFuntions.js";
-import { regexCorreo, regexNumero } from "./helpers/Regex.js";
+import { AlertaSweerAlert } from "../helpers/Alertas.js";
+import { activeLoading, disableLoading } from "../loading-screen.js";
+import { validarCampo, ocultarerr } from "../helpers/ValidateFuntions.js";
+import { regexCorreo, regexNumero } from "../helpers/Regex.js";
 
 $(document).ready(function () {
     console.log("Users")
@@ -83,8 +83,9 @@ function ValidateData() {
 /* Peticion al controlador para cambiar la contraseña */
 async function RequestEdit(Data) {
     console.log(Data);
-    activeLoading();
+    
     try {
+        activeLoading();
         const response = await axios.post("/edit-user", Data);
         console.log(response.data)
         const { data } = response

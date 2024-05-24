@@ -42,16 +42,28 @@
     border: 1.5px solid $primary;
  }
  
+ .btn-sec{
+    border: 1.5px solid $blue-sec;
+ }
 
 /* Estilo base para el botón */
 .btn-blue-sec {
-    border: 1.5px solid $blue-sec;
+    border: 1.5px solid $green-sec;
  }
+
+ /* Cuando el boton se muestra pero esta inabilitado */ 
+.disabled{
+    opacity: .5;
+ }
+
+
+
 
 /* caso de tener un svg de imagen */ 
 .btn-blue-sec svg,
 .btn-blue-red svg, 
-.btn-blue-blue svg{
+.btn-blue-blue svg,
+.btn-sec svg{
     fill: currentColor; /* Hace que el SVG herede el color del texto */
     transition: fill 0.3s;
 }
@@ -60,7 +72,8 @@
 
 .btn-blue,
 .btn-red, 
-.btn-blue-sec {
+.btn-blue-sec,
+.btn-sec {
     color: black; /* Color del texto */
     border-radius: 5px;
     background-color: transparent; /* Fondo transparente */
@@ -79,6 +92,11 @@
     background-color: $primary; /* Cambiar el color de fondo */
 }
 
+.btn-sec:hover,
+.btn-sec:active {
+    color: white; /* Cambiar el color del texto */
+    background-color: $blue-sec; /* Cambiar el color de fondo */
+}
 
 
 /* Estilo para el botón cuando se pasa el cursor sobre él */
@@ -92,7 +110,7 @@
 .btn-blue-sec:hover,
 .btn-blue-sec:active {
     color: white; /* Cambiar el color del texto */
-    background-color: $blue-sec; /* Cambiar el color de fondo */
+    background-color: $green-sec; /* Cambiar el color de fondo */
 }
 
 .btn-blue-sec:hover svg,
@@ -100,6 +118,8 @@
 .btn-blue:hover svg,
 .btn-blue:active svg,
 .btn-red:hover svg,
-.btn-red:active svg {
+.btn-red:active svg,
+.btn-sec:hover svg,
+.btn-sec:active svg{
     fill: white; /* Cambiar el color del SVG */
 }
