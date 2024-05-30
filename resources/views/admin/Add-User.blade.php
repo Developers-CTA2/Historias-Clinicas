@@ -21,7 +21,7 @@
                     <p class="text-center p-0">Escribe el código del usuario a agregar.</p>
                     <div class="col-12 d-flex justify-content-center p-0 gap-2  mt-0">
 
-                        <div class="form-group ">
+                        <div class="form-group">
                             <label for="code">Código </label>
                             <input class="form-control form-disabled" type="text" name="code" id="code" maxlength="9">
                             <span class="text-danger fw-normal" style=" display: none;">Código no
@@ -39,7 +39,7 @@
                         </div>
                     </div>
 
-                    <div class="cont-user-data mt-3">
+                    <div class="cont-user-data mt-3 d-none">
                         {{-- Contenedor de los datos personales del usuario --}}
                         <div class="row col-12 mx-2 p-1">
                             <h5 class="p-0 m-0"> Datos personales </h5>

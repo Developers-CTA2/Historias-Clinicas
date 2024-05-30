@@ -6,6 +6,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\addPatientsController;
+use App\Http\Controllers\EndPointPersonsController;
 
 
 
@@ -52,6 +53,11 @@ Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('add-use
 Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('user-details');
 Route::post('/edit-user', [UserController::class, 'Update'])->name('edit-user');
 Route::post('/desactive-user', [UserController::class, 'Desactive'])->name('desactive-user');
+
+
+Route::post('/End-Point-Persons', [EndPointPersonsController::class, 'getUser'])->name('End-Point-Persons');
+
+
 
 
 
