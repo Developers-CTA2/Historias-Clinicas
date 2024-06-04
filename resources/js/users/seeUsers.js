@@ -112,14 +112,14 @@ async function initialData() {
                         if (status === "Activo") {
                             statusHtml = html(
                                 `<div class="d-flex justify-content-center gap-2">
-                            <a href="/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
                             <button data-id="${row.cells[0].data}" class="btn-red fst-normal tooltip-container inhabilitar-button" type="button">Inhabilitar<span class="tooltip-text">Quitar acceso</span>  </button>
                          </div>`
                             );
                         } else {
                          statusHtml = html(
                              `<div class="d-flex justify-content-center gap-2">
-                            <a href="/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
                             <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled" type="button" disabled>Inhabilitar</button>
                          </div>`
                          );
@@ -154,7 +154,7 @@ async function initialData() {
                 },
             },
             server: {
-                url: "/obt-usuarios?",
+                url: "/users/obt-usuarios?",
                 then: (data) => {
                     console.log("Datos del servidor:", data);
                     // Mapear los datos según tu lógica
@@ -227,7 +227,7 @@ async function RequestEdit(Id) {
     };
 
     try {
-        const response = await axios.post("/desactive-user", Data);
+        const response = await axios.post("/users/desactive-user", Data);
         console.log(response.data);
         const { data } = response;
         const { status, msg } = data;

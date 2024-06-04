@@ -23,12 +23,14 @@
 
                         <div class="form-group">
                             <label for="code">Código </label>
-                            <input class="form-control form-disabled" type="text" name="code" id="code" maxlength="9">
+                            <input class="form-control form-disabled" type="text" name="code" id="code"
+                                maxlength="9">
                             <span class="text-danger fw-normal" style=" display: none;">Código no
                                 válido.</span>
                         </div>
                         <div class="mt-3">
-                            <button class="btn-sec fst-normal tooltip-container mt-2 px-2 py-1" type="button" id="Search">
+                            <button class="btn-sec fst-normal tooltip-container mt-2 px-2 py-1" type="button"
+                                id="Search">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 26 26">
                                     <path
                                         d="M10 .188A9.812 9.812 0 0 0 .187 10A9.812 9.812 0 0 0 10 19.813c2.29 0 4.393-.811 6.063-2.125l.875.875a1.845 1.845 0 0 0 .343 2.156l4.594 4.625c.713.714 1.88.714 2.594 0l.875-.875a1.84 1.84 0 0 0 0-2.594l-4.625-4.594a1.824 1.824 0 0 0-2.157-.312l-.875-.875A9.812 9.812 0 0 0 10 .188M10 2a8 8 0 1 1 0 16a8 8 0 0 1 0-16M4.937 7.469a5.446 5.446 0 0 0-.812 2.875a5.46 5.46 0 0 0 5.469 5.469a5.516 5.516 0 0 0 3.156-1a7.166 7.166 0 0 1-.75.03a7.045 7.045 0 0 1-7.063-7.062c0-.104-.005-.208 0-.312" />
@@ -58,17 +60,19 @@
                         </div>
                         {{-- Contenedor de los datos del usuario --}}
                         <div class="row col-12 mx-2 p-1 mt-1">
-                            <h5 class="p-0 m-0"> Datos del usuario </h5>
+                            <h5 class="p-0 m-0"> Selecciona el rol del usuario </h5>
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="form-group col-12 pt-2">
                                     {{-- <p class="fw-bold mb-0">Tipo de usuario</p> --}}
                                     <label for="Usertype">Tipo de usuario <span class="red-color"> *</span></label>
                                     <select class="form-control" id="Usertype" name="Usertype">
+                                        <option value="" disabled selected>Selecciona</option>
                                         <option value="1">Doctor</option>
                                         <option value="2">Prestador de medicina</option>
                                         <option value="3">Prestador de nutrición</option>
                                     </select>
-
+                                    <span class="text-danger fw-normal" style=" display: none;">Tip de usuario no
+                                        válido.</span>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -76,24 +80,25 @@
                                     <label for="Useremail">Correo <span class="red-color"> *</span></label>
                                     <input class="form-control form-disabled mb-2" type="text" name="Useremail"
                                         id="Useremail">
+                                    <span class="text-danger fw-normal" style=" display: none;">Correo no válido.</span>
                                 </div>
 
-                                <div class="form-group col-12 pt-2">
+                                <div class="form-group col-12 pt-2 d-none div-cedula">
                                     <label for="Usercedula">Cedula <span class="red-color"> *</span></label>
                                     <input class="form-control form-disabled mb-2" type="text" name="Usercedula"
                                         id="Usercedula">
+                                    <span class="text-danger fw-normal" style=" display: none;">Cedula no válido.</span>
+
                                 </div>
                             </div>
-
                         </div>
-
-
-
+                        {{-- Botones  --}}
                         <div class="col-12 p-0 mt-2">
                             <div class="row">
                                 <div class="d-flex justify-content-end">
                                     <div class="mx-2">
-                                        <a href="{{ route('users') }}" class="btn-red fst-normal tooltip-container p-1">
+                                        <a href="{{ route('users.users') }}"
+                                            class="btn-red fst-normal tooltip-container p-1">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 1024 1024">
                                                 <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
@@ -105,8 +110,8 @@
                                         </a>
                                     </div>
                                     <div class="">
-                                        <button href="" class="btn-sec fst-normal tooltip-container p-1"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#EditData">
+                                        <button class="btn-sec fst-normal tooltip-container p-1 d-none" id="save-user"
+                                            type="button">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24">
                                                 <path
@@ -125,7 +130,7 @@
                         <div class="row">
                             <div class="d-flex justify-content-end">
                                 <div class="mx-2">
-                                    <a href="{{ route('users') }}" class="btn-red fst-normal tooltip-container p-1">
+                                    <a href="{{ route('users.users') }}" class="btn-red fst-normal tooltip-container p-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 1024 1024">
                                             <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
@@ -136,13 +141,9 @@
                                         <span class="tooltip-text">Volver a la ventana anterior.</span>
                                     </a>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-
-
                 </div>
             </div>
         </div>

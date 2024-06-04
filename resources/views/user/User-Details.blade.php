@@ -51,15 +51,15 @@
                                 </div>
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Rol/Tipo de usuarios:</p>
-                                    <div class="mt-0" id="User_Name">{{ $roleName }}</div>
+                                    <div class="mt-0" id="User_Role">{{ $roleName }}</div>
                                 </div>
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Fecha de ingreso al sistema:</p>
-                                    <div class="mt-0" id="User_Name">{{ $usuario->created_at }}</div>
+                                    <div class="mt-0" >{{ $usuario->created_at }}</div>
                                 </div>
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Estado:</p>
-                                    <div class="mt-0" id="User_Name">{{ $usuario->estado }}</div>
+                                    <div class="mt-0" id="User_Status">{{ $usuario->estado }}</div>
                                 </div>
                             </div><!-- Fin de contenedor 2 -->
                         </div>
@@ -69,11 +69,11 @@
                         <div class="row">
                             <div class="d-flex justify-content-end">
                                 <div class="mx-2">
-                                    <a href="{{ route('users')}}" class="btn-red fst-normal tooltip-container">
+                                    <a href="{{ route('users.users') }}" class="btn-red fst-normal tooltip-container">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 1024 1024">
-                                            <path  d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
-                                            <path 
+                                            <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
+                                            <path
                                                 d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
                                         </svg>
                                         Atras
@@ -115,12 +115,22 @@
                             </svg></button>
                     </div>
                     <div class="modal-body">
+                        <div id="Alerta_err" class="p-0 m-0 d-none">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
+                                role="alert">
+                                <p class="p-2 mb-1"> <strong>Ooops! </strong> Parece que no se ha realizado ningun cambio.
+                                </p>
+                                <button class="btn fst-italic animated-icon button-cancel  rigth-0" data-bs-dismiss="alert">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
                         <div class="row d-flex mx-2">
                             <p class="text-center"> Corrige los datos érroneos o que hayan cambiado.</p>
 
 
-                            <div id="errorAlert" class="alert alert-danger alert-dismissible fade show pb-0" role="alert"
-                                style="display: none;">
+                            <div id="errorAlert" class="alert alert-danger alert-dismissible fade show pb-0"
+                                role="alert" style="display: none;">
                                 <strong>¡Ups! Algo salió mal.</strong>
                                 <ul id="errorList"></ul>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
@@ -194,9 +204,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-red py-1" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn-red py-1" data-bs-dismiss="modal">Cerrar</button>
                         {{-- Agregar fill="currentColor"para aplicar la animacion --}}
-                        <button class="btn-blue-sec fst-normal " type="button" id="EditUser">
+                        <button class="btn-blue-sec fst-normal py-1" type="button" id="EditUser">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                 <path fill="currentColor" d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
                             </svg>

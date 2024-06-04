@@ -24,12 +24,12 @@ class UserController extends Controller
     public function breadCrumbAdd()
     {
         $breadcrumbs = [
-            ['name' => 'Usuarios', 'url' => route("users")],
+            ['name' => 'Usuarios', 'url' => route("users.users")],
             ['name' => 'Agregar usuario', '' => ''],
 
         ];
 
-        return view('admin.Add-User', compact('breadcrumbs'));
+        return view('user.Add-User', compact('breadcrumbs'));
     }
 
     // Breadcrumb para la vista de ver usuarios 
@@ -40,7 +40,7 @@ class UserController extends Controller
 
         ];
 
-        return view('admin.View-Users', compact('breadcrumbs'));
+        return view('user.View-Users', compact('breadcrumbs'));
     }
 
     // Funcion para ver los detalles del usuario selecciondo 
@@ -52,75 +52,65 @@ class UserController extends Controller
                 ['name' => 'Usuarios', '' => ''],
 
             ];
-            return view('admin.View-Users', compact('breadcrumbs'));
+            return view('user.View-Users', compact('breadcrumbs'));
         }
 
         $breadcrumbs = [
-            ['name' => 'Usuarios', 'url' => route('users')],
+            ['name' => 'Usuarios', 'url' => route('users.users')],
             ['name' => 'Detalles', '' => ''],
 
         ];
         $roleName = $usuario->roles->first()->name; // Consulta el tipo de rol del usuario
         $count = 0;
-        return view('admin.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count'));
+        return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count'));
     }
 
     public function store(Request $request)
     {
+
         $data = $request->validate([
-            'codigo' => 'required',
-            'nombre' => 'required',
-            'tipo' => 'required',
+            'name' => 'required|string',
+            'code' => 'required|numeric|digits_between:7,9',
+            'email' => 'required|email',
+            'cedula' => 'nullable|numeric',
+            'userType' => 'required|numeric|in:1,2,3',
         ]);
 
-        // Volvemos a validar los datos 
-        if (!preg_match('/^[0-9]{7,10}$/', $data['codigo']) || !preg_match('/^[a-zA-ZáÁéÉíÍóÓúÚÑñ ]+$/', $data['nombre'])) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-        }
+        $code = $data['code'];
+        $name = $data['name'];
+        $email = $data['email'];
+        $cedula = $data['cedula'];
+        $type = $data['userType'];
 
-        // dump($username);
+        //$user = User::where('id', $Id)->first();
 
-        $username = $data['codigo'];
-        $nombre = $data['nombre'];
-        $Rol = $data['tipo'];
-
-        $administrativo = Administrativo::where('codigo', $data['codigo'])->first();
-
-        if (!$administrativo) {
-            return response()->json(['status' => 404, 'msg' => '¡Error! No se encontró un administrativo con el código proporcionado.']);
-        }
-
-        $mail = $administrativo->correo;
-
-        $usuario = User::where('user_name', $username)->first();
-
-        if ($usuario) {
-
-            // Si el nombre ya existe 
-            return response()->json(['status' => 202, 'msg' => '¡Error!, el usuario ya existe en el sistema.']);
+        $users = User::where('user_name', $code)->first();
+        if ($users) {
+            return response()->json(['status' => 202, 'msg' => '¡Error! El usuario ya existe en el sistema.']);
         } else {
 
             DB::transaction(
-                function () use ($username, $nombre, $Rol, $mail) {
+                function () use ($code, $name, $email, $cedula, $users, $type) {
                     // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
                     $user = new User;
-                    $user->user_name = $username;
-                    $user->name = $nombre;
+                    $user->user_name = $code;
+                    $user->name = $name;
+                    $user->email = $email;
+                    $user->cedula = $cedula;
+                    $user->estado = "Activo";
                     $user->password = bcrypt('Cu@ltos2024');
                     $user->save(); // Guarda el usuario en la base de datos
-    
-                    $role = Role::find($Rol); //Buscar si el rol existe
+
+                    $role = Role::find($type); //Buscar si el rol existe
                     if ($role) {
                         $user->syncRoles($role);  // Asignarle su rol 
                     }
                     // Envío de correo electrónico
-                    Mail::to($mail)->send(new RegistroMail($username));
+                   // Mail::to($mail)->send(new RegistroMail($username));
                 }
             );
-
-            return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
+                    return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
         }
-
         return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
     }
 
@@ -195,7 +185,7 @@ class UserController extends Controller
         $Tipo = intval($request['Type']);
         $Status = $request['Status'];
         $Cedula = $request['Cedula'];
-        
+
         if ($Status == 1) {
             $Status = "Activo";
         } else {
@@ -227,8 +217,8 @@ class UserController extends Controller
         ]);
 
         $Id = intval($data['Id']);
-    
-          
+
+
         $user = User::where('id', $Id)->first();
 
         if ($user) {
@@ -276,7 +266,7 @@ class UserController extends Controller
 
 
 
-    
+
     /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
     public function CheckUsers(Request $request)
     {
@@ -427,7 +417,4 @@ class UserController extends Controller
             return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al realizar la petición.']);
         }
     }
-
-
-
 }

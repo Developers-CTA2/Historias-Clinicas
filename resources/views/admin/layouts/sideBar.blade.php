@@ -91,7 +91,7 @@
                     <div class="collapse Sub_menu bg-primary-custom pt-2" id="Admin">
                         <ul class="list-unstyled m-0">
                             <li class="d-flex">
-                                <a href="" class="sublink-custom-nav py-1 animated-icon">
+                                <a href="{{ route('admin.diseases') }}" class="sublink-custom-nav py-1 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-3">Enfermedades</span>
                                 </a>
@@ -123,14 +123,14 @@
                         <div class="collapse Sub_menu bg-primary-custom pt-2" id="usuarios">
                             <ul class="list-unstyled m-0">
                                 <li class="d-flex">
-                                    <a href="{{ route('users') }}" class="sublink-custom-nav py-1 animated-icon">
+                                    <a href="{{ route('users.users') }}" class="sublink-custom-nav py-1 animated-icon">
                                         <i class="fa-regular fa-address-book"></i>
                                         <span class="ms-3">Ver</span>
                                     </a>
                                 </li>
                                 @role('Administrador')
                                     <li class="d-flex">
-                                        <a href="{{ route('add-user') }}" class="sublink-custom-nav py-2 animated-icon">
+                                        <a href="{{ route('users.add-user') }}" class="sublink-custom-nav py-2 animated-icon">
                                             <i class="fa-solid fa-file-circle-plus"></i>
                                             <span class="ms-3">Agregar</span>
                                         </a>
