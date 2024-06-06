@@ -9,6 +9,8 @@ use App\Http\Controllers\addPatientsController;
 use App\Http\Controllers\EndPointPersonsController;
 use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\SpecificDiseasesController;
+use App\Http\Controllers\AllergiesController;
+use App\Http\Controllers\AddictionsController;
 
 
 
@@ -58,24 +60,33 @@ Route::middleware('auth')->group(function () {
     });
 
 
+    /*  ADMINISTRACION  */
     Route::prefix('admin')->group(function () {
-        /*  ADMINISTRACION  */
-
-        Route::get('/diseases', [DiseasesController::class, 'breadCrumb'])->name('admin.diseases');
+        // DISEASES
+        Route::get('/diseases', [DiseasesController::class, 'Diseases_View'])->name('admin.diseases');
         Route::get('/obt-diseases', [DiseasesController::class, 'showdiseases'])->name('obt-diseases');
         Route::post('/edit-diseases', [DiseasesController::class, 'Update_disease'])->name('edit-diseases');
+        Route::post('/add-diseases', [DiseasesController::class, 'Store_disease'])->name('add-diseases');
 
-
-        Route::get('/specific-diseases', function () {
-            return view('administrar.View-Especifics');
-        })->name('admin/specific-diseases');
-        Route::get('/specific-diseases', [SpecificDiseasesController::class, 'breadCrumb'])->name('admin/specific-diseases');
-
+        // SPECIFIC
+        Route::get('/specific-diseases', [SpecificDiseasesController::class, 'specific_View'])->name('admin/specific-diseases');
         Route::get('/obt-specific-diseases', [SpecificDiseasesController::class, 'showdiseases'])->name('obt-specific-diseases');
         Route::post('/edit-specific-diseases', [SpecificDiseasesController::class, 'Update_specific'])->name('edit-specific-diseases');
+        Route::post('/add-specific-diseases', [SpecificDiseasesController::class, 'Store_specific'])->name('add-specific-diseases');
+
+        // ALLERGIES
+        Route::get('/allergies', [AllergiesController::class, 'Allergies_View'])->name('admin.allergies');
+        Route::get('/obt-allergies', [AllergiesController::class, 'showAllergies'])->name('obt-allergies');
+        Route::post('/edit-allergies', [AllergiesController::class, 'Update_allergies'])->name('edit-allergies');
+        Route::post('/add-allergy', [AllergiesController::class, 'Store_allergy'])->name('add-allergy');
+
+        // ADICTIONS
+        Route::get('/addictions', [AddictionsController::class, 'Addictions_View'])->name('admin.addictions');
+        Route::get('/obt-addictions', [AddictionsController::class, 'showdaddictions'])->name('obt-addictions');
+        Route::post('/edit-addictions', [AddictionsController::class, 'Update_addictions'])->name('edit-addictions');
+        Route::post('/add-addiction', [AddictionsController::class, 'Store_addiction'])->name('add-addiction');
+
     });
-
-
 
 
 
@@ -105,7 +116,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
     Route::get('/agregar_paciente', [AddPatientsController::class, 'showForm'])->name('showForm');
     Route::get('/enfermedades-relacionadas/{tipoAHFId}', [AddPatientsController::class, 'getEnfermedadesRelacionadas'])->name('enfermedades-relacionadas');
-
 
 
     // Verificar rol 

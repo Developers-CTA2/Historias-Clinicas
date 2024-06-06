@@ -59,16 +59,35 @@ class DatabaseSeeder extends Seeder{
 
         //Tipo de Toxicomanias
         $Toxicomanias = [
-            ['id' => 1, 'nombre' => 'Tabaquismo'],
-            ['id' => 2, 'nombre' => 'Alcoholismo'], 
+            ['id' => 1, 'nombre' => 'Alcoholismo'],
+            ['id' => 2, 'nombre' => 'Tabaquismo'], 
+            ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
+            ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
+            ['id' => 6, 'nombre' => 'Adicción a cannabis'],
+            ['id' => 7, 'nombre' => 'Adicción a alucinógenos'], 
+            ['id' => 8, 'nombre' => 'Adicción a Inhalantes'], 
+            ['id' => 9, 'nombre' => 'Adicción a Inhalantes'], 
+            ['id' => 10, 'nombre' => 'Adicción a Drogas de Diseño'], 
         ];
 
         //Tipo de Alergias
+        // $Alergias = [
+        //     ['id_alergia' => 1, 'nombre' => 'Piel'],
+        //     ['id_alergia' => 2, 'nombre' => 'Respiratorias'], 
+        //     ['id_alergia' => 3, 'nombre' => 'Alimenticias'], 
+        // ];
+
         $Alergias = [
-            ['id_alergia' => 1, 'nombre' => 'Piel'],
-            ['id_alergia' => 2, 'nombre' => 'Respiratorias'], 
-            ['id_alergia' => 3, 'nombre' => 'Alimenticias'], 
+            ['id_alergia' => 1, 'nombre' => 'Alergias alimentarias'],
+            ['id_alergia' => 2, 'nombre' => 'Alergias respiratorias'],
+            ['id_alergia' => 3, 'nombre' => 'Alergias cutáneas'],
+            ['id_alergia' => 4, 'nombre' => 'Alergias Medicamentos'],
+            ['id_alergia' => 5, 'nombre' => 'Alergias a picaduras de insectos'],
+            ['id_alergia' => 6, 'nombre' => 'Alergias a animales'],
+            ['id_alergia' => 7, 'nombre' => 'Alergias al látex'],
+            ['id_alergia' => 8, 'nombre' => 'Alergias oculares'],
         ];
+    
     
         User::create([
             'name' => 'Alecs',

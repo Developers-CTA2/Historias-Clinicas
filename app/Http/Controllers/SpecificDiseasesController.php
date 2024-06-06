@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class SpecificDiseasesController extends Controller
 {
-    public function breadCrumb()
+    public function specific_View()
     {
 
         $breadcrumbs = [
@@ -20,7 +20,7 @@ class SpecificDiseasesController extends Controller
         ];
 
         $Types = Tipo_ahf::all();
-        return view('administrar.View-Especifics', ['Types' => $Types], compact('breadcrumbs'));
+        return view('administrar.View-Specific', ['Types' => $Types], compact('breadcrumbs'));
     }
 
     public function showdiseases(Request $request)
@@ -47,10 +47,8 @@ class SpecificDiseasesController extends Controller
         ]);
     }
 
-
     public function Update_specific(Request $request)
     {
-
         // Errores en español 
         $messages = [
             'Tipo.required' => 'El campo Tipo de AHF es obligatorio.',
@@ -78,19 +76,77 @@ class SpecificDiseasesController extends Controller
         $Id_Esp = intval($request['Esp']);
         $Name = $request['Name'];
 
-        $disease = Especificar_ahf::where('id_especifica_ahf', $Id_Esp)->first();
+        $disease = Especificar_ahf::where('id_tipo_ahf', $Id_Type)->where('nombre', $Name)->first();
 
         if ($disease) {
-            DB::transaction(function () use ($Id_Type, $Name, $disease) {
-                $disease->update([
+            return response()->json(['status' => 404, 'msg' => 'Error, el dato ya existe.']);
+        } else {
+
+        $espe = Especificar_ahf::where('id_especifica_ahf', $Id_Esp)->first();
+            DB::transaction(function () use ($Id_Type, $Name, $espe) {
+                $espe->update([
                     'nombre' => $Name,
                     'id_tipo_ahf' => $Id_Type,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
         }
+        return response()->json(['status' => 404, 'msg' => 'Error, intentalo más tarde.']);
+
     }
 
+
+    public function Store_specific(Request $request)
+    {
+        // Errores en español 
+        $messages = [
+            'Type.required' => 'El campo Tipo de AHF es obligatorio.',
+            'Type.numeric' => 'El campo Tipo de AHF debe ser un número.',
+            'Type.exists' => 'El ID de tipo de AHF no existe en la base de datos.',
+            'Name.required' => 'El campo nombre es obligatorio.',
+            'Name.string' => 'El campo nombre debe ser una cadena.',
+        ];
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'Type' => 'required|numeric|exists:tipo_ahf,id_tipo_ahf',
+            'Name' => 'required|string',
+        ], $messages);
+
+        // Error en algun dato
+        if ($validator->fails()) {
+            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+        }
+
+        $Id_type =  intval($request['Type']);
+        $Name = $request['Name'];
+
+        $diseases = Especificar_ahf::where('nombre', $Name)->where('id_tipo_ahf', $Id_type)->first();
+
+        if ($diseases) {
+            return response()->json(['status' => 202, 'msg' => 'El dato ya esta en la base de datos.']);
+        } else {
+            DB::transaction(function () use ($Name, $Id_type) {
+                $disease = new Especificar_ahf;
+                $disease->nombre = $Name;
+                $disease->id_tipo_ahf = $Id_type;
+                $disease->save();
+            });
+            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamnete.']);
+        }
+        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+
+
+        // $disease = Especificar_ahf::where('nombre', $Name)->first();
+
+        // if ($disease) {
+        //     DB::transaction(function () use ($Name, $disease) {
+        //         $disease->update([
+        //             'nombre' => $Name,
+        //         ]);
+        //     });
+        //     return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
+        // } else {
+        //     return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+        // }
+    }
 }

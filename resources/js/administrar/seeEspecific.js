@@ -12,6 +12,7 @@ import { regexLetters, regexNumero } from "../helpers/Regex.js";
 
 $(function () {
     initialData();
+    AddNewDisease();
 });
 
 async function initialData() {
@@ -115,6 +116,28 @@ async function initialData() {
     }
 }
 
+/* Funcion para agregar una nueva enfermedad especifica */
+function AddNewDisease() {
+    $("#Add_disease").off("click");
+    $("#Add_disease").click(function (e) {
+        const type = $("#S_type").val();
+        const name = $("#New_nombre").val();
+
+        console.log(name);
+        let V_type = validarCampo(type, regexNumero, "#S_type");
+        let V_name = validarCampo(name, regexLetters, "#New_nombre");
+        if (name != "" && type != "") {
+            if (V_name && V_type) {
+                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                RequestAdd(name, type);
+            }
+        } else {
+            console.log("fdfdfdfd");
+            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+        }
+    });
+}
+
 /* Funcion para cuando se le de clic al boton de editar enfermedad */
 $(document).on("click", ".edit-disease", function () {
     const type = $(this).data("type");
@@ -151,7 +174,6 @@ function ValitadeData(Id_Type, n_type, n_esp, Id_esp) {
 
     var Name_e = $("#E_nombre").val().trim();
     var Name_Type = $("#E_type").val();
-
     let V_tipo = true;
     if (!Name_Type == 0) {
         validarCampo(Name_Type, regexNumero, "#E_type");
@@ -163,8 +185,8 @@ function ValitadeData(Id_Type, n_type, n_esp, Id_esp) {
     console.log("Nuevos ");
     console.log(Name_Type);
     console.log(Name_e);
-    console.log(V_esp , V_tipo);
- 
+    console.log(V_esp, V_tipo);
+
     /* Verificamos que si haya cambios */
     if ((Id_Type == Name_Type || Name_Type == 0) && n_esp == Name_e) {
         console.log("No hay cambios");
@@ -173,6 +195,9 @@ function ValitadeData(Id_Type, n_type, n_esp, Id_esp) {
         $("#Alerta_err").fadeOut(250).addClass("d-none");
 
         if (V_esp && V_tipo) {
+            if (Name_Type == 0) {
+                Name_Type = Id_Type;
+            }
             Confirm(Name_Type, Id_esp, Name_e);
         }
     }
@@ -203,20 +228,23 @@ async function Confirm(Id_Type, Id_esp, Name_e) {
 }
 
 async function RequestEdit(Id_Tipo, Id_Esp, Name) {
-    console.log(Id_Tipo);
     const Data = {
         Tipo: Id_Tipo,
         Esp: Id_Esp,
         Name: Name,
     };
 
+    console.log(Data);
     try {
-        const response = await axios.post("/edit-diseases", Data);
-         console.log(response.data);
-         const { data } = response;
-         const { status, msg, errors } = data;
-         let timerInterval;
-         disableLoading();
+        const response = await axios.post(
+            "/admin/edit-specific-diseases",
+            Data
+        );
+        console.log(response.data);
+        const { data } = response;
+        const { status, msg, errors } = data;
+        let timerInterval;
+        disableLoading();
 
         if (status == 200) {
             timerInterval = AlertaSweerAlert(
@@ -227,6 +255,42 @@ async function RequestEdit(Id_Tipo, Id_Esp, Name) {
                 1
             );
         } else if (status == 202) {
+              showErrors(errors);
+        } else {
+           timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+        }
+    } catch (error) {
+        disableLoading();
+        console.log("Error");
+        console.log(error);
+    }
+}
+
+async function RequestAdd(name, type) {
+    const Data = {
+        Type: type,
+        Name: name,
+    };
+
+    try {
+        const response = await axios.post("/admin/add-specific-diseases", Data);
+        console.log(response.data);
+        const { data } = response;
+        const { status, msg, errors } = data;
+        let timerInterval;
+        disableLoading();
+
+        if (status == 200) {
+            timerInterval = AlertaSweerAlert(
+                2500,
+                "¡Éxito!",
+                msg,
+                "success",
+                1
+            );
+        } else if (status == 202) {
+            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
+        } else {
             showErrors(errors);
         }
     } catch (error) {
@@ -237,6 +301,7 @@ async function RequestEdit(Id_Tipo, Id_Esp, Name) {
 }
 
 
+/* Funcion que muestra los errores que manda el comtrolador*/
 function showErrors(errors) {
     if (errors) {
         const errorList = $("#errorList");

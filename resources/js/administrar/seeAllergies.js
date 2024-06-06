@@ -12,7 +12,7 @@ import { regexLetters, regexNumero } from "../helpers/Regex.js";
 
 $(function () {
     initialData();
-    AddNewDisease();
+    AddNewAllergy();
 });
 
 async function initialData() {
@@ -22,12 +22,12 @@ async function initialData() {
             columns: [
                 {
                     id: "Tipo",
-                    name: "Tipo",
+                    name: "id",
                     hidden: true,
                 },
                 {
                     id: "name",
-                    name: "Enfermedad",
+                    name: "Nombre",
 
                     formatter: (_, row) =>
                         html(
@@ -41,7 +41,7 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-sec fst-normal tooltip-container py-1 px-2 edit-disease" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-diseasse">
+                            <button class="btn-sec fst-normal tooltip-container py-1 px-2 edit-allergy" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-allergy">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <path
@@ -71,13 +71,13 @@ async function initialData() {
                 },
             },
             server: {
-                url: "/admin/obt-diseases?",
+                url: "/admin/obt-allergies?",
                 then: (data) => {
                     console.log("Datos del servidor:", data);
                     // Mapear los datos según tu lógica
 
                     return data.results.map((results) => [
-                        results.id_tipo_ahf,
+                        results.id_alergia,
                         results.nombre,
                     ]);
                 },
@@ -101,7 +101,7 @@ async function initialData() {
             },
             resizable: true,
             language: traducciones,
-        }).render(document.getElementById("Tabla-Diseases"));
+        }).render(document.getElementById("Tabla-Especific-Allergies"));
     } catch (error) {
         console.log(error);
     } finally {
@@ -110,20 +110,21 @@ async function initialData() {
 }
 
 /* Funcion para cuando se le de clic al boton de editar enfermedad */
-$(document).on("click", ".edit-disease", function () {
+$(document).on("click", ".edit-allergy", function () {
     const id = $(this).data("id");
     const name = $(this).data("name");
-    $("#E_nombre").val(name);
+    $("#A_nombre").val(name);
     /* Clic al boton */
-    $("#E_disease").off("click");
-    $("#E_disease").click(function (e) {
+    $("#E_allergy").off("click");
+    $("#E_allergy").click(function (e) {
         ValitadeData(id, name);
     });
 });
 
-function AddNewDisease() {
-    $("#Add_disease").off("click");
-    $("#Add_disease").click(function (e) {
+/* Funcion para validar el dato cuando se agrega una neuva alergia al sistema */
+function AddNewAllergy() {
+    $("#Add_allergy").off("click");
+    $("#Add_allergy").click(function (e) {
         const name = $("#New_nombre").val().trim();
 
         console.log(name);
@@ -134,7 +135,7 @@ function AddNewDisease() {
                 RequestAdd(name);
             }
         } else {
-            console.log("fdfdfdfd")
+            console.log("fdfdfdfd");
             $("#Alerta_add").fadeIn(250).removeClass("d-none");
         }
     });
@@ -142,7 +143,7 @@ function AddNewDisease() {
 
 /* Funcion para validar que los datos sean correctos */
 function ValitadeData(id, name) {
-    var new_name = $("#E_nombre").val().trim();
+    var new_name = $("#A_nombre").val().trim();
     /* Verifcamos si hay cambios */
     if (new_name != name) {
         $("#Alerta_err").fadeOut(250).addClass("d-none");
@@ -191,7 +192,7 @@ async function RequestEdit(id, name) {
     };
 
     try {
-        const response = await axios.post("/admin/edit-diseases", Data);
+        const response = await axios.post("/admin/edit-allergies", Data);
         console.log(response.data);
         const { data } = response;
         const { status, msg, errors } = data;
@@ -216,13 +217,14 @@ async function RequestEdit(id, name) {
     }
 }
 
+/* Funcion para llamar al controlador y agregar una nueva alergia */ 
 async function RequestAdd(name) {
     const Data = {
         Name: name,
     };
 
     try {
-        const response = await axios.post("/admin/add-diseases", Data);
+        const response = await axios.post("/admin/add-allergy", Data);
         console.log(response.data);
         const { data } = response;
         const { status, msg, errors } = data;
@@ -256,7 +258,7 @@ async function RequestAdd(name) {
 }
  
 
-/* Funcion que muestra los errores que manda el comtrolador */
+/* Funcion que muestra los errores que manda el comtrolador*/
 function showErrors(errors) {
     if (errors) {
         const errorList = $("#errorList");

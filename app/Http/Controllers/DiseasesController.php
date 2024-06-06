@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class DiseasesController extends Controller
 {
-    public function breadCrumb()
+    public function Diseases_View()
     {
         $breadcrumbs = [
             ['name' => 'Enfermedades', '' => ''],
@@ -18,8 +18,44 @@ class DiseasesController extends Controller
         ];
 
         $Types = Tipo_ahf::all();
-        return view('administrar.View-Enfermedades', ['Types' => $Types], compact('breadcrumbs'));
+        return view('administrar.View-Diseases', ['Types' => $Types], compact('breadcrumbs'));
     }
+
+    public function Store_disease(Request $request){
+        // Errores en español 
+        $messages = [
+            'Name.required' => 'El campo nombre es obligatorio.',
+            'Name.string' => 'El campo nombre debe ser una cadena.',
+        ];
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'Name' => 'required|string',
+        ], $messages);
+
+        // Error en algun dato
+        if ($validator->fails()) {
+            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+        }
+        $Name = $request['Name'];
+        $diseases = Tipo_ahf::where('nombre', $Name)->first();
+
+        if($diseases){
+            return response()->json(['status' => 202, 'msg' => 'La tipo de enfermedad ya esta resgistrada en el sistema.']);
+
+        }else{
+            DB::transaction(function () use ($Name) {
+                $disease = new Tipo_ahf;
+                $disease->nombre = $Name;
+                $disease->save();
+            });
+            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamente.']);
+
+        }
+        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+
+    }
+
+
 
     public function showdiseases(Request $request){
         $offset = $request->input('offset', 0);
@@ -44,12 +80,6 @@ class DiseasesController extends Controller
 
 
     public function Update_disease(Request $request){
-
-/*
-   Id: id,
-        Name: name,
-*/
-
         // Errores en español 
         $messages = [
             'Id.required' => 'El campo Tipo de AHF es obligatorio.',
