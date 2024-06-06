@@ -16,6 +16,7 @@ class Especificar_ahf extends Model
 
     protected $fillable = [
         'nombre',
+        'id_tipo_ahf',
     ];
 
     public function tipo_ahf()
