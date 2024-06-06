@@ -11,6 +11,7 @@ use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\SpecificDiseasesController;
 use App\Http\Controllers\AllergiesController;
 use App\Http\Controllers\AddictionsController;
+use App\Http\Controllers\ProfileController;
 
 
 
@@ -56,7 +57,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/End-Point-Persons', [EndPointPersonsController::class, 'getUser'])->name('End-Point-Persons');
         Route::post('/edit-user', [UserController::class, 'Update'])->name('users.edit-user');
         Route::post('/new-user', [UserController::class, 'store'])->name('new-user');
-
     });
 
 
@@ -85,11 +85,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/obt-addictions', [AddictionsController::class, 'showdaddictions'])->name('obt-addictions');
         Route::post('/edit-addictions', [AddictionsController::class, 'Update_addictions'])->name('edit-addictions');
         Route::post('/add-addiction', [AddictionsController::class, 'Store_addiction'])->name('add-addiction');
-
     });
 
-
-
+    Route::prefix('profile')->group(function () {
+        Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details');
+    });
+    
     ///// SEGURIDAD  
     Route::post('/Verify-password', [UserController::class, 'verifyPass'])->name('Verify-password');
     Route::post('/Change-password', [UserController::class, 'ChangePassword'])->name('Change-password');
