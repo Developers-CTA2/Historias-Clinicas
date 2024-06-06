@@ -3,7 +3,7 @@
 @section('title', 'Usuarios')
 
 @section('viteConfig')
-    @vite('resources/sass/Forms-Styles.scss')
+    @vite(['resources/sass/Forms-Styles.scss', 'resources/sass/users.scss'])
 @endsection
 
 @section('content')
@@ -26,12 +26,6 @@
             <div id="Tabla-Usuarios"></div>
         </div>
     </div>
-
-
-
-
-
-
 
 @endsection
 
