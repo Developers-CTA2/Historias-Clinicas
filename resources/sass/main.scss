@@ -1,0 +1,15 @@
+@import 'variables';
+
+.title-size-sm {
+    font-size: 1.2rem;
+}
+
+.hr-custom {
+    border: 1px solid #dadada;
+}
+
+label {
+    color: $label-color;
+    font-weight: 700;
+}
+

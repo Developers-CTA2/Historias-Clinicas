@@ -18,6 +18,7 @@
 
     <!-- Cargar scripts que utilizan jQuery y Bootstrap -->
     @vite(['resources/sass/sideBar.scss',  'resources/js/modal.js', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/SideBar.js'])
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
 
 </head>
 
@@ -37,7 +38,7 @@
         {{-- <main class="container-custom border">
            
         </main> --}}
-        <main class="container-custom" id="main-container">
+        <main class="container-custom d-flex flex-column align-items-center" id="main-container">
 
             <h2 class="titleView-custom">@yield('titleView')</h2>
               @include('admin.layouts.breadcrumb', ['breadcrumbs' => $breadcrumbs])

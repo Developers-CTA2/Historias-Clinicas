@@ -5,7 +5,7 @@
 // Variables
 @import "variables";
 // Estilos de los botones y de los tooltips 
-@import "buttons";
+@import "Buttons";
 
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
@@ -42,6 +42,12 @@
 
 }
 
+
+/* Styles for input form*/
+.form-control{
+    border: 2px solid #dadada !important;
+    // background-color: $bg-light !important;
+}
 .Cont-edit:hover{
     cursor: pointer;
 }

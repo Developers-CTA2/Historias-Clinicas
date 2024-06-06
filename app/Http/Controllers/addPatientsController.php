@@ -42,6 +42,8 @@ class addPatientsController extends Controller
         }
     }
 
+    
+
     //METODO PARA OBTENER LOS TIPOS DE AHF
     public function showForm()
     {

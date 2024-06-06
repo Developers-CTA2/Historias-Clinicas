@@ -123,3 +123,9 @@
 .btn-sec:active svg{
     fill: white; /* Cambiar el color del SVG */
 }
+
+
+.btn-secondary-custom{
+    background-color: $button-secondary !important;
+    color: $white !important;
+}

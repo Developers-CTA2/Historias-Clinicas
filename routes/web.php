@@ -6,6 +6,7 @@ use App\Http\Controllers\PatientsController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\addPatientsController;
+use App\Http\Controllers\WebServicePersonController;
 use App\Http\Controllers\EndPointPersonsController;
 use App\Http\Controllers\DiseasesController;
 use App\Http\Controllers\SpecificDiseasesController;
