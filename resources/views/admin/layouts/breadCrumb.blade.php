@@ -1,4 +1,4 @@
-<nav  class="d-flex justify-content-center justify-content-md-start" aria-label="breadcrumb">
+<nav  class="" aria-label="breadcrumb">
     <ol class="breadcrumb">
         @foreach ($breadcrumbs as $breadcrumb)
             <li class="breadcrumb-item">
