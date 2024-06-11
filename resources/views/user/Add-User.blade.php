@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="cont-user-data mt-3 d-none">
+                    <div class="cont-user-data mt-3 d-none animate__backInUp">
                         {{-- Contenedor de los datos personales del usuario --}}
                         <div class="row col-12 mx-2 p-1">
                             <h5 class="p-0 m-0"> Datos personales </h5>
@@ -126,7 +126,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12 p-0 mt-2 buttons-cont">
+                    <div class="col-12 p-0 mt-2 buttons-cont animate__fadeOut">
                         <div class="row">
                             <div class="d-flex justify-content-end">
                                 <div class="mx-2">

@@ -90,6 +90,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('profile')->group(function () {
         Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details');
+        Route::post('/verify-password', [ProfileController::class, 'verifyPass'])->name('verify-password');
+        Route::post('/change-password', [ProfileController::class, 'changePass'])->name('change-password');
     });
     
     ///// SEGURIDAD  

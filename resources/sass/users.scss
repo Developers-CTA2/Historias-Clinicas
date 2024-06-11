@@ -29,6 +29,7 @@
     right: 2px;
 }
 
+
 .cont-user-data{
     border-radius: 10px;
     border: 1px solid #dad8d8;
@@ -39,7 +40,7 @@
 
 } 
 
-/* Imagenes de la tabla*/ 
+/* Imagenes de la tabla */ 
 .avatar{
     background-size: cover; 
     background-position: center;
@@ -49,7 +50,6 @@
     border: 1px solid #b1b1b1;
     cursor: pointer;   
 }
-
 /* Imagen segun el rol del usuario*/ 
 .avatar-Doctor{
    
@@ -57,6 +57,7 @@
 }
 
 .avatar-Pasante-m{
+   
     background-image: url('/public/images/doctor.png');  
 }
 

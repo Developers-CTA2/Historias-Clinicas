@@ -29,7 +29,7 @@
                                     d="M13.228 2.688a2 2 0 0 0-2.456 0l-8.384 6.52C1.636 9.795 2.05 11 3.003 11H4v8a2 2 0 0 0 2 2h4v-6a2 2 0 1 1 4 0v6h4a2 2 0 0 0 2-2v-8h.997c.952 0 1.368-1.205.615-1.791z" />
                             </g>
                         </svg>
-                        <span class="ms-3 text-md-custom compressed-text">Agenda</span>
+                        <span class="ms-3 text-md-custom compressed-text">Inicio</span>
                     </a>
                 </li>
                 <li class="ms-2 d-flex">
