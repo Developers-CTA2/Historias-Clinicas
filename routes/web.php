@@ -13,6 +13,7 @@ use App\Http\Controllers\SpecificDiseasesController;
 use App\Http\Controllers\AllergiesController;
 use App\Http\Controllers\AddictionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CitasController;
 
 
 
@@ -131,3 +132,17 @@ Route::middleware('auth')->group(function () {
 Route::get('/agendar_citas', function () {
     return view('admin.agenda');
 })->name('showAgenda');
+Route::get('/agendar_citas', [CitasController::class, 'agenda'])->name('showAgenda');
+Route::get('/citas-dia', [CitasController::class, 'citasDelDia']);
+
+Route::get('/citas', function () {
+    return view('admin.citas');
+})->name('showCitas');
+
+Route::get('/citas', [CitasController::class, 'mostrarCitas'])->name('showCitas');
+Route::post('/guardar-cita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+
+
+
+
