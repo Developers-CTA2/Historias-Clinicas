@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\addPatientsController;
 use App\Http\Controllers\EndPointPersonsController;
+use App\Http\Controllers\CitasController;
 
 
 
@@ -108,4 +109,17 @@ Route::middleware('role:admin')->group(function () {
 Route::get('/agendar_citas', function () {
     return view('admin.agenda');
 })->name('showAgenda');
+Route::get('/agendar_citas', [CitasController::class, 'agenda'])->name('showAgenda');
+Route::get('/citas-dia', [CitasController::class, 'citasDelDia']);
+
+Route::get('/citas', function () {
+    return view('admin.citas');
+})->name('showCitas');
+
+Route::get('/citas', [CitasController::class, 'mostrarCitas'])->name('showCitas');
+Route::post('/guardar-cita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+
+
+
 
