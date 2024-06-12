@@ -14,6 +14,7 @@ class Persona_toxicomanias extends Model
     protected $fillable = [
         'cantidad',
         'desde_cuando',
+        'observacion',
     ];
 
     public function toxicomanias()

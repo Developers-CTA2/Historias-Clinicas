@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('persona_alergia', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->foreignId('id_alergia')->nullable()->constrained('alergias', 'id_alergia');
-            $table->string('especificar')->nullable();
+            $table->foreignId('id_alergia')->constrained('alergias', 'id_alergia');
+            $table->string('especificar');
         });
     }
 

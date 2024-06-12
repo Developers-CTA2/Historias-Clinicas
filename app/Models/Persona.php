@@ -64,7 +64,12 @@ class Persona extends Model
         return $this->hasMany(Persona_ahf::class, 'id_persona');
     }
 
-    public function persona_taxicomanias()
+    public function persona_enfermedades()
+    {
+        return $this->hasMany(Persona_enfermedades::class, 'id_persona');
+    }
+
+    public function persona_toxicomanias()
     {
         return $this->hasMany(Persona_toxicomanias::class, 'id_persona');
     }

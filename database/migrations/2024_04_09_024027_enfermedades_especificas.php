@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('especificar_ahf', function (Blueprint $table) {
+        Schema::create('enfermedades_especificas', function (Blueprint $table) {
             $table->id('id_especifica_ahf');
-            $table->foreignId('id_tipo_ahf')->nullable()->constrained('tipo_ahf', 'id_tipo_ahf');
-            $table->string('nombre')->nullable();
+            $table->foreignId('id_tipo_ahf')->constrained('tipos_enfermedades', 'id_tipo_ahf');
+            $table->string('nombre', 150);
         });
     }
     /**
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('especificar_ahf');
+        Schema::dropIfExists('enfermedades_especificas');
     }
 };

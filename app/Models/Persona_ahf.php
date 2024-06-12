@@ -18,6 +18,6 @@ class Persona_ahf extends Model
 
     public function especificar_ahf()
     {
-        return $this->belongsTo(Especificar_ahf::class, 'id_ahf');
+        return $this->belongsTo(Enfermedad_especifica::class, 'id_ahf');
     }
 }

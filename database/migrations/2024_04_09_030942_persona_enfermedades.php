@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('enfermedades', function (Blueprint $table) {
-            $table->id('id_persona');
-            $table->string('nombre')->nullable();
+        Schema::create('persona_enfermedades', function (Blueprint $table) {
+            $table->foreignId('id_persona')->constrained('personas', 'id_persona');
+            $table->foreignId('id_enfermedad')->constrained('enfermedades_especificas', 'id_especifica_ahf');
         });
     }
 
@@ -22,6 +22,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('enfermedades');
+        Schema::dropIfExists('persona_enfermedades');
     }
 };
+
+
+
+
+
