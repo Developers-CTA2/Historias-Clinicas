@@ -10,8 +10,8 @@
     <title>@yield('title')</title>
 
     <!-- Cargar archivos que se usarán en todas las vistas -->
+    
     <script src="{{ asset('js/helpers/generalFuntions.js') }}" defer></script>
-    <script src="{{ asset('js/jquery.min.js') }}" defer></script> <!-- jQuery -->
 
     <!-- Cargar archivos específicos de cada vista -->
     @yield('viteConfig')
@@ -48,7 +48,7 @@
     </div>
 
 
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script> <!-- jQuery -->
     @yield('scripts')
 </body>
 

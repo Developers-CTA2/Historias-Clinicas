@@ -15,6 +15,7 @@ use App\Http\Controllers\AddictionsController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,6 +109,7 @@ Route::middleware('auth')->group(function () {
     })->name('showPatients');
     Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
     Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
+    Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
 
     Route::get('/expediente/{id}', function ($id) {
         return view('admin.expediente');
@@ -120,8 +122,12 @@ Route::middleware('auth')->group(function () {
 
 
     // Verificar rol 
-    Route::middleware('role:admin')->group(function () {
-    });
+
+
+    /* APIS */
+    Route::post('/api/get-person', [WebServicePersonController::class, 'getPersonWebService'])->name('api.get-person');
+    Route::get('/api/get-deseases/{id}', [SpecificDiseasesController::class, 'getSpecificDiseases'])->name('api.get-deseases');
+    
 });
 
 // AGENDAR CITAS

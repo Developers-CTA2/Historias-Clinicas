@@ -10,3 +10,8 @@ export const regexDecimal = /^(?=.*\d)(?:\d*\.\d+|\d+)$/;
 export const regexTelefono = /^[0-9]{10}$/;
 
 export const regexNss = /^[0-9]{11}$/;
+export const regexDescription = /^[a-zA-Z0-9\s.,;:?!'"\-()@#&]+$/;
+
+export const regexNumeroEntero = /^\d+$/;
+export const regexNumlenght2 = /^[0-9]{1,2}$/;
+export const regexAnio = /^[0-9]{4}$/;

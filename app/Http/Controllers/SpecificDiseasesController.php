@@ -149,4 +149,18 @@ class SpecificDiseasesController extends Controller
         //     return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
         // }
     }
+
+    public function getSpecificDiseases($typeId)
+    {
+
+        // Verificar si el tipo de AHF existe
+        $type = Tipo_ahf::find($typeId);
+
+        if (!$type) {
+            return response()->json(['status' => 404, 'msg' => 'El tipo de AHF no existe.'],404);
+        }
+
+        $diseases = Especificar_ahf::where('id_tipo_ahf', $typeId)->get();
+        return response()->json($diseases);
+    }
 }

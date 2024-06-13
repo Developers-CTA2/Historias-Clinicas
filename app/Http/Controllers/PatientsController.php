@@ -42,6 +42,19 @@ class PatientsController extends Controller
     }
 
 
+    public function create(){
+
+    }
+
+
+    public function store(Request $request)
+    {
+            
+        return response()->json(['success' => true]);
+
+    }
+
+
     public function breadCrumb()
     {
         $breadcrumbs = [

@@ -61,13 +61,13 @@ class DatabaseSeeder extends Seeder{
         $Toxicomanias = [
             ['id' => 1, 'nombre' => 'Alcoholismo'],
             ['id' => 2, 'nombre' => 'Tabaquismo'], 
-            ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
-            ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
-            ['id' => 6, 'nombre' => 'Adicción a cannabis'],
-            ['id' => 7, 'nombre' => 'Adicción a alucinógenos'], 
-            ['id' => 8, 'nombre' => 'Adicción a Inhalantes'], 
-            ['id' => 9, 'nombre' => 'Adicción a Inhalantes'], 
-            ['id' => 10, 'nombre' => 'Adicción a Drogas de Diseño'], 
+            // ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
+            // ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
+            // ['id' => 6, 'nombre' => 'Adicción a cannabis'],
+            // ['id' => 7, 'nombre' => 'Adicción a alucinógenos'], 
+            // ['id' => 8, 'nombre' => 'Adicción a Inhalantes'], 
+            // ['id' => 9, 'nombre' => 'Adicción a Drogas de Diseño'], 
+            ['id' => 3, 'nombre' => 'Otras']
         ];
 
         //Tipo de Alergias
