@@ -505,9 +505,9 @@
 
                                                             <div class="form-floating">
                                                                 <textarea class="form-control" placeholder="Especifica la toxicomanía en específico" id="descripcionOtros"></textarea>
-                                                                <label for="descripcionOtros"
-                                                                    class="text-dark">Descripción</label>
+                                                                <label for="descripcionOtros" class="text-dark">Descripción</label>
                                                             </div>
+                                                            <span class="text-danger fw-normal d-none"></span>
                                                         </section>
                                                         <section class="md-w-custom mt-3">
                                                             <button id="addDrugAddiction"

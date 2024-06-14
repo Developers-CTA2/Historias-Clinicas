@@ -78,6 +78,7 @@ export const pathologicalHistory = (params ) => {
                     title : 'Enfermedad',
                     type : 'enfermedad',
                     value: textValueDisease,
+                    idReferenceTable : idValueDisease,
                     reason: 'N/A'
                 }
 
@@ -98,6 +99,7 @@ export const pathologicalHistory = (params ) => {
                     title : 'Alergia',
                     type : 'alergia',
                     value: textValueAllergies,
+                    idReferenceTable : idValueAllergies,
                     reason: description
                 }
 
@@ -119,6 +121,7 @@ export const pathologicalHistory = (params ) => {
                     title : 'Hospitalización',
                     type : 'hospitalizacion',
                     value:formatDateForHumans(date),
+                    idReferenceTable : null,
                     reason: reason
                 }
 
@@ -139,6 +142,7 @@ export const pathologicalHistory = (params ) => {
                 const data = {
                     title : 'Cirugia',
                     type : 'cirugia',
+                    idReferenceTable : null,
                     value:formatDateForHumans(date),
                     reason: reason
                 }
@@ -160,6 +164,7 @@ export const pathologicalHistory = (params ) => {
                 const data = {
                     title : 'Transfusión',
                     type : 'transfusion',
+                    idReferenceTable : null,
                     value:formatDateForHumans(date),
                     reason: reason
                 }
@@ -182,6 +187,7 @@ export const pathologicalHistory = (params ) => {
                     const data = {
                         title : 'Traumatismo',
                         type : 'traumatismo',
+                        idReferenceTable : null,
                         value:formatDateForHumans(date),
                         reason: reason
                     }

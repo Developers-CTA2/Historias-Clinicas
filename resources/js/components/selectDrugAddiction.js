@@ -70,7 +70,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         inputHowOtherDrugs.removeClass('is-invalid border-danger');
         inputHowOtherDrugs.next().addClass('d-none').text('');
         descriptionOtherDrugs.removeClass('is-invalid border-danger');
-        descriptionOtherDrugs.next().addClass('d-none').text('');
+        descriptionOtherDrugs.parent().next().addClass('d-none').text('');
         
 
 
@@ -104,7 +104,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
             inputHowOtherDrugs.addClass('is-invalid border-danger');
             inputHowOtherDrugs.next().text('Debes ingresar un valor').removeClass('d-none');
             descriptionOtherDrugs.addClass('is-invalid border-danger');
-            descriptionOtherDrugs.next().text('Debes ingresar un valor').removeClass('d-none');
+            descriptionOtherDrugs.parent().next().text('Debes ingresar un valor').removeClass('d-none');
             validate = false;
         }
 
@@ -116,7 +116,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
         if(valueDrugAddiction == '2' && valueDescriptionOtherDrugs == ''){
             descriptionOtherDrugs.addClass('is-invalid border-danger');
-            descriptionOtherDrugs.next().text('Debes ingresar un valor').removeClass('d-none');
+            descriptionOtherDrugs.parent().next().text('Debes ingresar un valor').removeClass('d-none');
             validate = false;
         }
 
@@ -146,11 +146,8 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
             description = `Frecuencia de consumo: ${valueHowOtherDrugs} - Descripción: ${valueDescriptionOtherDrugs}`;  
         }
 
-        templateAddListAccordionDrugAddiction
         // ulListDrugAddiction.append(templateAddListDrugAddiction(idValue ,textDrugAddiction));
         accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(idValue ,textDrugAddiction, description));
-
-        console.log(dataDrugAddiction);
 
         clearForm();
         deleteDrugAddiction();
