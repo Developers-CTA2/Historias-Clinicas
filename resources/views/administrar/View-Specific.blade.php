@@ -3,7 +3,7 @@
 @section('title', 'Enfermedades')
 
 @section('viteConfig')
-    @vite(['resources/sass/Forms-Styles.scss', 'resources/sass/diseases.scss'])
+    @vite(['resources/sass/form-style.scss', 'resources/sass/diseases.scss'])
 @endsection
 
 @section('content')

@@ -20,6 +20,6 @@ class Toxicomanias extends Model
 
     public function Persona_toxi()
     {
-        return $this->hasMany(Persona_toxicomanias::class, 'id_toxicomanias');
+        return $this->hasMany(Persona_toxicomanias::class, 'id', 'id_toxicomania');
     }
 }

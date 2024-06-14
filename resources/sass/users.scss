@@ -6,10 +6,6 @@
 // Estilos de los botones y de los tooltips
 @import "buttons";
 
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
-
 .btn-custom-full:hover{
     background-color: $bg-color-opactity-lg;
 }
@@ -52,18 +48,15 @@
 }
 /* Imagen segun el rol del usuario*/ 
 .avatar-Doctor{
-   
     background-image: url('/public/images/doctor_1.png');  
 }
 
 .avatar-Pasante-m{
-   
     background-image: url('/public/images/doctor.png');  
 }
 
 .avatar-Nutricion{
     background-image: url('/public/images/Nutricion.png');  
-
 }
 
 

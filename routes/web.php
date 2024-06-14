@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
 
     /*        USERS        */
     Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'breadCrumb'])->name('users.users');
         Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('users.obt-usuarios');
-        Route::get('/users', [UserController::class, 'breadCrumb'])->name('users.users');
         Route::post('/desactive-user', [UserController::class, 'Desactive'])->name('users.desactive-user');
         Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('users.add-user');
         Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
@@ -94,33 +94,46 @@ Route::middleware('auth')->group(function () {
         Route::post('/verify-password', [ProfileController::class, 'verifyPass'])->name('verify-password');
         Route::post('/change-password', [ProfileController::class, 'changePass'])->name('change-password');
     });
-    
-    ///// SEGURIDAD  
-    Route::post('/Verify-password', [UserController::class, 'verifyPass'])->name('Verify-password');
-    Route::post('/Change-password', [UserController::class, 'ChangePassword'])->name('Change-password');
+
+        Route::prefix('patients')->group(function () {
+        Route::get('/', [PatientsController::class, 'Patients_View'])->name('patients.patients');
+       // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
+        Route::get('/expediente/{id}', [PatientsController::class, 'Patient_details'])->name('admin.expediente');
+
+        // Route::get('/expediente{/id}', function ($id) {
+        //     return view('admin.expediente');
+        // });
+
+      
+        Route::get('/agregar_paciente', function () {
+            return view('admin.AddPatient');
+        })->name('showForm');
+
+    });
 
     ///// REGISTROS DE PACIENTES
-    Route::get('/agregar_paciente', function () {
-        return view('admin.AddPatient');
-    })->name('showForm');
-
+    
 
 
     ///// VER PACIENTES
-    Route::get('/ver_pacientes', function () {
-        return view('admin.seePatient');
-    })->name('showPatients');
-    Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
+   
+    //Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
     Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
-
-    Route::get('/expediente/{id}', function ($id) {
-        return view('admin.expediente');
-    });
 
     //AGREGAR PACIENTE
     Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
     Route::get('/agregar_paciente', [AddPatientsController::class, 'showForm'])->name('showForm');
     Route::get('/enfermedades-relacionadas/{tipoAHFId}', [AddPatientsController::class, 'getEnfermedadesRelacionadas'])->name('enfermedades-relacionadas');
+
+
+    Route::prefix('nutrition')->group(function () {
+        Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details');
+         
+    });
+
+
+
+
 
 
     // Verificar rol 

@@ -14,27 +14,6 @@ class Persona_enfermedades extends Model
         'id_enfermedad',
     ];
 
-
-    // // public function persona()
-    // // {
-    // //     return $this->belongsTo(Persona::class, 'id_persona');
-    // // }
-
-    // // public function persona_enfermedad()
-    // // {
-    // //     return $this->belongsTo(Enfermedad_especifica::class, 'id_enfermedad');
-    // // }
-
-    // public function persona()
-    // {
-    //     return $this->belongsTo(Persona::class, 'id_persona');
-    // }
-
-    // public function persona_enfermedad()
-    // {
-    //     return $this->belongsTo(Enfermedad_especifica::class, 'id_ahf');
-    // }
-
     use HasFactory;
 
     protected $table = 'persona_enfermedades';
@@ -44,8 +23,8 @@ class Persona_enfermedades extends Model
         return $this->belongsTo(Persona::class, 'id_persona');
     }
 
-    public function especificar_ahf()
+    public function enfermedad_especifica()
     {
-        return $this->belongsTo(Enfermedad_especifica::class, 'id_ahf');
+        return $this->belongsTo(Enfermedad_especifica::class, 'id_enfermedad');
     }
 }

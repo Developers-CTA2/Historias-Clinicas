@@ -9,17 +9,18 @@ class Persona_toxicomanias extends Model
 {
     use HasFactory;
 
-    protected $table = 'persona_toxicomanias';
+    protected $table = 'personas_toxicomanias';
 
     protected $fillable = [
         'cantidad',
         'desde_cuando',
         'observacion',
+        'id_toxicomania'
     ];
 
     public function toxicomanias()
     {
-        return $this->belongsTo(Toxicomanias::class, 'id_toxicomania');
+        return $this->belongsTo(Toxicomanias::class, 'id_toxicomania', 'id');
     }
 
     public function persona()

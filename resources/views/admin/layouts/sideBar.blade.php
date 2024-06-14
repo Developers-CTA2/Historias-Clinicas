@@ -49,7 +49,7 @@
                     <div class="collapse Sub_menu bg-primary-custom pt-2" id="Pacientes">
                         <ul class="list-unstyled m-0">
                             <li class="d-flex">
-                                <a href="{{ route('showPatients') }}" class="sublink-custom-nav py-1 animated-icon">
+                                <a href="{{ route('patients.patients') }}" class="sublink-custom-nav py-1 animated-icon">
                                     <i class="fa-regular fa-address-book"></i>
                                     <span class="ms-1 text-md-custom compressed-text">Ver</span>
                                 </a>

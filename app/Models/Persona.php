@@ -22,7 +22,9 @@ class Persona extends Model
         'fecha_nacimiento',
         'sexo',
         'telefono',
+        'telefono_emerge',
         'contacto_emerge',
+        'parentesco_emerge',
         'nss',
         'fecha_registro',
         'religion',
@@ -69,9 +71,9 @@ class Persona extends Model
         return $this->hasMany(Persona_enfermedades::class, 'id_persona');
     }
 
-    public function persona_toxicomanias()
+    public function toxicomanias_persona()
     {
-        return $this->hasMany(Persona_toxicomanias::class, 'id_persona');
+        return $this->hasMany(Persona_toxicomanias::class, 'id_persona', 'id_persona');
     }
 
     public function gyo()
@@ -91,7 +93,7 @@ class Persona extends Model
 
     public function domicilio()
     {
-        return $this->hasMany(Domicilio::class, 'id_persona');
+        return $this->hasOne(Domicilio::class, 'id_persona');
     }
 
     public function consulta()

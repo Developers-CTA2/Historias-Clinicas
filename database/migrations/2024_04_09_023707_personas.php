@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('telefono', 10);
             $table->string('telefono_emerge', 10);
             $table->string('contacto_emerge', 120);
+            $table->string('parentesco_emerge', 60);
             $table->string('nss',12);
             $table->date('fecha_registro');
             $table->string('religion', 50);

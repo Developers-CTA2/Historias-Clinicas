@@ -1,3 +1,55 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
+
+// Variables
+@import "variables";
+// Estilos de los botones y de los tooltips 
+@import "Buttons";
+
+.cont-principal{
+    background-color: $bg-light;
+    padding: 10px;
+}
+.cont-border{
+    border-right:  1px solid gray;
+    height: 80%;
+}
+
+.title-home{
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.rounded-icon{
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.icon-blue{
+background-color: #06285c36;    
+
+}
+
+.icon-blue svg{
+    fill: $primary;
+}
+
+.icon-green{
+background-color: rgba(19, 87, 78, 0.384);    
+
+}
+
+.icon-green svg{
+    fill: rgb(19, 87, 78);
+}
+
+
+
+
+
+
+
+
 /*
     Sombra de la card 
 */
