@@ -14,8 +14,9 @@ class Gyo extends Model
     protected $fillable = [
         'menarca',
         'fecha_um',
-        'c_regulares',
-        'diasxdias',
+        's_gestacion',
+        'ciclos',
+        'dias_x_dias',
         'ivs',
         'parejas_s',
         'gestas',

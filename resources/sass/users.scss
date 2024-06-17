@@ -6,10 +6,6 @@
 // Estilos de los botones y de los tooltips
 @import "buttons";
 
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
-
 .btn-custom-full:hover{
     background-color: $bg-color-opactity-lg;
 }
@@ -19,17 +15,6 @@
     color: #06285c;
 }
 
-/* Header de color azul de las cards */ 
-.card .card-header {
-    color: white;
-    background-color: $primary;
-    position: relative;
-}
-
-.bg-blue {
-    background-color: $primary;
-    color: white;
-}
 /*  Boton de cerrar de color rojo del modal */ 
 .btn-custom-close{
     position: absolute;
@@ -40,10 +25,6 @@
     right: 2px;
 }
 
-/* Asterisco de color rojo que indica campo obligatorio */
-.red-color{
-    color: $red;
-}
 
 .cont-user-data{
     border-radius: 10px;
@@ -55,7 +36,28 @@
 
 } 
 
+/* Imagenes de la tabla */ 
+.avatar{
+    background-size: cover; 
+    background-position: center;
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #b1b1b1;
+    cursor: pointer;   
+}
+/* Imagen segun el rol del usuario*/ 
+.avatar-Doctor{
+    background-image: url('/public/images/doctor_1.png');  
+}
 
+.avatar-Pasante-m{
+    background-image: url('/public/images/doctor.png');  
+}
+
+.avatar-Nutricion{
+    background-image: url('/public/images/Nutricion.png');  
+}
 
 
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('toxicomanias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
+            $table->string('nombre',120);
         });
     }
     /**

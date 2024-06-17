@@ -50,7 +50,7 @@ class addPatientsController extends Controller
     {
 
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('showPatients')],
+            ['name' => 'Pacientes', 'url' => ''],
             ['name' => 'Agregar paciente', ''=> ''],
 
         ];

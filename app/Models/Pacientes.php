@@ -5,21 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Toxicomanias extends Model
+class Pacientes extends Model
 {
     use HasFactory;
 
-    protected $table = 'toxicomanias';
+    protected $table = 'pacientes';
     protected $primaryKey = 'id';
     public $incrementing = true;
     public $timestamps = false;
 
     protected $fillable = [
-        'nombre', 
+        'nombre',
+        'telefono',
+        'email',
     ];
 
-    public function Persona_toxi()
+    public function Citas()
     {
-        return $this->hasMany(Persona_toxicomanias::class, 'id', 'id_toxicomania');
+        return $this->hasMany(Citas::class, 'paciente_id');
     }
+
 }

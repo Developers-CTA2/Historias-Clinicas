@@ -1,3 +1,5 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
 @import "variables";
 @import "Buttons";
 
@@ -191,4 +193,35 @@
         // min-width: 1400px;
         max-width: 1400px !important;
     }
+    
+}
+
+/* Iconos de las tablas */ 
+.rounded-icon{
+    padding: 4px;
+    border-radius: 50%;
+}
+
+
+.icon-blue{
+background-color: #06285c36;    
+
+}
+
+.icon-blue svg{
+    fill: $primary;
+}
+
+.icon-green {
+background-color: rgba(19, 87, 78, 0.384);    
+
+}
+
+.icon-green svg{
+    fill: rgb(19, 87, 78);
+}
+
+
+.info:hover{
+    cursor: help;
 }

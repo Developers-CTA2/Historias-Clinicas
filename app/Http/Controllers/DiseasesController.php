@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Especificar_ahf;
-use App\Models\Tipo_ahf;
+use App\Models\Tipos_enfermedades;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +17,7 @@ class DiseasesController extends Controller
 
         ];
 
-        $Types = Tipo_ahf::all();
+        $Types = Tipos_enfermedades::all();
         return view('administrar.View-Diseases', ['Types' => $Types], compact('breadcrumbs'));
     }
 
@@ -37,14 +37,14 @@ class DiseasesController extends Controller
             return response()->json(['status' => 202, 'errors' => $validator->errors()]);
         }
         $Name = $request['Name'];
-        $diseases = Tipo_ahf::where('nombre', $Name)->first();
+        $diseases = Tipos_enfermedades::where('nombre', $Name)->first();
 
         if($diseases){
             return response()->json(['status' => 202, 'msg' => 'La tipo de enfermedad ya esta resgistrada en el sistema.']);
 
         }else{
             DB::transaction(function () use ($Name) {
-                $disease = new Tipo_ahf;
+                $disease = new Tipos_enfermedades;
                 $disease->nombre = $Name;
                 $disease->save();
             });
@@ -62,7 +62,7 @@ class DiseasesController extends Controller
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
 
-        $query= Tipo_ahf::query();;
+        $query= Tipos_enfermedades::query();;
 
         if (!empty($search)) {
             $query->where('nombre', 'like', "%$search%");
@@ -90,7 +90,7 @@ class DiseasesController extends Controller
         ];
         // Validar datos
         $validator = Validator::make($request->all(), [
-            'Id' => 'required|numeric|exists:tipo_ahf,id_tipo_ahf',
+            'Id' => 'required|numeric|exists:tipos_enfermedades,id_tipo_ahf',
              'Name' => 'required|string',
         ], $messages);
 
@@ -102,7 +102,7 @@ class DiseasesController extends Controller
         $Id =  intval($request['Id']);
         $Name = $request['Name'];
 
-        $disease = Tipo_ahf::where('id_tipo_ahf', $Id)->first();
+        $disease = Tipos_enfermedades::where('id_tipo_ahf', $Id)->first();
 
         if ($disease) {
             DB::transaction(function () use ($Name, $disease) {

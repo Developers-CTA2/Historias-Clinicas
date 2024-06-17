@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Support\Facades\Validator;
+use  Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -62,7 +63,9 @@ class UserController extends Controller
         ];
         $roleName = $usuario->roles->first()->name; // Consulta el tipo de rol del usuario
         $count = 0;
-        return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count'));
+        $created_at = Carbon::parse($usuario->created_at)->locale('es')->isoFormat('LL');
+
+        return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count', 'created_at'));
     }
 
     public function store(Request $request)
@@ -127,6 +130,7 @@ class UserController extends Controller
         $query = User::query();
 
         if (!empty($search)) {
+           
             $query->where(function ($q) use ($search) {
                 $q->where('users.name', 'like', "%$search%")
                     ->orWhere('users.user_name', 'like', "%$search%")

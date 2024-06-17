@@ -430,11 +430,11 @@ $(function () {
             getAllDataForm();
             console.log(patientData);
             
-            // requestSavePatient(patientData).then((data)=>{
-            //     console.log(data);
-            // }).catch((error)=>{
-            //     console.log(error);
-            // })
+            requestSavePatient(patientData).then((data)=>{
+                console.log(data);
+            }).catch((error)=>{
+                console.log(error);
+            });
 
         });
     }

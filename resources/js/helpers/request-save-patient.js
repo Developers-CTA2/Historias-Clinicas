@@ -7,7 +7,7 @@ export const requestSavePatient = async(dataSend = {})=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const resp = await axios.post(`/save-patient`,dataSend);
+            const resp = await axios.post(`patients/save-patient`,dataSend);
             
             resolve(resp);
 

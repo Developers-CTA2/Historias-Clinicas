@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_ahf', function (Blueprint $table) {
+        Schema::create('tipos_enfermedades', function (Blueprint $table) {
             $table->id('id_tipo_ahf');
-            $table->string('nombre')->nullable();
+            $table->string('nombre', 150);
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_ahf');
+        Schema::dropIfExists('tipos_enfermedades');
     }
 };

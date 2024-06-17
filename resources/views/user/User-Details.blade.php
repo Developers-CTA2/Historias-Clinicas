@@ -3,7 +3,7 @@
 @section('title', 'Detalles de usuarios')
 
 @section('viteConfig')
-    @vite(['resources/sass/users.scss'])
+    @vite(['resources/sass/form-style.scss', 'resources/sass/users.scss'])
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
         <div id="detalles-container" data-id="{{ $usuario->id }}"></div>
 
         <div class="card">
-            <div class="card-header text-center">
+            <div class="card-header text-center bg-blue">
                 Detalles del usuario
             </div>
             <div class="card-body">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Fecha de ingreso al sistema:</p>
-                                    <div class="mt-0" >{{ $usuario->created_at }}</div>
+                                    <div class="mt-0" >{{ $created_at }}</div>
                                 </div>
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Estado:</p>

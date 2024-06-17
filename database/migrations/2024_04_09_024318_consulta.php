@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('consulta', function (Blueprint $table) {
             $table->id('id_consulta');
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->date('fecha')->nullable();
-            $table->time('hora')->nullable();
-            $table->string('turno')->nullable();
-            $table->string('nombre_medico')->nullable();
-            $table->string('diagnostico')->nullable();
-            $table->string('tratamiento')->nullable();
-            $table->string('observaciones')->nullable();
+            $table->date('fecha');
+            $table->time('hora');
+            $table->string('turno', 20);
+            $table->string('nombre_medico');
+            $table->string('diagnostico');
+            $table->string('tratamiento');
+            $table->string('observaciones');
+            $table->string('code_user', 9);
         });
     }
 

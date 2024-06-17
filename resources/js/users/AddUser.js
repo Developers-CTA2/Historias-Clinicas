@@ -52,8 +52,8 @@ async function SearchCode(dataSend, code) {
             console.log(data);
 
             TemplateData(p_nombre, p_codigo, p_correo);
-            $(".cont-user-data").fadeIn(300).removeClass("d-none");
-            $(".buttons-cont").fadeOut(200).addClass("d-none");
+            $(".cont-user-data").removeClass("d-none");
+            $(".buttons-cont").addClass("d-none");
         })
         .finally(() => {
             disableLoading();

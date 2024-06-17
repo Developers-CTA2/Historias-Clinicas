@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 use App\Models\User;
-use App\Models\Tipo_ahf;
-use App\Models\Especificar_ahf;
+use App\Models\Tipos_enfermedades;
+use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Models\Alergia;
 
@@ -171,12 +171,12 @@ class DatabaseSeeder extends Seeder{
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
 
-       
 
-        Tipo_ahf::insert($Tipo_AHF);
+
+        Tipos_enfermedades::insert($Tipo_AHF);
         Toxicomanias::insert($Toxicomanias);
         Alergia::insert($Alergias);
-        Especificar_ahf::insert($Especificar_ahf);
+        Enfermedad_especifica::insert($Especificar_ahf);
     }
   
 }

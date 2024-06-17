@@ -17,37 +17,32 @@
     border-radius: 10px;
 }
 
-.avatar{
-    background-size: cover; 
-    background-position: center;
-    width: 45px; 
-    height: 45px;
-    border-radius: 50%;
-    border: 1px solid #b1b1b1;
-    cursor: pointer;   
-}
-/* Imagen segun el rol del usuario*/ 
-.avatar-Doctor{
-   
-    background-image: url('/public/images/doctor_1.png');  
+/* Header de color azul de las cards */ 
+.card .card-header {
+    color: white;
+    background-color: $primary;
+    position: relative;
 }
 
-.avatar-Pasante-m{
-   
-    background-image: url('/public/images/doctor.png');  
+/* Color de las cards */
+.bg-blue {
+    background-color: $primary;
+    color: white;
 }
-
-.avatar-Nutricion{
-    background-image: url('/public/images/Nutricion.png');  
-
-}
-
 
 /* Styles for input form*/
 .form-control{
     border: 2px solid #dadada !important;
     // background-color: $bg-light !important;
 }
+
+
+/* Asterisco de color rojo que indica campo obligatorio */
+.red-color{
+    color: $red;
+}
+
 .Cont-edit:hover{
     cursor: pointer;
 }
+

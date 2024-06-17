@@ -3,7 +3,7 @@
 @section('title', 'Lista de pacientes')
 
 @section('viteConfig')
-    @vite('resources/sass/Forms-Styles.scss')
+    @vite(['resources/sass/form-style.scss', 'resources/sass/add-patients.scss'])
 @endsection
 
 
@@ -27,5 +27,5 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/seePatient.js')
+    @vite('resources/js/patients/seePatient.js')
 @endsection

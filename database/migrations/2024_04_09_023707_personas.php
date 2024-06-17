@@ -13,19 +13,21 @@ return new class extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id('id_persona');
-            $table->string('codigo')->nullable();
-            $table->string('nombre');
-            $table->string('domiclio');
-            $table->string('ocupacion');
+            $table->string('codigo', 9)->nullable();
+            $table->string('nombre', 120);
+            // $table->string('domiclio');
+            $table->string('ocupacion', 50);
             $table->date('fecha_nacimiento');
-            $table->string('sexo');
-            $table->string('telefono');
-            $table->string('telefono_emerge');
-            $table->string('contacto_emerge');
-            $table->string('nss');
-            $table->string('fecha_registro');
-            $table->string('religion');
-            $table->string('usuario_reg');
+            $table->enum('sexo', ['Masculino', 'Femenino']);
+            $table->string('telefono', 10);
+            $table->string('telefono_emerge', 10);
+            $table->string('contacto_emerge', 120);
+            $table->string('parentesco_emerge', 60);
+            $table->string('nss',12);
+            $table->date('fecha_registro');
+            $table->string('religion', 50);
+            $table->string('usuario_reg', 9);
+            $table->date('fecha_update')->nullable();
         });
     }
 

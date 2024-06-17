@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('personas_toxicomanias', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->foreignId('id_toxicomania')->constrained('toxicomanias', 'id');
-            $table->string('cantidad')->nullable();
+            $table->string('observacion'); 
             $table->date('desde_cuando')->nullable();
         });
     }
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('personas_toxico');
+        Schema::dropIfExists('personas_toxicomanias');
     }
 };
 

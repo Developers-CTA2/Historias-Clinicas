@@ -13,19 +13,20 @@ return new class extends Migration
     {
         Schema::create('gyo', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('menarca')->nullable();
-            $table->date('fecha_um')->nullable();
-            $table->string('c_regulares')->nullable();
-            $table->string('diasxdias')->nullable();
-            $table->string('ivs')->nullable();
-            $table->string('parejas_s')->nullable();
-            $table->integer('gestas')->nullable();
-            $table->integer('partos')->nullable();
-            $table->integer('abortos')->nullable();
-            $table->integer('cesarias')->nullable();
-            $table->date('fecha_citologia')->nullable();
-            $table->string('metodo')->nullable();
-            $table->integer('mastografia')->nullable();
+            $table->integer('menarca');
+            $table->date('fecha_um');
+            $table->string('s_gestacion',100)->nullable();
+            $table->enum('ciclos', ['Regular', 'Irregular']);
+            $table->string('dias_x_dias', 100);
+            $table->integer('ivs');
+            $table->integer('parejas_s');
+            $table->integer('gestas');
+            $table->integer('partos');
+            $table->integer('abortos');
+            $table->integer('cesarias');
+            $table->date('fecha_citologia');
+            $table->string('metodo');
+            $table->date('mastografia');
         });
     }
 
