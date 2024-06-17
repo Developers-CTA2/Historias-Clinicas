@@ -25,14 +25,20 @@
                                 </button>
                             </div>
                         </div>
-                        {{-- Errores de laravel  --}}
-                        <div id="errorAlert" class="alert alert-danger alert-dismissible fade show pb-0" role="alert"
+                        
+                       {{-- Errores de laravel  --}}
+                        <div class="alert alert-danger alert-dismissible fade show pb-0 errorAlert" role="alert"
                             style="display: none;">
                             <strong>¡Ups! Algo salió mal.</strong>
-                            <ul id="errorList"></ul>
+                            <ul class="errorList"></ul>
                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                 aria-label="Cerrar"></button>
+
                         </div>
+
+
+
+
                         <div class="row col-12 pt-1">
                             <p class="text-center mb-0">Escribe el nombre del nuevo tipo de enfermedad.</p>
                         </div>

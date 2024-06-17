@@ -27,7 +27,6 @@
                         </h5>
 
                         <div class="cont-list p-2">
-
                             <ul class="list-group">
                                 @if (!$enfermedades || $enfermedades->isEmpty())
                                     <li class="list-group-item text-center gap-2">
@@ -55,8 +54,8 @@
                                     @endforeach
                                 @endif
                             </ul>
-
                         </div>
+
                     </div>
                 </div>
             </div> {{-- Contenedor deñ lado izquierdo  --}}
@@ -77,58 +76,65 @@
                             </svg>
                         </span> Toxicomanías
                     </h5>
-                    <div class="row">
-                        <div class="form-group col-12 pt-2">
-                            <p class="fw-bold mb-0">Nombre contacto:</p>
-                            <div class="mt-0"> {{ $Personal->contacto_emerge }} </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="form-group col-6 pt-2">
-                                <p class="fw-bold mb-0">Teléfono:</p>
-                                <div class="mt-0"> {{ $Personal->telefono_emerge }}</div>
-                            </div>
-                            <div class="form-group col-5 pt-2 div-cedula">
-                                <p class="fw-bold mb-0">Parentesco:</p>
-                                <div class="mt-0"> {{ $Personal->parentesco_emerge }}</div>
-                            </div>
-                        </div>
+                    <div class="cont-list p-2">
+                        <ul class="list-group">
+                            @if (!$toxicomanias || $toxicomanias->isEmpty())
+                                <li class="list-group-item text-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 20 20">
+                                        <path fill="#e11d48" fill-rule="evenodd"
+                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Sin registros
+                                </li>
+                            @else
+                                @foreach ($toxicomanias as $toxicomania)
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div class="align-self-center">
+                                            {{ $toxicomania->toxicomanias->nombre }}
 
-                        <h5 class="m-0 mt-3 aling-items-center">
-                            <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 16 16">
-                                    <g fill="rgb(19, 87, 78)">
-                                        <path
-                                            d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z" />
-                                        <path
-                                            d="M16 12.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 1 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1a.5.5 0 0 0 0 1" />
-                                    </g>
-                                </svg>
-                            </span>
-                            Domicilio del paciente
-                        </h5>
+                                        </div>
+                                        {{-- caso de ser tabaquismo --}}
+                                        @if ($toxicomania->toxicomanias->id == 2)
+                                            @php
+                                                // Asumiendo que tienes el string que necesitas separar
+                                                $string = $toxicomania->observacion;
+                                                $cadena = explode(',', $string);
 
-                        <div class="form-group col-12 pt-2">
-                            <p class="fw-bold mb-0">Ciudad:</p>
-                            <div class="mt-0"> {{ $domicilio->cuidad_municipio }}<div>
-                                </div>
-                                <div class="form-group col-12 pt-2">
-                                    <p class="fw-bold mb-0">Calle:</p>
-                                    <div class="mt-0"> {{ $domicilio->calle }} </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-6 pt-2">
-                                        <p class="fw-bold mb-0">Num. externo:</p>
-                                        <div class="mt-0"> {{ $domicilio->num }}</div>
-                                    </div>
-                                    <div class="form-group col-5 pt-2 div-cedula">
-                                        <p class="fw-bold mb-0">Num. interno:</p>
-                                        <div class="mt-0"> {{ $domicilio->num_int ?? '--' }} </div>
-                                    </div>
-                                </div>
+                                            @endphp
 
+                                            <span>
+                                                <p class="m-0 fst-italic text-muted">Desde</p>
+                                                <p class="text-center">{{ trim($cadena[1]) }}</p>
 
-                            </div>
-                        </div>
+                                            </span>
+                                            <span>
+
+                                                <p class="m-0 fst-italic text-muted">Cantidad</p>
+
+                                                <p class="text-center"> {{ trim($cadena[3]) }}</p>
+                                            </span>
+                                            <span>
+                                                <p class="m-0 fst-italic text-muted">Riesgo</p>
+
+                                                <p class="text-center">{{ trim($cadena[5]) }}</p>
+                                            </span>
+                                        @endif
+                                        <div class="align-self-center">
+                                            <button class="btn-blue-sec fst-normal tooltip-container">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 32 32">
+                                                    <path
+                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                </svg>
+                                                <span class="tooltip-text">Editar registro.</span>
+                                            </button>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
                     </div>
 
                 </div> <!-- FIN contenedor 1  -->

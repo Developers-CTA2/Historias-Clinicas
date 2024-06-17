@@ -24,10 +24,10 @@
                        </div>
                    </div>
                    {{-- Errores de laravel  --}}
-                   <div id="errorAlert" class="alert alert-danger alert-dismissible fade show pb-0" role="alert"
+                   <div   class="errorAlert alert alert-danger alert-dismissible fade show pb-0" role="alert"
                        style="display: none;">
                        <strong>¡Ups! Algo salió mal.</strong>
-                       <ul id="errorList"></ul>
+                       <ul class="errorList"></ul>
                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
                    </div>
                    <div class="row col-12 pt-1">

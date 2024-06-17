@@ -7,8 +7,8 @@ import "sweetalert2/src/sweetalert2.scss";
 import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import "gridjs/dist/theme/mermaid.css";
 
-import { validarCampo } from "../helpers/ValidateFuntions.js";
-import { regexLetters, regexNumero } from "../helpers/Regex.js";
+import { validarCampo, showErrors } from "../helpers/ValidateFuntions.js";
+import { regexLetters } from "../helpers/Regex.js";
 
 $(function () {
     initialData();
@@ -134,7 +134,7 @@ function AddNewDisease() {
                 RequestAdd(name);
             }
         } else {
-            console.log("fdfdfdfd")
+            console.log("fdfdfdfd");
             $("#Alerta_add").fadeIn(250).removeClass("d-none");
         }
     });
@@ -161,7 +161,7 @@ async function Confirm(id, new_name) {
     try {
         const result = await Swal.fire({
             title: "¿Estás seguro de editar los datos?",
-            text: "Asegurate que los datos sean correctos..",
+            text: "Asegurate que los datos sean correctos.",
             icon: "warning",
             showCancelButton: true,
             reverseButtons: true,
@@ -194,24 +194,23 @@ async function RequestEdit(id, name) {
         const response = await axios.post("/admin/edit-diseases", Data);
         console.log(response.data);
         const { data } = response;
-        const { status, msg, errors } = data;
+        const { status, msg } = data;
         let timerInterval;
         disableLoading();
 
-        if (status == 200) {
-            timerInterval = AlertaSweerAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else if (status == 202) {
-            showErrors(errors);
-        }
+        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
-        disableLoading();
-        console.log("Error");
+        const { type, msg, errors } = error.response.data;
+
+        if (type == 1) {
+            let timerInterval;
+
+            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+        } else {
+            console.log(errors);
+            showErrors(errors, ".errorAlert", ".errorList");
+        }
+
         console.log(error);
     }
 }
@@ -229,45 +228,20 @@ async function RequestAdd(name) {
         let timerInterval;
         disableLoading();
 
-        if (status == 200) {
-            timerInterval = AlertaSweerAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else if (status == 202) {
-              timerInterval = AlertaSweerAlert(
-                  2500,
-                  "¡Error!",
-                  msg,
-                  "error",
-                  0
-              );
-        } else {
-            showErrors(errors);
-        }
+        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
-        disableLoading();
-        console.log("Error");
+        const { type, msg, errors } = error.response.data;
+
+        if (type == 1) {
+            let timerInterval;
+
+            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+        } else {
+            console.log(errors);
+            showErrors(errors, ".errorAlert", ".errorList");
+        }
+
         console.log(error);
     }
 }
- 
 
-/* Funcion que muestra los errores que manda el comtrolador */
-function showErrors(errors) {
-    if (errors) {
-        const errorList = $("#errorList");
-        errorList.empty(); // Limpiar la lista de errores existente
-        $.each(errors, function (key, value) {
-            // Agregar cada mensaje de error como un elemento de lista a la lista de errores
-            $.each(value, function (index, errorMessage) {
-                errorList.append($("<li>").text(errorMessage));
-            });
-        });
-        // Mostrar la alerta de error
-        $("#errorAlert").show();
-    }
-}

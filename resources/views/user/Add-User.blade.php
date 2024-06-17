@@ -3,7 +3,7 @@
 @section('title', 'Agregar usuario')
 
 @section('viteConfig')
-    @vite(['resources/sass/users.scss'])
+    @vite(['resources/sass/users.scss', 'resources/sass/form-style.scss'])
 @endsection
 
 

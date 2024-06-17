@@ -20,3 +20,23 @@ export function ocultarerr(campo) {
     $(campo).next("span").hide(); // Oculta el siguiente elemento <span>
     $(campo).removeClass("border border-danger"); // Elimina la clase border-danger del campo
 }
+
+
+
+
+/* Funcion que muestra los errores que manda el controlador*/
+export function showErrors(errors, campoAlerta, campoLista) {
+    if (errors) {
+        const errorList = $(campoLista);
+      
+            errorList.empty(); // Limpiar la lista de errores existente
+            $.each(errors, function (key, value) {
+                $.each(value, function (index, errorMessage) {
+                    errorList.append($("<li>").text(errorMessage));
+                });
+            });
+            // Mostrar la alerta de error
+            $(campoAlerta).show();
+        
+    } 
+}

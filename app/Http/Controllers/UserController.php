@@ -181,7 +181,9 @@ class UserController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
+
+           // return response()->json(['status' => 202, 'errors' => $validator->errors()]);
         }
 
         $Id = $request['Id'];
@@ -210,8 +212,11 @@ class UserController extends Controller
 
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
         } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+            return response()->json(['type' => 1, 'msg' => 'El usuario ya existe en la base de datos.'], 400);
+
         }
+        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+ 
     }
 
     public function Desactive(Request $request)

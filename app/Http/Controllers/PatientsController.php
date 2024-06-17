@@ -71,7 +71,7 @@ class PatientsController extends Controller
         $Personal = Persona::with([
             'domicilio',
             'persona_enfermedades.enfermedad_especifica',
-            'toxicomanias_persona',
+            'toxicomanias_persona.toxicomanias',
             'nutricional'
         ])->find($id);
 
@@ -88,14 +88,19 @@ class PatientsController extends Controller
         // $nutricionales = $Personal->nutricional;
         $domicilio = $Personal->domicilio;
         $enfermedades = $Personal->persona_enfermedades;
-        $toxicomanias = $Personal->persona_toxicomanias;
+        $toxicomanias = $Personal->toxicomanias_persona;
  
-        return response()->json($toxicomanias);
+       // return response()->json($toxicomanias);
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.patients')],
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias'));
     }
+
+    // function separarStringPorComas($string)
+    // {
+    //     return explode(',', $string);
+    // }
 }
