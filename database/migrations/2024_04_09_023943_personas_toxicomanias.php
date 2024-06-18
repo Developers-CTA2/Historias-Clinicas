@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_toxicomania')->constrained('toxicomanias', 'id');
             $table->string('observacion'); 
             $table->date('desde_cuando')->nullable();
+            $table->timestamps();
         });
     }
 

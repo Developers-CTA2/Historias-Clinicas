@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('peso')->nullable();
             $table->integer('glucosa')->nullable();
             $table->decimal('talla')->nullable();
+            $table->timestamps();
         });
     }
 

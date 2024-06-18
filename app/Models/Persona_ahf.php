@@ -10,6 +10,7 @@ class Persona_ahf extends Model
     use HasFactory;
 
     protected $table = 'persona_ahf';
+    protected $fillable = ['id_ahf'];
 
     public function persona()
     {

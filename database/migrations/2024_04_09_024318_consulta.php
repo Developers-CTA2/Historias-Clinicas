@@ -21,7 +21,11 @@ return new class extends Migration
             $table->string('diagnostico');
             $table->string('tratamiento');
             $table->string('observaciones');
-            $table->string('code_user', 9);
+            $table->string('created_by', 9);
+            $table->string('updated_by', 9)->nullable();  
+            $table->foreign('created_by')->references('id')->on('users');  
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 

@@ -1,4 +1,4 @@
-import { regexNumero, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
+import { regexNumero,regexCp, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
 
 const yearActual = new Date().getFullYear();
 
@@ -21,6 +21,9 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         dependency,
         state,
         city,
+        scholarship,
+        colony,
+        cp,
         street,
         number,
         intNumber,
@@ -38,11 +41,14 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         selectCivilStatus,
         inputState,
         inputCity,
+        inputColony,
+        inputCp,
         inputStreet,
         inputNumber,
         inputIntNumber,
         inputPhone,
         inputNss,
+        inputScholarship,
         inputReligion,
         inputDependency,
         inputEmergencyName,
@@ -50,6 +56,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         inputRelationship } = elementsForm;
 
 
+        console.log(inputColony,colony);
 
     allInputsPD.each(function () {
 
@@ -59,10 +66,8 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
     });
 
 
-    if (code === '' && name === '' && career === '' && gender === null && birthdate === '' && bloodType === null && phone === '' && nss === '' && civilStatus === null && religion === '' && dependency === '' && state === '' && city === '' && street === '' && number === '' && emergencyName === '' && emergencyPhone === '' && relationship === '') {
-        console.log('entro');
+    if (code === '' && name === '' && career === '' && gender === null && birthdate === '' && bloodType === null && phone === '' && nss === '' && civilStatus === null && religion === '' && dependency === '' && state === '' && city === '' && street === '' && number === '' && emergencyName === '' && emergencyPhone === '' && relationship === '' && colony === '' && cp === '' && scholarship === null) {  
         allInputsPD.each(function () {
-
             let input = $(this).children('input');
             let span = $(this).children('span');
             let select = $(this).children('select');
@@ -111,7 +116,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
 
     if (birthdate === '') {
         inputBirthDate.addClass('is-invalid border-danger');
-        inputBirthDate.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputBirthDate.next().text('El campo es requerido, por favor selecciona una fecha').removeClass('d-none');
         validateForm = false;
     }
 
@@ -123,13 +128,13 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
 
     if (gender === null) {
         selectGender.addClass('is-invalid border-danger');
-        selectGender.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        selectGender.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
         validateForm = false;
     }
 
     if (bloodType === null) {
         selectBloodType.addClass('is-invalid border-danger');
-        selectBloodType.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        selectBloodType.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
         validateForm = false;
     }
 
@@ -193,12 +198,38 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         validateForm = false;
     }
 
+    if (colony === '') {
+        console.log('entro');
+        inputColony.addClass('is-invalid border-danger');
+        inputColony.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        validateForm = false;
+    }
+
+    if (cp === '') {
+        inputCp.addClass('is-invalid border-danger');
+        inputCp.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        validateForm = false;
+    }
+
+    if(cp !== '' && !regexCp.test(cp)){
+        inputCp.addClass('is-invalid border-danger');
+        inputCp.next().text('Formato de código postal erroneo').removeClass('d-none');
+        validateForm = false;
+    }
+
     if (street === '') {
         inputStreet.addClass('is-invalid border-danger');
         inputStreet.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
     }
 
+    if(scholarship === null){
+        inputScholarship.addClass('is-invalid border-danger');
+        inputScholarship.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
+        validateForm = false;
+    }
+
+    
     if (number === '') {
         inputNumber.addClass('is-invalid border-danger');
         inputNumber.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
@@ -256,7 +287,7 @@ const applyValidation = {
     fum : false,
     numGestas : false,
     numPartos : false,
-    numCerareas : false,
+    numCesareas : false,
     numAbortos : false,
     diasSangrado : false,
     diasCiclo : false,
@@ -384,7 +415,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         fum,
         numGestas,
         numPartos,
-        numCerareas,
+        numCesareas,
         numAbortos,
         diasSangrado,
         diasCiclo,
@@ -422,7 +453,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     applyValidation.fum = false;
     applyValidation.numGestas = false;
     applyValidation.numPartos = false;
-    applyValidation.numCerareas = false;
+    applyValidation.numCesareas = false;
     applyValidation.numAbortos = false;
     applyValidation.diasSangrado = false;
     applyValidation.diasCiclo = false;
@@ -439,7 +470,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     });
 
 
-    if (menarca === '' && fum === '' && numGestas === '' && numPartos === '' && numCerareas === '' && numAbortos === '' && diasSangrado === '' && diasCiclo === '' && fechaCitologia === '' && mastografia === '' && inicioVidaSexual === '' && metodoDescriptivo === '' && cicloRegular === false && cicloIrregular === false) {
+    if (menarca === '' && fum === '' && numGestas === '' && numPartos === '' && numCesareas === '' && numAbortos === '' && diasSangrado === '' && diasCiclo === '' && fechaCitologia === '' && mastografia === '' && inicioVidaSexual === '' && metodoDescriptivo === '' && cicloRegular === false && cicloIrregular === false) {
         console.log('entro');
         formGynecologyObstetrics.each(function () {
             let input = $(this).children('input');
@@ -509,14 +540,14 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         validateForm = false;
     }
 
-    if (numCerareas === '') {
+    if (numCesareas === '') {
         inputCesareas.addClass('is-invalid border-danger');
         inputCesareas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
         validateForm = false;
-        applyValidation.numCerareas = true;
+        applyValidation.numCesareas = true;
     }
 
-    if(!applyValidation.numCerareas && !regexNumlenght2.test(numCerareas)){
+    if(!applyValidation.numCesareas && !regexNumlenght2.test(numCesareas)){
         inputCesareas.addClass('is-invalid border-danger');
         inputCesareas.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
@@ -529,7 +560,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         applyValidation.numAbortos = true;
     }
 
-    if(!applyValidation.numCerareas && !regexNumlenght2.test(numAbortos) ){
+    if(!applyValidation.numCesareas && !regexNumlenght2.test(numAbortos) ){
         inputAbortos.addClass('is-invalid border-danger');
         inputAbortos.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;

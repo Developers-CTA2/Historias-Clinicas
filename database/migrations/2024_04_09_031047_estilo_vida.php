@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('alcohol')->nullable();
             $table->string('tabaco')->nullable();
             $table->string('cafe')->nullable();
+            $table->timestamps();
         });
     }
 

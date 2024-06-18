@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('persona_ahf', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->foreignId('id_ahf')->constrained('enfermedades_especificas', 'id_especifica_ahf');
+            $table->timestamps();
         });
     }
 

@@ -12,8 +12,7 @@ class Persona extends Model
     protected $table = 'personas';
     protected $primaryKey = 'id_persona';
     public $incrementing = true;
-    public $timestamps = false;
-
+    
     protected $fillable = [
         'codigo',
         'nombre',
@@ -28,7 +27,7 @@ class Persona extends Model
         'nss',
         'fecha_registro',
         'religion',
-        'usuario_reg',
+        'created_by',
     ];
 
     public function Persona_alergia()

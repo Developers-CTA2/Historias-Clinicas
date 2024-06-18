@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('tipos_enfermedades', function (Blueprint $table) {
             $table->id('id_tipo_ahf');
             $table->string('nombre', 150);
+            $table->string('created_by', 9);
+            $table->string('updated_by', 9)->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');   
+            $table->timestamps();
         });
     }
 

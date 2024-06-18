@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->string('fecha')->nullable();
             $table->string('detalles')->nullable();
+            $table->timestamps();
         });
     }
 

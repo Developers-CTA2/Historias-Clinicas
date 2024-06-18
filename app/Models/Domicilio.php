@@ -10,12 +10,16 @@ class Domicilio extends Model
     use HasFactory;
 
     protected $table = 'domicilio';
-
+    
     protected $fillable = [
         'cuidad_municipio',
         'calle',
         'num',
         'num_int',
+        'colonia',
+        'cp',
+        'estado',
+        'pais',
     ];
 
     public function persona()

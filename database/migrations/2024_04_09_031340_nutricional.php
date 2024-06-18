@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('motivo_consul')->nullable();
             $table->id('id_nutricional');
             $table->string('diagnostico')->nullable();
+            $table->timestamps();
         });
     }
 

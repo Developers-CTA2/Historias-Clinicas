@@ -174,23 +174,23 @@
 
                     <div class="row mt-2 d-none form-step animate__animated animate__fadeInUp">
                         <div class="hr-custom mb-2"></div>
-                        <h4 class="text-center fw-bold title-size-sm">Datos personales</h4>
-                        <div class="col-12">
+                        <h4 class="text-center fw-bold title-size-sm mt-2">Datos personales</h4>
+                        <p class="text-center">Todos los campos con un asterisco de color rojo<br /> son <b>obligatorios.</b></p>
+                        <div class="col-12 mt-2">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="form-group">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="codigo"><span class="required-point">*</span>
-                                                    Código:</label>
+                                                <label for="codigo">Código:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="codigo" name="codigo"
                                                     maxlength="7">
                                                 <span class="text-danger fw-normal d-none">Código no válido.</span>
                                             </div>
 
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="gender"><span class="required-point">*</span>
-                                                    Género:</label>
+                                                <label for="gender">
+                                                    Género:<span class="required-point">*</span></label>
                                                 <select class="form-control" name="gender" id="gender">
                                                     <option value="" disabled selected>Seleccione una opción</option>
                                                     <option value="1">Masculino</option>
@@ -202,8 +202,8 @@
                                     </div>
 
                                     <div class="form-group pt-2 col-12 mb-2 group-custom">
-                                        <label for="name_P"><span class="required-point">*</span> Nombre
-                                            Completo:</label>
+                                        <label for="name_P"> Nombre
+                                            Completo:<span class="required-point">*</span></label>
                                         <input class="form-control" type="text" name="name_P" id="name_P"
                                             oninput="this.value = this.value.toUpperCase()" />
                                         <span class="text-danger fw-normal d-none"></span>
@@ -212,15 +212,13 @@
                                     <div class="form-group mb-4">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="F_nacimiento"><span class="required-point">*</span> Fecha de
-                                                    nacimiento</label>
+                                                <label for="F_nacimiento"> Fecha de nacimiento <span class="required-point">*</span></label>
                                                 <input type="date" id="F_nacimiento" name="F_nacimiento"
                                                     class="form-control" />
                                                 <span class="text-danger fw-normal d-none"></span>
                                             </div>
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="T_sangre"> <span class="required-point">*</span>Tipo de
-                                                    sangre</label>
+                                                <label for="T_sangre"> Tipo de sangre <span class="required-point">*</span></label>
                                                 <select class="form-control" name="T_sangre" id="T_sangre">
                                                     <option value="" disabled selected>Seleccione una opción</option>
                                                     <option value="1">Grupo A Rh positivo (A+)</option>
@@ -242,16 +240,16 @@
                                     <div class="form-group">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="estado"><span class="required-point">*</span>
-                                                    Estado:</label>
+                                                <label for="estado">
+                                                    Estado:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="estado"
                                                     name="estado">
                                                 <span class="text-danger fw-normal d-none"></span>
                                             </div>
 
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="ciudad"><span class="required-point">*</span>
-                                                    Ciudad:</label>
+                                                <label for="ciudad">
+                                                    Ciudad: <span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="ciudad"
                                                     name="ciudad">
                                                 <span class="text-danger fw-normal d-none"></span>
@@ -260,15 +258,33 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row pt-2">
+                                            <div class="form-group col-md-8 col-sm-12 mb-2 group-custom">
+                                                <label for="colonia">
+                                                    Colonia:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="colonia"
+                                                    name="colonia">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+
+                                            <div class="form-group col-md-4 col-sm-12 mb-2 group-custom">
+                                                <label for="cp">
+                                                    Código postal: <span class="required-point">*</span></label>
+                                                <input class="form-control" maxlength="5" type="number" id="cp" name="cp" >
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="calle"><span class="required-point">*</span> Calle</label>
+                                                <label for="calle"> Calle <span class="required-point">*</span></label>
                                                 <input type="text" id="calle" name="calle"
                                                     class="form-control" />
                                                 <span class="text-danger fw-normal d-none"></span>
 
                                             </div>
                                             <div class="form-group col-md-3 col-sm-8 mb-2 group-custom">
-                                                <label for="sangre"><span class="required-point">*</span> Num </label>
+                                                <label for="sangre"> Num <span class="required-point">*</span></label>
                                                 <input type="number" id="num" name="num" min="1"
                                                     class="form-control" />
                                                 <span class="text-danger fw-normal d-none"></span>
@@ -286,16 +302,22 @@
                                     <div class="form-group">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="telefono"><span class="required-point">*</span> Teléfono:
-                                                </label>
+                                                <label for="telefono"> Teléfono: <span class="required-point">*</span></label>
                                                 <input type="text" id="telefono" name="telefono"
                                                     class="form-control" maxlength="10" />
                                                 <span class="text-danger fw-normal d-none"></span>
                                             </div>
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="nss"><span class="required-point">*</span> NSS:</label>
-                                                <input class="form-control" type="text" id="nss" maxlength="11"
-                                                    name="nss">
+                                                <label for="escolaridad"> Escolaridad: <span class="required-point">*</span></label>
+                                                <select class="form-control" name="escolaridad" id="escolaridad">
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="1">Primaria</option>
+                                                    <option value="2">Secundaria</option>
+                                                    <option value="3">Preparatoria</option>
+                                                    <option value="4">Licenciatura</option>
+                                                    <option value="5">Maestría</option>
+                                                    <option value="6">Doctorado</option>
+                                                </select>
                                                 <span class="text-danger fw-normal d-none"></span>
                                             </div>
                                         </div>
@@ -303,8 +325,8 @@
                                     <div class="form-group">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="E_civil"><span class="required-point">*</span> Estado
-                                                    civil:</label>
+                                                <label for="E_civil"> Estado
+                                                    civil:<span class="required-point">*</span></label>
                                                 <select class="form-control" name="E_civil" id="E_civil">
                                                     <option value="" disabled selected>Seleccione una opción</option>
                                                     <option value="1">Soltero(a)</option>
@@ -318,20 +340,29 @@
                                             </div>
 
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="religion"><span class="required-point">*</span>
-                                                    Religión:</label>
-                                                <input class="form-control" type="text" id="religion"
-                                                    name="religion">
+                                                <label for="nss"> NSS: <span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="nss" maxlength="11"
+                                                    name="nss">
                                                 <span class="text-danger fw-normal d-none"></span>
-
                                             </div>
+
+                                            
                                         </div>
                                     </div>
                                     <div class="row pt-2 mb-4">
                                         <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                            <label for="Puesto"><span class="required-point">*</span>
-                                                Carrera/Puesto:</label>
+                                            <label for="Puesto">
+                                                Carrera/Puesto: <span class="required-point">*</span></label>
                                             <input class="form-control" type="text" id="Puesto" name="puesto">
+                                            <span class="text-danger fw-normal d-none"></span>
+
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                            <label for="religion">
+                                                Religión:<span class="required-point">*</span></label>
+                                            <input class="form-control" type="text" id="religion"
+                                                name="religion">
                                             <span class="text-danger fw-normal d-none"></span>
 
                                         </div>
@@ -341,8 +372,8 @@
                                     <div class="form-group">
                                         <div class="row pt-2">
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="nombre_e"><span class="required-point">*</span>
-                                                    Nombre:</label>
+                                                <label for="nombre_e">
+                                                    Nombre:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="nombre_e"
                                                     name="nombre_e">
                                                 <span class="text-danger fw-normal d-none"></span>
@@ -350,16 +381,16 @@
                                             </div>
 
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
-                                                <label for="telefono_e"><span class="required-point">*</span>
-                                                    Telefono:</label>
+                                                <label for="telefono_e">
+                                                    Telefono:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="telefono_e"
                                                     name="telefono_e" maxlength="10">
                                                 <span class="text-danger fw-normal d-none"></span>
                                             </div>
 
                                             <div class="form-group col-md-6 col-sm-12 mb-2 pt-md-2 group-custom">
-                                                <label for="parentesco"><span class="required-point">*</span>
-                                                    Parentesco:</label>
+                                                <label for="parentesco">
+                                                    Parentesco:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="parentesco"
                                                     name="parentesco">
                                                 <span class="text-danger fw-normal d-none"></span>
@@ -390,8 +421,7 @@
 
                                                         <div class="form-group md-w-custom mt-2"
                                                             id="enfermedad-container">
-                                                            <label for="enfermedad" class="pb-1"><span
-                                                                    class="required-point">*</span> Enfermedades</label>
+                                                            <label for="enfermedad" class="pb-1">Enfermedades <span class="required-point">*</span></label>
                                                             <select class="form-control" name="enfermedad"
                                                                 id="enfermedad">
                                                                 <option value="0" selected>Seleccione una
@@ -451,8 +481,7 @@
                                                 <div class="form-group">
                                                     <div class="row pt-2 d-flex flex-column align-items-center">
                                                         <div class="form-group md-w-custom mb-4">
-                                                            <label for="enfermedad" class="pb-1"><span
-                                                                    class="required-point">*</span> Toxicomanias</label>
+                                                            <label for="enfermedad" class="pb-1">Toxicomanias <span class="required-point">*</span></label>
                                                             <select class="form-control" name="toxico" id="toxico">
                                                                 <option value="" disabled selected>Seleccione una
                                                                     opción</option>
@@ -467,28 +496,25 @@
                                                         {{-- Section for dates and quantity smoking --}}
                                                         <section id="optionSmoking"
                                                             class="md-w-custom d-none animate__animated animate__fadeInUp">
-                                                            <div class="form-group mb-2">
-                                                                <label for="desdeCuando" class="pb-1"><span
-                                                                        class="required-point">*</span>Número de
-                                                                    cigarros</label>
+                                                            
+                                                            <div class="form-group mb-4">
+                                                                <label for="desdeCuando" class="pb-1">Desde cuando (años) <span class="required-point">*</span></label>
                                                                 <input class="form-control" type="number"
-                                                                    id="cantidadCigarros" />
+                                                                    id="desdeCuandoFuma" />
                                                                 <span class="text-danger fw-normal"></span>
                                                             </div>
 
-                                                            <div class="form-group mb-4">
-                                                                <label for="desdeCuando" class="pb-1"><span
-                                                                        class="required-point">*</span> Hace cuantos
-                                                                    años</label>
+                                                            <div class="form-group mb-2">
+                                                                <label for="desdeCuando" class="pb-1">Cantidad de cigarros por día <span class="required-point">*</span></label>
                                                                 <input class="form-control" type="number"
-                                                                    id="desdeCuandoFuma" />
+                                                                    id="cantidadCigarros" />
                                                                 <span class="text-danger fw-normal"></span>
                                                             </div>
 
                                                             <div
                                                                 class="form-group container-bg-custom text-center sm-h rounded-2">
                                                                 <h5 class="fw-bold pt-2">Riesgo de EPOC</h5>
-                                                                <p id="riegoEPOC">Nulo</p>
+                                                                <p id="riegoEPOC"><span class="badge badge-custom-success">Nulo</span></p>
                                                             </div>
                                                         </section>
 
@@ -784,7 +810,7 @@
                             <div class="hr-custom"></div>
                             <div class="row d-flex justify-content-center justify-content-lg-start mt-3">
                                 <div class="form-group container-list-custom">
-                                    <div class="accordion mt-2 list-dependencies-custom" id="listPathologicalHistory">
+                                    <div class="accordion mt-2 mb-2 list-dependencies-custom" id="listPathologicalHistory">
                                     </div>
                                     {{-- <ul class="list-group mt-2 list-dependencies-custom" id="listPathologicalHistory">
                                     </ul> --}}
@@ -804,15 +830,13 @@
                             <div class="row">
                                 <div class="col-12 col-lg-6 col-xl-5">
                                     <div class="form-group mt-2 group-gyo " id="enfermedad-container">
-                                        <label for="enfermedad" class="pb-1"><span
-                                                class="required-point">*</span>Menarca (Edad)</label>
+                                        <label for="enfermedad" class="pb-1">Menarca (Edad) <span class="required-point">*</span></label>
                                         <input class="form-control" type="number" name="menarca" id="menarca"
                                             min="1" max="2">
                                         <span class="text-danger fw-normal d-none"></span>
                                     </div>
                                     <div class="form-group mt-2 group-gyo" id="enfermedad-container">
-                                        <label for="enfermedad" class="pb-1"><span class="required-point">*</span>Fecha
-                                            de última menstruación</label>
+                                        <label for="enfermedad" class="pb-1">Fecha de última menstruación <span class="required-point">*</span></label>
                                         <input class="form-control" type="date" name="fechaUltimaMenstruacion"
                                             id="fechaUltimaMenstruacion">
                                         <span class="text-danger fw-normal d-none"></span>
@@ -827,8 +851,7 @@
                                     </div>
 
                                     <section class="form-group mt-4">
-                                        <label class="pb-1 text-center"><span
-                                                class="required-point">*</span>Ciclos</label>
+                                        <label class="pb-1 text-center">Ciclos <span class="required-point">*</span></label>
                                         <div
                                             class="funkyradio d-flex flex-column flex-md-row justify-content-center justify-content-lg-between gap-3 group-gyo">
                                             <div class="funkyradio-primary">
@@ -846,14 +869,14 @@
 
                                     <section class="d-flex gap-3 mt-3 align-items-end">
                                         <div class="form-group w-100 text-center group-gyo">
-                                            <label>Dias de sangrado</label>
+                                            <label>Dias de sangrado <span class="required-point">*</span></label>
                                             <input class="form-control " type="number" name="diasSangrado"
                                                 id="diasSangrado" min="1" max="2">
                                             <span class="text-danger fw-normal d-none"></span>
                                         </div>
                                         <span class="x-custom">X</span>
                                         <div class="form-group w-100 text-center group-gyo">
-                                            <label>Dias de ciclos</label>
+                                            <label>Dias de ciclos <span class="required-point">*</span></label>
                                             <input class="form-control w-100" type="number" name="diasCiclo"
                                                 id="diasCiclo" min="1" max="2">
                                             <span class="text-danger fw-normal d-none"></span>
@@ -864,16 +887,14 @@
                                 <div class="col-12 col-lg-6 col-xl-7 mt-4 mt-lg-0">
                                     <section class="d-flex gap-3">
                                         <div class="form-group w-100 mt-2 group-gyo">
-                                            <label for="fechaCitologia" class="pb-1"><span
-                                                    class="required-point">*</span> Fecha de citología (año)</label>
+                                            <label for="fechaCitologia" class="pb-1">Fecha de citología (año) <span class="required-point">*</span></label>
                                             <input class="form-control" type="number" name="fechaCitologia"
                                                 max="4" id="fechaCitologia">
                                             <span class="text-danger fw-normal d-none"></span>
                                         </div>
 
                                         <div class="form-group w-100 mt-2 group-gyo">
-                                            <label for="enfermedad" class="pb-1"><span
-                                                    class="required-point">*</span>Mastografía (año)</label>
+                                            <label for="enfermedad" class="pb-1">Mastografía (año) <span class="required-point">*</span></label>
                                             <input class="form-control" type="number" name="mastografia" max="4"
                                                 id="mastografia">
                                             <span class="text-danger fw-normal d-none"></span>
@@ -883,7 +904,7 @@
 
                                     <div class="form-floating mt-4 group-gyo">
                                         <textarea class="form-control h-custom-metodo" id="metodoDescripcion"></textarea>
-                                        <label for="metodoDescripcion">Método</label>
+                                        <label for="metodoDescripcion">Método <span class="required-point">*</span></label>
                                         <span class="text-danger fw-normal d-none"></span>
                                     </div>
 
@@ -898,38 +919,35 @@
                         </div>
                         <div class="col-12 col-lg-6 col-xl-3 mt-5 mt-5 mt-lg-4">
                             <div class="form-group mt-2 group-gyo">
-                                <label for="enfermedad" class="pb-1"><span class="required-point">*</span>Inicio de la
-                                    vida sexual (Edad)</label>
+                                <label for="enfermedad" class="pb-1">Inicio de la vida sexual (Edad)<span class="required-point">*</span></label>
                                 <input class="form-control" type="number" name="inicioVidaSexual" id="inicioVidaSexual"
                                     min="1" max="2">
                                 <span class="text-danger fw-normal d-none"></span>
                             </div>
 
                             <div class="form-group mt-2 group-gyo">
-                                <label for="numPartos" class="pb-1"><span class="required-point">*</span>Partos</label>
+                                <label for="numPartos" class="pb-1">Partos </label>
                                 <input class="form-control" type="number" name="numPartos" id="numPartos"
                                     min="1" max="2">
                                 <span class="text-danger fw-normal d-none"></span>
                             </div>
 
                             <div class="form-group mt-2 group-gyo">
-                                <label for="numAbortos" class="pb-1"><span
-                                        class="required-point">*</span>Abortos</label>
+                                <label for="numAbortos" class="pb-1">Abortos </label>
                                 <input class="form-control" type="number" name="numAbortos" id="numAbortos"
                                     min="1" max="2">
                                 <span class="text-danger fw-normal d-none"></span>
                             </div>
 
                             <div class="form-group mt-2 group-gyo">
-                                <label for="numCesareas" class="pb-1"><span
-                                        class="required-point">*</span>Cesareas</label>
+                                <label for="numCesareas" class="pb-1">Cesareas </label>
                                 <input class="form-control" type="number" name="numCesareas" id="numCesareas"
                                     min="1" max="2">
                                 <span class="text-danger fw-normal d-none"></span>
                             </div>
 
                             <div class="form-group mt-2 group-gyo">
-                                <label for="numGestas" class="pb-1"><span class="required-point">*</span>Gestas</label>
+                                <label for="numGestas" class="pb-1">Gestas</label>
                                 <input class="form-control" type="number" name="numGestas" id="numGestas"
                                     max="2">
                                 <span class="text-danger fw-normal d-none"></span>

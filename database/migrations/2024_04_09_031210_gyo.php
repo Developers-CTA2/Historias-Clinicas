@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('fecha_citologia');
             $table->string('metodo');
             $table->date('mastografia');
+            $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->foreignId('id_alergia')->constrained('alergias', 'id_alergia');
             $table->string('especificar');
+            $table->timestamps();
         });
     }
 

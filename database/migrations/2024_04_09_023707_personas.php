@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('id_persona');
             $table->string('codigo', 9)->nullable();
             $table->string('nombre', 120);
-            // $table->string('domiclio');
             $table->string('ocupacion', 50);
             $table->date('fecha_nacimiento');
             $table->enum('sexo', ['Masculino', 'Femenino']);
@@ -25,9 +24,15 @@ return new class extends Migration
             $table->string('parentesco_emerge', 60);
             $table->string('nss',12);
             $table->date('fecha_registro');
+            $table->string('escolaridad', 50);
             $table->string('religion', 50);
-            $table->string('usuario_reg', 9);
+            $table->string('created_by', 9);
+            $table->string('updated_by', 9)->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
+            $table->string('updated_by', 9)->nullable();   
             $table->date('fecha_update')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -19,9 +19,12 @@ const patientData = {
     dependency: '',
     state: '',
     city: '',
+    colony: '',
+    cp: '',
     street: '',
     number: '',
-    intNumber: '',
+    intNumber: null,
+    scholarship : '',
     emergencyName: '',
     emergencyPhone: '',
     relationship: '',
@@ -34,7 +37,7 @@ const patientData = {
         fum: '',
         numGestas: '',
         numPartos: '',
-        numCerareas: '',
+        numCesareas: '',
         numAbortos: '',
         diasSangrado: '',
         diasCiclo: '',
@@ -95,15 +98,19 @@ $(function () {
     const inputState = $('#estado');
     const inputCity = $('#ciudad');
     const inputStreet = $('#calle');
+    const inputColony = $('#colonia');
+    const inputCp = $('#cp');
     const inputNumber = $('#num');
     const inputIntNumber = $('#num_int');
     const inputPhone = $('#telefono');
+    const inputScholarship = $('#escolaridad');
     const inputNss = $('#nss');
     const inputReligion = $('#religion');
     const inputDependency = $('#Puesto');
     const inputEmergencyName = $('#nombre_e');
     const inputEmergencyPhone = $('#telefono_e');
     const inputRelationship = $('#parentesco');
+
 
     // Selects 
     const selectGender = $('#gender');
@@ -354,10 +361,11 @@ $(function () {
     });
 
     btnNextStep.on('click', function () {
+        console.log(steps);
 
         // Validate if the form is complete
         if (steps == 1) {
-            const elements = getDataFirstStep();
+            const elescholarshipments = getDataFirstStep();
             getDataFirstStepValues();
 
             if(!validateStepFormOne(patientData, elements)) return;
@@ -366,14 +374,6 @@ $(function () {
 
 
         }
-
-        if (steps == 5) {
-            const elements = getDomGynecologyObstetrics();
-            const values = getDataFiveStepValues();
-            if (!validateStepFormFive(values, elements)) return;
-
-        }
-
 
 
         if (((formSteps.length - 1) == steps && patientData.gender == 1) || formSteps.length == steps && patientData.gender == 2) {
@@ -384,6 +384,8 @@ $(function () {
         }
 
         steps++;
+
+       
 
 
         if (steps > formSteps.length) steps = formSteps.length;
@@ -403,7 +405,11 @@ $(function () {
         if (((formSteps.length - 1) == steps && patientData.gender == 1) || formSteps.length == steps && patientData.gender == 2) {
             btnSendForm.removeClass('d-none');
             btnNextStep.addClass('d-none');
+
+            
+
             sendDataForm();
+            
 
         }
 
@@ -427,12 +433,18 @@ $(function () {
         btnSendForm.off('click');
         btnSendForm.on('click', function () {
 
+            if(steps == 5){
+                const elements = getDomGynecologyObstetrics();
+                const values = getDataFiveStepValues();
+                if (!validateStepFormFive(values, elements)) return;
+            }
+
             getAllDataForm();
             console.log(patientData);
             
             requestSavePatient(patientData).then((data)=>{
                 console.log(data);
-            }).catch((error)=>{
+        }).catch((error)=>{
                 console.log(error);
             });
 
@@ -484,11 +496,14 @@ $(function () {
             inputBirthDate,
             inputState,
             inputCity,
+            inputColony,
+            inputCp,
             inputStreet,
             inputNumber,
             inputIntNumber,
             inputPhone,
             inputNss,
+            inputScholarship,
             selectCivilStatus,
             inputReligion,
             inputDependency,
@@ -514,9 +529,12 @@ $(function () {
         patientData.dependency = inputDependency.val();
         patientData.state = inputState.val();
         patientData.city = inputCity.val();
+        patientData.colony = inputColony.val();
+        patientData.cp = inputCp.val();
         patientData.street = inputStreet.val();
         patientData.number = inputNumber.val();
         patientData.intNumber = inputIntNumber.val();
+        patientData.scholarship = inputScholarship.val();
         patientData.emergencyName = inputEmergencyName.val();
         patientData.emergencyPhone = inputEmergencyPhone.val();
         patientData.relationship = inputRelationship.val();
@@ -530,7 +548,7 @@ $(function () {
             fum: inputFum.val(),
             numGestas: inputGestas.val(),
             numPartos: inputPartos.val(),
-            numCerareas: inputCesareas.val(),
+            numCesareas: inputCesareas.val(),
             numAbortos: inputAbortos.val(),
             diasSangrado: inputDiasSangrado.val(),
             diasCiclo: inputDiasCiclo.val(),
@@ -551,7 +569,7 @@ $(function () {
             fum: inputFum.val(),
             numGestas: inputGestas.val(),
             numPartos: inputPartos.val(),
-            numCerareas: inputCesareas.val(),
+            numCesareas: inputCesareas.val(),
             numAbortos: inputAbortos.val(),
             diasSangrado: inputDiasSangrado.val(),
             diasCiclo: inputDiasCiclo.val(),

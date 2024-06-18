@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('suplementos')->nullable();
             $table->integer('vasos_agua')->nullable();
             $table->string('vasos_bebidas')->nullable();
+            $table->timestamps();
         });
     }
 

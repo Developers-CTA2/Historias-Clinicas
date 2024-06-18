@@ -7,6 +7,8 @@ use App\Models\Enfermedad_especifica;
 use App\Models\Tipos_enfermedades;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Tipo_ahf;
+use App\Models\Especificar_ahf; 
 
 class SpecificDiseasesController extends Controller
 {

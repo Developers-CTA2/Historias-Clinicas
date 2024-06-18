@@ -59,8 +59,8 @@ class DatabaseSeeder extends Seeder{
 
         //Tipo de Toxicomanias
         $Toxicomanias = [
-            ['id' => 1, 'nombre' => 'Alcoholismo'],
-            ['id' => 2, 'nombre' => 'Tabaquismo'], 
+            ['id' => 1, 'nombre' => 'Tabaquismo'], 
+            ['id' => 2, 'nombre' => 'Alcoholismo'],
             // ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
             // ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
             // ['id' => 6, 'nombre' => 'Adicción a cannabis'],
