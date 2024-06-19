@@ -17,6 +17,8 @@ class Enfermedad_especifica extends Model
     protected $fillable = [
         'nombre',
         'id_tipo_ahf',
+        'created_by',
+        'updated_by',
     ];
 
     public function tipo_ahf()

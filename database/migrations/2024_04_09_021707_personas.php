@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('id_persona');
             $table->string('codigo', 9)->nullable();
             $table->string('nombre', 120);
-            // $table->string('domiclio');
             $table->string('ocupacion', 50);
             $table->date('fecha_nacimiento');
             $table->enum('sexo', ['Masculino', 'Femenino']);
@@ -25,9 +24,11 @@ return new class extends Migration
             $table->string('parentesco_emerge', 60);
             $table->string('nss',12);
             $table->date('fecha_registro');
+            $table->string('escolaridad', 50);
             $table->string('religion', 50);
-            $table->string('usuario_reg', 9);
-            $table->date('fecha_update')->nullable();
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -36,6 +37,12 @@ return new class extends Migration
      */
     public function down()
     {
+        // Eliminar la relación de la tabla personas con la tabla users
+        Schema::table('personas', function (Blueprint $table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
+
         Schema::dropIfExists('personas');
     }
 };

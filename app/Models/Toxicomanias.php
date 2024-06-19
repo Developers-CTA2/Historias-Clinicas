@@ -16,6 +16,8 @@ class Toxicomanias extends Model
 
     protected $fillable = [
         'nombre', 
+        'created_by',
+        'updated_by',
     ];
 
     public function Persona_toxi()

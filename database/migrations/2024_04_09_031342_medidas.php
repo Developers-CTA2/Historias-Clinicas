@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('circunf_cintura')->nullable();
             $table->string('circunf_cadera')->nullable();
             $table->foreignId('id_nutricional')->constrained('nutricional', 'id_nutricional');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,11 @@ return new class extends Migration
      */
     public function down()
     {
+
+        Schema::table('medidas', function (Blueprint $table) {
+            $table->dropForeign(['id_nutricional']);
+        });
+
         Schema::dropIfExists('medidas');
     }
 };

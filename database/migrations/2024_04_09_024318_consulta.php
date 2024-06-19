@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('diagnostico');
             $table->string('tratamiento');
             $table->string('observaciones');
-            $table->string('code_user', 9);
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +32,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('consulta', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
+
       Schema::dropIfExists('consulta');
     }
 };

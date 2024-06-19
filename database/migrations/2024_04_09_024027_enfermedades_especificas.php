@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id('id_especifica_ahf');
             $table->foreignId('id_tipo_ahf')->constrained('tipos_enfermedades', 'id_tipo_ahf');
             $table->string('nombre', 150);
+            $table->foreignId('created_by')->constrained('users')->nullable();
+            $table->foreignId('updated_by')->constrained('users')->nullable();
+            $table->timestamps();
         });
     }
     /**
@@ -22,6 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('enfermedades_especificas', function (Blueprint $table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
+
         Schema::dropIfExists('enfermedades_especificas');
     }
 };

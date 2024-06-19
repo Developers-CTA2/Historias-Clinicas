@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->foreignId('id_alergia')->constrained('alergias', 'id_alergia');
             $table->string('especificar');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,12 @@ return new class extends Migration
      */
     public function down()
     {
+
+        Schema::table('persona_alergia', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+            $table->dropForeign(['id_alergia']);
+        });
+
         Schema::dropIfExists('persona_alergia');
     }
 };

@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('alergias', function (Blueprint $table) {
             $table->id('id_alergia');
             $table->string('nombre')->nullable();
+            $table->timestamps();
+            $table->foreignId('created_by')->constrained('users')->default(0);
+            $table->foreignId('updated_by')->constrained('users')->default(0);
         });
     }
 
@@ -22,6 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('alergias', function (Blueprint $table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
+
         Schema::dropIfExists('alergias');
     }
 };

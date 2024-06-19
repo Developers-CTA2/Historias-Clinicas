@@ -12,9 +12,8 @@ class Persona_toxicomanias extends Model
     protected $table = 'personas_toxicomanias';
 
     protected $fillable = [
-        'cantidad',
-        'desde_cuando',
         'observacion',
+        'desde_cuando',
         'id_toxicomania'
     ];
 

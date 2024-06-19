@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('motivo_consul')->nullable();
             $table->id('id_nutricional');
             $table->string('diagnostico')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,11 @@ return new class extends Migration
      */
     public function down()
     {
+
+        Schema::table('nutricional', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+        }); 
+
         Schema::dropIfExists('nutricional');
     }
 };

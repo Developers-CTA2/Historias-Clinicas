@@ -7,7 +7,8 @@ export const getDiseaseByTypeAHF = async(dataSend = {})=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const resp = await axios.post('/api/get-person',dataSend);
+            const resp = await axios.get(`/api/get-deseases/${dataSend.id}`);
+            console.log(resp);
             const {status} = resp;
             
             if(status == 200) {

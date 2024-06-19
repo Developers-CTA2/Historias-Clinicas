@@ -7,6 +7,8 @@ use App\Models\Enfermedad_especifica;
 use App\Models\Tipos_enfermedades;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\Tipo_ahf;
+use App\Models\Especificar_ahf; 
 
 class SpecificDiseasesController extends Controller
 {
@@ -134,5 +136,19 @@ class SpecificDiseasesController extends Controller
             return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamnete.']);
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+    }
+
+    public function getSpecificDiseases($typeId)
+    {
+
+        // Verificar si el tipo de AHF existe
+        $type = Tipo_ahf::find($typeId);
+
+        if (!$type) {
+            return response()->json(['status' => 404, 'msg' => 'El tipo de AHF no existe.'],404);
+        }
+
+        $diseases = Especificar_ahf::where('id_tipo_ahf', $typeId)->get();
+        return response()->json($diseases);
     }
 }

@@ -1,1 +1,3 @@
-export * from './selectTypeAHF';
+export * from './selectSpecificDisease';
+export * from './selectDrugAddiction';
+export * from './pathologicalHistory';
