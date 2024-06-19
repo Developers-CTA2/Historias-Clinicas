@@ -72,7 +72,14 @@ class PatientsController extends Controller
             'domicilio',
             'persona_enfermedades.enfermedad_especifica',
             'toxicomanias_persona.toxicomanias',
-            'nutricional'
+            'nutricional',
+            'persona_ahf.especificar_ahf',
+            'Persona_alergia.alergias',
+            'transfusiones',
+            'hospitalizaciones',
+            'traumatismos',
+            'ant_quirurgicos',
+            'gyo',
         ])->find($id);
 
         if (!$Personal) {
@@ -83,24 +90,25 @@ class PatientsController extends Controller
             return view('patients.seePatient', compact('breadcrumbs'));
         }
 
-        // // Accede a los datos de las relaciones
-        // $alergias = $Personal->Persona_alergia;
-        // $nutricionales = $Personal->nutricional;
+
         $domicilio = $Personal->domicilio;
         $enfermedades = $Personal->persona_enfermedades;
         $toxicomanias = $Personal->toxicomanias_persona;
+        $ahf = $Personal->persona_ahf;
+        $alergias = $Personal->Persona_alergia;
+        $transfusiones = $Personal->transfusiones;
+        $hospitalizaciones = $Personal->hospitalizaciones;
+        $traumatismos = $Personal->traumatismos;
+        $quirurgicos = $Personal->ant_quirurgicos;
+        $gyo = $Personal->gyo;
  
-       // return response()->json($toxicomanias);
+       // return response()->json($transfusiones);
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.patients')],
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo'));
     }
 
-    // function separarStringPorComas($string)
-    // {
-    //     return explode(',', $string);
-    // }
 }

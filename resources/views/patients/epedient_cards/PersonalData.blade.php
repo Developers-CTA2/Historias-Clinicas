@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="row col-12">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group">
+                        <div class="form-group px-2">
                             <div class="row">
                                 <div class="form-group col-12 pt-2">
                                     <p class="fw-bold mb-0">Nombre completo:</p>
@@ -67,7 +67,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <h5 class="m-0 mt-1 aling-items-center">
-                                <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                         viewBox="0 0 24 24">
                                         <path fill="#BE3144"
                                             d="M5 20v-2h1.6L9 10h6l2.4 8H19v2zm3.7-2h6.6l-1.8-6h-3zM11 8V3h2v5zm5.95 2.475L15.525 9.05l3.55-3.525l1.4 1.4zM18 15v-2h5v2zM7.05 10.475l-3.525-3.55l1.4-1.4l3.55 3.525zM1 15v-2h5v2zm11 3" />
@@ -91,8 +91,8 @@
                                 </div>
 
                                 <h5 class="m-0 mt-3 aling-items-center">
-                                    <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                            height="20" viewBox="0 0 16 16">
+                                    <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                            height="25" viewBox="0 0 16 16">
                                             <g fill="rgb(19, 87, 78)">
                                                 <path
                                                     d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z" />

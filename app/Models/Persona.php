@@ -78,7 +78,7 @@ class Persona extends Model
 
     public function gyo()
     {
-        return $this->hasMany(Gyo::class, 'id_persona');
+        return $this->hasOne(Gyo::class, 'id_persona');
     }
 
     public function estilo_vida()

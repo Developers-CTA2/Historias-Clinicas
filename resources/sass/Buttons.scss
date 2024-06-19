@@ -13,7 +13,7 @@
     border-radius: 6px;
     padding: 5px;
     position: absolute;
-    z-index: 1;
+    z-index: 110;
     top: 115%; /* Posiciona el tooltip bajo del elemento */
     left: 50%;
     transform: translateX(-50%);
@@ -42,7 +42,7 @@
     border: 1.5px solid $primary;
  }
  
- .btn-sec{
+ .btn-sec {
     border: 1.5px solid $blue-sec;
  }
 
