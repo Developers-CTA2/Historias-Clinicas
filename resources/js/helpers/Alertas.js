@@ -32,3 +32,14 @@ export function AlertaSweerAlert(Time, Title, msg, icono, type) {
 
     return timerInterval;
 }
+
+export const AlertSweetSuccess = (title, msg) => {
+    Swal.fire({
+        icon: "success",
+        title: title,
+        text: msg,
+        confirmButtonText : 'Aceptar',
+    }).then(() => {
+        window.location.href = "/patients";
+    });
+};

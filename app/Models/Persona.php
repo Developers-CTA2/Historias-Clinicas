@@ -24,10 +24,12 @@ class Persona extends Model
         'telefono_emerge',
         'contacto_emerge',
         'parentesco_emerge',
+        'escolaridad',
         'nss',
         'fecha_registro',
         'religion',
         'created_by',
+        'updated_by',
     ];
 
     public function Persona_alergia()

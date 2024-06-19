@@ -24,6 +24,12 @@ return new class extends Migration
      */
     public function down()
     {
+
+        // Eliminar restricciones de clave foránea
+        Schema::table('fracturas', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+        }); 
+
         Schema::dropIfExists('fracturas');
     }
 };

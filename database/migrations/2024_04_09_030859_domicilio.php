@@ -30,6 +30,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        // Eliminar restricciones de clave foránea
+        Schema::table('domicilio', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+        });
+
         Schema::dropIfExists('domicilio');
     }
 };

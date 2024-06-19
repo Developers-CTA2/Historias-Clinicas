@@ -96,7 +96,7 @@ $(function () {
                     },
                 },
                 server: {
-                    url: "/obt-pacientes?",
+                    url: "patients/obt-pacientes?",
                     then: (data) => {
                         console.log("Datos del servidor:", data);
                         //Mapear los datos según tu lógica

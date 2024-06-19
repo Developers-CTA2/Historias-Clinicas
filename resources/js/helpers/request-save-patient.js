@@ -7,11 +7,9 @@ export const requestSavePatient = async(dataSend = {})=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const resp = await axios.post(`/patients/save-patient`,dataSend);
+            const {data} = await axios.post(`/patients/save-patient`,dataSend);            
+            resolve(data);
             
-            resolve(resp);
-
-            // reject({title: 'Oops', message: response?.data || 'Hubo un error inesperado al obtener la lista de enfermades',error: 'No found'})
     
         }catch(error){
             console.log(error);

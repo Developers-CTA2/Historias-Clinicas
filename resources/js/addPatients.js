@@ -2,7 +2,8 @@ import { getPerson } from './helpers/request-get-person.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
 import { validateStepFormOne, validateStepFormFive } from './helpers/validateDataAddPatient.js';
 import { selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { requestSavePatient } from './helpers';
+import { requestSavePatient, AlertSweetSuccess } from './helpers';
+
 
 
 const patientData = {
@@ -365,7 +366,7 @@ $(function () {
 
         // Validate if the form is complete
         if (steps == 1) {
-            const elescholarshipments = getDataFirstStep();
+            const elements = getDataFirstStep();
             getDataFirstStepValues();
 
             if(!validateStepFormOne(patientData, elements)) return;
@@ -443,7 +444,9 @@ $(function () {
             console.log(patientData);
             
             requestSavePatient(patientData).then((data)=>{
-                console.log(data);
+                const {title, message} = data; 
+                AlertSweetSuccess(title, message);
+                
         }).catch((error)=>{
                 console.log(error);
             });

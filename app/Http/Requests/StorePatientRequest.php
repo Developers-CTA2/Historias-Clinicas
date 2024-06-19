@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
-use App\Models\Especificar_ahf;
+use App\Models\enfermedades_especificas;
 use App\Models\Toxicomanias;
 use App\Models\Enfermedad_especifica;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -55,7 +55,7 @@ class StorePatientRequest extends FormRequest
             'emergencyName' => 'required|string|max:255',
             'relationship' => 'required|string|max:255',
             'listHereditaryFamilialDiseases' => 'nullable|array',
-            'listHereditaryFamilialDiseases.*.id' => 'nullable|numeric|exists:especificar_ahf,id_especifica_ahf',
+            'listHereditaryFamilialDiseases.*.id' => 'nullable|numeric|exists:enfermedades_especificas,id_especifica_ahf',
             'listDrugAddiction' => 'nullable|array',
             'listDrugAddiction.*.idReferenceTable' => 'nullable|numeric|exists:toxicomanias,id',
             'listDrugAddiction.*.input1' => 'nullable|string|max:255',

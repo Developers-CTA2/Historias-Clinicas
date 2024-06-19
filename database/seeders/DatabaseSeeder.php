@@ -19,55 +19,55 @@ class DatabaseSeeder extends Seeder{
     {
         //Tipo de AHF
         $Tipo_AHF = [
-            ['id_tipo_ahf' => 1, 'nombre' => 'Dislipidemias'],
-            ['id_tipo_ahf' => 2, 'nombre' => 'Neurológicas'], 
-            ['id_tipo_ahf' => 3, 'nombre' => 'Neoplasias'],
-            ['id_tipo_ahf' => 4, 'nombre' => 'Cardiopatías'],
-            ['id_tipo_ahf' => 5, 'nombre' => 'Respiratorio'],
-            ['id_tipo_ahf' => 6, 'nombre' => 'Hepatopatías'],
-            ['id_tipo_ahf' => 7, 'nombre' => 'Nefropatías'],
-            ['id_tipo_ahf' => 8, 'nombre' => 'Endocrinológicas'],
-            ['id_tipo_ahf' => 9, 'nombre' => 'Reumatológicas'],
+            ['id_tipo_ahf' => 1, 'nombre' => 'Dislipidemias','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 2, 'nombre' => 'Neurológicas','created_by'=> 1,'updated_by'=> 1], 
+            ['id_tipo_ahf' => 3, 'nombre' => 'Neoplasias','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 4, 'nombre' => 'Cardiopatías','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 5, 'nombre' => 'Respiratorio','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 6, 'nombre' => 'Hepatopatías','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 7, 'nombre' => 'Nefropatías','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 8, 'nombre' => 'Endocrinológicas','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 9, 'nombre' => 'Reumatológicas','created_by'=> 1,'updated_by'=> 1],
         ]; 
 
         $Especificar_ahf = [
-            ['id_tipo_ahf' => 1, 'nombre' => 'Hipercolesterolemia'],
-            ['id_tipo_ahf' => 1, 'nombre' => 'Hipertrigliceridemia'],
-            ['id_tipo_ahf' => 2, 'nombre' => 'Enfermedad de Parkinson'],
-            ['id_tipo_ahf' => 2, 'nombre' => 'Alzheimer'],
-            ['id_tipo_ahf' => 2, 'nombre' => 'Migraña'],
-            ['id_tipo_ahf' => 3, 'nombre' => 'Cáncer de mama'],
-            ['id_tipo_ahf' => 3, 'nombre' => 'Cáncer de pulmón'],
-            ['id_tipo_ahf' => 3, 'nombre' => 'Leucemia'],
-            ['id_tipo_ahf' => 3, 'nombre' => 'Linfoma'],
-            ['id_tipo_ahf' => 4, 'nombre' => 'Infarto de miocardio'],
-            ['id_tipo_ahf' => 4, 'nombre' => 'Hipertensión arterial'],
-            ['id_tipo_ahf' => 5, 'nombre' => 'Asma'],
-            ['id_tipo_ahf' => 5, 'nombre' => 'Neumonía'],
-            ['id_tipo_ahf' => 5, 'nombre' => 'Bronquitis crónica'],
-            ['id_tipo_ahf' => 6, 'nombre' => 'Hepatitis'],
-            ['id_tipo_ahf' => 6, 'nombre' => 'Cirrosis hepática'],
-            ['id_tipo_ahf' => 6, 'nombre' => 'Esteatosis hepática (hígado graso)'],
-            ['id_tipo_ahf' => 7, 'nombre' => 'Insuficiencia renal crónica'],
-            ['id_tipo_ahf' => 7, 'nombre' => 'Nefropatía diabética'],
-            ['id_tipo_ahf' => 8, 'nombre' => 'Diabetes mellitus'],
-            ['id_tipo_ahf' => 8, 'nombre' => 'Hipertiroidismo'],
-            ['id_tipo_ahf' => 8, 'nombre' => 'Síndrome de ovario poliquístico'],
-            ['id_tipo_ahf' => 9, 'nombre' => 'Artritis reumatoide'],
-            ['id_tipo_ahf' => 9, 'nombre' => 'Osteoartritis'],
+            ['id_tipo_ahf' => 1, 'nombre' => 'Hipercolesterolemia','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 1, 'nombre' => 'Hipertrigliceridemia','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 2, 'nombre' => 'Enfermedad de Parkinson','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 2, 'nombre' => 'Alzheimer','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 2, 'nombre' => 'Migraña','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 3, 'nombre' => 'Cáncer de mama','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 3, 'nombre' => 'Cáncer de pulmón','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 3, 'nombre' => 'Leucemia','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 3, 'nombre' => 'Linfoma','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 4, 'nombre' => 'Infarto de miocardio','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 4, 'nombre' => 'Hipertensión arterial','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 5, 'nombre' => 'Asma','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 5, 'nombre' => 'Neumonía','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 5, 'nombre' => 'Bronquitis crónica','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 6, 'nombre' => 'Hepatitis','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 6, 'nombre' => 'Cirrosis hepática','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 6, 'nombre' => 'Esteatosis hepática (hígado graso)','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 7, 'nombre' => 'Insuficiencia renal crónica','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 7, 'nombre' => 'Nefropatía diabética','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 8, 'nombre' => 'Diabetes mellitus','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 8, 'nombre' => 'Hipertiroidismo','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 8, 'nombre' => 'Síndrome de ovario poliquístico','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 9, 'nombre' => 'Artritis reumatoide','created_by'=> 1,'updated_by'=> 1],
+            ['id_tipo_ahf' => 9, 'nombre' => 'Osteoartritis','created_by'=> 1,'updated_by'=> 1],
         ];
 
         //Tipo de Toxicomanias
         $Toxicomanias = [
-            ['id' => 1, 'nombre' => 'Tabaquismo'], 
-            ['id' => 2, 'nombre' => 'Alcoholismo'],
+            ['id' => 1, 'nombre' => 'Tabaquismo','created_by'=> 1,'updated_by'=> 1], 
+            ['id' => 2, 'nombre' => 'Alcoholismo','created_by'=> 1,'updated_by'=> 1],
             // ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
             // ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
             // ['id' => 6, 'nombre' => 'Adicción a cannabis'],
             // ['id' => 7, 'nombre' => 'Adicción a alucinógenos'], 
             // ['id' => 8, 'nombre' => 'Adicción a Inhalantes'], 
             // ['id' => 9, 'nombre' => 'Adicción a Drogas de Diseño'], 
-            ['id' => 3, 'nombre' => 'Otras']
+            ['id' => 3, 'nombre' => 'Otras','created_by'=> 1,'updated_by'=> 1]
         ];
 
         //Tipo de Alergias
@@ -78,14 +78,14 @@ class DatabaseSeeder extends Seeder{
         // ];
 
         $Alergias = [
-            ['id_alergia' => 1, 'nombre' => 'Alergias alimentarias'],
-            ['id_alergia' => 2, 'nombre' => 'Alergias respiratorias'],
-            ['id_alergia' => 3, 'nombre' => 'Alergias cutáneas'],
-            ['id_alergia' => 4, 'nombre' => 'Alergias Medicamentos'],
-            ['id_alergia' => 5, 'nombre' => 'Alergias a picaduras de insectos'],
-            ['id_alergia' => 6, 'nombre' => 'Alergias a animales'],
-            ['id_alergia' => 7, 'nombre' => 'Alergias al látex'],
-            ['id_alergia' => 8, 'nombre' => 'Alergias oculares'],
+            ['id_alergia' => 1, 'nombre' => 'Alergias alimentarias','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 2, 'nombre' => 'Alergias respiratorias','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 3, 'nombre' => 'Alergias cutáneas','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 4, 'nombre' => 'Alergias Medicamentos','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 5, 'nombre' => 'Alergias a picaduras de insectos','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 6, 'nombre' => 'Alergias a animales','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 7, 'nombre' => 'Alergias al látex','created_by'=> 1,'updated_by'=> 1],
+            ['id_alergia' => 8, 'nombre' => 'Alergias oculares','created_by'=> 1,'updated_by'=> 1],
         ];
     
     
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder{
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
-
+        
 
 
         Tipos_enfermedades::insert($Tipo_AHF);

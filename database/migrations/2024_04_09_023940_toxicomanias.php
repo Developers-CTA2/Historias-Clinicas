@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('toxicomanias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',120);
-            $table->string('created_by', 9);    
-            $table->string('updated_by', 9)->nullable();    
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreignId('created_by')->constrained('users')->default(0);
+            $table->foreignId('updated_by')->constrained('users')->default(null);
             $table->timestamps();
         });
     }
@@ -27,6 +25,10 @@ return new class extends Migration
 
     public function down()
     {
+        Schema::table('toxicomanias', function (Blueprint $table) {
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
         Schema::dropIfExists('toxicomanias');
     }
 };

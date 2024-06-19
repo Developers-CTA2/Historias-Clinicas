@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Persona;
 use  Carbon\Carbon;
 use App\Models\Alergia;
-use App\Models\Especificar_ahf;
+use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Http\Requests\StorePatientRequest;
 use Illuminate\Support\Facades\DB;
@@ -70,7 +70,7 @@ class PatientsController extends Controller
 
         ];
         // $tipos_ahf = Tipo_ahf::all();
-        $enfermedades = Especificar_ahf::all();
+        $enfermedades = Enfermedad_especifica::all();
         $toxicomania = Toxicomanias::all();
         $alergias = Alergia::all();
         return view('admin.AddPatient', compact('enfermedades', 'toxicomania', 'alergias', 'breadcrumbs'));
@@ -82,10 +82,10 @@ class PatientsController extends Controller
         $validate = $request->validated();
 
         $persona = null;
-        $created_by = auth()->user()->id;
+        
         
 
-        DB::transaction(function () use ($validate, &$persona, $created_by) {
+        DB::transaction(function () use ($validate, &$persona) {
 
             // Insertar la persona
             $dataPersonal = $this->dataPersonalForDB($validate);
@@ -95,11 +95,11 @@ class PatientsController extends Controller
             $persona->domicilio()->create($dataPersonal['dataDomicilio']);
 
             // Insertar las enfermedades familiares
-            $diseasesFamiliar = $this->dataDiseasesFamiliar($validate, $persona->id_persona);
+            $diseasesFamiliar = $this->dataDiseasesFamiliar($validate);
             $persona->persona_ahf()->createMany($diseasesFamiliar);
 
             // Insertar las enfermedades personales 
-            $diseasesPersonal = $this->dataDiseasesPersonal($validate, $persona->id_persona);
+            $diseasesPersonal = $this->dataDiseasesPersonal($validate);
             $persona->persona_enfermedades()->createMany($diseasesPersonal['diseases']);
             $persona->persona_alergia()->createMany($diseasesPersonal['allegeries']);
             $persona->hospitalizaciones()->createMany($diseasesPersonal['hopitalizations']);
@@ -108,29 +108,20 @@ class PatientsController extends Controller
             $persona->ant_quirurgicos()->createMany($diseasesPersonal['cirugies']);
 
             // Insertar las toxicomanias
-            $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate, $persona->id_persona));   
+            $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate));   
+
+            // Si es mujer, insertar los datos de embarazo
+            if($dataPersonal['dataPerson']['sexo'] == 'Femenino'){
+                $gyo = $this->dataGyo($validate);
+                $persona->gyo()->create($gyo);
+            } 
+
 
         });
 
 
-        // $dataPersonal = $this->dataPersonalForDB($validate);
-        // $dataDiseasesFamiliar = $this->dataDiseasesFamiliar($validate, 1);
-        // $dataDiseasesPersonal = $this->dataDiseasesPersonal($validate, 1);
-        // $dataDrugsAddiction = $this->dataDrugsAddiction($validate, 1);
 
-
-
-
-        return response()->json(['message' => 'Paciente creado correctamente', 'data' => [
-            // $dataPersonal,
-            auth()->user()->id
-            // 'dataPersonal' => $dataPersonal,
-            // $validate,
-            // $validate['listHereditaryFamilialDiseases'],
-            // 'dataDiseasesFamiliar' => $dataDiseasesFamiliar,
-            // 'dataDiseasesPersonal' => $dataDiseasesPersonal,
-            // 'dataDrugsAddiction' => $dataDrugsAddiction,
-        ]], 201);
+        return response()->json(['title'=>'Éxito','message' => 'Paciente creado correctamente','error' => null], 201);
     }
 
     public function Patients_View()
@@ -187,12 +178,14 @@ class PatientsController extends Controller
                 'fecha_nacimiento' => $data['birthdate'],
                 'telefono' => $data['phone'],
                 'nss' => $data['nss'],
+                'escolaridad' => $data['scholarship'],
                 'telefono_emerge' => $data['emergencyPhone'],
                 'contacto_emerge' => $data['emergencyName'],
                 'parentesco_emerge' => $data['relationship'],
                 'fecha_registro' => Carbon::now(),
                 'religion' => $data['religion'],
                 'created_by' => auth()->user()->id,
+                'updated_by' => auth()->user()->id,
             ],
             'dataDomicilio' => [
                 'calle' => $data['street'],
@@ -207,19 +200,18 @@ class PatientsController extends Controller
         ];
     }
 
-    private function dataDiseasesFamiliar($data, $id)
+    private function dataDiseasesFamiliar($data)
     {
         $diseases = [];
         foreach ($data['listHereditaryFamilialDiseases'] as $disease) {
             $diseases[] = [
-                'id_ahf' => $disease['id'],
-                'id_persona' => $id,
+                'id_ahf' => $disease['id']
             ];
         }
         return $diseases;
     }
 
-    private function dataDiseasesPersonal($data, $id)
+    private function dataDiseasesPersonal($data)
     {
         $diseases = [];
         $allegeries = [];
@@ -231,15 +223,13 @@ class PatientsController extends Controller
         foreach ($data['listPathologicalHistory'] as $item) {
             if ($item['type'] == 'enfermedad') {
                 $diseases[] = [
-                    'id_enfermedad' => $item['idReferenceTable'],
-                    'id_persona' => $id,
+                    'id_enfermedad' => $item['idReferenceTable']
                 ];
             }
 
             if ($item['type'] == 'alergia') {
                 $allegeries[] = [
                     'id_alergia' => $item['idReferenceTable'],
-                    'id_persona' => $id,
                     'especificar' => $item['reason']
                 ];
             }
@@ -247,7 +237,6 @@ class PatientsController extends Controller
             if ($item['type'] == 'hospitalizacion') {
                 $hopitalizations[] = [
                     'fecha' => $item['value'],
-                    'id_persona' => $id,
                     'detalles' => $item['reason']
                 ];
             }
@@ -255,7 +244,6 @@ class PatientsController extends Controller
             if ($item['type'] == 'traumatismo') {
                 $traumatisms[] = [
                     'fecha' => $item['value'],
-                    'id_persona' => $id,
                     'detalles' => $item['reason']
                 ];
             }
@@ -263,7 +251,6 @@ class PatientsController extends Controller
             if ($item['type'] == 'transfusion') {
                 $transfusions[] = [
                     'fecha' => $item['value'],
-                    'id_persona' => $id,
                     'detalles' => $item['reason']
                 ];
             }
@@ -271,7 +258,6 @@ class PatientsController extends Controller
             if ($item['type'] == 'cirugia') {
                 $cirugies[] = [
                     'fecha' => $item['value'],
-                    'id_persona' => $id,
                     'detalles' => $item['reason']
                 ];
             }
@@ -286,7 +272,7 @@ class PatientsController extends Controller
         ];
     }
 
-    private function dataDrugsAddiction($data, $id)
+    private function dataDrugsAddiction($data)
     {
         $toxicomanias = [];
         foreach ($data['listDrugAddiction'] as $item) {
@@ -298,11 +284,34 @@ class PatientsController extends Controller
 
             $toxicomanias[] = [
                 'id_toxicomania' => $item['idReferenceTable'],
-                'id_persona' => $id,
                 'desde_cuando' => $desde_cuando,
                 'observacion' => $observacion,
             ];
         }
         return $toxicomanias;
+    }
+
+    private function dataGyo($data){
+
+        $gyo = $data['listGynecologyObstetrics'];
+
+        return [
+            'menarca' => $gyo['menarca'],
+            'fecha_um' => $gyo['fum'],
+            's_gestacion' => $gyo['estaEmbarazada'] ? $gyo['sGestacion'] : 0,
+            'dias_x_dias' => $gyo['diasSangrado'].','.$gyo['diasCiclo'],
+            'ciclos'=> $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
+            'ivs' => $gyo['inicioVidaSexual'],   
+            'parejas_s' => 2,
+            'gestas' => $gyo['numGestas']+$gyo['numPartos']+$gyo['numAbortos']+$gyo['numCesareas'],
+            'partos' => $gyo['numPartos'],
+            'abortos' => $gyo['numAbortos'],
+            'cesareas' => $gyo['numCesareas'],
+            'fecha_citologia' => $gyo['fechaCitologia'],
+            'metodo' => $gyo['metodoDescriptivo'],
+            'mastografia' => $gyo['mastografia'],
+        ];
+
+
     }
 }

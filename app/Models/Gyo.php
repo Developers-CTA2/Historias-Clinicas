@@ -22,7 +22,7 @@ class Gyo extends Model
         'gestas',
         'partos',
         'abortos',
-        'cesarias',
+        'cesareas',
         'fecha_citologia',
         'metodo',
         'mastografia',
