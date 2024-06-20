@@ -1,0 +1,8 @@
+@import 'variables';
+
+.ql-container{
+    font-family: $font-family-sans-serif !important;
+    font-size: 16px !important;
+    height: 250px !important;
+    overflow-y: auto;
+}

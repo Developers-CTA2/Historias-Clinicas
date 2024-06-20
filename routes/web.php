@@ -13,9 +13,7 @@ use App\Http\Controllers\AllergiesController;
 use App\Http\Controllers\AddictionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitasController;
-
-
-
+use App\Http\Controllers\ConsultationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +108,10 @@ Route::middleware('auth')->group(function () {
     
 
     });
+
+    Route::prefix('/consultation')->group(function () {
+        Route::get('/new',[ConsultationController::class,'create'])->name('consultation.new');
+    }); 
 
     ///// REGISTROS DE PACIENTES
     
