@@ -29,13 +29,9 @@
     border-radius: 10px;
 }
 
-.shadow-custom{
-    box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.2);
-}
 
-.required-point{
-    color: red; 
-}
+
+
 
 
 .container-list-custom{
@@ -56,9 +52,6 @@
     width: 400px !important;
 }
 
-.max-w-custom{
-    width: 100% !important;
-}
 
 .sm-h{
     height: 70px;
@@ -188,13 +181,7 @@
 
 
 
-@media (min-width: 1500px){
-    .max-w-custom{
-        // min-width: 1400px;
-        max-width: 1400px !important;
-    }
-    
-}
+
 
 /* Iconos de las tablas */ 
 .rounded-icon{
