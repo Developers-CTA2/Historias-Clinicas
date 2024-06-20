@@ -16,8 +16,10 @@ class Nutricional extends Model
 
     protected $fillable = [
         'fecha',
-        'motivo_consul',
+        'motivo_consulta',
         'diagnostico',
+        'created_by',
+        'updated_by',
     ];
 
     public function persona()

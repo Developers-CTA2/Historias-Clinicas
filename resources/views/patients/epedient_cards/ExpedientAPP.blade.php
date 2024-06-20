@@ -109,7 +109,7 @@
                                             <div class="">
                                                 {{ $alergia->alergias->nombre }}
                                             </div>
-                                            <div class="">
+                                            <div class="text-muted px-1">
                                                 {{ $alergia->especificar }}
                                             </div>
                                             <div class="d-flex gap-1">
@@ -180,7 +180,7 @@
                                                 {{ $hospital->detalles }}
                                             </div>
                                             <div class="">
-                                                {{ Carbon::parse($detalles->fecha)->locale('es')->isoFormat('LL') }}
+                                                {{ $hospital->fecha }}
                                             </div>
                                             <div class="d-flex gap-1">
 
@@ -252,7 +252,7 @@
                                                 {{ $transfucion->detalles }}
                                             </div>
                                             <div class="">
-                                                {{ Carbon::parse($transfucion->fecha)->locale('es')->isoFormat('LL') }}
+                                                {{ $transfucion->fecha }}
                                             </div>
                                             <div class="d-flex gap-1">
 

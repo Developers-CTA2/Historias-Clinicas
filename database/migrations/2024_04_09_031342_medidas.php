@@ -12,13 +12,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('medidas', function (Blueprint $table) {
-            $table->string('peso_actual')->nullable();
-            $table->string('peso_habitual')->nullable();
-            $table->string('estatura')->nullable();
-            $table->string('circunf_cintura')->nullable();
-            $table->string('circunf_cadera')->nullable();
+            $table->double('peso_actual');
+            $table->double('peso_habitual');
+            $table->double('estatura');
+            $table->double('circunf_cintura');
+            $table->double('circunf_cadera');
             $table->foreignId('id_nutricional')->constrained('nutricional', 'id_nutricional');
-            $table->timestamps();
         });
     }
 

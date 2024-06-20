@@ -89,7 +89,7 @@
                                 <div class="mt-0"> {{ $gyo->ivs ?? '--' }} </div>
                             </div>
                             <div class="form-group col-5 pt-2 div-cedula">
-                                <p class="fw-bold mb-0">N. parejas:</p>
+                                <p class="fw-bold mb-0">Num. parejas:</p>
                                 <div class="mt-0"> {{ $gyo->parejas_s ?? '--' }}</div>
                             </div>
                         </div>

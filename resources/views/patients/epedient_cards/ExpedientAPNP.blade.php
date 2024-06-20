@@ -40,40 +40,44 @@
                                 {{-- Existen toxicomanias  --}}
                                 @foreach ($toxicomanias as $toxicomania)
                                     <li class="list-group-item d-flex justify-content-between">
-                                        <div class="align-self-center">
+                                        <div class="align-self-center fw-bold">
                                             {{ $toxicomania->toxicomanias->nombre }}
 
                                         </div>
                                         {{-- caso de ser tabaquismo --}}
-                                        @if ($toxicomania->toxicomanias->id == 2)
+                                        @if ($toxicomania->toxicomanias->nombre == 'Tabaquismo')
                                             @php
                                                 // Asumiendo que tienes el string que necesitas separar
                                                 $string = $toxicomania->observacion;
                                                 $cadena = explode(',', $string);
-
+                                                $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
+                                                $años = $fechaInicio->diffInYears(Carbon::now());
                                             @endphp
 
                                             <div>
                                                 <p class="m-0 fst-italic text-muted">Desde</p>
-                                                <p class="text-center">{{ trim($cadena[1]) }}</p>
+
+                                                <p> {{ $años }} años
+
+                                                </p>
 
                                             </div>
                                             <div>
 
                                                 <p class="m-0 fst-italic text-muted">Cantidad</p>
 
-                                                <p class="text-center"> {{ trim($cadena[3]) }}</p>
+                                                <p class="text-center"> {{ trim($cadena[0]) }}</p>
                                             </div>
                                             <div>
                                                 <p class="m-0 fst-italic text-muted">Riesgo</p>
-                                                @if (trim($cadena[5]) == 'Alto')
-                                                    <p class="text-center text-danger">{{ trim($cadena[5]) }}</p>
-                                                @elseif(trim($cadena[5]) == 'Intenso')
-                                                    <p class="text-center text-warning ">{{ trim($cadena[5]) }}</p>
-                                                @elseif(trim($cadena[5]) == 'Moderado')
-                                                    <p class="text-center text-secondary">{{ trim($cadena[5]) }}</p>
+                                                @if (trim($cadena[2]) == 'Alto')
+                                                    <p class="text-center text-danger">{{ trim($cadena[2]) }}</p>
+                                                @elseif(trim($cadena[2]) == 'Intenso')
+                                                    <p class="text-center text-warning ">{{ trim($cadena[2]) }}</p>
+                                                @elseif(trim($cadena[2]) == 'Moderado')
+                                                    <p class="text-center text-secondary">{{ trim($cadena[2]) }}</p>
                                                 @else
-                                                    <p class="text-center text-dark">{{ trim($cadena[5]) }}</p>
+                                                    <p class="text-center text-dark">{{ trim($cadena[2]) }}</p>
                                                 @endif
                                             </div>
                                         @else

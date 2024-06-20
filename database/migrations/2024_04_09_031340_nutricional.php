@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('nutricional', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->date('fecha')->nullable();
-            $table->string('motivo_consul')->nullable();
+            $table->string('motivo_consulta');
+            $table->date('fecha');
             $table->id('id_nutricional');
             $table->string('diagnostico')->nullable();
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
         });
     }
