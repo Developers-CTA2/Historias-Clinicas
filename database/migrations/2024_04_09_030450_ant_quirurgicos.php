@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->string('fecha')->nullable();
             $table->string('detalles')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -23,6 +24,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        // Eliminar restricciones de clave foránea
+        Schema::table('ant_quirurgicos', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+        });
+
         Schema::dropIfExists('ant_quirurgicos');
     }
 };

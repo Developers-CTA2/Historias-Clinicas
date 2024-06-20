@@ -16,6 +16,8 @@ class Alergia extends Model
 
     protected $fillable = [
         'nombre',
+        'created_by',
+        'updated_by',
     ];
 
     public function alergia()

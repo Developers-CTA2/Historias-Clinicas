@@ -57,7 +57,7 @@
                             </li>
                             @role('Administrador')
                                 <li class="d-flex">
-                                    <a href="{{ route('showForm') }}" class="sublink-custom-nav py-2 animated-icon">
+                                    <a href="{{ route('patients.add-patient') }}" class="sublink-custom-nav py-2 animated-icon">
                                         <i class="fa-solid fa-file-circle-plus"></i>
                                         <span class="ms-1 text-md-custom compressed-text">Agregar</span>
                                     </a>

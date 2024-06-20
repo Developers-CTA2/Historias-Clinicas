@@ -13,3 +13,28 @@ label {
     font-weight: 700;
 }
 
+.w-custom-checkbox{
+    border: 2px solid $label-color !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+
+.max-w-custom{
+    width: 100% !important;
+}
+
+.shadow-custom{
+    box-shadow: 3px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.required-point{
+    color: red; 
+}
+
+@media (min-width: 1500px){
+    .max-w-custom{
+        // min-width: 1400px;
+        max-width: 1400px !important;
+    }
+}

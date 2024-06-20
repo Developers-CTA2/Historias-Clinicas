@@ -10,9 +10,7 @@ class Persona_enfermedades extends Model
     // use HasFactory;
     // protected $table = 'persona_enfermedades';
 
-    protected $fillable = [
-        'id_enfermedad',
-    ];
+    protected $fillable = ['id_enfermedad'];
 
     use HasFactory;
 

@@ -12,6 +12,7 @@ class Persona_alergia extends Model
     protected $table = 'persona_alergia';
 
     protected $fillable = [
+        'id_alergia',
         'especificar',
     ];
 

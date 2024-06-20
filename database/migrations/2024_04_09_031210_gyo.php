@@ -23,10 +23,11 @@ return new class extends Migration
             $table->integer('gestas');
             $table->integer('partos');
             $table->integer('abortos');
-            $table->integer('cesarias');
-            $table->date('fecha_citologia');
+            $table->integer('cesareas');
+            $table->string('fecha_citologia',4);
             $table->string('metodo');
-            $table->date('mastografia');
+            $table->string('mastografia',4);
+            $table->timestamps();
         });
     }
 
@@ -35,6 +36,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('gyo', function (Blueprint $table) {
+            $table->dropForeign(['id_persona']);
+        });
+
         Schema::dropIfExists('gyo');
     }
 };
