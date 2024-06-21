@@ -184,7 +184,7 @@
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
                                                 <label for="codigo">Código:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="codigo" name="codigo"
-                                                    maxlength="7">
+                                                    maxlength="9">
                                                 <span class="text-danger fw-normal d-none">Código no válido.</span>
                                             </div>
 
