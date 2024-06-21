@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('consulta', function (Blueprint $table) {
             $table->id('id_consulta');
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->date('fecha');
-            $table->time('hora');
-            $table->string('turno', 20);
-            $table->string('nombre_medico');
-            $table->string('diagnostico');
-            $table->string('tratamiento');
-            $table->string('observaciones');
+            $table->datetime('fecha')->useCurrent();
+            $table->enum('turno',['matutino','vespertino','nocturno']);
+            $table->text('motivo_consulta');
+            $table->text('auxiliares_dx_tx_previo')->nullable();
+            $table->text('exploracion_fisica');
+            $table->text('diagnostico');
+            $table->text('tratamiento');
+            $table->text('observaciones')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

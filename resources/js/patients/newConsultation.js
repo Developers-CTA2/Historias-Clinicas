@@ -1,12 +1,52 @@
 import Quill from 'quill';
+import Tagify from '@yaireo/tagify'
 import "quill/dist/quill.snow.css";
-import { vitalSigns } from '../helpers';
+import '@yaireo/tagify/dist/tagify.css'
 
-import { options } from '../helpers';
+import { 
+    vitalSigns, options, 
+    getAllSpecificDiseases, 
+    AlertErrorConsultation, 
+    validateQuill,DomPurify, 
+    requestPostConsultation } from '../helpers';
+import { templateArrayDiseases } from '../templates'
 
 
-$(function(){
+let listDiseases = [];
 
+
+
+
+
+const configTagify = () => {
+
+    getAllSpecificDiseases().then(data => {
+        const whitelist = templateArrayDiseases(data)
+        
+        const input = document.querySelector('#enfermedades'),
+            // init Tagify script on the above inputs
+            tagify = new Tagify(input, {
+                enforceWhitelist: true,
+                delimiters: null,
+                whitelist: whitelist,
+                callbacks: {
+                    add: console.log,  // callback when adding a tag
+                    remove: console.log   // callback when removing a tag
+                },
+
+            });
+    });
+
+    
+
+};
+
+
+
+
+$(function () {
+
+    configTagify();
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
@@ -26,32 +66,50 @@ $(function(){
 
     // Quill Js
     const reasonQuill = new Quill('#reasonEditor', options('Escribe el motivo de la consulta'));
-    const devicesQuill = new Quill('#devicesEditor',options('Escribe el motivo de la consulta'));
-    const auxQuill = new Quill('#auxEditor',options('Escribe los auxiliares DX y TX previos'));
+    const auxQuill = new Quill('#auxEditor', options('Escribe los auxiliares DX y TX previos'));
 
-    const physicalExamQuill = new Quill('#physicalExamEditor',options('Escribe el examen físico'));
-    const diagnosisQuill = new Quill('#diagnosisEditor',options('Escribe el diagnóstico'));
-    const treatmentQuill = new Quill('#treatmentEditor',options('Escribe el tratamiento'));
-    const observationsQuill = new Quill('#observationsEditor',options('Escribe las observaciones'));
+    const physicalExamQuill = new Quill('#physicalExamEditor', options('Escribe el examen físico'));
+    const diagnosisQuill = new Quill('#diagnosisEditor', options('Escribe el diagnóstico'));
+    const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
+    const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
 
-    btnSaveConsultation.on('click', function(){
+    btnSaveConsultation.on('click', function () {
+
         
+
         const dataVitalSigns = getDataVitalSigns();
         const inputsDom = getInputsDom();
         const dataQuill = getDataQuill();
 
-        if(!vitalSigns(dataVitalSigns, inputsDom)){
-            console.log('No se puede guardar la consulta'); 
+        console.log(dataQuill);
+
+        if (!vitalSigns(dataVitalSigns, inputsDom)) {
             return;
         }
-      
 
-        
+        const {listWarnings, validate } = validateQuill(dataQuill);
+        if(!validate){
+            AlertErrorConsultation('Error..!', listWarnings);
+            return;
+        }
+
+        const id_person = $(this).data('id');
+        requestPostConsultation({...dataVitalSigns,...dataQuill}, id_person)
+                .then(data=>{
+                    console.log(data);
+                }).catch(error=>{
+                    console.log(error);
+                })
+
+
     })
 
 
-    const getDataVitalSigns = ()=>{
+    
+
+
+    const getDataVitalSigns = () => {
 
         return {
             frecuenciaCardiaca: inputFrecuenciaCardiaca.val(),
@@ -67,7 +125,7 @@ $(function(){
 
 
 
-    const getInputsDom = ()=>{
+    const getInputsDom = () => {
         return {
             inputFrecuenciaCardiaca,
             inputPresionArterial,
@@ -81,17 +139,25 @@ $(function(){
         }
     }
 
-    const getDataQuill = ()=>{
+    const getDataQuill = () => {
         return {
-            reason: reasonQuill.root.innerHTML,
-            devices: devicesQuill.root.innerHTML,
-            aux: auxQuill.root.innerHTML,
-            physical_exam: physicalExamQuill.root.innerHTML,
-            diagnosis: diagnosisQuill.root.innerHTML,
-            treatment: treatmentQuill.root.innerHTML,
-            observations: observationsQuill.root.innerHTML,
+            reason: DomPurify(reasonQuill.root.innerHTML),
+            aux: DomPurify(auxQuill.root.innerHTML),
+            physical_exam: DomPurify(physicalExamQuill.root.innerHTML),
+            diagnosis: DomPurify(diagnosisQuill.root.innerHTML),
+            treatment: DomPurify(treatmentQuill.root.innerHTML),
+            observations: DomPurify(observationsQuill.root.innerHTML)
         }
     }
+
+
+
+
+
+
+
+
+
 
 
 });

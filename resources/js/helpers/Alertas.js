@@ -1,6 +1,9 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
+import { messageWarningConsultation, messageErrorConsultation } from '../templates';
+
+
 /* Alerta que desaparece después de un intervalo de tiempo */
 export function AlertaSweerAlert(Time, Title, msg, icono, type) {
     let timerInterval;
@@ -43,3 +46,36 @@ export const AlertSweetSuccess = (title, msg) => {
         window.location.href = "/patients";
     });
 };
+
+
+export const AlertForWarningConsultation = (data) => {
+
+    return new Promise((resolve, reject) => {
+        Swal.fire({
+            icon: "success",
+            title: 'Precaución',
+            html : messageWarningConsultation(data),
+            confirmButtonText : 'Si estoy seguro',
+            showCancelButton : true,
+            cancelButtonText : 'Cancelar',
+        }).then((confirme) => {
+            if(confirme.isConfirmed){
+                resolve(true);
+            }
+            else{
+                reject(false);
+            }
+        })
+    })
+
+}
+
+export const AlertErrorConsultation = (title, data) => {
+    Swal.fire({
+        icon: "error",
+        title: title,
+        html : messageErrorConsultation(data),
+        confirmButtonText : 'Corregir',
+    });
+
+}

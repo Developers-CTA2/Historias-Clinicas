@@ -1,10 +1,8 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Agregar nuevo paciente')
+@section('title', 'Consulta médica')
 
 @section('viteConfig')
-    {{-- <link rel="stylesheet" href="{{asset('css/quill.snow.css')}}" > --}}
-    {{-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" /> --}}
     @vite(['resources/sass/form-style.scss', 'resources/sass/main.scss','resources/sass/new-consultation.scss'])
 @endsection
 
@@ -22,23 +20,26 @@
 
                 {{-- Datos del paciente y médico --}}
                 <div class="row d-flex flex-column-reverse align-items-center gap-3 gap-md-0 flex-lg-row align-items-lg-end mt-4">
+                    @php
+                        use Carbon\Carbon;
+                    @endphp
 
                     <div class="col-12 col-lg-4">
                         <h5 class="fw-bold mb-2">Fecha de identificación</h5>
-                        <p class="m-0"><span class="fw-bold">Código : </span>216882763</p>
-                        <p class="m-0"><span class="fw-bold">Nombre : </span>Juan Pedro Domínguez Padilla</p>
-                        <p class="m-0"><span class="fw-bold">Edad : </span>45 años</p>
+                        <p class="m-0"><span class="fw-bold me-2">Código : </span>{{$person->codigo}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{$person->nombre}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Edad : </span>{{Carbon::parse($person->fecha_nacimiento)->age}} años</p>
                     </div>
                     <div class="col-12 col-lg-4">
                         <h5 class="fw-bold mb-2">Atendido por</h5>
-                        <p class="m-0"><span class="fw-bold">Nombre : </span>Yolanda Gutierrez</p>
-                        <p class="m-0"><span class="fw-bold">Cédula : </span>216882763</p>
-                        <p class="m-0"><span class="fw-bold">Fecha : </span>10 de junio de 2024</p>
+                        <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{auth()->user()->name}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Cédula : </span>{{auth()->user()->cedula ?? 'No tiene'}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Fecha : </span>{{Carbon::now()->locale('es')->isoFormat('LL')}}</p>
                     </div>
 
                     <div class="col-12 col-lg-4 d-flex gap-4 align-items-end justify-content-start justify-content-lg-end">
                         <a href="{{ route('patients.patients') }}">Cancelar</a>
-                        <button class="fst-normal tooltip-container py-2 px-3 btn-blue-sec" id="saveConsultation">
+                        <button data-id="{{$person->id_persona}}" class="fst-normal tooltip-container py-2 px-3 btn-blue-sec" id="saveConsultation">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="pe-2"
                                 viewBox="0 0 2048 2048">
                                 <path
@@ -62,10 +63,10 @@
                                     <div  id="reasonEditor"></div>
                                 </div>
 
-                                <div class="mb-4">
+                                {{-- <div class="mb-4">
                                     <label class="pb-2">Aparatos y sistemas</label>
                                     <div id="devicesEditor"></div>
-                                </div>
+                                </div> --}}
 
                                 <div class="mb-4">
                                     <label class="pb-2">Auxiliares DX y TX previos</label>
@@ -82,17 +83,22 @@
                                 Detalles
                             </div>
                             <div class="card-body px-4">
-                                <div class="mb-4">
+                                <div class="mb-5">
                                     <label class="pb-2">Exploracion física</label>
                                     <div id="physicalExamEditor"></div>
                                 </div>
 
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label class="pb-2">Diagnóstico</label>
                                     <div id="diagnosisEditor"></div>
                                 </div>
 
-                                <div class="mb-4">
+                                <div class="mb-5 d-flex flex-column">
+                                    <label class="pb-2">Etiquetas del diagnóstico</label>
+                                    <input id="enfermedades" placeholder='Escribe las enfermedes del diagnóstico' class="w-min-custom">
+                                </div>
+
+                                <div class="mb-5">
                                     <label class="pb-2">Tratamiento</label>
                                     <div id="treatmentEditor"></div>
                                 </div>
@@ -114,43 +120,43 @@
                             <div class="card-body">
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="fcIpm" class="pb-1">Frecuencia cardiaca (Ipm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="fcIpm" placeholder="60" />
+                                    <input class="form-control" type="number" id="fcIpm" placeholder="60" value="60" />
                                     <span class="text-danger fw-normal"></span>
                                 </div>
 
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="taMMHg" class="pb-1">Presión arterial (mm/Hg) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="taMMHg" placeholder="90" />
+                                    <input class="form-control" type="text" id="taMMHg" placeholder="90/60" value="90/70" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="tcCentrigrados" class="pb-1">Temperatura (°C) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="tcCentrigrados" placeholder="37.5" />
+                                    <input class="form-control" type="number" id="tcCentrigrados" placeholder="37.5" value="38" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="pesoKilogramos" class="pb-1">Peso (kg) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="pesoKilogramos" placeholder="70.5" />
+                                    <input class="form-control" type="text" id="pesoKilogramos" placeholder="70.5" value="70" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="frRpm" class="pb-1">Frecuencia respiratoria (rpm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="frRpm" placeholder="45" />
+                                    <input class="form-control" type="number" id="frRpm" placeholder="45" value="56" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="satPorcentaje" class="pb-1">Síndrome autoinmune tirogástrico (%) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="satPorcentaje" placeholder="40" />
+                                    <input class="form-control" type="text" id="satPorcentaje" placeholder="40" value="40" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="glucosa" class="pb-1">Glucosa (mg/dL) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="glucosa" placeholder="300" />
+                                    <input class="form-control" type="text" id="glucosa" placeholder="300" value="350" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                                 <div class="form-group mb-3 vitalSigns">
                                     <label for="talla" class="pb-1">Talla (cm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="talla" placeholder="30" />
+                                    <input class="form-control" type="text" id="talla" placeholder="30" value="80" />
                                     <span class="text-danger fw-normal d-none"></span>
                                 </div>
                             </div>

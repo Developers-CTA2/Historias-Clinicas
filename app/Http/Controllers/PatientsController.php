@@ -81,11 +81,7 @@ class PatientsController extends Controller
     {
         $validate = $request->validated();
 
-        $persona = null;
-        
-        
-
-        DB::transaction(function () use ($validate, &$persona) {
+        DB::transaction(function () use ($validate) {
 
             // Insertar la persona
             $dataPersonal = $this->dataPersonalForDB($validate);

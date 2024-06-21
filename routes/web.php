@@ -105,13 +105,16 @@ Route::middleware('auth')->group(function () {
         //     return view('admin.expediente');
         // });
 
+        Route::prefix('/consultation')->group(function () {
+            Route::get('/{id_persona}/new',[ConsultationController::class,'create'])->name('consultation.new');
+            Route::post('/{id_persona}/save',[ConsultationController::class,'store'])->name('consultation.save');
+        }); 
+
     
 
     });
 
-    Route::prefix('/consultation')->group(function () {
-        Route::get('/new',[ConsultationController::class,'create'])->name('consultation.new');
-    }); 
+    
 
     ///// REGISTROS DE PACIENTES
     
@@ -144,6 +147,7 @@ Route::middleware('auth')->group(function () {
     /* APIS */
     Route::post('/api/get-person', [WebServicePersonController::class, 'getPersonWebService'])->name('api.get-person');
     Route::get('/api/get-deseases/{id}', [SpecificDiseasesController::class, 'getSpecificDiseases'])->name('api.get-deseases');
+    Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
     
 });
 

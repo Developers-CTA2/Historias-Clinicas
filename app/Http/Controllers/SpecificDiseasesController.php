@@ -151,4 +151,16 @@ class SpecificDiseasesController extends Controller
         $diseases = Especificar_ahf::where('id_tipo_ahf', $typeId)->get();
         return response()->json($diseases);
     }
+
+
+    public function getSpecificDiseasesAll()
+    {
+        try {
+            $diseases = Especificar_ahf::select('id_especifica_ahf', 'nombre')->get();
+            return response()->json($diseases);
+
+        }catch(\Exception $e){
+            return response()->json(['status' => 500, 'msg' => 'Error, algo salio mal.','error' => $e],500);
+        }
+    }
 }
