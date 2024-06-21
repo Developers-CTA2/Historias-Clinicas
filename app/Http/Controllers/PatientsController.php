@@ -294,7 +294,7 @@ class PatientsController extends Controller
         return [
             'menarca' => $gyo['menarca'],
             'fecha_um' => $gyo['fum'],
-            's_gestacion' => $gyo['estaEmbarazada'] ? $gyo['sGestacion'] : 0,
+            's_gestacion' => $gyo['estaEmbarazada'] ? Carbon::now()->diffInWeeks($gyo['fum']) : 0,
             'dias_x_dias' => $gyo['diasSangrado'].','.$gyo['diasCiclo'],
             'ciclos'=> $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
             'ivs' => $gyo['inicioVidaSexual'],   

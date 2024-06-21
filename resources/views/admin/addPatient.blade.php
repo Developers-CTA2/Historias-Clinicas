@@ -55,13 +55,13 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">Nombre</div>
-                                <span> - </span>
+                                <span id="namePerson"> - </span>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">Carrera / Puesto</div>
-                                <span> - </span>
+                                <span id="careerPerson"> - </span>
                             </div>
                         </li>
                     </ul>
