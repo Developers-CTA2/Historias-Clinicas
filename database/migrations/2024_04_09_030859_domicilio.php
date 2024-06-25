@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('domicilio', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('cuidad_municipio')->nullable();
-            $table->string('estado')->nullable();
-            $table->string('pais')->nullable();
-            $table->string('calle')->nullable();
-            $table->string('num')->nullable();
+            $table->string('cuidad_municipio');
+            $table->string('estado');
+            $table->string('pais');
+            $table->string('calle');
+            $table->string('num');
             $table->string('num_int')->nullable();
-            $table->string('colonia')->nullable();
-            $table->string('cp')->nullable();
+            $table->string('colonia');
+            $table->string('cp');
             $table->timestamps();
         });
     }

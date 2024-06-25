@@ -1,0 +1,39 @@
+// Variables
+@import "variables";
+// Estilos de los botones y de los tooltips
+@import "Buttons";
+
+
+
+.toggle {
+  background: #eee;
+  width: 50px;
+  height: 25px;
+  padding: 5px;
+  border-radius: 50px;
+ 
+}
+
+.label-check {
+  width: 16px;
+  height: 16px;
+  background: $blue-sec;
+  display: flex;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.25s ease 0s;
+}
+
+input {
+  display: none;
+}
+
+input:checked + .label-check {
+  margin-left: 25px;
+  background: $primary;
+}
+
+// .top-content{
+//    // margin-top: -30px !important;
+//    margin-top: 0;
+// }
