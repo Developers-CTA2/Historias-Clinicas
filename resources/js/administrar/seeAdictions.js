@@ -7,8 +7,8 @@ import "sweetalert2/src/sweetalert2.scss";
 import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import "gridjs/dist/theme/mermaid.css";
 
-import { validarCampo } from "../helpers/ValidateFuntions.js";
-import { regexLetters, regexNumero } from "../helpers/Regex.js";
+import { validarCampo, showErrors } from "../helpers/ValidateFuntions.js";
+import { regexLetters } from "../helpers/Regex.js";
 
 $(function () {
     initialData();
@@ -28,12 +28,6 @@ async function initialData() {
                 {
                     id: "name",
                     name: "Nombre",
-
-                    // formatter: (_, row) =>
-                    //     html(
-                    //         `
-                    //             <div>${row.cells[1].data}</div>`
-                    //     ),
                 },
                 {
                     id: "actions",
@@ -194,24 +188,23 @@ async function RequestEdit(id, name) {
         const response = await axios.post("/admin/edit-addictions", Data);
         console.log(response.data);
         const { data } = response;
-        const { status, msg, errors } = data;
+        const { status, msg } = data;
         let timerInterval;
         disableLoading();
 
-        if (status == 200) {
-            timerInterval = AlertaSweerAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else if (status == 202) {
-            showErrors(errors);
-        }
+        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
-        disableLoading();
-        console.log("Error");
+        const { type, msg, errors } = error.response.data;
+
+        if (type == 1) {
+            let timerInterval;
+
+            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+        } else {
+            console.log(errors);
+            showErrors(errors, ".errorAlert", ".errorList");
+        }
+
         console.log(error);
     }
 }
@@ -247,21 +240,5 @@ async function RequestAdd(name) {
         disableLoading();
         console.log("Error");
         console.log(error);
-    }
-}
-
-/* Funcion que muestra los errores que manda el comtrolador */
-function showErrors(errors) {
-    if (errors) {
-        const errorList = $("#errorList");
-        errorList.empty(); // Limpiar la lista de errores existente
-        $.each(errors, function (key, value) {
-            // Agregar cada mensaje de error como un elemento de lista a la lista de errores
-            $.each(value, function (index, errorMessage) {
-                errorList.append($("<li>").text(errorMessage));
-            });
-        });
-        // Mostrar la alerta de error
-        $("#errorAlert").show();
     }
 }

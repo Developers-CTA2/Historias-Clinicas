@@ -5,63 +5,10 @@
     <div class="card-body">
         <div class="row col-12">
             {{-- Contenedor de las enfermedades --}}
-            <div class="col-lg-6 col-md-6 col-sm-12">
-
-                <div class="form-group">
-                    <div class="row">
-                        <h5 class="m-0 mt-1 aling-items-center">
-                            <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                    viewBox="0 0 48 48">
-                                    <g fill="rgb(19, 87, 78)">
-                                        <path fill-rule="evenodd"
-                                            d="M33.258 31c-1.72-3.562-5.22-6-9.258-6s-7.538 2.438-9.258 6c-.469.97.316 2 1.394 2h15.728c1.078 0 1.863-1.03 1.394-2M24 27c2.87 0 5.453 1.555 6.978 4H17.022c1.526-2.445 4.108-4 6.978-4"
-                                            clip-rule="evenodd" />
-                                        <path
-                                            d="M14.221 16.372a1 1 0 0 1 1.309-.22l4 2.5a1 1 0 0 1 0 1.696l-4 2.5a1 1 0 0 1-1.219-1.573c.373-.354.852-.72 1.244-1.02c.174-.133.331-.253.454-.352a4 4 0 0 0 .416-.38a4 4 0 0 0-.454-.409q-.16-.13-.367-.289c-.41-.319-.92-.716-1.32-1.127a1 1 0 0 1-.063-1.326m18.249-.22a1 1 0 0 1 1.246 1.546c-.4.41-.91.808-1.32 1.127q-.206.16-.367.29c-.21.17-.356.302-.454.409c.088.098.223.221.416.378c.123.1.28.22.454.353c.392.3.871.666 1.244 1.02a1 1 0 0 1-1.219 1.573l-4-2.5a1 1 0 0 1 0-1.696zM26 12.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0m12 15a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0" />
-                                        <path fill-rule="evenodd"
-                                            d="M42 24c0 9.941-8.059 18-18 18S6 33.941 6 24S14.059 6 24 6s18 8.059 18 18m-2 0c0 8.837-7.163 16-16 16q-.134 0-.266-.002a2 2 0 1 0-3.667-.485a16.04 16.04 0 0 1-10.994-9.74a2 2 0 1 0-.795-2.79A16 16 0 0 1 8 24a15.96 15.96 0 0 1 5.32-11.914a2 2 0 1 0 3.285-2.278A15.9 15.9 0 0 1 24 8c3.107 0 6.007.885 8.461 2.418a1.5 1.5 0 1 0 2.359 1.795A15.96 15.96 0 0 1 40 24"
-                                            clip-rule="evenodd" />
-                                    </g>
-                                </svg>
-                            </span> Enfermedades
-                        </h5>
-
-                        <div class="cont-list p-2">
-
-                            <ul class="list-group">
-                                @if (!$enfermedades || $enfermedades->isEmpty())
-                                    <li class="list-group-item text-center gap-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 20 20">
-                                            <path fill="#e11d48" fill-rule="evenodd"
-                                                d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                        Sin registros
-                                    </li>
-                                @else
-                                    @foreach ($enfermedades as $enfermedad)
-                                        <li class="list-group-item d-flex justify-content-between">
-                                            {{ $enfermedad->enfermedad_especifica->nombre }}
-                                            <button class="btn-blue-sec fst-normal tooltip-container">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 32 32">
-                                                    <path
-                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                </svg>
-                                                <span class="tooltip-text">Editar registro.</span>
-                                            </button>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
-            </div> {{-- Contenedor deñ lado izquierdo  --}}
-
-            <div class="col-lg-6 col-md-6 col-sm-12">
+            @php
+                use Carbon\Carbon;
+            @endphp
+            <div class="col-lg-8 col-md-8 col-sm-12">
                 <div class="form-group">
                     <h5 class="m-0 mt-1 aling-items-center">
                         <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -77,95 +24,207 @@
                             </svg>
                         </span> Toxicomanías
                     </h5>
-                    <div class="row">
-                        <div class="form-group col-12 pt-2">
-                            <p class="fw-bold mb-0">Nombre contacto:</p>
-                            <div class="mt-0"> {{ $Personal->contacto_emerge }} </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="form-group col-6 pt-2">
-                                <p class="fw-bold mb-0">Teléfono:</p>
-                                <div class="mt-0"> {{ $Personal->telefono_emerge }}</div>
-                            </div>
-                            <div class="form-group col-5 pt-2 div-cedula">
-                                <p class="fw-bold mb-0">Parentesco:</p>
-                                <div class="mt-0"> {{ $Personal->parentesco_emerge }}</div>
-                            </div>
-                        </div>
-
-                        <h5 class="m-0 mt-3 aling-items-center">
-                            <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                    viewBox="0 0 16 16">
-                                    <g fill="rgb(19, 87, 78)">
-                                        <path
-                                            d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207l-5 5V13.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 2 13.5V8.207l-.646.647a.5.5 0 1 1-.708-.708z" />
-                                        <path
-                                            d="M16 12.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 1 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1a.5.5 0 0 0 0 1" />
-                                    </g>
-                                </svg>
-                            </span>
-                            Domicilio del paciente
-                        </h5>
-
-                        <div class="form-group col-12 pt-2">
-                            <p class="fw-bold mb-0">Ciudad:</p>
-                            <div class="mt-0"> {{ $domicilio->cuidad_municipio }}<div>
-                                </div>
-                                <div class="form-group col-12 pt-2">
-                                    <p class="fw-bold mb-0">Calle:</p>
-                                    <div class="mt-0"> {{ $domicilio->calle }} </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-6 pt-2">
-                                        <p class="fw-bold mb-0">Num. externo:</p>
-                                        <div class="mt-0"> {{ $domicilio->num }}</div>
-                                    </div>
-                                    <div class="form-group col-5 pt-2 div-cedula">
-                                        <p class="fw-bold mb-0">Num. interno:</p>
-                                        <div class="mt-0"> {{ $domicilio->num_int ?? '--' }} </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div> <!-- FIN contenedor 1  -->
-                {{-- Botones  --}}
-                <div class="col-12 p-0 mt-2">
-                    <div class="row">
-                        <div class="d-flex justify-content-end">
-                            <div class="mx-2">
-                                <a href="" class="btn-red fst-normal tooltip-container">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 1024 1024">
-                                        <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
-                                        <path
-                                            d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
+                    <div class="cont-list p-2">
+                        <ul class="list-group">
+                            @if (!$toxicomanias || $toxicomanias->isEmpty())
+                                <li class="list-group-item text-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 20 20">
+                                        <path fill="#e11d48" fill-rule="evenodd"
+                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                            clip-rule="evenodd" />
                                     </svg>
-                                    Atras
-                                    <span class="tooltip-text">Volver a la ventana anterior.</span>
+                                    Sin registros
+                                </li>
+                            @else
+                                {{-- Existen toxicomanias  --}}
+                                @foreach ($toxicomanias as $toxicomania)
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div class="align-self-center fw-bold">
+                                            {{ $toxicomania->toxicomanias->nombre }}
+
+                                        </div>
+                                        {{-- caso de ser tabaquismo --}}
+                                        @if ($toxicomania->toxicomanias->nombre == 'Tabaquismo')
+                                            @php
+                                                // Asumiendo que tienes el string que necesitas separar
+                                                $string = $toxicomania->observacion;
+                                                $cadena = explode(',', $string);
+                                                $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
+                                                $años = $fechaInicio->diffInYears(Carbon::now());
+                                            @endphp
+
+                                            <div>
+                                                <p class="m-0 fst-italic text-muted">Desde</p>
+
+                                                <p> {{ $años }} años
+
+                                                </p>
+
+                                            </div>
+                                            <div>
+
+                                                <p class="m-0 fst-italic text-muted">Cantidad</p>
+
+                                                <p class="text-center"> {{ trim($cadena[0]) }}</p>
+                                            </div>
+                                            <div>
+                                                <p class="m-0 fst-italic text-muted">Riesgo</p>
+                                                @if (trim($cadena[2]) == 'Alto')
+                                                    <p class="text-center text-danger">{{ trim($cadena[2]) }}</p>
+                                                @elseif(trim($cadena[2]) == 'Intenso')
+                                                    <p class="text-center text-warning ">{{ trim($cadena[2]) }}</p>
+                                                @elseif(trim($cadena[2]) == 'Moderado')
+                                                    <p class="text-center text-secondary">{{ trim($cadena[2]) }}</p>
+                                                @else
+                                                    <p class="text-center text-dark">{{ trim($cadena[2]) }}</p>
+                                                @endif
+                                            </div>
+                                        @else
+                                            {{-- Caso de las demas toxicomanias  --}}
+                                            <span>
+                                                <p> {{ $toxicomania->observacion }}</p>
+                                            </span>
+                                            <span>
+                                                @php
+                                                    $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
+                                                    $años = $fechaInicio->diffInYears(Carbon::now());
+                                                @endphp
+                                                <p> {{ $años }} años
+
+                                                </p>
+                                            </span>
+                                        @endif
+                                        {{-- boton de de editar --}}
+                                        <div class="align-self-center">
+                                            <button class="btn-blue-sec fst-normal tooltip-container">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 32 32">
+                                                    <path
+                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                </svg>
+                                                <span class="tooltip-text">Editar registro.</span>
+                                            </button>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div> <!-- FIN contenedor 1  -->
+            </div>
+
+
+            <div class="col-lg-4 col-md-4 col-sm-12 m-0">
+                <div class="form-group">
+
+                    <h5 class="m-0 aling-items-center">
+                        <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                viewBox="0 0 24 24">
+                                <path fill="#BE3144"
+                                    d="M12 22q-3.425 0-5.712-2.35T4 13.8q0-1.55.7-3.1t1.75-2.975T8.725 5.05T11 2.875q.2-.2.463-.287T12 2.5t.538.088t.462.287q1.05.925 2.275 2.175t2.275 2.675T19.3 10.7t.7 3.1q0 3.5-2.287 5.85T12 22m0-2q2.6 0 4.3-1.763T18 13.8q0-1.825-1.513-4.125T12 4.65Q9.025 7.375 7.513 9.675T6 13.8q0 2.675 1.7 4.438T12 20m-2-2h4q.425 0 .713-.288T15 17t-.288-.712T14 16h-4q-.425 0-.712.288T9 17t.288.713T10 18m1-5v1q0 .425.288.713T12 15t.713-.288T13 14v-1h1q.425 0 .713-.288T15 12t-.288-.712T14 11h-1v-1q0-.425-.288-.712T12 9t-.712.288T11 10v1h-1q-.425 0-.712.288T9 12t.288.713T10 13z" />
+                            </svg>
+                        </span> Hemotipo
+                    </h5>
+
+                    <div class="p-2">
+                        <div class="d-flex justify-content-between">
+                            <span class="align-self-center">
+                                AB +
+                            </span>
+                            <div class="align-self-center">
+                                <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
+                                    href="#Edit-Hemotipo" role="button" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 32 32">
+                                        <path
+                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                    </svg>
+                                    <span class="tooltip-text">Editar hemotipo.</span>
                                 </a>
                             </div>
-                            <div class="">
-                                <button href="" class="btn-sec fst-normal tooltip-container" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#EditData">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 24 24">
-                                        <path
-                                            d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
-                                    </svg>
-                                    Editar
-                                    <span class="tooltip-text">Editar datos.</span>
-                                </button>
+                        </div>
+
+                        <div class="Edit-hemotipo collapse" id="Edit-Hemotipo">
+                            <label for="E_type">Selecciona un tipo</label>
+                            <select class="form-control" name="E_type" id="E_type">
+                                <option value="0" selected>Selecciona una opción</option>
+                                <option value="1">A -</option>
+                                <option value="2">A +</option>
+                                <option value="3">B -</option>
+                                <option value="4">B +</option>
+
+                            </select>
+                            <span class="text-danger fw-normal" id="error-message" style="display: none;">Tipo
+                                no válido.</span>
+
+                            <div class="d-flex justify-content-center mt-1">
+
+                                <a class="btn-sec fst-normal tooltip-container">
+                                    Guardar
+                                    <span class="tooltip-text">Guardar cambios.</span>
+                                </a>
                             </div>
                         </div>
                     </div>
 
+
+                    <h5 class="m-0 aling-items-center">
+                        <span class="pe-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="#0284c7" fill-rule="evenodd"
+                                    d="M11.612 3.302c.243-.07.5-.07.743 0c.518.147 1.04.283 1.564.42c2.461.641 4.96 1.293 7.184 3.104l1.024.834c.415.338.623.84.623 1.34v7a.75.75 0 0 1-1.5 0v-4.943l-.163.133a11.946 11.946 0 0 1-2.398 1.513c.04.091.061.191.061.297v4.294a2.75 2.75 0 0 1-1.751 2.562l-4 1.56a2.75 2.75 0 0 1-1.998 0l-4-1.56a2.75 2.75 0 0 1-1.751-2.562V13c0-.108.023-.211.064-.304c-.83-.399-1.64-.89-2.417-1.522l-1.024-.834c-.83-.677-.83-2.003 0-2.68l1.04-.85c2.207-1.8 4.689-2.449 7.132-3.087a74.375 74.375 0 0 0 1.567-.421m9.638 5.699c0-.09-.036-.15-.07-.178l-1.024-.834C18 6.5 16.078 5.843 13.64 5.202a90.449 90.449 0 0 1-1.656-.446c-.57.161-1.124.307-1.662.449c-2.42.636-4.529 1.191-6.46 2.768l-1.041.849c-.035.028-.071.087-.071.177s.036.15.07.178l1.025.834c1.948 1.587 4.076 2.146 6.515 2.787c.537.14 1.088.286 1.656.446c.57-.161 1.124-.307 1.662-.449c2.42-.636 4.529-1.191 6.46-2.767l1.041-.85c.035-.028.071-.087.071-.177m-7.294 5.276c1.1-.287 2.207-.577 3.294-.972v3.989c0 .515-.316.977-.796 1.165l-4 1.559a1.25 1.25 0 0 1-.908 0l-4-1.56a1.25 1.25 0 0 1-.796-1.164v-3.998c1.099.4 2.219.692 3.33.982c.525.137 1.047.273 1.565.42c.243.07.5.07.743 0c.519-.148 1.042-.284 1.568-.421"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span> Escolaridad
+                    </h5>
+
+                    <div class="p-2">
+                        <div class="d-flex justify-content-between">
+                            <span class="align-self-center">
+                                Licenciatura
+                            </span>
+                            <div class="align-self-center">
+                                <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
+                                    href="#Edit-escolaridad" role="button" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 32 32">
+                                        <path
+                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                    </svg>
+                                    <span class="tooltip-text">Editar hemotipo.</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="Edit-hemotipo collapse" id="Edit-escolaridad">
+                            <label for="E_type">Selecciona un tipo</label>
+                            <select class="form-control" name="E_type" id="E_type">
+                                <option value="0" selected>Selecciona una opción</option>
+                                <option value="1">Primaria</option>
+                                <option value="2">Secunadria</option>
+                                <option value="3">Preparatoria</option>
+                                <option value="4">Licenciatura</option>
+                                <option value="5">Maestría</option>
+                                <option value="6">Doctorado</option>
+
+                            </select>
+                            <span class="text-danger fw-normal" id="error-message" style="display: none;">Tipo
+                                no válido.</span>
+
+                            <div class="d-flex justify-content-center mt-1">
+
+                                <a class="btn-sec fst-normal tooltip-container">
+                                    Guardar
+                                    <span class="tooltip-text">Guardar cambios.</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- Modal para editar los datos del usuario --}}
 </div>

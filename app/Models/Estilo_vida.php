@@ -10,16 +10,13 @@ class Estilo_vida extends Model
     use HasFactory;
 
     protected $table = 'estilo_vida';
+    public $timestamps = true;
 
     protected $fillable = [
         'actividad',
         'ejercicio',
         'frecuencia',
         'duracion',
-        'inicio',
-        'alcohol',
-        'tabaco',
-        'cafe',
     ];
 
     public function persona()

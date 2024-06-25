@@ -71,7 +71,7 @@ class SpecificDiseasesController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()],400);
         }
 
         $Id_Type =  intval($request['Tipo']);
@@ -81,7 +81,7 @@ class SpecificDiseasesController extends Controller
         $disease = Enfermedad_especifica::where('id_tipo_ahf', $Id_Type)->where('nombre', $Name)->first();
 
         if ($disease) {
-            return response()->json(['status' => 404, 'msg' => 'Error, el dato ya existe.']);
+            return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
         } else {
 
         $espe = Enfermedad_especifica::where('id_especifica_ahf', $Id_Esp)->first();
@@ -116,7 +116,7 @@ class SpecificDiseasesController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
 
         $Id_type =  intval($request['Type']);
@@ -125,7 +125,7 @@ class SpecificDiseasesController extends Controller
         $diseases = Enfermedad_especifica::where('nombre', $Name)->where('id_tipo_ahf', $Id_type)->first();
 
         if ($diseases) {
-            return response()->json(['status' => 202, 'msg' => 'El dato ya esta en la base de datos.']);
+            return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
         } else {
             DB::transaction(function () use ($Name, $Id_type) {
                 $disease = new Enfermedad_especifica;

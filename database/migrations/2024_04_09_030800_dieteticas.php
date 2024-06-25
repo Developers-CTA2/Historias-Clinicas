@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('dieteticas', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('comidas_dia')->nullable();
-            $table->string('quien_prepara')->nullable();
-            $table->string('come_entre_c')->nullable();
-            $table->string('apetito')->nullable();
-            $table->string('alim_pref')->nullable();
+            $table->integer('comidas_dia');
+           // $table->string('quien_prepara')->nullable();
+          //  $table->string('come_entre_c')->nullable();}     
+            $table->enum('apetito', ['Bueno', 'Malo', 'Regular']);
+           // $table->string('alim_pref')->nullable();
             $table->string('alim_no_pref')->nullable();
-            $table->string('alergia')->nullable();
-            $table->string('alergia_a_que')->nullable();
-            $table->integer('suplementos')->nullable();
-            $table->integer('vasos_agua')->nullable();
-            $table->string('vasos_bebidas')->nullable();
+            $table->string('alergias')->nullable();
+            $table->string('suplementos')->nullable();
+            $table->integer('vasos_agua');
+            $table->string('vasos_bebidas');
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
         });
     }

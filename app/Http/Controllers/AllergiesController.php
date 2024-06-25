@@ -21,7 +21,8 @@ class AllergiesController extends Controller
     }
 
 
-    public function showAllergies(Request $request){
+    public function showAllergies(Request $request)
+    {
         $offset = $request->input('offset', 0);
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
@@ -47,38 +48,41 @@ class AllergiesController extends Controller
     {
         // Errores en español 
         $messages = [
-            'Id.required' => 'El campo Tipo de AHF es obligatorio.',
-            'Id.numeric' => 'El campo Tipo de AHF debe ser un número.',
-            'Id.exists' => 'El ID de tipo de AHF no existe en la base de datos.',
+            'Id.required' => 'El campo ID es obligatorio.',
+            'Id.numeric' => 'El campo ID debe ser un número.',
+            'Id.exists' => 'El ID de la alergia no existe en la base de datos.',
             'Name.required' => 'El campo nombre es obligatorio.',
             'Name.string' => 'El campo nombre debe ser una cadena.',
         ];
         // Validar datos
         $validator = Validator::make($request->all(), [
-            'Id' => 'required|numeric|exists:tipo_ahf,id_tipo_ahf',
+            'Id' => 'required|numeric|exists:alergias,id_alergia',
             'Name' => 'required|string',
         ], $messages);
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
 
         $Id =  intval($request['Id']);
         $Name = $request['Name'];
-
-        $Allergy = Alergia::where('id_alergia', $Id)->first();
+        // Verificamos que no se duplique el nombre
+         $Allergy = Alergia::where('nombre', $Name)->first();
 
         if ($Allergy) {
-            DB::transaction(function () use ($Name, $Allergy) {
-                $Allergy->update([
+            return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
+        } else {
+
+            $Update = Alergia::where('id_alergia', $Id)->first();
+            DB::transaction(function () use ($Name, $Update) {
+                $Update->update([
                     'nombre' => $Name,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
         }
+        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
 
 
@@ -96,13 +100,14 @@ class AllergiesController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
         $Name = $request['Name'];
         $Allergy = Alergia::where('nombre', $Name)->first();
 
         if ($Allergy) {
-            return response()->json(['status' => 202, 'msg' => 'La alergia ya esta resgistrada en el sistema.']);
+            return response()->json(['type' => 1, 'msg' => 'La alergia ya esta resgistrada en el sistema.'], 400);
+
         } else {
             DB::transaction(function () use ($Name) {
                 $Allergy = new Alergia();
@@ -113,5 +118,4 @@ class AllergiesController extends Controller
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
-
 }

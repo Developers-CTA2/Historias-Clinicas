@@ -67,24 +67,29 @@ class AddictionsController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
 
         $Id =  intval($request['Id']);
         $Name = $request['Name'];
 
-        $Addiction = Toxicomanias::where('id', $Id)->first();
+        /* Verificamos que no haya otro dato igual */
+        $Addiction = Toxicomanias::where('nombre', $Name)->first();
 
-        if ($Addiction) {
-            DB::transaction(function () use ($Name, $Addiction) {
-                $Addiction->update([
+        if (!$Addiction) {
+            $Update = Toxicomanias::where('id', $Id)->first();
+
+            DB::transaction(function () use ($Name, $Update) {
+                $Update->update([
                     'nombre' => $Name,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
         } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+            return response()->json(['type' => 1, 'msg' => 'El dato ya existe en la base de datos.'], 400);
         }
+        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+
     }
 
     /*
@@ -104,13 +109,14 @@ class AddictionsController extends Controller
 
         // Error en algun dato
         if ($validator->fails()) {
-            return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
+        
         $Name = $request['Name'];
         $Addiction = Toxicomanias::where('nombre', $Name)->first();
 
         if ($Addiction) {
-            return response()->json(['status' => 202, 'msg' => 'La toxicomania ya esta resgistrada en el sistema.']);
+            return response()->json(['type' => 1, 'msg' => 'La toxicomanía ya esta resgistrada en el sistema.'], 400);
         } else {
             DB::transaction(function () use ($Name) {
                 $Addiction = new Toxicomanias();

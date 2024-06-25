@@ -13,13 +13,9 @@ class Diateticas extends Model
 
     protected $fillable = [
         'comidas_dia',
-        'quien_prepara',
-        'come_entre_c',
         'apetito',
-        'alim_pref',
         'alim_no_pref',
-        'alergia',
-        'alergia_a_que',
+        'alergias',
         'suplementos',
         'vasos_agua',
         'vasos_bebidas',
