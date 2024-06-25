@@ -14,6 +14,7 @@ use App\Http\Controllers\AddictionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\HistoryConsultation;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,10 @@ Route::middleware('auth')->group(function () {
         Route::prefix('/consultation')->group(function () {
             Route::get('/{id_persona}/new',[ConsultationController::class,'create'])->name('consultation.new');
             Route::post('/{id_persona}/save',[ConsultationController::class,'store'])->name('consultation.save');
+
+            Route::get('/{id_persona}/history',[HistoryConsultation::class,'show'])->name('consultation.history');
+            Route::get('/{id_persona}/history/{id_consulta}/details',[HistoryConsultation::class,'details'])->name('consultation.history.details');
+            Route::get('/{id_persona}/history/get-consultation',[HistoryConsultation::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
         }); 
 
     

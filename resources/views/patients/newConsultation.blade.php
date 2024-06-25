@@ -19,22 +19,19 @@
             <div class="col-12">
 
                 {{-- Datos del paciente y médico --}}
-                <div class="row d-flex flex-column-reverse align-items-center gap-3 gap-md-0 flex-lg-row align-items-lg-end mt-4">
-                    @php
-                        use Carbon\Carbon;
-                    @endphp
-
+                <div class="row d-flex flex-column-reverse align-items-center gap-3 gap-md-0 flex-lg-row align-items-lg-end mt-4 px-4">
+                   
                     <div class="col-12 col-lg-4">
                         <h5 class="fw-bold mb-2">Fecha de identificación</h5>
                         <p class="m-0"><span class="fw-bold me-2">Código : </span>{{$person->codigo}}</p>
                         <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{$person->nombre}}</p>
-                        <p class="m-0"><span class="fw-bold me-2">Edad : </span>{{Carbon::parse($person->fecha_nacimiento)->age}} años</p>
+                        <p class="m-0"><span class="fw-bold me-2">Edad : </span>{{$person->edad}} años</p>
                     </div>
                     <div class="col-12 col-lg-4">
                         <h5 class="fw-bold mb-2">Atendido por</h5>
                         <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{auth()->user()->name}}</p>
                         <p class="m-0"><span class="fw-bold me-2">Cédula : </span>{{auth()->user()->cedula ?? 'No tiene'}}</p>
-                        <p class="m-0"><span class="fw-bold me-2">Fecha : </span>{{Carbon::now()->locale('es')->isoFormat('LL')}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Fecha : </span>{{$dateNow}}</p>
                     </div>
 
                     <div class="col-12 col-lg-4 d-flex gap-4 align-items-end justify-content-start justify-content-lg-end">
@@ -53,115 +50,104 @@
 
                 <div class="row mt-3 mb-5">
                     <div class="col-12 col-lg-8">
-                        <div class="card shadow-custom">
-                            <div class="card-header text-center bg-blue">
-                                Interrogatorio
-                            </div>
-                            <div class="card-body px-4">
-                                <div class="mb-4">
-                                    <label class="pb-2">Motivo de la consulta</label>
-                                    <div  id="reasonEditor"></div>
-                                </div>
 
-                                {{-- <div class="mb-4">
-                                    <label class="pb-2">Aparatos y sistemas</label>
-                                    <div id="devicesEditor"></div>
-                                </div> --}}
+                        {{-- Card Integorratorio --}}
+                        <x-card-custom >
+                            <x-slot name="title">Interrogatorio</x-slot>
 
-                                <div class="mb-4">
-                                    <label class="pb-2">Auxiliares DX y TX previos</label>
-                                    <div id="auxEditor"></div>
-                                </div>
-
+                            <div class="mb-4">
+                                <label class="pb-2">Motivo de la consulta</label>
+                                <div  id="reasonEditor"></div>
                             </div>
 
-                        </div>
-
-
-                        <div class="card mt-4 shadow-custom">
-                            <div class="card-header text-center bg-blue">
-                                Detalles
+                            <div class="mb-4">
+                                <label class="pb-2">Auxiliares DX y TX previos</label>
+                                <div id="auxEditor"></div>
                             </div>
-                            <div class="card-body px-4">
-                                <div class="mb-5">
-                                    <label class="pb-2">Exploracion física</label>
-                                    <div id="physicalExamEditor"></div>
-                                </div>
+                        </x-card-custom>
 
-                                <div class="mb-3">
-                                    <label class="pb-2">Diagnóstico</label>
-                                    <div id="diagnosisEditor"></div>
-                                </div>
+                        
+                        {{-- Card Detalles --}}
+                        <x-card-custom>
+                            <x-slot name="title">Detalles</x-slot>
 
-                                <div class="mb-5 d-flex flex-column">
-                                    <label class="pb-2">Etiquetas del diagnóstico</label>
-                                    <input id="enfermedades" placeholder='Escribe las enfermedes del diagnóstico' class="w-min-custom">
-                                </div>
-
-                                <div class="mb-5">
-                                    <label class="pb-2">Tratamiento</label>
-                                    <div id="treatmentEditor"></div>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="pb-2">Observaciones</label>
-                                    <div id="observationsEditor"></div>
-                                </div>
+                            <div class="mb-5">
+                                <label class="pb-2">Exploracion física</label>
+                                <div id="physicalExamEditor"></div>
                             </div>
 
-                        </div>
+                            <div class="mb-3">
+                                <label class="pb-2">Diagnóstico</label>
+                                <div id="diagnosisEditor"></div>
+                            </div>
+
+                            <div class="mb-5 d-flex flex-column">
+                                <label class="pb-2">Etiquetas del diagnóstico</label>
+                                <input id="enfermedades" placeholder='Escribe las enfermedes del diagnóstico' class="w-min-custom">
+                            </div>
+
+                            <div class="mb-5">
+                                <label class="pb-2">Tratamiento</label>
+                                <div id="treatmentEditor"></div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="pb-2">Observaciones</label>
+                                <div id="observationsEditor"></div>
+                            </div>
+
+                        </x-card-custom>
+                     
                     </div>
 
                     <div class="col-12 col-lg-4">
-                        <div class="card">
-                            <div class="card-header text-center bg-blue">
-                                Signos vitales
-                            </div>
-                            <div class="card-body">
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="fcIpm" class="pb-1">Frecuencia cardiaca (Ipm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="fcIpm" placeholder="60" value="60" />
-                                    <span class="text-danger fw-normal"></span>
-                                </div>
 
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="taMMHg" class="pb-1">Presión arterial (mm/Hg) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="taMMHg" placeholder="90/60" value="90/70" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="tcCentrigrados" class="pb-1">Temperatura (°C) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="tcCentrigrados" placeholder="37.5" value="38" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="pesoKilogramos" class="pb-1">Peso (kg) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="pesoKilogramos" placeholder="70.5" value="70" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="frRpm" class="pb-1">Frecuencia respiratoria (rpm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="number" id="frRpm" placeholder="45" value="56" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="satPorcentaje" class="pb-1">Síndrome autoinmune tirogástrico (%) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="satPorcentaje" placeholder="40" value="40" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="glucosa" class="pb-1">Glucosa (mg/dL) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="glucosa" placeholder="300" value="350" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
-                                <div class="form-group mb-3 vitalSigns">
-                                    <label for="talla" class="pb-1">Talla (cm) <span class="required-point">*</span></label>
-                                    <input class="form-control" type="text" id="talla" placeholder="30" value="80" />
-                                    <span class="text-danger fw-normal d-none"></span>
-                                </div>
+                        <x-card-custom>
+                            <x-slot name="title">Signos vitales</x-slot>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="fcIpm" class="pb-1">Frecuencia cardiaca (Ipm) <span class="required-point">*</span></label>
+                                <input class="form-control" type="number" id="fcIpm" placeholder="60" value="60" />
+                                <span class="text-danger fw-normal"></span>
                             </div>
 
-                        </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="taMMHg" class="pb-1">Presión arterial (mm/Hg) <span class="required-point">*</span></label>
+                                <input class="form-control" type="text" id="taMMHg" placeholder="90/60" value="90/70" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="tcCentrigrados" class="pb-1">Temperatura (°C) <span class="required-point">*</span></label>
+                                <input class="form-control" type="number" id="tcCentrigrados" placeholder="37.5" value="38" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="pesoKilogramos" class="pb-1">Peso (kg) <span class="required-point">*</span></label>
+                                <input class="form-control" type="text" id="pesoKilogramos" placeholder="70.5" value="70" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="frRpm" class="pb-1">Frecuencia respiratoria (rpm) <span class="required-point">*</span></label>
+                                <input class="form-control" type="number" id="frRpm" placeholder="45" value="56" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="satPorcentaje" class="pb-1">Síndrome autoinmune tirogástrico (%) <span class="required-point">*</span></label>
+                                <input class="form-control" type="text" id="satPorcentaje" placeholder="40" value="40" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="glucosa" class="pb-1">Glucosa (mg/dL) <span class="required-point">*</span></label>
+                                <input class="form-control" type="text" id="glucosa" placeholder="300" value="350" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+                            <div class="form-group mb-3 vitalSigns">
+                                <label for="talla" class="pb-1">Talla (cm) <span class="required-point">*</span></label>
+                                <input class="form-control" type="text" id="talla" placeholder="30" value="80" />
+                                <span class="text-danger fw-normal d-none"></span>
+                            </div>
+
+                        </x-card-custom>
+                    
                     </div>
 
                 </div>

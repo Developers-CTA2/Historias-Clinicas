@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('consulta', function (Blueprint $table) {
             $table->id('id_consulta');
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->datetime('fecha')->useCurrent();
             $table->enum('turno',['matutino','vespertino','nocturno']);
             $table->text('motivo_consulta');
             $table->text('auxiliares_dx_tx_previo')->nullable();

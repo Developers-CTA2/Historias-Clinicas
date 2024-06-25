@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('presion_arterial',10);
             $table->decimal('peso');
             $table->decimal('temperatura');
-            $table->integer('Síndrome_autoinmune_tirogastrico');
+            $table->integer('sindrome_autoinmune_tirogastrico');
             $table->integer('glucosa');
             $table->decimal('talla');
             $table->timestamps();

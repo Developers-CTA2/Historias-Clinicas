@@ -8,7 +8,8 @@ use HTMLPurifier;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Persona;
-
+use App\Models\Consulta;
+use GuzzleHttp\Psr7\Request;
 
 use function Laravel\Prompts\error;
 
@@ -26,7 +27,12 @@ class ConsultationController extends Controller
 
         $person = Persona::findOrfail($id_persona);
 
-        return view('patients.newConsultation', compact('breadcrumbs', 'person'));
+    
+        $person->edad = Carbon::parse($person->fecha_nacimiento)->age;  
+        $dateNow = Carbon::now()->locale('es')->isoFormat('LL');
+        // return response()->json($person);
+
+        return view('patients.newConsultation', compact('breadcrumbs', 'person','dateNow'));
     }
 
     public function store(StoreConsultationRequest $request, $id_persona)
@@ -51,6 +57,8 @@ class ConsultationController extends Controller
             return response()->json(['title' => 'Oops.. ha sucedido un error', 'message' => 'Error al guardar la consulta del paciente', 'error' => $e], 500);
         }
     }
+
+    
 
 
     private function extractSignVitalConsultation($data)

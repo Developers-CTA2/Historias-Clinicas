@@ -30,7 +30,6 @@ export const messageErrorConsultation = (data = []) => {
     `;
   }).join('');
 
-
   return template;
 
 }

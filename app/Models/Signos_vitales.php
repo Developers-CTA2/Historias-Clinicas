@@ -21,7 +21,7 @@ class Signos_vitales extends Model
         'glucosa',
         'talla',
         'temperatura',
-        'Síndrome_autoinmune_tirogastrico',
+        'sindrome_autoinmune_tirogastrico',
 
     ];
 
