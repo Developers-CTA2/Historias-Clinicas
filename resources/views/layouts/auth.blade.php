@@ -18,15 +18,18 @@
     {{-- <link rel="stylesheet" href="{{ asset('css/login.css') }}"> --}}
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js','resources/sass/login.scss'])
+    <script src="{{asset('js/jquery.min.js')}}"></script>
 </head>
 
 <body>
     <div id="app">
-        <main class="container-custom d-flex justify-content-center align-items-center ">
+        <main class="container-custom-login d-flex justify-content-center align-items-center">
             @yield('content')
         </main>
     </div>
+
+    @yield('scripts')
 </body>
 
 </html>

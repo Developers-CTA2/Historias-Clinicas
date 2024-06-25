@@ -124,6 +124,17 @@
     fill: white; /* Cambiar el color del SVG */
 }
 
+.btn-color-login{
+    background-color: $primary;
+    color: $bg-light;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-color-login:hover{
+    background-color: $primary-hover;
+    color: $bg-light;
+}
+
 
 .btn-secondary-custom{
     background-color: $button-secondary !important;
