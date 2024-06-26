@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('domicilio', function (Blueprint $table) {
-            $table->foreignId('id_persona')->constrained('personas', 'id_persona');
+            $table->id('id_domicilio'); // Asegúrate de que sea una clave primaria
             $table->string('cuidad_municipio');
             $table->string('estado');
             $table->string('pais');
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('num_int')->nullable();
             $table->string('colonia');
             $table->string('cp');
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
         });
     }
@@ -33,8 +35,11 @@ return new class extends Migration
 
         // Eliminar restricciones de clave foránea
         Schema::table('domicilio', function (Blueprint $table) {
-            $table->dropForeign(['id_persona']);
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
         });
+
+         
 
         Schema::dropIfExists('domicilio');
     }

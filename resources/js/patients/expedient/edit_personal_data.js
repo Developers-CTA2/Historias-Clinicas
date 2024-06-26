@@ -1,6 +1,7 @@
 import { VerifyChanges, automaicScroll } from "../helpers/funcionValidate.js";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
 import {
+    regexNumero,
     regexLetters,
     regexFecha,
     regexTelefono,
@@ -216,7 +217,8 @@ function ObtainNewPersonalData() {
     if ($("#code").text().trim() != "--") {
         gender = $("#gender").text().trim();
     } else {
-        gender = $("#new_gender").val();
+       let aux = $("#new_gender").val();
+        if(aux == 1){gender = 'Masculino'}else{gender = 'Femenino'}
     }
 
     let Data = {
@@ -288,6 +290,7 @@ function validateObjets(opc, personal, direction) {
 }
 
 function ValidatePersonalData(personal) {
+    console.log(personal.gender);
     let V_name = validarCampo(personal.name, regexLetters, "#new_name");
     let V_gender = validarCampo(personal.gender, regexLetters, "#new_gender");
     let V_tel = validarCampo(personal.tel, regexTelefono, "#new_tel");
@@ -404,6 +407,7 @@ async function RequestUpdate(Personal, Direction, Type) {
         Direction: Direction,
         Type: parseInt(Type),
         Id: parseInt(id),
+        Id_dom: parseInt($("#id_dom").text().trim()),
     };
     console.log(Data);
      let timerInterval;

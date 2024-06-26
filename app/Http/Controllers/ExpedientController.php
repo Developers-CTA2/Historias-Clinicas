@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Persona;
 use App\Models\Domicilio;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -48,7 +50,7 @@ class ExpedientController extends Controller
         $quirurgicos = $Personal->ant_quirurgicos;
         $gyo = $Personal->gyo;
 
-        // return response()->json($transfusiones);
+        // return response()->json($domicilio);
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.patients')],
             ['name' => 'Expediente', '' => ''],
@@ -62,6 +64,7 @@ class ExpedientController extends Controller
     {
         $data = $request->validate([
             'Type' => 'required|numeric',
+            'Id_dom' => 'required|numeric',
             'Id' => 'required|numeric|exists:personas,id_persona',
             'Direction.country' => 'required|string',
             'Direction.state' => 'required|string',
@@ -104,9 +107,6 @@ class ExpedientController extends Controller
         $street = $data['Direction']['street'];
         $Id = $data['Id'];
 
-
-//"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause' (Connection: mysql, SQL: update `domicilio` set `estado` = Jalisco, `calle` = Manuel doblado, `num` = 461, `colonia` = Centro, `cp` = 47600, `domicilio`.`updated_at` = 2024-06-25 21:27:31 where `id` is null)"
-
         //  return response()->json($data);
 
         switch ($data['Type']) {
@@ -125,18 +125,18 @@ class ExpedientController extends Controller
                             'parentesco_emerge' => $parent_e,
                             'nss' => $nss,
                             'religion' => $religion,
-                            'updated_at' => now()
+                            'updated_by' => Auth::id()
                         ]);
                     });
-                    return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
+                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
                 }
             case 2: {    // Solo cambiaron los datos del domicilio
-                    $Domicilio = Domicilio::where('id_persona', $data['Id'])->first();
+                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
 
-                    if($Domicilio){
-                        DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio,$data) {
-                            Domicilio::where('id_persona', $data['Id'])->update([
-                                'cuidad_municipio' => $city,
+                    if ($Domicilio) {
+                        DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio, $data) {
+                            $Domicilio->update([
+                                'ciudad_municipio' => $city,
                                 'estado' => $state,
                                 'pais' => $country,
                                 'calle' => $street,
@@ -144,18 +144,19 @@ class ExpedientController extends Controller
                                 'num_int' => $num_int,
                                 'colonia' => $colony,
                                 'cp' => $cp,
-                            ]);                        
-                        });
-                        return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
-                    }else{
-                        return response()->json(['msg' => 'Datos editados correctamente.'],404);
+                                'updated_by' => Auth::id()
 
+                            ]);
+                        });
+                        return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
+                    } else {
+                        return response()->json(['msg' => 'Error al actualizar los datos.'], 404);
                     }
                 }
             case 3: {   // Cambiaron los datos del domicilio y personales
                     $Personal = Persona::where('id_persona', $data['Id'])->first();
-                    $Domicilio = Domicilio::where('id_persona', $data['Id'])->first();
-                  
+                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
+
                     DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $country, $street, $ext, $num_int, $colony, $cp, $city, $state, $Personal, $Domicilio) {
                         $Personal->update([
                             'nombre' => $name,
@@ -164,11 +165,12 @@ class ExpedientController extends Controller
                             'sexo' => $gender,
                             'telefono' => $tel,
                             'telefono_emerge' => $tel_e,
-                            'contacto_emerge' => $name_e, 
+                            'contacto_emerge' => $name_e,
                             'parentesco_emerge' => $parent_e,
                             'nss' => $nss,
                             'religion' => $religion,
-                            'updated_at' => now()
+                            'updated_by' => Auth::id()
+
                         ]);
 
                         $Domicilio->update([
@@ -180,27 +182,13 @@ class ExpedientController extends Controller
                             'num_int' => $num_int,
                             'colonia' => $colony,
                             'cp' => $cp,
-                            'updated_at' => now()
+                            'updated_by' => Auth::id()
+
                         ]);
                     });
-                    return response()->json(['status' => 200, 'msg' => 'Datos personales y del domicilio editados correctamente.']);
-                
+                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
                 }
         }
-
         return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
     }
 }
-/*
-    name: $("#new_name").val().trim(),
-        // code: $("#new_code").val().trim(),
-        tel: $("#new_tel").val().trim(),
-        gender: gender,
-        birthday: $("#new_birthday").val().trim(),
-        religion: $("#new_religion").val().trim(),
-        ocupation: $("#new_ocupation").val().trim(),
-        nss: $("#new_nss").val().trim(),
-        name_e: $("#new_name_e").val().trim(),
-        tel_e: $("#new_tel_e").val().trim(),
-        parent_e: $("#new_parent_e").val().trim(),
-*/
