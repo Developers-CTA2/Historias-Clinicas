@@ -4,6 +4,9 @@ $(function(){
     const btncompressedSidebar = $('#btnOpenClose');
     const btnCloseSideBarMovil = $('#btn-close-sidebar-movil');
 
+    const links = $('.link-item-custom');
+
+    
     // Containers
     const containerSideBar = $('#container-sideBar-custom')
     const containerNavBar = $('#navBar');
@@ -30,6 +33,16 @@ $(function(){
         containerSideBar.toggleClass('compressed');
         containerNavBar.toggleClass('container-expanded');
         mainContainer.toggleClass('container-expanded');
-    })
+    });
+
+
+    // Submenus
+    links.on('click', function(){
+        $(this).siblings().removeClass('active');
+        $(this).toggleClass('active');
+
+        $(this).find('ul').slideToggle();
+    });
+
 
 });

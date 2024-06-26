@@ -9,25 +9,6 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 
 
-/* Animacion perroncilla Se pone en el Button y el i (icono) se hace mas grande */
-.animated-icon i {
-    transition: transform 0.3s ease-in-out;
-}
-
-.animated-icon:hover i {
-    transform: scale(1.4); /* Aumenta de tamaño */
-}
-
-/* Caso de ser un svg */ 
-.animated-icon svg {
-    transition: transform 0.3s ease-in-out;
-}
-
-.animated-icon:hover svg {
-    transform: scale(1.4); /* Aumenta de tamaño */
-}
-
-
 
 /* Sidebar Component Styles */
 .sideBar-custom {
@@ -39,65 +20,78 @@
     transition: all 0.3s ease-in-out;
 }
 
-.sideBar-custom.compressed #title, .sideBar-custom.compressed .compressed-text {
+.sideBar-custom.compressed #title,
+.sideBar-custom.compressed .compressed-text {
     display: none;
 }
 
 
-.bg-custom{
+.bg-custom {
     font-family: 'Poppins', sans-serif;
     background-color: #f0f0f0 !important;
 }
 
 /* sidebard minimizado */
 .sideBar-custom.collapsed {
-    width: 80px; /* Ancho del sidebar cuando está colapsado */
+    width: 80px;
+    /* Ancho del sidebar cuando está colapsado */
 }
 
 /* Main Content */
 .container-custom {
     margin-left: 300px;
     padding-top: 80px;
-    width: calc(100% - 300px); /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
-    min-height: 100vh; /* Altura mínima del contenedor para ocupar al menos el tamaño de la ventana del navegador */
-    transition:  all 0.3s ease-in-out;
+    width: calc(100% - 300px);
+    /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
+    min-height: 100vh;
+    /* Altura mínima del contenedor para ocupar al menos el tamaño de la ventana del navegador */
+    transition: all 0.3s ease-in-out;
 }
 
-.container-custom.container-expanded{
+.container-custom.container-expanded {
     margin-left: 100px;
-    width: calc(100% - 100px);   
+    width: calc(100% - 100px);
 }
 
 /* sidebard expandido */
 .container-custom.expanded {
-    margin-left: 220px; /* Margen a la izquierda para dejar espacio para el sidebar cuando está expandida */
+    margin-left: 220px;
+    /* Margen a la izquierda para dejar espacio para el sidebar cuando está expandida */
 }
 
 /* Cuando esta minimizada el sidebard */
 .container-custom.full-width {
     margin-left: 80px;
-    width: calc(100% - 80px); /* Resta del ancho de la ventana menos el ancho del sidebar colapsado */
+    width: calc(100% - 80px);
+    /* Resta del ancho de la ventana menos el ancho del sidebar colapsado */
 }
 
 /* Header */
 .header-content {
     position: fixed;
-    margin-left: 220px; /* Margen a la izquierda para dejar espacio para el sidebar */
-    width: calc(100% - 220px); /* Ancho del header, restando el espacio ocupado por el sidebar */
-    height: 50px; /* Altura del encabezado */
-    background-color: rgb(233, 233, 233); /* Color de fondo del encabezado */
+    margin-left: 220px;
+    /* Margen a la izquierda para dejar espacio para el sidebar */
+    width: calc(100% - 220px);
+    /* Ancho del header, restando el espacio ocupado por el sidebar */
+    height: 50px;
+    /* Altura del encabezado */
+    background-color: rgb(233, 233, 233);
+    /* Color de fondo del encabezado */
     z-index: 99;
 }
 
 /* Cuando está expandido */
 .header-content.expanded {
-    margin-left: 220px; /* Margen a la izquierda para dejar espacio para el sidebar cuando está expandido */
+    margin-left: 220px;
+    /* Margen a la izquierda para dejar espacio para el sidebar cuando está expandido */
 }
 
 /* Cuando está minimizado el sidebar */
 .header-content.full-width {
-    margin-left: 80px; /* Margen a la izquierda para dejar espacio para el sidebar cuando está minimizado */
-    width: calc(100% - 80px); /* Ancho del header, restando el espacio ocupado por el sidebar minimizado */
+    margin-left: 80px;
+    /* Margen a la izquierda para dejar espacio para el sidebar cuando está minimizado */
+    width: calc(100% - 80px);
+    /* Ancho del header, restando el espacio ocupado por el sidebar minimizado */
 }
 
 /* Titulo del sistema */
@@ -134,18 +128,97 @@
     border-radius: 8px;
 }
 
-#sidebarContent {
-    margin-top: 30px;
+
+/* Section sidebar items */
+
+.sideBar-custom {
+
+    nav {
+        ul {
+            flex: 1;
+            padding: 5px 15px;
+            color: $text-white;
+
+            li {
+                list-style: none;
+                margin-bottom: 8px;
+                
+                
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    border-radius: 0.6rem;
+                    text-decoration: none;
+                    padding: 12px 8px;
+                    border-radius: 8px;
+                    transition: all 0.3s ease-in-out;
+                    cursor: pointer;
+
+
+                    .arrow-submenu {
+                        width: 25px;
+                        height: 25px;
+                        transform: rotate(180deg);
+                    }
+
+                    .text {
+                        flex : 1;
+                    }
+
+                    &:hover {
+                        background-color: $primary-hover;
+                    }
+
+                }
+
+                .submenu{
+                        
+                        padding: 0px;
+                        margin-left: 35px;
+                        
+                        display: none;
+    
+                        li{
+                            // border-left: 1px solid $text-white;
+                            margin: 5px 0px;
+                            a{
+                                padding-left: 15px;
+                                .text{
+                                    color: $text-white;
+                                }
+
+                                &:hover {
+                                    background-color: $primary-hover;
+                                }
+                            }
+                        }
+                }
+
+                &.active{
+                    a{
+                        background-color: $secundary;
+                        border-radius: 8px;
+                    
+                    }
+                    
+                }
+
+            }
+
+            
+        }
+    }
+
 }
 
-/* Esapcio entre las opciones */
-#sidebarContent > ul > li {
-    padding-bottom: 25px;
-}
 
-#sidebarContent > ul > li > a > i {
-    font-size: 1.4rem;
-}
+/* End Section sidebar items */
+
+
 
 .icon-logout {
     color: white;
@@ -153,69 +226,6 @@
     height: 1.2rem;
 }
 
-/* Cambio de color con el hover */
-.link-custom-nav:hover {
-    background-color: $secundary;
-    padding: 10px 0;
-    /* top | left and right | bottom */
-    width: 90%;
-    height: 42px;
-}
-
-.sublink-custom-nav {
-    margin: 5px 0 5px 5px;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-    border-radius: 8px;
-    padding-left: 15px;
-}
-
-.sublink-custom-nav:hover {
-    padding: 5px 0;
-    width: 90%;
-    background-color: $primary;
-    justify-content: center;
-}
-
-/* Estilo predeterminado para el submenu */
-.Sub_menu {
-    margin-left: 35px;
-    width: 73%;
-    border-radius: 8px;
-}
-
-/* Estilo cuando el sidebar está minimizado */
-.sideBar-custom.collapsed .Sub_menu {
-    margin-left: 5px;
-    margin-right: 15px;
-    border-radius: 8px;
-}
-
-.border-custom-sublinks {
-    border-left: 3px solid $text-white;
-}
-
-.text-md-custom {
-    font-size: 1rem;
-}
-
-.px-2 {
-    padding-right: 1.5rem !important;
-    padding-left: 1.5rem !important;
-}
-
-.ps-1 {
-    padding-left: 0rem !important;
-}
-
-.hide {
-    display: none;
-}
-
-.hide-sections {
-    display: none;
-}
 
 .settings-custom {
     padding: 0px 15px;
@@ -237,24 +247,12 @@
     cursor: pointer;
 }
 
-.border-none-custom {
-    border: none;
-}
-
-.border-none-custom:focus {
-    border: none;
-}
 
 .titleView-custom {
     font-size: 1.4rem;
     font-weight: bold;
 }
 
-.item-custom-link {
-    color: $secundary;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
 
 /* General Styles*/
 .btn-color-format {
@@ -265,6 +263,7 @@
 .btn-color-format:focus {
     background-color: $secundary;
 }
+
 .btn-color-format:hover {
     background-color: $primary;
 }
@@ -289,7 +288,7 @@
 }
 
 
-/* Styles for SideBar and navbar */ 
+/* Styles for SideBar and navbar */
 #header-custom {
     width: 100%;
     // height: 100vh;
@@ -297,80 +296,80 @@
     z-index: 99;
 }
 
-#navBar{
+#navBar {
     padding: 0 20px;
     width: calc(100% - 280px);
-    height: 70px;   
+    height: 70px;
     position: fixed;
     right: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: $bg-light;
-    box-shadow: 0px 13px 36px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 13px 36px 0px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease-in-out;
 }
 
-#navBar.container-expanded{
+#navBar.container-expanded {
     width: calc(100% - 80px);
 }
 
 
 
-#usernameText{
+#usernameText {
     font-size: 1.2rem;
     font-weight: bold;
     color: $primary;
 }
 
-#title{
+#title {
     font-size: 0.9rem;
     font-weight: bold;
     color: white;
 
 }
 
-.avatar-container{
+.avatar-container {
     background-image: url('/public/images/avatar-c.jpg');
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
-    width: 40px; 
+    width: 40px;
     height: 40px;
     border-radius: 50%;
-    cursor: pointer;   
+    cursor: pointer;
 }
 
-.avatar-custom{
+.avatar-custom {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 
 }
 
-.icon-custom{
+.icon-custom {
     width: 20px;
     height: 20px;
     color: #777;
     margin-right: 5px;
 }
 
-.icon-custom-lg{ 
+.icon-custom-lg {
     width: 30px;
     height: 30px;
     color: white;
 }
 
-#btnOpenClose{
+#btnOpenClose {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     background-color: transparent;
 }
 
-#btnOpenClose:hover{
+#btnOpenClose:hover {
     background-color: $primary;
 }
 
-.hamburger-custom-btn{
+.hamburger-custom-btn {
     width: 35px;
     height: 35px;
     color: $primary;
@@ -380,12 +379,14 @@
 
 
 // Sidebar compressed
-.compressed{
+.compressed {
     width: 80px;
 }
 
 
-.sideBar-custom.movil-collapse{
+
+
+.sideBar-custom.movil-collapse {
     // width: 0px !important;
     left: 0px;
 }
@@ -394,32 +395,32 @@
 
 /* Media Querys Movil*/
 
-@media (max-width : 768px){
-    .sideBar-custom{
+@media (max-width : 768px) {
+    .sideBar-custom {
         // width: 0px !important;
         left: -280px;
     }
 
-    .sideBar-custom.compressed{
+    .sideBar-custom.compressed {
         left: -80px;
     }
 
-    #navBar{
+    #navBar {
         width: 100% !important;
     }
 
-    .container-custom.container-expanded{
-        margin-left: 0px;
-        padding: 0 20px;
-        padding-top: 100px;
-        width: 100%;   
-    }
-    
-    .container-custom{
+    .container-custom.container-expanded {
         margin-left: 0px;
         padding: 0 20px;
         padding-top: 100px;
         width: 100%;
-        
+    }
+
+    .container-custom {
+        margin-left: 0px;
+        padding: 0 20px;
+        padding-top: 100px;
+        width: 100%;
+
     }
 }
