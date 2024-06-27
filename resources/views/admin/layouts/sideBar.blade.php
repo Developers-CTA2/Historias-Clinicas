@@ -23,6 +23,8 @@
 
                 <x-item-sidebar-with-submenu />
 
+                <x-item-sidebar-with-submenu />
+
                 
                
             </ul>

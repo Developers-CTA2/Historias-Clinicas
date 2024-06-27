@@ -1,5 +1,5 @@
 <li class="link-item-custom">
-    <a >
+    <a class="link-item-principal">
         <div class="icon-item-sidebar">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                 <path fill="#ffffff"
@@ -15,13 +15,13 @@
         </div>
     </a>
     <ul class="submenu">
-        <li>
+        <li class="link-item-submenu">
             <a href="#">
                 <span class="text">Lista de pacientes</span>
             </a>
         </li>
 
-        <li>
+        <li class="link-item-submenu">
             <a href="#">
                 <span class="text">Agregar paciente</span>
             </a>

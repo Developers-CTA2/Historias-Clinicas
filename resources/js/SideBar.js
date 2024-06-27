@@ -38,10 +38,18 @@ $(function(){
 
     // Submenus
     links.on('click', function(){
+        // Remover la clase active de todos los elementos
         $(this).siblings().removeClass('active');
+
+        // Agregar o remover la clase active del elemento actual
         $(this).toggleClass('active');
 
+        // Mostrar u ocultar el submenu
         $(this).find('ul').slideToggle();
+        $(this).siblings().find('ul').slideUp();
+
+        // Si el elemento actual tiene la clase active, se cierran los demas submenus
+        $(this).siblings().find('ul').find('li').removeClass('active');
     });
 
 

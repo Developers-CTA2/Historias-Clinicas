@@ -137,15 +137,16 @@
         ul {
             flex: 1;
             padding: 5px 15px;
-            color: $text-white;
+
 
             li {
                 list-style: none;
                 margin-bottom: 8px;
-                
-                
 
-                a {
+
+
+
+                .link-item-principal {
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -157,16 +158,18 @@
                     border-radius: 8px;
                     transition: all 0.3s ease-in-out;
                     cursor: pointer;
+                    color: $text-white;
 
 
                     .arrow-submenu {
                         width: 25px;
                         height: 25px;
                         transform: rotate(180deg);
+                        transition: all 0.3s ease-in-out;
                     }
 
                     .text {
-                        flex : 1;
+                        flex: 1;
                     }
 
                     &:hover {
@@ -175,43 +178,141 @@
 
                 }
 
-                .submenu{
-                        
-                        padding: 0px;
-                        margin-left: 35px;
-                        
-                        display: none;
-    
-                        li{
-                            // border-left: 1px solid $text-white;
-                            margin: 5px 0px;
-                            a{
-                                padding-left: 15px;
-                                .text{
-                                    color: $text-white;
-                                }
+                .submenu {
 
-                                &:hover {
-                                    background-color: $primary-hover;
-                                }
+                    padding: 0px;
+                    margin-left: 35px;
+                    display: none;
+
+                    .link-item-submenu {
+                        // border-left: 1px solid $text-white;
+                        margin: 5px 0px;
+
+                        a {
+                            display: flex;
+                            align-items: center;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            border-radius: 0.6rem;
+                            text-decoration: none;
+                            padding: 12px 8px;
+                            border-radius: 8px;
+                            transition: all 0.3s ease-in-out;
+                            cursor: pointer;
+                            color: $text-white;
+
+                            padding-left: 15px;
+
+                            .text {
+                                color: $text-white;
+                            }
+
+                            &:hover {
+                                background-color: $primary-hover;
                             }
                         }
+                    }
+
                 }
 
-                &.active{
-                    a{
+                &.active {
+                    .link-item-principal {
                         background-color: $secundary;
                         border-radius: 8px;
-                    
+
+                        .arrow-submenu {
+                            transform: rotate(0deg);
+                        }
+
                     }
-                    
+
+
+
                 }
 
             }
 
-            
+
         }
     }
+
+    // Sidebar compressed
+    &.compressed {
+        width: 80px;
+
+        nav {
+            ul {
+                li {
+                    .link-item-principal {
+
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+
+                        .text {
+                            position: absolute;
+                            left: 70px;
+                            ;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            padding: 10px;
+                            border-radius: 4px;
+                            background-color: $secundary;
+                            color: $text-white;
+
+                            &::after{
+                                content: "";
+                                position: absolute;
+                                left: -5px;
+                                top: 20px;
+                                width: 20px;
+                                height: 20px;
+                                border-radius: 2px;
+                                background-color: $secundary;
+                                transform: rotate(45deg);
+
+                            }
+                        }
+
+
+
+
+                        .arrow-submenu {
+                            display: none;
+                        }
+                    }
+
+                    .submenu {
+                        .link-item-submenu {
+                            a {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: relative;
+
+                                .text {
+                                    position: absolute;
+                                    left: 70px;
+                                    ;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    padding: 10px;
+                                    border-radius: 4px;
+                                    background-color: $secundary;
+                                    color: $text-white;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
+
 
 }
 
@@ -378,10 +479,6 @@
 }
 
 
-// Sidebar compressed
-.compressed {
-    width: 80px;
-}
 
 
 
