@@ -12,6 +12,13 @@ $(function(){
     const containerNavBar = $('#navBar');
     const mainContainer = $('#main-container');
 
+    // Si el sidebar esta comprimido
+    if(localStorage.getItem('sidebar')){
+        containerSideBar.addClass('compressed');
+        containerNavBar.addClass('container-expanded');
+        mainContainer.addClass('container-expanded');
+    }
+
     btnCloseSideBarMovil.on('click', function(){
         containerSideBar.removeClass('movil-collapse');
         containerNavBar.removeClass('container-expanded');
@@ -30,9 +37,16 @@ $(function(){
     })
 
     btncompressedSidebar.on('click', function(){
+        console.log('click');
         containerSideBar.toggleClass('compressed');
         containerNavBar.toggleClass('container-expanded');
         mainContainer.toggleClass('container-expanded');
+
+        if(containerSideBar.hasClass('compressed')){
+            localStorage.setItem('sidebar', 'compressed');
+        }else{
+            localStorage.removeItem('sidebar');
+        }
     });
 
 

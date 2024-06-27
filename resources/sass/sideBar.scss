@@ -143,14 +143,12 @@
                 list-style: none;
                 margin-bottom: 8px;
 
-
-
-
                 .link-item-principal {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                     gap: 10px;
-                    font-size: 0.9rem;
+                    font-size: 1rem;
                     font-weight: 500;
                     border-radius: 0.6rem;
                     text-decoration: none;
@@ -243,40 +241,48 @@
         nav {
             ul {
                 li {
+
+                    position: relative;
+
                     .link-item-principal {
-
-
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
+                        gap: 0;
                         position: relative;
 
                         .text {
                             position: absolute;
-                            left: 70px;
-                            ;
+                            left: 80px;
                             top: 50%;
                             transform: translateY(-50%);
                             padding: 10px;
                             border-radius: 4px;
-                            background-color: $secundary;
-                            color: $text-white;
+                            background-color: $bg-light;
+                            color: $black;
+                            box-shadow: 0px 13px 36px 0px rgba(0, 0, 0, 0.1);
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: all 0.3s ease-in-out;
 
-                            &::after{
+                            &::after {
                                 content: "";
                                 position: absolute;
-                                left: -5px;
-                                top: 20px;
-                                width: 20px;
-                                height: 20px;
+                                left: -8px;
+                                top: 12px;
+                                width: 15px;
+                                height: 15px;
                                 border-radius: 2px;
-                                background-color: $secundary;
+                                background-color: $bg-light;
                                 transform: rotate(45deg);
-
+                                z-index: -1;
                             }
                         }
 
-
+                        &:hover {
+                            .text {
+                                left: 60px;
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
 
 
                         .arrow-submenu {
@@ -285,25 +291,49 @@
                     }
 
                     .submenu {
+
+                        position: absolute;
+                        top: 0;
+                        left: 25px;
+                        width: 200px;
+                        border-radius: 8px;
+                        padding: 10px;
+                        border: 1px solid $bg-primary;
+                        background-color: $bg-light;
+                        box-shadow: 0px 13px 36px 0px rgba(0, 0, 0, 0.1);
+
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            left: -8px;
+                            top: 14px;
+                            width: 15px;
+                            height: 15px;
+                            border-radius: 2px;
+                            background-color: $bg-light;
+                            transform: rotate(45deg);
+                            z-index: -1;
+                        }
+
                         .link-item-submenu {
                             a {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                position: relative;
-
                                 .text {
-                                    position: absolute;
-                                    left: 70px;
-                                    ;
-                                    top: 50%;
-                                    transform: translateY(-50%);
-                                    padding: 10px;
-                                    border-radius: 4px;
-                                    background-color: $secundary;
-                                    color: $text-white;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    position: relative;
+                                    color: $black;
+                                }
+
+                                &:hover {
+                                    .text {
+                                        color: $text-white;
+                                    }
                                 }
                             }
+
+
                         }
                     }
 

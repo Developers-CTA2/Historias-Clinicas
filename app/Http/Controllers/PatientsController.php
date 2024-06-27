@@ -65,7 +65,7 @@ class PatientsController extends Controller
     public function create()
     {
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('patients.patients')],
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
             ['name' => 'Agregar paciente', '' => ''],
 
         ];
