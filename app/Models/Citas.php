@@ -12,16 +12,14 @@ class Citas extends Model
     protected $table = 'citas';
 
     protected $fillable = [
-        'paciente_id',
+        'nombre',
+        'telefono',
+        'email',
         'tipo_profesional',
         'fecha',
         'hora',
         'motivo',
     ];
 
-    public function pacientes()
-    {
-        return $this->belongsTo(Pacientes::class, 'paciente_id');
-    }
 
 }

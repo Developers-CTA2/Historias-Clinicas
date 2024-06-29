@@ -159,8 +159,17 @@ Route::get('/citas', function () {
 })->name('showCitas');
 
 Route::get('/citas', [CitasController::class, 'mostrarCitas'])->name('showCitas');
-Route::post('/guardar-cita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::get('/validar-hora/{fecha}/{hora}', [CitasController::class, 'validarHora']);
+
+
 Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+
+Route::put('/citas/{id}', [CitasController::class, 'actualizar'])->name('actualizarCita');
+Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHoraModificar']);
+
+Route::delete('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
+
 
 
 
