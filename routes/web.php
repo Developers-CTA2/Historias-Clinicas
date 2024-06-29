@@ -14,6 +14,7 @@ use App\Http\Controllers\AddictionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\ExpedientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,10 +97,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientsController::class, 'Patients_View'])->name('patients.patients');
        // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
-        Route::get('/expediente/{id}', [PatientsController::class, 'Patient_details'])->name('admin.expediente');
+        Route::get('/expediente/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.expediente');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
+        Route::post('/expediente/Upadate_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Upadate_Personal_Data');
 
         // Route::get('/expediente{/id}', function ($id) {
         //     return view('admin.expediente');

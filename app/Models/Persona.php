@@ -15,6 +15,7 @@ class Persona extends Model
     
     protected $fillable = [
         'codigo',
+        'domicilio_id',
         'nombre',
         'domiclio',
         'ocupacion',
@@ -94,9 +95,8 @@ class Persona extends Model
 
     public function domicilio()
     {
-        return $this->hasOne(Domicilio::class, 'id_persona');
+        return $this->belongsTo(Domicilio::class, 'domicilio_id', 'id_domicilio');
     }
-
     public function consulta()
     {
         return $this->hasMany(Consulta::class, 'id_persona');

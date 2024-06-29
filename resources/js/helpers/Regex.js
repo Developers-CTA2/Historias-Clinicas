@@ -8,6 +8,8 @@ export const regexFecha = /^\d{4}-\d{2}-\d{2}$/;
 export const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const regexDecimal = /^(?=.*\d)(?:\d*\.\d+|\d+)$/;
 export const regexTelefono = /^[0-9]{10}$/;
+export const regexNumbersAndLetters = /^[a-zA-Z0-9]+$/;
+
 
 export const regexNss = /^[0-9]{11}$/;
 export const regexDescription = /^[a-zA-Z0-9\s.,;:?!'"\-()@#&]+$/;

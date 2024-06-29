@@ -10,7 +10,9 @@ class Domicilio extends Model
     use HasFactory;
 
     protected $table = 'domicilio';
-    
+    protected $primaryKey = 'id_domicilio';
+    public $incrementing = true;
+
     protected $fillable = [
         'cuidad_municipio',
         'calle',
@@ -20,10 +22,13 @@ class Domicilio extends Model
         'cp',
         'estado',
         'pais',
+        'id_persona',
+       
     ];
 
     public function persona()
     {
-        return $this->belongsTo(Persona::class, 'id_persona');
+        return $this->hasOne(Persona::class, 'domicilio_id', 'id_domicilio');
     }
 }
+ 
