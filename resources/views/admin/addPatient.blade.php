@@ -55,13 +55,13 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">Nombre</div>
-                                <span> - </span>
+                                <span id="namePerson"> - </span>
                             </div>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">Carrera / Puesto</div>
-                                <span> - </span>
+                                <span id="careerPerson"> - </span>
                             </div>
                         </li>
                     </ul>
@@ -184,7 +184,7 @@
                                             <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
                                                 <label for="codigo">Código:<span class="required-point">*</span></label>
                                                 <input class="form-control" type="text" id="codigo" name="codigo"
-                                                    maxlength="7">
+                                                    maxlength="9">
                                                 <span class="text-danger fw-normal d-none">Código no válido.</span>
                                             </div>
 

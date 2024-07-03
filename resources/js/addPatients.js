@@ -7,6 +7,7 @@ import { requestSavePatient, AlertSweetSuccess } from './helpers';
 
 
 const patientData = {
+    type: '' ,
     code: '',
     name: '',
     career: '',
@@ -66,7 +67,6 @@ $(function () {
     const btnNextPersonUdg = $('#nextPersonUdg');
     const btnPrevStep = $('#prevStep');
     const btnNextStep = $('#nextStep');
-    const btnExternalPerson = $('#externalPerson');
     const btnSendForm = $('#sendForm');
 
     // Containers
@@ -79,13 +79,6 @@ $(function () {
     // Form Steps
     const formSteps = $('.form-step');
     const stepCicles = $('.step-circle');
-
-
-    // Event listeners
-    btnCardUdgPerson.off('click');
-    btnCardUdgPerson.on('click', function () {
-        containerUdgPerson.removeClass('d-none');
-    });
 
 
     // Inputs
@@ -238,11 +231,6 @@ $(function () {
 
 
 
-    btnCardexternalPerson.off('click');
-    btnCardexternalPerson.on('click', function () {
-        containerUdgPerson.addClass('d-none');
-    });
-
     inputCode.on('keydown', function (e) {
 
         // Solo se ejecuta si da enter
@@ -251,9 +239,6 @@ $(function () {
         }
 
         const valueCode = $(this).val();
-
-
-
         if (prevCode == valueCode) return;
 
         prevCode = valueCode;
@@ -278,16 +263,17 @@ $(function () {
 
             const { Codigo, Nombre, Carrera } = data;
 
-            console.log(data);
             patientData.code = Codigo;
             patientData.name = Nombre;
             patientData.career = Carrera;
             namePerson.text(Nombre);
             careerPerson.text(Carrera);
 
-            console.log(patientData);
+
 
             containerDataPerson.removeClass('d-none');
+
+
 
 
         }).catch((error) => {
@@ -296,6 +282,8 @@ $(function () {
             alertCodePerson.text(message.message);
             status == 404 ? alertCodePerson.addClass('alert-info') : alertCodePerson.addClass('alert-danger');
             alertCodePerson.removeClass('d-none');
+            namePerson.text('-');
+            careerPerson.text('-');
         })
 
     });
@@ -313,20 +301,33 @@ $(function () {
             formSteps.first().removeClass('d-none');
             stepCicles.first().addClass('active');
 
+            patientData.type = 'udg';
+
             steps = 1;
         }
     });
 
-    btnExternalPerson.on('click', function () {
+      // Event listeners
+      btnCardUdgPerson.off('click');
+      btnCardUdgPerson.on('click', function () {
+          containerUdgPerson.removeClass('d-none');
+      });
+
+    btnCardexternalPerson.on('click', function () {
+        containerUdgPerson.addClass('d-none');
         containerPersonSelect.addClass('d-none');
 
-        inputCodePD.val('').attr('disabled', false);
+        inputCodePD.val('').attr('disabled', true);
+        console.log(inputCodePD.prev().find('span').remove());
         inputNamePD.val('').attr('disabled', false);
         inputCareerPD.val('').attr('disabled', false);
 
         containerFatherForm.removeClass('d-none');
         formSteps.first().removeClass('d-none');
         stepCicles.first().addClass('active');
+
+        patientData.type = 'external';
+
 
         steps = 1;
     });
@@ -362,8 +363,7 @@ $(function () {
     });
 
     btnNextStep.on('click', function () {
-        console.log(steps);
-
+        
         // Validate if the form is complete
         if (steps == 1) {
             const elements = getDataFirstStep();

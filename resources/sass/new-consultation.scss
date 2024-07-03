@@ -6,3 +6,33 @@
     height: 250px !important;
     overflow-y: auto;
 }
+
+.customSuggestionsList > div{
+    max-height: 300px;
+    min-height: 50px;
+    border: 2px solid pink;
+    overflow: auto;
+  }
+
+  .customSuggestionsList .empty{
+    color: #999;
+    font-size: 20px;
+    text-align: center;
+    padding: 1em;
+  }
+
+  .w-min-custom{
+    min-width: 310px !important;
+  }
+
+
+  .form-control::placeholder{
+    color: rgb(180, 180, 180) !important;
+  }
+  
+
+.alert-warning-custom{
+    background-color: #ff7b0015 !important;
+    border-color: #ff7b00 !important;
+    color: #000000 !important;
+  }

@@ -65,7 +65,7 @@ class PatientsController extends Controller
     public function create()
     {
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('patients.patients')],
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
             ['name' => 'Agregar paciente', '' => ''],
 
         ];
@@ -81,11 +81,7 @@ class PatientsController extends Controller
     {
         $validate = $request->validated();
 
-        $persona = null;
-        
-        
-
-        DB::transaction(function () use ($validate, &$persona) {
+        DB::transaction(function () use ($validate) {
 
             // Insertar la persona
             $dataPersonal = $this->dataPersonalForDB($validate);
@@ -267,7 +263,7 @@ class PatientsController extends Controller
         return [
             'menarca' => $gyo['menarca'],
             'fecha_um' => $gyo['fum'],
-            's_gestacion' => $gyo['estaEmbarazada'] ? $gyo['sGestacion'] : 0,
+            's_gestacion' => $gyo['estaEmbarazada'] ? Carbon::now()->diffInWeeks($gyo['fum']) : 0,
             'dias_x_dias' => $gyo['diasSangrado'].','.$gyo['diasCiclo'],
             'ciclos'=> $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
             'ivs' => $gyo['inicioVidaSexual'],   

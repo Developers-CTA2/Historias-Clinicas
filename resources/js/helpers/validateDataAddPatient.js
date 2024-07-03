@@ -29,6 +29,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         intNumber,
         emergencyName,
         emergencyPhone,
+        type,
         relationship } = dataValidate;
 
     const { allInputsPD,
@@ -66,7 +67,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
     });
 
 
-    if (code === '' && name === '' && career === '' && gender === null && birthdate === '' && bloodType === null && phone === '' && nss === '' && civilStatus === null && religion === '' && dependency === '' && state === '' && city === '' && street === '' && number === '' && emergencyName === '' && emergencyPhone === '' && relationship === '' && colony === '' && cp === '' && scholarship === null) {  
+    if ((type === 'udg' && code === '') && name === '' && career === '' && gender === null && birthdate === '' && bloodType === null && phone === '' && nss === '' && civilStatus === null && religion === '' && dependency === '' && state === '' && city === '' && street === '' && number === '' && emergencyName === '' && emergencyPhone === '' && relationship === '' && colony === '' && cp === '' && scholarship === null) {  
         allInputsPD.each(function () {
             let input = $(this).children('input');
             let span = $(this).children('span');
@@ -83,13 +84,13 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
 
     }
 
-    if (code === '') {
+    if (type == 'udg' && code === '') {
         inputCodePD.addClass('is-invalid border-danger');
         inputCodePD.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
     }
 
-    if (code !== '' && !regexNumero.test(code)) {
+    if (type == 'udg' && code !== '' && !regexNumero.test(code)) {
         inputCodePD.addClass('is-invalid border-danger');
         inputCodePD.next().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;

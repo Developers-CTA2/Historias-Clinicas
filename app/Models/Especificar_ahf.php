@@ -9,7 +9,7 @@ class Especificar_ahf extends Model
 {
     use HasFactory;
 
-    protected $table = 'especificar_ahf';
+    protected $table = 'enfermedades_especificas';
     protected $primaryKey = 'id_especifica_ahf';
     public $incrementing = true;
     public $timestamps = false;

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('signos_vitales', function (Blueprint $table) {
             $table->foreignId('id_consulta')->constrained('consulta','id_consulta');
-            $table->decimal('temperatura')->nullable();
-            $table->integer('frecuencia_car')->nullable();
-            $table->integer('ritmo_resp')->nullable();
-            $table->string('presion_art')->nullable();
-            $table->decimal('peso')->nullable();
-            $table->integer('glucosa')->nullable();
-            $table->decimal('talla')->nullable();
+            $table->integer('frecuencia_cardiaca');
+            $table->integer('ritmo_respiratorio');
+            $table->string('presion_arterial',10);
+            $table->decimal('peso');
+            $table->decimal('temperatura');
+            $table->integer('sindrome_autoinmune_tirogastrico');
+            $table->integer('glucosa');
+            $table->decimal('talla');
             $table->timestamps();
         });
     }
