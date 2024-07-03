@@ -196,45 +196,59 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
         return false;
     }
 
-    const datos = {
-        nombre,
-        email,
-        telefono,
-        tipo_profesional,
-        fecha,
-        hora,
-        motivo,
-    };
-    console.log(datos);
-    try {
-        const response = await axios.put(`/citas/${citaId}`, datos);
-        const { data } = response;
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Estás seguro de que quieres modificar esta cita?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#007F73',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, modificar',
+        cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const datos = {
+                nombre,
+                email,
+                telefono,
+                tipo_profesional,
+                fecha,
+                hora,
+                motivo,
+            };
+            console.log(datos);
+            try {
+                const response = await axios.put(`/citas/${citaId}`, datos);
+                const { data } = response;
 
-        if (data.status === 'success') {
-            Swal.fire({
-                title: "¡Éxito!",
-                text: data.message,
-                icon: "success",
-                didClose: () => {
-                    location.reload();
-                },
-            });
-        } else {
-            Swal.fire({
-                title: "¡Error!",
-                text: data.message,
-                icon: "error",
-            });
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: "¡Éxito!",
+                        text: data.message,
+                        icon: "success",
+                        didClose: () => {
+                            location.reload();
+                        },
+                    });
+                } else {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: data.message,
+                        icon: "error",
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: "¡Error!",
+                    text: "Error al actualizar la cita. Por favor, inténtalo de nuevo.",
+                    icon: "error",
+                });
+                console.error(error);
+            }
         }
-    } catch (error) {
-        Swal.fire({
-            title: "¡Error!",
-            text: "Error al actualizar la cita. Por favor, inténtalo de nuevo.",
-            icon: "error",
-        });
-        console.error(error);
-    }
+    });
 });
+
 
 async function validarHoraExistenteModificar(citaId, fecha, hora, tipo_profesional) {
     try {

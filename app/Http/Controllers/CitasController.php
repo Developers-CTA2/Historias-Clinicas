@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConsultaMail;
+use App\Mail\EditarConsultaMail;
+
 use App\Models\Citas;
 use App\Models\Pacientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class CitasController extends Controller
@@ -20,52 +24,52 @@ class CitasController extends Controller
     }
 
     public function proximaCita()
-{
-    try {
-        // Obtener la fecha y hora actuales
-        $now = \Carbon\Carbon::now();
+    {
+        try {
+            // Obtener la fecha y hora actuales
+            $now = \Carbon\Carbon::now();
 
-        // Obtener todas las citas desde la fecha y hora actuales ordenadas por fecha y hora ascendentes
-        $todasLasCitas = Citas::where(function ($query) use ($now) {
-            $query->where('fecha', '>', $now->format('Y-m-d'))
-                  ->orWhere(function ($query) use ($now) {
-                      $query->where('fecha', '=', $now->format('Y-m-d'))
+            // Obtener todas las citas desde la fecha y hora actuales ordenadas por fecha y hora ascendentes
+            $todasLasCitas = Citas::where(function ($query) use ($now) {
+                $query->where('fecha', '>', $now->format('Y-m-d'))
+                    ->orWhere(function ($query) use ($now) {
+                        $query->where('fecha', '=', $now->format('Y-m-d'))
                             ->where('hora', '>', $now->format('H:i'));
-                  });
-        })
-        ->orderBy('fecha', 'asc')
-        ->orderBy('hora', 'asc')
-        ->get();
+                    });
+            })
+                ->orderBy('fecha', 'asc')
+                ->orderBy('hora', 'asc')
+                ->get();
 
-        // Inicializar un array para almacenar la próxima cita de cada día
-        $proximasCitasPorDia = [];
+            // Inicializar un array para almacenar la próxima cita de cada día
+            $proximasCitasPorDia = [];
 
-        // Iterar sobre todas las citas para filtrar la próxima cita de cada día
-        foreach ($todasLasCitas as $cita) {
-            // Asegurarse de que la fecha sea un objeto Carbon
-            $fecha = \Carbon\Carbon::parse($cita->fecha)->format('Y-m-d');
+            // Iterar sobre todas las citas para filtrar la próxima cita de cada día
+            foreach ($todasLasCitas as $cita) {
+                // Asegurarse de que la fecha sea un objeto Carbon
+                $fecha = \Carbon\Carbon::parse($cita->fecha)->format('Y-m-d');
 
-            // Verificar si ya se ha agregado una cita para este día
-            if (!isset($proximasCitasPorDia[$fecha])) {
-                // Agregar esta cita como la próxima cita para este día
-                $proximasCitasPorDia[$fecha] = [
-                    'hora' => $cita->hora,
-                    'nombre' => $cita->nombre,
-                    'fecha' => $fecha,
-                ];
+                // Verificar si ya se ha agregado una cita para este día
+                if (!isset($proximasCitasPorDia[$fecha])) {
+                    // Agregar esta cita como la próxima cita para este día
+                    $proximasCitasPorDia[$fecha] = [
+                        'hora' => $cita->hora,
+                        'nombre' => $cita->nombre,
+                        'fecha' => $fecha,
+                    ];
+                }
             }
+
+            // Retornar el array con la próxima cita de cada día
+            return response()->json($proximasCitasPorDia);
+        } catch (\Exception $e) {
+            // Registrar el error para depuración
+            Log::error('Error al obtener la próxima cita: ' . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Error al obtener la próxima cita.'], 500);
         }
-
-        // Retornar el array con la próxima cita de cada día
-        return response()->json($proximasCitasPorDia);
-    } catch (\Exception $e) {
-        // Registrar el error para depuración
-        Log::error('Error al obtener la próxima cita: ' . $e->getMessage());
-        return response()->json(['status' => 'error', 'message' => 'Error al obtener la próxima cita.'], 500);
     }
-}
 
-    
+
 
 
 
@@ -137,7 +141,7 @@ class CitasController extends Controller
             }
 
             // Crear nueva cita
-            Citas::create([
+            $cita = Citas::create([
                 'nombre' => $request->input('nombre'),
                 'telefono' => $request->input('telefono'),
                 'email' => $request->input('email'),
@@ -145,7 +149,12 @@ class CitasController extends Controller
                 'fecha' => $request->input('fecha'),
                 'hora' => $request->input('hora'),
                 'motivo' => $request->input('motivo'),
+
             ]);
+            // Envío de correo electrónico
+            if ($cita->email) {
+                Mail::to($cita->email)->send(new ConsultaMail($cita));
+            }
 
             return response()->json(['status' => 'success', 'message' => 'Cita guardada correctamente.'], 200);
         } catch (\Exception $e) {
@@ -197,6 +206,10 @@ class CitasController extends Controller
                 'hora' => $request->input('hora'),
                 'motivo' => $request->input('motivo'),
             ]);
+            // Enviar correo electrónico
+            if ($request->input('email')) {
+                Mail::to($request->input('email'))->send(new EditarConsultaMail($cita));
+            }
 
             // Redireccionar con un mensaje de éxito
             return response()->json(['status' => 'success', 'message' => 'Cita actualizada correctamente.']);
