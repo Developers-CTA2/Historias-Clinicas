@@ -32,7 +32,8 @@ class StorePatientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|digits_between:7,9',
+            'type' => 'required|string|max:255', // 'Paciente' o 'Empleado
+            'code' => 'required_if:type,udg,digits_between:7,9',
             'name' => 'required|string|max:255',
             'career' => 'required|string|max:255',
             'gender' => 'required|numeric|between:1,2',
@@ -88,7 +89,7 @@ class StorePatientRequest extends FormRequest
 
     public function messages() : array {
         return[
-            'code.required' => 'El campo código es requerido',
+            'code.required_if' => 'El campo código es requerido',
             'code.digits_between' => 'El campo código debe tener entre 7 y 9 dígitos',
             'name.required' => 'El campo nombre es requerido',
             'name.string' => 'El campo nombre debe ser una cadena de texto',

@@ -21,9 +21,11 @@ export const regexCp = /^[0-9]{5}$/;
 
 export const regexFrecuenciaCardiaca = /^(3[0-9]|[4-9][0-9]|1[0-9]{2}|2[0-1][0-9]|220)$/;
 export const regexPresionArterial = /^(9[0-9]|1[0-9]{2}|2[0-4][0-9]|250)\/([6-9][0-9]|1[0-3][0-9]|140)$/;
-export const regexTemperatura = /^-?([1-9]?\d|100)(\.\d{1,2})?$/;
+export const regexTemperatura = /^(3[5-9](\.\d)?|4[0-1](\.\d)?|42(\.0)?)$/;
 export const regexPesoKilogramos = /^(?:[1-9][0-9]{0,2}|300)(?:\.\d{1,2})?$/;
 export const regexFrecuenciaRespiratoria = /^(1[0-9]|[2-5][0-9]|60)$/;
 export const regexPorcentaje = /^(100|[1-9][0-9]?|0)$/;
 export const regexGlucosa = /^(?:[1-9][0-9]?|[1-3][0-9]{2}|400)$/;
+
+
 

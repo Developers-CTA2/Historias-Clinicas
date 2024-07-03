@@ -1,3 +1,50 @@
-// Images
-$image-login: "/public/images/b.jpeg";
+@import 'variables';
+@import 'app';
+@import 'Buttons';
 
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-custom-login {
+    width: 100%;
+    height: 100vh;
+    background-color: $primary;
+    padding: 10px 20px;
+
+
+    .content-custom-login {
+        width: 500px;
+        height: auto;
+        background-color: $bg-light;
+        padding: 10px 30px 30px 30px;
+        border-radius: 10px;
+
+
+        img {
+            width: 200px;
+        }
+
+        .hr-custom {
+            border: 1px solid $hr-color;
+        }
+
+
+        .form-control-custom {
+            border: 1px solid $border-form !important;
+        
+        }
+
+        .eye-button{
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+}
+}
