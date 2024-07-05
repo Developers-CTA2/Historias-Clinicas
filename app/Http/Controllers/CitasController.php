@@ -70,9 +70,6 @@ class CitasController extends Controller
     }
 
 
-
-
-
     public function mostrarCitas(Request $request)
     {
         $fecha = $request->query('fecha');
@@ -80,18 +77,19 @@ class CitasController extends Controller
             return response()->json(['error' => 'Fecha no proporcionada'], 400);
         }
 
-        // Obtener las citas paginadas ordenadas por hora ascendente
-        $limit = $request->query('limit', 10);
-        $offset = $request->query('offset', 0);
-
-        $citas = Citas::whereDate('fecha', $fecha)
+        // Obtener las citas de la doctora y de la nutrióloga por separado
+        $citasDoctora = Citas::whereDate('fecha', $fecha)
+            ->where('tipo_profesional', 'Doctora')
             ->orderBy('hora', 'asc')
-            ->skip($offset)
-            ->take($limit)
             ->get();
 
-        $total = Citas::whereDate('fecha', $fecha)->count();
+        $citasNutriologa = Citas::whereDate('fecha', $fecha)
+            ->where('tipo_profesional', 'Nutrióloga')
+            ->orderBy('hora', 'asc')
+            ->get();
 
+        // Combinar las citas si es necesario para mostrar en una sola vista
+        $citas = $citasDoctora->merge($citasNutriologa);
 
         $breadcrumbs = [
             ['name' => 'Citas', 'url' => ''],
@@ -99,9 +97,12 @@ class CitasController extends Controller
 
         return view('admin.citas', [
             'fecha' => $fecha,
-            'citas' => $citas,
-        ], compact('breadcrumbs', 'fecha', 'citas'));
+            'citasDoctora' => $citasDoctora,
+            'citasNutriologa' => $citasNutriologa,
+            'citas' => $citas, // Puedes pasar $citas combinadas si necesitas mostrar todas las citas juntas
+        ], compact('breadcrumbs', 'fecha', 'citasDoctora', 'citasNutriologa', 'citas'));
     }
+
 
     public function guardarCita(Request $request)
     {
@@ -117,27 +118,15 @@ class CitasController extends Controller
                 'motivo' => 'required|string|max:255',
             ]);
 
-            // Log detallado para verificar los valores recibidos
-            Log::info("Valores recibidos: ", $request->all());
-
-            // Verificar si ya existe una cita en la misma fecha y hora con el mismo tipo de profesional
-            $existeCitaMismoProfesional = Citas::where('fecha', $request->fecha)
+            // Verificar si existe una cita activa (no cancelada) en la misma fecha, hora y tipo de profesional
+            $citaActivaExistente = Citas::where('fecha', $request->fecha)
                 ->where('hora', $request->hora)
                 ->where('tipo_profesional', $request->tipo_profesional)
+                ->where('estado', '<>', 'Cancelada') // <> significa diferente de 'Cancelada'
                 ->exists();
 
-            // Verificar si ya existen citas para ambos tipos de profesionales en la misma fecha y hora
-            $existenAmbosProfesionales = Citas::where('fecha', $request->fecha)
-                ->where('hora', $request->hora)
-                ->distinct()
-                ->count('tipo_profesional') == 2;
-
-            // Log del resultado de la búsqueda
-            Log::info("Existencia de cita con el mismo profesional: " . ($existeCitaMismoProfesional ? 'Sí' : 'No'));
-            Log::info("Existencia de citas con ambos profesionales: " . ($existenAmbosProfesionales ? 'Sí' : 'No'));
-
-            if ($existeCitaMismoProfesional || $existenAmbosProfesionales) {
-                return response()->json(['status' => 'error', 'message' => 'Ya existe una cita en esa fecha y hora para el mismo tipo de profesional o ambos tipos están ocupados.'], 400);
+            if ($citaActivaExistente) {
+                return response()->json(['status' => 'error', 'message' => 'Ya existe una cita activa en esa fecha y hora para el mismo tipo de profesional.'], 400);
             }
 
             // Crear nueva cita
@@ -149,8 +138,9 @@ class CitasController extends Controller
                 'fecha' => $request->input('fecha'),
                 'hora' => $request->input('hora'),
                 'motivo' => $request->input('motivo'),
-
+                'estado' => 'Pendiente',
             ]);
+
             // Envío de correo electrónico
             if ($cita->email) {
                 Mail::to($cita->email)->send(new ConsultaMail($cita));
@@ -163,19 +153,35 @@ class CitasController extends Controller
         }
     }
 
-    public function validarHora($fecha, $hora)
+    public function validarHora($fecha, $hora, $tipoProfesional)
     {
-        $existe = Citas::where('fecha', $fecha)
-            ->where('hora', $hora)
-            ->exists();
-
-        $existenAmbosProfesionales = Citas::where('fecha', $fecha)
-            ->where('hora', $hora)
-            ->distinct()
-            ->count('tipo_profesional') == 2;
-
-        return response()->json(['existe' => $existe, 'existenAmbosProfesionales' => $existenAmbosProfesionales]);
+        try {
+            // Verificar si existe una cita activa (no cancelada) en la misma fecha, hora y con el otro tipo de profesional
+            $tipoProfesionalOpuesto = ($tipoProfesional === 'Doctora') ? 'Nutrióloga' : 'Doctora';
+    
+            $existeActiva = Citas::where('fecha', $fecha)
+                ->where('hora', $hora)
+                ->where('tipo_profesional', $tipoProfesionalOpuesto)
+                ->where(function ($query) {
+                    $query->where('estado', '<>', 'Cancelada')
+                          ->orWhereNull('estado');
+                })
+                ->exists();
+    
+            // Verificar si existe una cita cancelada en la misma fecha y hora con el otro tipo de profesional
+            $existeCancelada = Citas::where('fecha', $fecha)
+                ->where('hora', $hora)
+                ->where('tipo_profesional', $tipoProfesionalOpuesto)
+                ->where('estado', 'Cancelada')
+                ->exists();
+    
+            return response()->json(['existe' => $existeActiva, 'existeCancelada' => $existeCancelada]);
+        } catch (\Exception $e) {
+            Log::error('Error al validar la hora: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al validar la hora'], 500);
+        }
     }
+    
 
 
 
@@ -239,8 +245,9 @@ class CitasController extends Controller
             // Buscar la cita por su ID
             $cita = Citas::findOrFail($id);
 
-            // Eliminar la cita
-            $cita->delete();
+            // Cambiar el estado de la cita a Cancelada
+            $cita->estado = 'Cancelada';
+            $cita->save();
 
             // Devolver una respuesta de éxito
             return response()->json(['status' => 'success', 'message' => 'Cita cancelada correctamente.']);
@@ -250,6 +257,25 @@ class CitasController extends Controller
 
             // Devolver una respuesta de error
             return response()->json(['status' => 'error', 'message' => 'Error al cancelar la cita. Por favor, inténtalo de nuevo.'], 500);
+        }
+    }
+    public function eliminar($id)
+    {
+        try {
+            // Buscar la cita por su ID
+            $cita = Citas::findOrFail($id);
+
+            // Eliminar la cita
+            $cita->delete();
+
+            // Devolver una respuesta de éxito
+            return response()->json(['status' => 'success', 'message' => 'Cita eliminada correctamente.']);
+        } catch (\Exception $e) {
+            // Log del error
+            Log::error('Error al cancelar la cita: ' . $e->getMessage());
+
+            // Devolver una respuesta de error
+            return response()->json(['status' => 'error', 'message' => 'Error al eliminar la cita. Por favor, inténtalo de nuevo.'], 500);
         }
     }
 }

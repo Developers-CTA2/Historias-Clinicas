@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora');
             $table->string('motivo');
+            $table->enum('estado', ['Pendiente', 'Cancelada','Asistida', 'No asistida']); 
             $table->timestamps();
         });
         

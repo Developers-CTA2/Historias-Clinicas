@@ -19,6 +19,7 @@ class Citas extends Model
         'fecha',
         'hora',
         'motivo',
+        'estado',
     ];
 
 

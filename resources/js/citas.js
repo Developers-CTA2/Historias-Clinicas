@@ -2,6 +2,59 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { activeLoading, disableLoading } from "./loading-screen.js";
 
+
+document.getElementById('medico').addEventListener('click', function () {
+    mostrarTabla('doctora');
+});
+
+document.getElementById('nuticion').addEventListener('click', function () {
+    mostrarTabla('nutriologa');
+});
+
+function mostrarTabla(tipo) {
+    var tablaDoctora = document.getElementById('tablaDoctora');
+    var tablaNutriologa = document.getElementById('tablaNutriologa');
+
+    if (tipo === 'doctora') {
+        if (tablaDoctora) {
+            tablaDoctora.style.display = 'block';
+        }
+        if (tablaNutriologa) {
+            tablaNutriologa.style.display = 'none';
+        }
+    } else if (tipo === 'nutriologa') {
+        if (tablaNutriologa) {
+            tablaNutriologa.style.display = 'block';
+        }
+        if (tablaDoctora) {
+            tablaDoctora.style.display = 'none';
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const timeSelects = document.querySelectorAll('.hora-select');
+    const startHour = 8; // Starting hour
+    const endHour = 18; // Ending hour
+
+    timeSelects.forEach(timeSelect => {
+        if (timeSelect) {
+            for (let hour = startHour; hour <= endHour; hour++) {
+                ['00', '30'].forEach(minute => {
+                    const time = `${String(hour).padStart(2, '0')}:${minute}`;
+                    const option = document.createElement('option');
+                    option.value = time;
+                    option.textContent = time;
+                    timeSelect.appendChild(option);
+                });
+            }
+        } else {
+            console.error("Element with class 'hora-select' not found.");
+        }
+    });
+});
+
+///////////////////////////////
 $(function () {
     $('form[name="addCitaForm"]').submit(async function (event) {
         event.preventDefault();
@@ -11,7 +64,7 @@ $(function () {
         const telefono = $('input[name="Telefono"]').val().trim();
         const tipo_profesional = $('select[name="Tipo_profesional"]').val();
         const fecha = $('input[name="fecha"]').val().trim();
-        const hora = $('input[name="Hora"]').val().trim();
+        const hora = $('select[name="Hora"]').val().trim();
         const motivo = $('input[name="Motivo"]').val().trim();
 
         if (!nombre || !email || !telefono || !tipo_profesional || !fecha || !hora || !motivo) {
@@ -21,27 +74,28 @@ $(function () {
 
         console.log(`Validando hora para fecha: ${fecha} y hora: ${hora}`);
 
-        const { existe, existenAmbosProfesionales } = await validarHoraExistente(fecha, hora);
-        if (existe && existenAmbosProfesionales) {
-            Swal.fire({
-                title: "¡Error al guardar la cita!",
-                text: "La hora seleccionada ya está ocupada en esta fecha. Por favor, elige otra hora.",
-                icon: "error",
-            });
-            return false;
-        }
-
-        const datos = {
-            nombre,
-            email,
-            telefono,
-            tipo_profesional,
-            fecha,
-            hora,
-            motivo,
-        };
-
         try {
+            const { existe } = await validarHoraExistente(fecha, hora, tipo_profesional);
+
+            if (existe) {
+                Swal.fire({
+                    title: "¡Error al guardar la cita!",
+                    text: "La hora seleccionada ya está ocupada en esta fecha. Por favor, elige otra hora.",
+                    icon: "error",
+                });
+                return false;
+            }
+
+            const datos = {
+                nombre,
+                email,
+                telefono,
+                tipo_profesional,
+                fecha,
+                hora,
+                motivo,
+            };
+
             const response = await Swal.fire({
                 title: "¿Estás seguro de guardar la cita?",
                 icon: "warning",
@@ -81,35 +135,40 @@ $(function () {
                 disableLoading();
             }
         } catch (error) {
-            disableLoading();
-            console.log(error);
             Swal.fire({
                 title: "¡Error!",
                 text: "Ocurrió un error al intentar guardar la cita.",
                 icon: "error",
             });
+
+            disableLoading();
         }
     });
 });
 
-async function validarHoraExistente(fecha, hora) {
+async function validarHoraExistente(fecha, hora, tipoProfesional) {
     try {
-        const response = await axios.get(`/validar-hora/${fecha}/${hora}`);
+        const response = await axios.get(`/validar-hora/${fecha}/${hora}/${tipoProfesional}`);
         console.log(response);
         const { data } = response;
         return data;
     } catch (error) {
-        console.error("Error al validar la hora:", error);
-        return { existe: true, existenAmbosProfesionales: true };
+        return { existe: true, message: 'Error al validar la hora' };
     }
 }
 
-
 ////////////////////////////////////////////////////
 $(function () {
+    // Manejar clic en el botón de cancelar cita
     $(document).on('click', '.cancelarCitaButton', function () {
         const citaId = $(this).data('cita-id');
         cancelarCita(citaId);
+    });
+
+    // Manejar clic en el botón de eliminar cita
+    $(document).on('click', '.eliminarCitaButton', function () {
+        const citaId = $(this).data('cita-id');
+        eliminarCita(citaId);
     });
 });
 
@@ -117,7 +176,7 @@ function cancelarCita(id) {
     console.log(id);
     Swal.fire({
         title: '¿Estás seguro?',
-        text: "Se eliminará la cita seleccionada.",
+        text: "Se cancelará la cita seleccionada.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#011d48',
@@ -126,17 +185,18 @@ function cancelarCita(id) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete(`/citas/cancelar/${id}`)
+            activeLoading();
+            axios.put(`/citas/cancelar/${id}`)
                 .then((response) => {
                     const { data } = response;
+                    disableLoading();
                     if (data.status === 'success') {
                         Swal.fire({
                             title: '¡Éxito!',
                             text: data.message,
-                            icon: 'success',
-                            didClose: () => {
-                                location.reload();
-                            }
+                            icon: 'success'
+                        }).then(() => {
+                            location.reload();
                         });
                     } else {
                         Swal.fire({
@@ -147,6 +207,7 @@ function cancelarCita(id) {
                     }
                 })
                 .catch((error) => {
+                    disableLoading();
                     Swal.fire({
                         title: 'Error',
                         text: 'Error al cancelar la cita. Por favor, inténtalo de nuevo.',
@@ -158,6 +219,52 @@ function cancelarCita(id) {
     });
 }
 
+function eliminarCita(id) {
+    console.log(id);
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Se eliminará la cita seleccionada de forma permanente.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#011d48',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            activeLoading();
+            axios.delete(`/citas/eliminar/${id}`)
+                .then((response) => {
+                    const { data } = response;
+                    disableLoading();
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: '¡Éxito!',
+                            text: data.message,
+                            icon: 'success'
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error'
+                        });
+                    }
+                })
+                .catch((error) => {
+                    disableLoading();
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al eliminar la cita. Por favor, inténtalo de nuevo.',
+                        icon: 'error'
+                    });
+                    console.error(error);
+                });
+        }
+    });
+}
 
 
 //////////////////////////////////////////////////////////////
