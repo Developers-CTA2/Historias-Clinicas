@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 ///////////////////////////////
 $(function () {
     $('form[name="addCitaForm"]').submit(async function (event) {
@@ -76,11 +77,11 @@ $(function () {
 
         try {
             const { existe } = await validarHoraExistente(fecha, hora, tipo_profesional);
-
+            console.log(existe);
             if (existe) {
                 Swal.fire({
                     title: "¡Error al guardar la cita!",
-                    text: "La hora seleccionada ya está ocupada en esta fecha. Por favor, elige otra hora.",
+                    text: "Ya existe una cita activa en esa fecha y hora. Por favor, elige otra hora.",
                     icon: "error",
                 });
                 return false;
@@ -182,7 +183,7 @@ function cancelarCita(id) {
         confirmButtonColor: '#011d48',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: 'Cerrar'
     }).then((result) => {
         if (result.isConfirmed) {
             activeLoading();
@@ -282,9 +283,10 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
     const fecha = $(`#fecha_edit_${citaId}`).val()?.trim();
     const hora = $(`#hora_edit_${citaId}`).val()?.trim();
     const motivo = $(`#motivo_edit_${citaId}`).val()?.trim();
+    const estado = $(`#estado_edit_${citaId}`).val()?.trim();
 
     // Verificar que todos los campos requeridos no estén vacíos
-    if (!nombre || !telefono || !tipo_profesional || !fecha || !hora || !motivo) {
+    if (!nombre || !telefono || !tipo_profesional || !fecha || !hora || !motivo || !estado) {
         Swal.fire({
             title: "¡Error!",
             text: "Todos los campos son obligatorios.",
@@ -293,11 +295,11 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
         return false;
     }
 
-    const horaExistente = await validarHoraExistenteModificar(citaId, fecha, hora, tipo_profesional);
+    const horaExistente = await validarHoraExistenteModificar(citaId, fecha, hora);
     if (horaExistente) {
         Swal.fire({
             title: "¡Error!",
-            text: "Ya existe una cita en esa fecha, hora y tipo de profesional.",
+            text: "Ya existe una cita activa en esa fecha y hora.",
             icon: "error",
         });
         return false;
@@ -322,8 +324,9 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
                 fecha,
                 hora,
                 motivo,
+                estado,
             };
-            console.log(datos);
+
             try {
                 const response = await axios.put(`/citas/${citaId}`, datos);
                 const { data } = response;
@@ -356,10 +359,9 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
     });
 });
 
-
-async function validarHoraExistenteModificar(citaId, fecha, hora, tipo_profesional) {
+async function validarHoraExistenteModificar(citaId, fecha, hora) {
     try {
-        const response = await axios.get(`/validar-hora-modificar/${citaId}/${fecha}/${hora}/${tipo_profesional}`);
+        const response = await axios.get(`/validar-hora-modificar/${citaId}/${fecha}/${hora}`);
         const { data } = response;
         return data.existe;
     } catch (error) {
@@ -367,3 +369,4 @@ async function validarHoraExistenteModificar(citaId, fecha, hora, tipo_profesion
         return true;
     }
 }
+

@@ -177,7 +177,7 @@ Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::
 Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
 
 Route::put('/citas/{id}', [CitasController::class, 'actualizar'])->name('actualizarCita');
-Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHoraModificar']);
+Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
 
 Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
 Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');

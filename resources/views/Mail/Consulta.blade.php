@@ -18,7 +18,6 @@
             background-color: #fff;
         }
         .header {
-            background-color: #06285c;
             padding: 10px;
             text-align: center;
             border-radius: 5px 5px 0 0;
@@ -46,7 +45,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 style="margin: 0;">Consultorio-CUAltos</h1>
+            <img style="height: 150px; width: 80%;" src="{{asset('images/clinic-track-03.png')}}">
         </div>
         <h2>Detalles de tu cita</h2>
         <p>Hola {{ $nombre }},</p>

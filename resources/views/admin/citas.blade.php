@@ -54,7 +54,8 @@
 @else
 
 <div class="container" id="tablas">
-    <div id="tablaDoctora" style="display: none;">
+    <div id="tablaDoctora">
+        <h4>Citas para la Doctora</h4>
         @if ($citasDoctora->isEmpty())
         <p>No hay citas para la Doctora.</p>
         @else
@@ -108,6 +109,7 @@
     </div>
 
     <div id="tablaNutriologa" style="display: none;">
+        <h4>Citas para la Nutriologa</h4>
         @if ($citasNutriologa->isEmpty())
         <p>No hay citas para la Nutrióloga.</p>
         @else
@@ -202,8 +204,16 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-4 col-sm-8 mb-2">
+
                                 <label for="hora_edit_{{ $cita->id }}" class="form-label">Hora</label>
-                                <input type="time" class="form-control" id="hora_edit_{{ $cita->id }}" name="hora_edit" value="{{ $cita->hora }}" required>
+                                <select class="form-control" id="hora_edit_{{ $cita->id }}" name="hora_edit_{{ $cita->id }}" required>
+                                    @for ($hour = 8; $hour <= 18; $hour++) @foreach (['00', '30' ] as $minute) @php $time=sprintf('%02d:%02d', $hour, $minute); $cita_time=substr($cita->hora, 0, 5);
+                                        $selected = ($cita_time == $time) ? 'selected' : '';
+                                        @endphp
+                                        <option value="{{ $time }}" {{ $selected }}>{{ $time }}</option>
+                                        @endforeach
+                                        @endfor
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -253,14 +263,14 @@
                     <div class="form-group">
                         <div class="row pt-2">
                             <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label for="Nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" name="Nombre" oninput="this.value = this.value.toUpperCase()" required>
-                                <span class="text-danger fw-normal" style=" display: none;">Nombre no válido.</span>
+                                <label for="Nombre" class="form-label">Nombre:<span class="required-point">*</span></label>
+                                <input type="text" class="form-control" name="Nombre" oninput="this.value = this.value.toUpperCase()">
+                                <span class="text-danger fw-normal" style=" display: none;">El campo es requerido, por favor llénalo</span>
                             </div>
                             <div class="form-group col-md-6 col-sm-12 mb-2">
-                                <label for="Email" class="form-label">Correo Electrónico:</label>
+                                <label for="Email" class="form-label">Correo Electrónico:<span class="required-point">*</span></label>
                                 <input type="email" class="form-control" name="Email">
-                                <span class="text-danger fw-normal" style=" display: none;">Correo no válido.</span>
+                                <span class="text-danger fw-normal" style=" display: none;">El campo es requerido, por favor llénalo</span>
                             </div>
                         </div>
                     </div>
@@ -268,36 +278,41 @@
                     <div class="form-group">
                         <div class="row pt-2">
                             <div class="form-group col-md-6 col-sm-8 mb-2">
-                                <label for="Telefono" class="form-label">Teléfono:</label>
-                                <input type="text" class="form-control" name="Telefono" pattern="[0-9]{10}" maxlength="10" required>
-                                <span class="text-danger fw-normal" style=" display: none;">Teléfono no válido.</span>
+                                <label for="Telefono" class="form-label">Teléfono:<span class="required-point">*</span></label>
+                                <input type="text" class="form-control" name="Telefono" pattern="[0-9]{10}" maxlength="10">
+                                <span class="text-danger fw-normal" style=" display: none;">El campo es requerido, por favor llénalo</span>
                             </div>
                             <div class="form-group col-md-3 col-sm-8 mb-2">
-                                <label for="Tipo_profesional" class="form-label">Tipo de Profesional:</label>
-                                <select class="form-control" name="Tipo_profesional" required>
+                                <label for="Tipo_profesional" class="form-label">Tipo de Profesional:<span class="required-point">*</span></label>
+                                <select class="form-control" name="Tipo_profesional">
                                     <option value="" disabled selected>Seleccione una opción</option>
                                     <option value="Doctora">Doctora</option>
                                     <option value="Nutrióloga">Nutrióloga</option>
                                 </select>
-                                <span class="text-danger fw-normal" style=" display: none;">Profesional no válido.</span>
+                                <span class="text-danger fw-normal" style=" display: none;">El campo es requerido, por favor llénalo</span>
                             </div>
-
                             <div class="form-group col-md-3 col-sm-8 mb-2">
-                                <label for="Hora" class="form-label">Hora:</label>
-                                <select class="form-control hora-select" name="Hora" required></select>
-                                <span class="text-danger fw-normal" style="display: none;">Hora no válida.</span>
+                                <label for="Hora" class="form-label">Hora:<span class="required-point">*</span></label>
+                                <select class="form-control" name="Hora" required>
+                                    @for ($hour = 8; $hour <= 18; $hour++) @foreach (['00', '30' ] as $minute) <option value="{{ sprintf('%02d:%02d', $hour, $minute) }}">{{ sprintf('%02d:%02d', $hour, $minute) }}</option>
+                                        @endforeach
+                                        @endfor
+                                </select>
+                                <span class="text-danger fw-normal" style="display: none;">El campo es requerido, por favor llénalo</span>
                             </div>
-
-
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="Motivo" class="form-label">Motivo:</label>
-                        <input type="text" class="form-control" name="Motivo" required>
+                        <label for="Motivo" class="form-label">Motivo:<span class="required-point">*</span></label>
+                        <input type="text" class="form-control" name="Motivo">
+                        <span class="text-danger fw-normal" style="display: none;">El campo es requerido, por favor llénalo</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Agregar Cita</button>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Agregar Cita</button>
                 </form>
             </div>
         </div>
