@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 
-
-
 class ExpedientController extends Controller
 {
     public function Patient_details($id)
