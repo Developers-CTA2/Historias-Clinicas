@@ -12,11 +12,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('nutricional', function (Blueprint $table) {
-            $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('motivo_consulta');
-            $table->date('fecha');
             $table->id('id_nutricional');
-            $table->string('diagnostico')->nullable();
+            $table->foreignId('id_persona')->constrained('personas', 'id_persona');
+            $table->foreignId('id_medida')->constrained('medidas', 'id_medida');
+            $table->integer('vasos_agua');
+            $table->string('motivo_consulta');
+            $table->string('toma_medicamentos');
+            $table->text('diagnostico')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
@@ -31,6 +33,9 @@ return new class extends Migration
 
         Schema::table('nutricional', function (Blueprint $table) {
             $table->dropForeign(['id_persona']);
+            $table->dropForeign(['id_medida']);
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
         }); 
 
         Schema::dropIfExists('nutricional');

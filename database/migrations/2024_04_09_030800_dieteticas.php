@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dieteticas', function (Blueprint $table) {
+        Schema::create('indicadores_dietéticos', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->integer('comidas_dia');
-           // $table->string('quien_prepara')->nullable();
-          //  $table->string('come_entre_c')->nullable();}     
+            $table->integer('comidas_al_dia');     
+            $table->string('qien_prepara_comida');
             $table->enum('apetito', ['Bueno', 'Malo', 'Regular']);
-           // $table->string('alim_pref')->nullable();
-            $table->string('alim_no_pref')->nullable();
-            $table->string('alergias')->nullable();
+            $table->string('alimentos_no_preferidos')->nullable();
             $table->string('suplementos')->nullable();
-            $table->integer('vasos_agua');
-            $table->string('vasos_bebidas');
+            $table->string('grasas_consumidas')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
@@ -35,10 +31,12 @@ return new class extends Migration
     public function down(): void
     {
 
-        Schema::table('dieteticas', function (Blueprint $table) {
+        Schema::table('indicadores_dietéticos', function (Blueprint $table) {
             $table->dropForeign(['id_persona']);
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
         });
 
-        Schema::dropIfExists('dieteticas');
+        Schema::dropIfExists('indicadores_dietéticos');
     }
 };

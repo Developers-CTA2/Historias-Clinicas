@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('estilo_vida', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('actividad');
-            $table->string('ejercicio');
-            $table->string('frecuencia');
-            $table->string('duracion');
+            $table->enum('actividad',['Sedentaria','Muy ligera','Ligera','Moderada','Pesada','Excepcional']);
+            $table->string('tipo_ejercicio');
+            $table->string('frecuencia_ejercicio');
+            $table->string('duracion_ejercicio');
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
@@ -31,6 +31,8 @@ return new class extends Migration
 
         Schema::table('estilo_vida', function (Blueprint $table) {
             $table->dropForeign(['id_persona']);
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
         });
 
         Schema::dropIfExists('estilo_vida');
