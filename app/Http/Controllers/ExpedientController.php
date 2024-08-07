@@ -50,7 +50,7 @@ class ExpedientController extends Controller
 
         // return response()->json($domicilio);
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' =>  route('patients.patients')],
+            ['name' => 'Pacientes', 'url' =>  route('patients.index')],
             ['name' => 'Expediente', '' => ''],
 
         ];

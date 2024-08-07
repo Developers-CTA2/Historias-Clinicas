@@ -21,7 +21,7 @@ class ConsultationController extends Controller
     {
 
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('patients.patients')],
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
             ['name' => 'Nueva consulta', '' => ''],
         ];
 
