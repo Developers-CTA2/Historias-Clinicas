@@ -39,7 +39,7 @@
 
     @role('Administrador')
         @section('scripts')
-            @vite('resources/js/patients/expedient/edit_personal_data.js')
+            @vite(['resources/js/patients/expedient/edit_personal_data.js', 'resources/js/patients/expedient/edit_AHF.js'])
         @endsection
     @endrole
 

@@ -102,7 +102,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
-        Route::post('/expediente/Upadate_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Upadate_Personal_Data');
+        Route::post('/expediente/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+        Route::post('/expediente/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
 
         // Route::get('/expediente{/id}', function ($id) {
         //     return view('admin.expediente');

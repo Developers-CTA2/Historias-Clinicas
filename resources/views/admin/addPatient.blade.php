@@ -231,7 +231,6 @@
                                                     <option value="8">Grupo O Rh negativo (O-)</option>
                                                 </select>
                                                 <span class="text-danger fw-normal d-none"></span>
-
                                             </div>
                                         </div>
                                     </div>

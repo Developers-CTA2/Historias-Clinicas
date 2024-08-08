@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\DB;
 
 class PatientsController extends Controller
 {
+    /* 
+    Funcion para mostrar los pacientes registrados en el sistema
+    */
     public function show(Request $request)
     {
         $offset = $request->input('offset', 0);
@@ -61,7 +64,6 @@ class PatientsController extends Controller
         return response()->json(['results' => $formattedData, 'count' => $count]);
     }
 
-
     public function create()
     {
         $breadcrumbs = [
@@ -86,7 +88,7 @@ class PatientsController extends Controller
             // Insertar la persona
             $dataPersonal = $this->dataPersonalForDB($validate);
             $persona = Persona::create($dataPersonal['dataPerson']);
-            
+
             // Insertar el domicilio
             $persona->domicilio()->create($dataPersonal['dataDomicilio']);
 
@@ -104,22 +106,23 @@ class PatientsController extends Controller
             $persona->ant_quirurgicos()->createMany($diseasesPersonal['cirugies']);
 
             // Insertar las toxicomanias
-            $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate));   
+            $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate));
 
             // Si es mujer, insertar los datos de embarazo
-            if($dataPersonal['dataPerson']['sexo'] == 'Femenino'){
+            if ($dataPersonal['dataPerson']['sexo'] == 'Femenino') {
                 $gyo = $this->dataGyo($validate);
                 $persona->gyo()->create($gyo);
-            } 
-
-
+            }
         });
 
 
 
-        return response()->json(['title'=>'Éxito','message' => 'Paciente creado correctamente','error' => null], 201);
+        return response()->json(['title' => 'Éxito', 'message' => 'Paciente creado correctamente', 'error' => null], 201);
     }
 
+    /*
+     Funcion que retorna la vista de Ver pacientes junto con el breadcrumb
+    */
     public function Patients_View()
     {
         $breadcrumbs = [
@@ -129,7 +132,7 @@ class PatientsController extends Controller
         return view('patients.seePatient', compact('breadcrumbs'));
     }
 
- 
+
 
     private function dataPersonalForDB($data)
     {
@@ -256,7 +259,8 @@ class PatientsController extends Controller
         return $toxicomanias;
     }
 
-    private function dataGyo($data){
+    private function dataGyo($data)
+    {
 
         $gyo = $data['listGynecologyObstetrics'];
 
@@ -264,11 +268,11 @@ class PatientsController extends Controller
             'menarca' => $gyo['menarca'],
             'fecha_um' => $gyo['fum'],
             's_gestacion' => $gyo['estaEmbarazada'] ? Carbon::now()->diffInWeeks($gyo['fum']) : 0,
-            'dias_x_dias' => $gyo['diasSangrado'].','.$gyo['diasCiclo'],
-            'ciclos'=> $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
-            'ivs' => $gyo['inicioVidaSexual'],   
+            'dias_x_dias' => $gyo['diasSangrado'] . ',' . $gyo['diasCiclo'],
+            'ciclos' => $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
+            'ivs' => $gyo['inicioVidaSexual'],
             'parejas_s' => 2,
-            'gestas' => $gyo['numGestas']+$gyo['numPartos']+$gyo['numAbortos']+$gyo['numCesareas'],
+            'gestas' => $gyo['numGestas'] + $gyo['numPartos'] + $gyo['numAbortos'] + $gyo['numCesareas'],
             'partos' => $gyo['numPartos'],
             'abortos' => $gyo['numAbortos'],
             'cesareas' => $gyo['numCesareas'],
@@ -276,7 +280,5 @@ class PatientsController extends Controller
             'metodo' => $gyo['metodoDescriptivo'],
             'mastografia' => $gyo['mastografia'],
         ];
-
-
     }
 }

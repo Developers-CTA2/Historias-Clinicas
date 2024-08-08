@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="form-group col-12 pt-2">
                             <p class="fw-bold mb-0">Nombre completo:</p>
-                            <div class="mt-0" id="name"> {{ $Personal->nombre }}</div>
+                            <div class="mt-0 W-data" id="name"> {{ $Personal->nombre }}</div>
 
                             <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
                                 <label for="new_name">Nombre completo: <span class="red-color"> *</span></label>
@@ -43,11 +43,11 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
                                 <p class="fw-bold mb-0">Código:</p>
-                                <div class="mt-0" id="code"> {{ $Personal->codigo ?? '--' }} </div>
+                                <div class="mt-0 W-data" id="code"> {{ $Personal->codigo ?? '--' }} </div>
 
                                 <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
                                     <label for="new_code">Código:</label>
-                                    <div class="mt-0"> <s>Sin código </s></div>
+                                    <div class="mt-0 W-data"> <s>Sin código </s></div>
 
                                 </div>
 
@@ -55,7 +55,7 @@
 
                             <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                 <p class="fw-bold mb-0">Genero:</p>
-                                <div class="mt-0" id="gender"> {{ $Personal->sexo }} </div>
+                                <div class="mt-0 W-data" id="gender"> {{ $Personal->sexo }} </div>
 
 
 
@@ -84,7 +84,7 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
                                 <p class="fw-bold mb-0">Teléfono:</p>
-                                <div class="mt-0" id="tel"> {{ $Personal->telefono }} </div>
+                                <div class="mt-0 W-data" id="tel"> {{ $Personal->telefono }} </div>
 
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
@@ -101,7 +101,7 @@
                                 @php
                                     use Carbon\Carbon;
                                 @endphp
-                                <div class="mt-0">
+                                <div class="mt-0 W-data">
                                     {{ Carbon::parse($Personal->fecha_nacimiento)->locale('es')->isoFormat('LL') }}
                                 </div>
                                 <div class="mt-0 d-none" id="birthday"> {{ $Personal->fecha_nacimiento }} </div>
@@ -120,7 +120,7 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
                                 <p class="fw-bold mb-0">Ocupación:</p>
-                                <div class="mt-0" id="ocupation"> {{ $Personal->ocupacion }} </div>
+                                <div class="mt-0 W-data" id="ocupation"> {{ $Personal->ocupacion }} </div>
 
 
                                 <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
@@ -135,12 +135,12 @@
 
                             <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                 <p class="fw-bold mb-0">NSS:</p>
-                                <div class="mt-0" id="nss"> {{ $Personal->nss }} </div>
+                                <div class="mt-0 W-data" id="nss"> {{ $Personal->nss }} </div>
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                     <label for="new_nss">NSS: <span class="red-color"> *</span></label>
                                     <input class="form-control form-disabled" type="text" name="new_nss"
-                                        id="new_nss" value="{{ $Personal->nss }}">
+                                        id="new_nss" value="{{ $Personal->nss }}" maxlength="11">
                                     <span class="text-danger fw-normal" style=" display: none;">NSS no
                                         válido.</span>
                                 </div>
@@ -150,7 +150,7 @@
 
                         <div class="form-group col-12 pt-2">
                             <p class="fw-bold mb-0">Religion</p>
-                            <div class="mt-0" id="religion"> {{ $Personal->religion }} </div>
+                            <div class="mt-0 W-data" id="religion"> {{ $Personal->religion }} </div>
 
                             <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                 <label for="new_religion">Religion: <span class="red-color"> *</span></label>
@@ -172,7 +172,7 @@
 
                         <div class="form-group col-12 pt-2">
                             <p class="fw-bold mb-0">Nombre contacto:</p>
-                            <div class="mt-0" id="name_e"> {{ $Personal->contacto_emerge }} </div>
+                            <div class="mt-0 W-data" id="name_e"> {{ $Personal->contacto_emerge }} </div>
 
                             <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                 <label for="new_name_e">Nombre contacto: <span class="red-color"> *</span></label>
@@ -185,7 +185,7 @@
                         <div class="row mb-3">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
                                 <p class="fw-bold mb-0">Teléfono:</p>
-                                <div class="mt-0" id="tel_e"> {{ $Personal->telefono_emerge }}</div>
+                                <div class="mt-0 W-data" id="tel_e"> {{ $Personal->telefono_emerge }}</div>
 
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
@@ -199,7 +199,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12 pt-2 ">
                                 <p class="fw-bold mb-0">Parentesco:</p>
-                                <div class="mt-0" id="parent_e"> {{ $Personal->parentesco_emerge }}</div>
+                                <div class="mt-0 W-data" id="parent_e"> {{ $Personal->parentesco_emerge }}</div>
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                     <label for="new_parent_e">Parentesco: <span class="red-color">
@@ -240,7 +240,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Pais:</p>
-                                    <div class="mt-0" id="country"> {{ $domicilio->pais }}</div>
+                                    <div class="mt-0 W-data" id="country"> {{ $domicilio->pais }}</div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_country">País: <span class="red-color">
@@ -253,7 +253,7 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Estado:</p>
-                                    <div class="mt-0" id="state"> {{ $domicilio->estado ?? '--' }} </div>
+                                    <div class="mt-0 W-data" id="state"> {{ $domicilio->estado ?? '--' }} </div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_state">Estado: <span class="red-color">
@@ -268,7 +268,8 @@
 
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">Ciudad o municipio:</p>
-                                <div class="mt-0" id="city"> {{ $domicilio->cuidad_municipio ?? '--' }} </div>
+                                <div class="mt-0 W-data" id="city"> {{ $domicilio->cuidad_municipio ?? '--' }}
+                                </div>
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                     <label for="new_city">Ciudad o municipio: <span class="red-color">
@@ -283,7 +284,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Colonia:</p>
-                                    <div class="mt-0" id="colony"> {{ $domicilio->colonia ?? '--' }}</div>
+                                    <div class="mt-0 W-data" id="colony"> {{ $domicilio->colonia ?? '--' }}</div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_colony">Colonia: <span class="red-color">
@@ -296,7 +297,7 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Código postal:</p>
-                                    <div class="mt-0" id="cp"> {{ $domicilio->cp ?? '--' }} </div>
+                                    <div class="mt-0 W-data" id="cp"> {{ $domicilio->cp ?? '--' }} </div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_cp">Código postal: <span class="red-color">
@@ -311,7 +312,7 @@
 
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">Calle:</p>
-                                <div class="mt-0" id="street"> {{ $domicilio->calle ?? '--' }} </div>
+                                <div class="mt-0 W-data" id="street"> {{ $domicilio->calle ?? '--' }} </div>
 
                                 <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                     <label for="new_street">Calle: <span class="red-color">
@@ -325,7 +326,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Num. exterior:</p>
-                                    <div class="mt-0" id="ext"> {{ $domicilio->num ?? '--' }}</div>
+                                    <div class="mt-0 W-data" id="ext"> {{ $domicilio->num ?? '--' }}</div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_ext">Num. exterior: <span class="red-color">
@@ -338,11 +339,10 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Num. interior:</p>
-                                    <div class="mt-0" id="int"> {{ $domicilio->num_int ?? '--' }} </div>
+                                    <div class="mt-0 W-data" id="int"> {{ $domicilio->num_int ?? '--' }} </div>
 
                                     <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_int">Num. exterior: <span class="red-color">
-                                                *</span></label>
+                                        <label for="new_int">Num. exterior: </label>
                                         <input class="form-control form-disabled" type="text" name="new_int"
                                             id="new_int" value="{{ $domicilio->num_int }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Num. interior no
@@ -350,10 +350,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -366,6 +362,12 @@
                         <div class="d-flex justify-content-end gap-2">
                             <div class="">
                                 <button class="btn-red fst-normal tooltip-container" type="button" id="cancel_PD">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                        viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 0 1-1.06-1.06L6.94 8L3.47 4.53a.75.75 0 0 1 0-1.06"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                     Cancelar
                                     <span class="tooltip-text">Cancelar edición.</span>
                                 </button>
@@ -373,9 +375,8 @@
                             <div class="">
                                 <button class="btn-blue-sec fst-normal tooltip-container" type="button" id="savePD">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 24 24">
-                                        <path
-                                            d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
+                                        viewBox="0 0 20 20">
+                                        <path  d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
                                     </svg>
                                     Guardar
                                     <span class="tooltip-text">Editar datos.</span>

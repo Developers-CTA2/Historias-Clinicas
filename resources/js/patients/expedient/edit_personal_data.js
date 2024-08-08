@@ -41,11 +41,12 @@ function EventEditPersonal() {
             } else {
                 ShowInputs(1, old, oldDirection);
             }
-            console.log("Modo edicion");
+
+            $(".W-data").addClass("text-secondary"); // Poner en gris el dato antiguo
         } else {
             /* Cancelar edicion */
+            $(".W-data").removeClass("text-secondary"); // quitar el gris
             CoverContents();
-
             console.log("Modo lectura");
         }
     });
@@ -95,7 +96,7 @@ function clicCancelPD() {
     $("#cancel_PD").off("click");
     $("#cancel_PD").on("click", function () {
         $("#Edit-personal").prop("checked", false);
-
+        $(".W-data").removeClass("text-secondary"); // quitar el gris
         /* Cancelar edicion */
         CoverContents();
     });
@@ -236,7 +237,9 @@ function ObtainNewPersonalData() {
     };
     return Data;
 }
-
+/*
+    Funcion que válida cada uno de los datos que se ingresaron en los inputs
+*/
 function validateObjets(opc, personal, direction) {
     let PersonalData;
     let DirectionData;
@@ -289,6 +292,9 @@ function validateObjets(opc, personal, direction) {
     }
 }
 
+/*
+    Funcion que valida con las expresiones regulares los datos personales 
+*/
 function ValidatePersonalData(personal) {
     console.log(personal.gender);
     let V_name = validarCampo(personal.name, regexLetters, "#new_name");
@@ -339,6 +345,9 @@ function ValidatePersonalData(personal) {
     }
 }
 
+/*
+    Funcion que valida con expresiones regulares los datos que corresponden al domicilio de la persona
+*/
 function ValidateDirectionData(direction) {
     let V_country = validarCampo(
         direction.country,
@@ -396,6 +405,9 @@ async function Confirm(Personal, Direction, Type) {
     }
 }
 
+/*
+    Funcion que llama al controlador para hacer el update de los datos del paciente
+*/
 async function RequestUpdate(Personal, Direction, Type) {
     var path = window.location.pathname;
     var segments = path.split("/");
@@ -413,7 +425,7 @@ async function RequestUpdate(Personal, Direction, Type) {
      let timerInterval;
     try {
         const response = await axios.post(
-            "/patients/expediente/Upadate_Personal_Data",
+            "/patients/expediente/Update_Personal_Data",
             Data
         );
         console.log(response.data);

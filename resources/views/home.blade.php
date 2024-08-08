@@ -36,7 +36,7 @@
                             </div>
                             <div class="col px-2">
                                 <p class="m-0">Consultorio</p>
-                                <p class="m-0 text-center fw-bolder">Medico</p>
+                                <p class="m-0 text-center fw-bolder">Médico</p>
                             </div>
                             <div class="col-auto d-flex align-items-center">
                                 <div>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col px-2">
                                 <p class="m-0">Consultorio</p>
-                                <p class="m-0 text-center fw-bolder">Medico</p>
+                                <p class="m-0 text-center fw-bolder">Médico</p>
                             </div>
                             <div class="col-auto d-flex align-items-center">
                                 <div>
