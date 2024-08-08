@@ -13,7 +13,7 @@
             <p>Selecciona la enfermedad correcta</p>
         </div>
         <div class="d-flex justify-content-center border">
-           <label for="New_desease">Nomnbre de la enfermedad</label>
+           <label for="New_desease">Nombre de la enfermedad</label>
         </div>
 
        </div>
