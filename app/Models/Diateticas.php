@@ -9,16 +9,18 @@ class Diateticas extends Model
 {
     use HasFactory;
 
-    protected $table = 'dieteticas';
+    protected $table = 'indicadores_dietéticos';
 
     protected $fillable = [
-        'comidas_dia',
+        'id_persona',
+        'comidas_al_dia',
         'apetito',
-        'alim_no_pref',
-        'alergias',
+        'alimentos_no_preferidos',
+        'qien_prepara_comida',
         'suplementos',
-        'vasos_agua',
-        'vasos_bebidas',
+        'grasas_consumidas',
+        'created_by',
+        'updated_by',
     ];
 
     public function persona()

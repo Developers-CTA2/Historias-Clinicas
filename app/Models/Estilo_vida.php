@@ -13,10 +13,13 @@ class Estilo_vida extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'id_persona',
         'actividad',
-        'ejercicio',
-        'frecuencia',
-        'duracion',
+        'tipo_ejercicio',
+        'frecuencia_ejercicio',
+        'duracion_ejercicio',
+        'created_by',
+        'updated_by',
     ];
 
     public function persona()

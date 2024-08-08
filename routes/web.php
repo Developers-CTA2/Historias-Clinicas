@@ -16,6 +16,8 @@ use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\HistoryConsultation;
 use App\Http\Controllers\ExpedientController;
+use App\Http\Controllers\NutritionHistoryController;
+use App\Http\Controllers\newConsultationNutritionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,7 +119,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id_persona}/history/get-consultation',[HistoryConsultation::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
         }); 
 
-    
+        Route::prefix('/nutricion')->group(function () {
+            Route::get('/historial-nutricion/{id_persona}', [NutritionHistoryController::class, 'show'])->name('historial.nutricion');
+            Route::get('/historial-nutricion/create/{id}', [NutritionHistoryController::class, 'create'])->name('historial.nutricion.create');
+            Route::post('/historial-nutricion/store', [NutritionHistoryController::class, 'store'])->name('historial.nutricion.store');
+
+            Route::get('/consulta/create/{id}', [newConsultationNutritionController::class, 'crear'])->name('consulta.nutricion.create');
+            Route::post('/consulta/store', [newConsultationNutritionController::class, 'consulta'])->name('consulta.nutricion.store');
+            Route::get('/consulta/{id_persona}', [newConsultationNutritionController::class, 'show'])->name('consulta.nutricion.show');
+        }); 
 
     });
 
