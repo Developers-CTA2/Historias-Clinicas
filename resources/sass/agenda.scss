@@ -1,0 +1,22 @@
+/* Ajusta el contenedor del calendario */
+#calendar {
+    width: 80%;
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* Ajusta la altura del calendario */
+.fc {
+    height: auto;
+}
+
+/* Aumenta el tamaño de la fuente y el espaciado para los eventos */
+.fc-event {
+    font-size: 0.7em; 
+    padding: 5px; 
+}
+
+/* Aumenta el tamaño de la fuente y el espaciado para los días */
+.fc-daygrid-day-number {
+    font-size: 1.2em; 
+}

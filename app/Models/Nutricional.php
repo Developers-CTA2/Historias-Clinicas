@@ -15,19 +15,25 @@ class Nutricional extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'fecha',
+        'id_persona',
+        'id_medida',
+        'vasos_agua',
         'motivo_consulta',
+        'toma_medicamentos',
         'diagnostico',
         'created_by',
         'updated_by',
     ];
 
+    // Relación con el modelo Persona
     public function persona()
     {
         return $this->belongsTo(Persona::class, 'id_persona');
     }
+
+    // Relación con el modelo Medidas
     public function medidas()
     {
-        return $this->hasMany(Medidas::class, 'id_nutricional');
+        return $this->belongsTo(Medidas::class, 'id_medida', 'id_medida');
     }
 }

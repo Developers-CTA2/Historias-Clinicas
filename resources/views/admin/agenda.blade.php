@@ -1,10 +1,10 @@
 @extends('admin.layouts.main')
 
 @section('title', 'Agenda')
-
 @section('viteConfig')
-@vite('resources/sass/Forms-Styles.scss')
+    @vite(['resources/sass/agenda.scss'])
 @endsection
+
 
 @section('content')
 <div id="calendar"></div>

@@ -9,29 +9,41 @@ document.addEventListener('DOMContentLoaded', function() {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         dateClick: function(info) {
-            var fechaSeleccionada = info.dateStr;
+            var fechaSeleccionada = info.date;
+            var day = fechaSeleccionada.getDay();
+            // 0 = Sunday, 6 = Saturday
+            if (day === 0 || day === 6) {
+                // No hacer nada en sábado y domingo
+                return;
+            }
             // Redirigir a la página de detalles de citas para la fecha seleccionada
-            window.location.href = '/citas?fecha=' + fechaSeleccionada;
+            window.location.href = '/citas?fecha=' + info.dateStr;
         },
         events: function(info, successCallback, failureCallback) {
             // Obtener la cita más próxima
             fetch('/proxima-cita')
-                .then(response => response.json())
-                .then(data => {
-                    // Verificar si se recibió correctamente la próxima cita
-                    if (data && data.hora && data.nombre) {
-                        // Resaltar la cita más próxima en el calendario
-                        successCallback([
-                            {
-                                title: `${data.hora}\n${data.nombre}`,
-                                start: data.fecha,
-                                color: 'red' // Color de la cita resaltada
-                            }
-                        ]);
-                    } else {
-                        // Si no hay próxima cita, llamar a failureCallback para evitar errores
-                        failureCallback();
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
                     }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // Verificar si se recibió correctamente la próxima cita
+                    const colorPorTipoProfesional = {
+                        'Doctora': 'blue',
+                        'Nutrióloga': 'green',
+                    };
+                    
+                    // Dentro del mapeo de eventos
+                    const eventosCitas = Object.values(data).map(cita => ({
+                        title: `${cita.hora}\n${cita.nombre}`,
+                        start: cita.fecha,
+                        color: colorPorTipoProfesional[cita.tipo_profesional], // Color gris por defecto si no se encuentra
+                    }));
+
+                    successCallback(eventosCitas);
                 })
                 .catch(error => {
                     console.error('Error al obtener la próxima cita:', error);
@@ -42,5 +54,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 });
-
-
