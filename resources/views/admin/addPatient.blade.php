@@ -310,6 +310,7 @@
                                                 <label for="escolaridad"> Escolaridad: <span class="required-point">*</span></label>
                                                 <select class="form-control" name="escolaridad" id="escolaridad">
                                                     <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="0">Sin estudios</option>
                                                     <option value="1">Primaria</option>
                                                     <option value="2">Secundaria</option>
                                                     <option value="3">Preparatoria</option>

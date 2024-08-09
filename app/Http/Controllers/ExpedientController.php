@@ -53,7 +53,7 @@ class ExpedientController extends Controller
         $gyo = $Personal->gyo;
 
         $esp_ahf = Especificar_ahf::all();
-        // return response()->json($esp_ahf);
+        // return response()->json($ahf);
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.index')],
             ['name' => 'Expediente', '' => ''],
