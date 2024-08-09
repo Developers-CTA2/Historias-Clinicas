@@ -84,7 +84,7 @@
                                                         </button>
 
 
-                                                        <button class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="modal" data-bs-target="#edit_AHF">
+                                                        <button class="btn-blue-sec fst-normal tooltip-container edit-AHF" data-id="{{ $enfermedad->id }}" data-name="{{ $enfermedad->especificar_ahf->nombre }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 32 32">
                                                                 <path
@@ -146,3 +146,4 @@
 @role('Administrador')
     @include('patients.expedient_cards.modals_expedient.modal_edit_AHF')
 @endrole
+

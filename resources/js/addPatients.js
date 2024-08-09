@@ -110,7 +110,7 @@ $(function () {
     const selectGender = $('#gender');
     const selectBloodType = $('#T_sangre');
     const selectCivilStatus = $('#E_civil');
-
+l
 
     /* Disease */
     // Selects 

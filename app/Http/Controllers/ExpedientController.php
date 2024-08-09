@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Persona;
 use App\Models\Persona_ahf;
+use App\Models\Especificar_ahf;
 use App\Models\Domicilio;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,13 +52,14 @@ class ExpedientController extends Controller
         $quirurgicos = $Personal->ant_quirurgicos;
         $gyo = $Personal->gyo;
 
-        // return response()->json($domicilio);
+        $esp_ahf = Especificar_ahf::all();
+        // return response()->json($esp_ahf);
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.index')],
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf' ));
     }
 
     /*  
