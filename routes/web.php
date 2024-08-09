@@ -15,6 +15,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\HistoryConsultation;
+use App\Http\Controllers\ExpedientController;
+use App\Http\Controllers\NutritionHistoryController;
+use App\Http\Controllers\newConsultationNutritionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,10 +100,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientsController::class, 'Patients_View'])->name('patients.index');
        // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
-        Route::get('/expediente/{id}', [PatientsController::class, 'Patient_details'])->name('admin.expediente');
+        Route::get('/expediente/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.expediente');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
+        Route::post('/expediente/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+        Route::post('/expediente/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
 
         // Route::get('/expediente{/id}', function ($id) {
         //     return view('admin.expediente');
@@ -115,7 +120,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id_persona}/history/get-consultation',[HistoryConsultation::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
         }); 
 
-    
+        Route::prefix('/nutricion')->group(function () {
+            Route::get('/historial-nutricion/{id_persona}', [NutritionHistoryController::class, 'show'])->name('historial.nutricion');
+            Route::get('/historial-nutricion/create/{id}', [NutritionHistoryController::class, 'create'])->name('historial.nutricion.create');
+            Route::post('/historial-nutricion/store', [NutritionHistoryController::class, 'store'])->name('historial.nutricion.store');
+
+            Route::get('/consulta/create/{id}', [newConsultationNutritionController::class, 'crear'])->name('consulta.nutricion.create');
+            Route::post('/consulta/store', [newConsultationNutritionController::class, 'consulta'])->name('consulta.nutricion.store');
+            Route::get('/consulta/{id_persona}', [newConsultationNutritionController::class, 'show'])->name('consulta.nutricion.show');
+        }); 
 
     });
 
@@ -168,8 +181,19 @@ Route::get('/citas', function () {
 })->name('showCitas');
 
 Route::get('/citas', [CitasController::class, 'mostrarCitas'])->name('showCitas');
-Route::post('/guardar-cita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
+Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHora']);
+
+
 Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+
+Route::put('/citas/{id}', [CitasController::class, 'actualizar'])->name('actualizarCita');
+Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
+
+Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
+Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
+
+
 
 
 

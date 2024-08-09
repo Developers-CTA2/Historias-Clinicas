@@ -4,16 +4,27 @@
     display: inline-block;
 }
 
+/* Tooltipo sin opacidad */
+.tooltip-text2 {
+    background-color: #dfdfdf;
+     z-index: 500 !important;
+}
+
 .tooltip-text {
+    background-color: #dfdfdfc5;
+     z-index: 210  !important;
+}
+
+.tooltip-text,
+.tooltip-text2 {
     visibility: hidden;
     width: 150px;
-    background-color: #dfdfdfc5;
     color: #080808;
     text-align: center;
     border-radius: 6px;
     padding: 5px;
     position: absolute;
-    z-index: 110;
+   
     top: 115%; /* Posiciona el tooltip bajo del elemento */
     left: 50%;
     transform: translateX(-50%);
@@ -21,7 +32,8 @@
     transition: opacity 0.5s;
 }
 
-.tooltip-container:hover .tooltip-text {
+.tooltip-container:hover .tooltip-text,
+.tooltip-container:hover .tooltip-text2 {
     visibility: visible;
     opacity: 1;
 }
@@ -32,7 +44,6 @@
     height: 2rem;
 }
 
-
 .btn-red {
     border: 1.5px solid $red;
 }
@@ -40,38 +51,33 @@
 /* Estilo base para el botón */
 .btn-blue {
     border: 1.5px solid $primary;
- }
- 
- .btn-sec {
+}
+
+.btn-sec {
     border: 1.5px solid $blue-sec;
- }
+}
 
 /* Estilo base para el botón */
 .btn-blue-sec {
     border: 1.5px solid $green-sec;
- }
+}
 
- /* Cuando el boton se muestra pero esta inabilitado */ 
-.disabled{
-    opacity: .5;
- }
+/* Cuando el boton se muestra pero esta inabilitado */
+.disabled {
+    opacity: 0.5;
+}
 
-
-
-
-/* caso de tener un svg de imagen */ 
+/* caso de tener un svg de imagen */
 .btn-blue-sec svg,
-.btn-blue-red svg, 
+.btn-blue-red svg,
 .btn-blue-blue svg,
-.btn-sec svg{
+.btn-sec svg {
     fill: currentColor; /* Hace que el SVG herede el color del texto */
     transition: fill 0.3s;
 }
 
-
-
 .btn-blue,
-.btn-red, 
+.btn-red,
 .btn-blue-sec,
 .btn-sec {
     color: black; /* Color del texto */
@@ -98,7 +104,6 @@
     background-color: $blue-sec; /* Cambiar el color de fondo */
 }
 
-
 /* Estilo para el botón cuando se pasa el cursor sobre él */
 .btn-red:hover,
 .btn-red:active {
@@ -120,23 +125,22 @@
 .btn-red:hover svg,
 .btn-red:active svg,
 .btn-sec:hover svg,
-.btn-sec:active svg{
+.btn-sec:active svg {
     fill: white; /* Cambiar el color del SVG */
 }
 
-.btn-color-login{
+.btn-color-login {
     background-color: $primary;
     color: $bg-light;
     transition: all 0.3s ease-in-out;
 }
 
-.btn-color-login:hover{
+.btn-color-login:hover {
     background-color: $primary-hover;
     color: $bg-light;
 }
 
-
-.btn-secondary-custom{
+.btn-secondary-custom {
     background-color: $button-secondary !important;
     color: $white !important;
 }

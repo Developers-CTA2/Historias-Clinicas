@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id('id_persona');
+            $table->foreignId('domicilio_id')->constrained('domicilio', 'id_domicilio');
             $table->string('codigo', 9)->nullable();
             $table->string('nombre', 120);
             $table->string('ocupacion', 50);
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users')->nullable();
             $table->timestamps();
+             
         });
     }
 

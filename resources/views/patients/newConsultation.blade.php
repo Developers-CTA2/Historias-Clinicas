@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-12 col-lg-4 d-flex gap-4 align-items-end justify-content-start justify-content-lg-end">
-                        <a href="{{ route('patients.patients') }}">Cancelar</a>
+                        <a href="{{ route('patients.index') }}">Cancelar</a>
                         <button data-id="{{$person->id_persona}}" class="fst-normal tooltip-container py-2 px-3 btn-blue-sec" id="saveConsultation">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="pe-2"
                                 viewBox="0 0 2048 2048">

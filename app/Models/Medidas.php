@@ -11,16 +11,24 @@ class Medidas extends Model
 
     protected $table = 'medidas';
 
+    // Definir la clave primaria
+    protected $primaryKey = 'id_medida';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
+    // Campos que se pueden asignar masivamente
     protected $fillable = [
         'peso_actual',
         'peso_habitual',
         'estatura',
-        'circunf_cintura',
-        'circunf_cadera',
+        'circunferencia_cintura',
+        'circunferencia_cadera',
     ];
 
+    // Relación con el modelo Nutricional
     public function nutricional()
     {
-        return $this->belongsTo(Nutricional::class, 'id_nutricional');
+        return $this->hasOne(Nutricional::class, 'id_medida', 'id_medida');
     }
 }
+

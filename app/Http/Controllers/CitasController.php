@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConsultaMail;
+use App\Mail\EditarConsultaMail;
+use Carbon\Carbon;
+
 use App\Models\Citas;
-use App\Models\Pacientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class CitasController extends Controller
@@ -13,7 +17,7 @@ class CitasController extends Controller
     public function agenda()
     {
         $breadcrumbs = [
-            ['name' => 'Agenda', 'url' => ''],
+            ['name' => 'Agenda', 'url' => route('showAgenda')],
         ];
 
         return view('admin.agenda', compact('breadcrumbs'));
@@ -21,20 +25,53 @@ class CitasController extends Controller
 
     public function proximaCita()
     {
-        // Obtener la próxima cita ordenada por fecha y hora ascendentes
-        $proximaCita = Citas::orderBy('fecha', 'asc')->orderBy('hora', 'asc')->first();
-        
-        // Verificar si hay una próxima cita
-        if ($proximaCita) {
-            // Retornar un array con la hora y el nombre de la persona
-            return response()->json([
-                'hora' => $proximaCita->hora,
-                'nombre' => $proximaCita->pacientes->nombre,
-                'fecha' => $proximaCita->fecha, // Agrega la fecha aquí
-            ]);
-        } else {
-            // Si no hay próxima cita, devolver un mensaje de error
-            return response()->json(['error' => 'No hay próxima cita'], 404);
+        try {
+            // Obtener la fecha y hora actuales
+            $now = \Carbon\Carbon::now();
+
+            // Obtener todas las citas desde la fecha y hora actuales ordenadas por fecha y hora ascendentes
+            $todasLasCitas = Citas::where(function ($query) use ($now) {
+                $query->where('fecha', '>', $now->format('Y-m-d'))
+                    ->orWhere(function ($query) use ($now) {
+                        $query->where('fecha', '=', $now->format('Y-m-d'))
+                            ->where('hora', '>', $now->format('H:i'));
+                    });
+            })
+                ->orderBy('fecha', 'asc')
+                ->orderBy('hora', 'asc')
+                ->get();
+
+            // Inicializar un array para almacenar la próxima cita de cada día
+            $proximasCitasPorDia = [];
+
+            // Iterar sobre todas las citas para filtrar la próxima cita de cada día
+            foreach ($todasLasCitas as $cita) {
+                // Verificar que la cita esté en estado pendiente
+                if ($cita->estado !== 'Pendiente') {
+                    continue; // Saltar esta cita si no está pendiente
+                }
+
+                // Asegurarse de que la fecha sea un objeto Carbon
+                $fecha = \Carbon\Carbon::parse($cita->fecha)->format('Y-m-d');
+
+                // Verificar si ya se ha agregado una cita para este día
+                if (!isset($proximasCitasPorDia[$fecha])) {
+                    // Agregar esta cita como la próxima cita para este día, incluyendo tipo_profesional
+                    $proximasCitasPorDia[$fecha] = [
+                        'hora' => $cita->hora,
+                        'nombre' => $cita->nombre,
+                        'fecha' => $fecha,
+                        'tipo_profesional' => $cita->tipo_profesional, // Asegúrate de tener esto en tu modelo Citas
+                    ];
+                }
+            }
+
+            // Retornar el array con la próxima cita de cada día
+            return response()->json($proximasCitasPorDia);
+        } catch (\Exception $e) {
+            // Registrar el error para depuración
+            Log::error('Error al obtener la próxima cita: ' . $e->getMessage());
+            return response()->json(['status' => 'error', 'message' => 'Error al obtener la próxima cita.'], 500);
         }
     }
 
@@ -42,61 +79,221 @@ class CitasController extends Controller
     {
         $fecha = $request->query('fecha');
         if (!$fecha) {
-            return redirect('/')->with('error', 'Fecha no proporcionada');
+            return response()->json(['error' => 'Fecha no proporcionada'], 400);
         }
-    
-        // Obtener las citas ordenadas por hora ascendente
-        $citas = Citas::whereDate('fecha', $fecha)
-                        ->join('pacientes', 'citas.paciente_id', '=', 'pacientes.id')
-                        ->orderBy('hora', 'asc')
-                        ->get();
-    
+
+        $carbonDate = Carbon::parse($fecha);
+        if ($carbonDate->isWeekend()) {
+            return response()->json(['error' => 'No se puede seleccionar sábados o domingos'], 400);
+        }
+
+        // Obtener las citas de la doctora y de la nutrióloga por separado
+        $citasDoctora = Citas::whereDate('fecha', $fecha)
+            ->where('tipo_profesional', 'Doctora')
+            ->orderBy('hora', 'asc')
+            ->get();
+
+        $citasNutriologa = Citas::whereDate('fecha', $fecha)
+            ->where('tipo_profesional', 'Nutrióloga')
+            ->orderBy('hora', 'asc')
+            ->get();
+
+        // Combinar las citas si es necesario para mostrar en una sola vista
+        $citas = $citasDoctora->merge($citasNutriologa);
+
         $breadcrumbs = [
-            ['name' => 'Citas', 'url' => ''],
+            ['name' => 'Agenda', 'url' => route('showAgenda')],
+            ['name' => 'Citas', '' => ''],
         ];
-    
+
         return view('admin.citas', [
             'fecha' => $fecha,
+            'citasDoctora' => $citasDoctora,
+            'citasNutriologa' => $citasNutriologa,
             'citas' => $citas,
-        ], compact('breadcrumbs', 'fecha', 'citas'));
+        ], compact('breadcrumbs', 'fecha', 'citasDoctora', 'citasNutriologa', 'citas'));
     }
-
-
 
     public function guardarCita(Request $request)
     {
         try {
+            // Validar los datos recibidos
             $request->validate([
-                'nombre' => 'required|string',
-                'telefono' => 'required|string',
-                'email' => 'nullable|email|unique:pacientes,email',
+                'nombre' => 'required|string|max:255',
+                'telefono' => 'required|string|size:10',
+                'email' => 'nullable|email|max:255',
                 'tipo_profesional' => 'required|in:Doctora,Nutrióloga',
                 'fecha' => 'required|date',
                 'hora' => 'required|date_format:H:i',
-                'motivo' => 'required|string',
+                'motivo' => 'required|string|max:255',
             ]);
 
-            $paciente = Pacientes::create([
+            // Verificar si existe una cita activa (no cancelada) en la misma fecha, hora y tipo de profesional
+            $citaActivaExistente = Citas::where('fecha', $request->fecha)
+                ->where('hora', $request->hora)
+                ->where('tipo_profesional', $request->tipo_profesional)
+                ->where('estado', '<>', 'Cancelada') // <> significa diferente de 'Cancelada'
+                ->exists();
+
+            if ($citaActivaExistente) {
+                return response()->json(['status' => 'error', 'message' => 'Ya existe una cita activa en esa fecha y hora para el mismo tipo de profesional.'], 400);
+            }
+
+            // Crear nueva cita
+            $cita = Citas::create([
                 'nombre' => $request->input('nombre'),
                 'telefono' => $request->input('telefono'),
-                'email' => $request->input('email')
-            ]);
-
-            // Crear nueva cita con el ID del paciente
-            Citas::create([
-                'paciente_id' => $paciente->id,
+                'email' => $request->input('email'),
                 'tipo_profesional' => $request->input('tipo_profesional'),
                 'fecha' => $request->input('fecha'),
                 'hora' => $request->input('hora'),
                 'motivo' => $request->input('motivo'),
+                'estado' => 'Pendiente',
             ]);
 
-            return redirect()->route('showAgenda')->with('success', 'Cita agregada correctamente.');
+            // Envío de correo electrónico
+            if ($cita->email) {
+                Mail::to($cita->email)->send(new ConsultaMail($cita));
+            }
+
+            return response()->json(['status' => 'success', 'message' => 'Cita guardada correctamente.'], 200);
         } catch (\Exception $e) {
-            // Log the error
             Log::error('Error al guardar la cita: ' . $e->getMessage());
-            // Redirect back with error message
-            return redirect()->back()->with('error', 'Error al guardar la cita. Por favor, inténtalo de nuevo.');
+            return response()->json(['status' => 'error', 'message' => 'Error al guardar la cita. Por favor, inténtalo de nuevo.'], 500);
+        }
+    }
+
+    public function validarHora($fecha, $hora)
+{
+    try {
+        // Verificar si existe una cita activa (no cancelada) en la misma fecha y hora
+        $existeActiva = Citas::where('fecha', $fecha)
+            ->where('hora', $hora)
+            ->where('estado', '<>', 'Cancelada')
+            ->exists();
+
+        // Verificar si existe una cita cancelada en la misma fecha y hora
+        $existeCancelada = Citas::where('fecha', $fecha)
+            ->where('hora', $hora)
+            ->where('estado', 'Cancelada')
+            ->exists();
+
+        // Determinar si se puede reservar la hora o no
+        $puedeReservar = !$existeActiva || $existeCancelada;
+
+        return response()->json([
+            'existe' => $existeActiva,
+            'existeCancelada' => $existeCancelada,
+            'puedeReservar' => $puedeReservar,
+        ]);
+    } catch (\Exception $e) {
+        Log::error('Error al validar la hora: ' . $e->getMessage());
+        return response()->json(['error' => 'Error al validar la hora'], 500);
+    }
+}
+
+
+    public function actualizar(Request $request, $id)
+    {
+        try {
+            // Validar los datos del formulario
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'telefono' => 'required|string|size:10',
+                'email' => 'nullable|email|max:255',
+                'tipo_profesional' => 'required|in:Doctora,Nutrióloga',
+                'fecha' => 'required|date',
+                'hora' => 'required',
+                'motivo' => 'required|string|max:255',
+                'estado' => 'required', 
+            ]);
+
+            // Buscar la cita por su ID
+            $cita = Citas::findOrFail($id);
+
+            // Actualizar los datos de la cita
+            $cita->update([
+                'nombre' => $request->input('nombre'),
+                'telefono' => $request->input('telefono'),
+                'email' => $request->input('email'),
+                'tipo_profesional' => $request->input('tipo_profesional'),
+                'fecha' => $request->input('fecha'),
+                'hora' => $request->input('hora'),
+                'motivo' => $request->input('motivo'),
+                'estado' => $request->input('estado'),
+            ]);
+
+            // Enviar correo electrónico si se proporciona email
+            if ($request->input('email')) {
+                Mail::to($request->input('email'))->send(new EditarConsultaMail($cita));
+            }
+
+            // Redireccionar con un mensaje de éxito
+            return response()->json(['status' => 'success', 'message' => 'Cita actualizada correctamente.']);
+        } catch (\Exception $e) {
+            // Log del error
+            Log::error('Error al actualizar la cita: ' . $e->getMessage());
+
+            // Redireccionar con un mensaje de error
+            return response()->json(['status' => 'error', 'message' => 'Error al actualizar la cita. Por favor, inténtalo de nuevo.'], 500);
+        }
+    }
+
+    public function validarHoraModificar($id, $fecha, $hora)
+    {
+        try {
+            // Verificar si existe una cita activa (no cancelada) en la misma fecha y hora, excluyendo la cita actual
+            $existe = Citas::where('fecha', $fecha)
+                ->where('hora', $hora)
+                ->where('id', '<>', $id)
+                ->where('estado', '<>', 'Cancelada') // Estado diferente de 'Cancelada'
+                ->exists();
+
+            return response()->json(['existe' => $existe]);
+        } catch (\Exception $e) {
+            Log::error('Error al validar la hora: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al validar la hora'], 500);
+        }
+    }
+
+    public function cancelar($id)
+    {
+        try {
+            // Buscar la cita por su ID
+            $cita = Citas::findOrFail($id);
+
+            // Cambiar el estado de la cita a Cancelada
+            $cita->estado = 'Cancelada';
+            $cita->save();
+
+            // Devolver una respuesta de éxito
+            return response()->json(['status' => 'success', 'message' => 'Cita cancelada correctamente.']);
+        } catch (\Exception $e) {
+            // Log del error
+            Log::error('Error al cancelar la cita: ' . $e->getMessage());
+
+            // Devolver una respuesta de error
+            return response()->json(['status' => 'error', 'message' => 'Error al cancelar la cita. Por favor, inténtalo de nuevo.'], 500);
+        }
+    }
+    
+    public function eliminar($id)
+    {
+        try {
+            // Buscar la cita por su ID
+            $cita = Citas::findOrFail($id);
+
+            // Eliminar la cita
+            $cita->delete();
+
+            // Devolver una respuesta de éxito
+            return response()->json(['status' => 'success', 'message' => 'Cita eliminada correctamente.']);
+        } catch (\Exception $e) {
+            // Log del error
+            Log::error('Error al cancelar la cita: ' . $e->getMessage());
+
+            // Devolver una respuesta de error
+            return response()->json(['status' => 'error', 'message' => 'Error al eliminar la cita. Por favor, inténtalo de nuevo.'], 500);
         }
     }
 }

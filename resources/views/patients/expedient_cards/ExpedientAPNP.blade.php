@@ -148,7 +148,20 @@
 
                         <div class="Edit-hemotipo collapse" id="Edit-Hemotipo">
                             <label for="E_type">Selecciona un tipo</label>
+
                             <select class="form-control" name="E_type" id="E_type">
+                                <option value="" disabled selected>Seleccione una opción</option>
+                                <option value="1">Grupo A Rh positivo (A+)</option>
+                                <option value="2">Grupo A Rh negativo (A-)</option>
+                                <option value="3">Grupo B Rh positivo (B+)</option>
+                                <option value="4">Grupo B Rh negativo (B-)</option>
+                                <option value="5">Grupo AB Rh positivo (AB+)</option>
+                                <option value="6">Grupo AB Rh negativo (AB-)</option>
+                                <option value="7">Grupo O Rh positivo (O+)</option>
+                                <option value="8">Grupo O Rh negativo (O-)</option>
+                            </select>
+                            <span class="text-danger fw-normal d-none"></span>
+                            {{-- <select class="form-control" name="E_type" id="E_type">
                                 <option value="0" selected>Selecciona una opción</option>
                                 <option value="1">A -</option>
                                 <option value="2">A +</option>
@@ -157,7 +170,7 @@
 
                             </select>
                             <span class="text-danger fw-normal" id="error-message" style="display: none;">Tipo
-                                no válido.</span>
+                                no válido.</span> --}}
 
                             <div class="d-flex justify-content-center mt-1">
 

@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->string('nombre');
+            $table->string('telefono');
+            $table->string('email');
             $table->enum('tipo_profesional', ['Doctora', 'Nutrióloga']); 
             $table->date('fecha');
             $table->time('hora');
             $table->string('motivo');
+            $table->enum('estado', ['Pendiente', 'Cancelada','Asistida', 'No asistida']); 
             $table->timestamps();
         });
         
@@ -28,10 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('citas', function (Blueprint $table) {
-            $table->dropForeign(['paciente_id']);
-        });
-
         Schema::dropIfExists('citas');
     }
 };

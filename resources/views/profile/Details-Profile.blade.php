@@ -78,7 +78,7 @@
 
                     {{-- Contenedor para cambiar contraseña  --}}
                     <div id="cont-change"
-                        class="row col-12 mx-2 p-1 pb-2 border rounded d-none animate__animated animate__fadeInUp ">
+                        class="row col-12 mx-2 p-1 pb-2 border rounded d-none animate__animated animate__fadeInUp animate__backOutDown">
                         <p class="text-center p-0">Actualizar mi contraseña</p>
                         <div class="col-lg-5 col-md-5 col-sm-12 mt-2">
                             {{-- Alerta de los datos no han cambiado --}}
