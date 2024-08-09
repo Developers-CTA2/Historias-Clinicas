@@ -13,7 +13,8 @@ export const requestSavePatient = async(dataSend = {})=>{
     
         }catch(error){
             console.log(error);
-            reject({title : 'Oops', message : error ? error?.response?.data : 'Hubo un error inesperado al obtener la lista de enfermades','error': error,'status': error?.response?.status || 500})
+            const { errors}  = error.response.data;
+            reject({title : 'Oops', message : error ? error?.response?.data : 'Hubo un error inesperado al obtener la lista de enfermades','error': error,'status': error?.response?.status || 500, errorList : errors})
         }finally{
             disableLoading();
         }

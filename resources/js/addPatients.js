@@ -2,7 +2,8 @@ import { getPerson } from './helpers/request-get-person.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
 import { validateStepFormOne, validateStepFormFive } from './helpers/validateDataAddPatient.js';
 import { selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { requestSavePatient, AlertSweetSuccess } from './helpers';
+import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML } from './helpers';
+import { templateErrorItem, templateErrorList } from './templates/addPatientsTemplate.js';
 
 
 
@@ -57,6 +58,7 @@ const patientData = {
 
 let steps = 0;
 let activeSendButton = false;
+let templateErrors = '';
 
 
 $(function () {
@@ -163,7 +165,7 @@ $(function () {
     const btnAddPathological = $('#addAntecedentesPatologicos');
 
     // Containers 
-    const buttonAccordionCollapse = $('.accordion-button');
+    const btnNavItem = $('.list-btn-nav');
     const accordionListPathologicalHistory = $('#listPathologicalHistory');
 
 
@@ -195,6 +197,11 @@ $(function () {
 
     // Containers
     const formGynecologyObstetrics = $('.group-gyo');
+
+    
+    // Button error list
+    const btnErrorList = $('#errorList');
+
 
     
 
@@ -318,7 +325,6 @@ $(function () {
         containerPersonSelect.addClass('d-none');
 
         inputCodePD.val('').attr('disabled', true);
-        console.log(inputCodePD.prev().find('span').remove());
         inputNamePD.val('').attr('disabled', false);
         inputCareerPD.val('').attr('disabled', false);
 
@@ -407,8 +413,7 @@ $(function () {
             btnSendForm.removeClass('d-none');
             btnNextStep.addClass('d-none');
 
-            
-
+        
             sendDataForm();
             
 
@@ -430,10 +435,16 @@ $(function () {
         }
     });
 
+    btnErrorList.on('click', function(){
+        templateErrors !== '' && AlertErrorWithHTML('Lista de errores',templateErrors);
+    })
+
     const sendDataForm = () => {
         btnSendForm.off('click');
         btnSendForm.on('click', function () {
 
+
+            console.log('steps', steps);
             if(steps == 5){
                 const elements = getDomGynecologyObstetrics();
                 const values = getDataFiveStepValues();
@@ -448,7 +459,24 @@ $(function () {
                 AlertSweetSuccess(title, message);
                 
         }).catch((error)=>{
-                console.log(error);
+                const { errorList } = error;
+
+                if(errorList){
+
+                    AlertError('Oops', 'Hubo un error al guardar los datos, por favor corrige estos errores pueden ser por campos vacíos o mal escritos, puedes verificarlos al presionar el botón "Errores", este se encuentra en la parte superior derecha.');
+                    
+                    templateErrors = '';
+                    for (const [key, messages] of Object.entries(errorList)) {  
+                        templateErrors += templateErrorItem(messages[0]);
+                    }
+
+                    templateErrors = templateErrorList(templateErrors);
+
+                    btnErrorList.removeClass('d-none');
+                }
+
+
+
             });
 
         });
@@ -478,7 +506,7 @@ $(function () {
         descriptionTraumatismReason,
         descriptionTransfusionsReason,
         btnAddPathological,
-        buttonAccordionCollapse,
+        btnNavItem,
         selectAllergies,
         selectDiseasePersonal,
         descriptionAllergies,
@@ -570,10 +598,10 @@ $(function () {
         patientData.listGynecologyObstetrics = {
             menarca: inputMenarca.val(),
             fum: inputFum.val(),
-            numGestas: inputGestas.val(),
-            numPartos: inputPartos.val(),
-            numCesareas: inputCesareas.val(),
-            numAbortos: inputAbortos.val(),
+            numGestas: inputGestas.val() ?? '0',
+            numPartos: inputPartos.val() ?? '0',
+            numCesareas: inputCesareas.val() ?? '0',
+            numAbortos: inputAbortos.val() ?? '0',
             diasSangrado: inputDiasSangrado.val(),
             diasCiclo: inputDiasCiclo.val(),
             fechaCitologia: inputfechaCitologia.val(),

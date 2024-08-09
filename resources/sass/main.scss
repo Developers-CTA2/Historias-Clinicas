@@ -32,6 +32,65 @@ label {
     color: red; 
 }
 
+.tooltip-custom {
+    cursor: pointer;
+
+    tool-tip{
+        position: absolute;
+        width: 150px;
+        z-index: 20;
+        pointer-events: none;
+        user-select: none;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.16);
+        padding: 0.5rem 1rem;
+        border: 2px solid $border-primary;
+        font-size: 0.9rem;
+        border-radius: 8px;
+
+        top: 33px;
+
+        &::before{
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid $border-primary;
+            top: -10px;
+            right: 0;
+        
+        }
+
+        
+
+        &.right{
+            right: 0;
+        }
+
+        &.left{
+            left: 0;
+        }
+        
+        
+        background-color: $bg-light;
+
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    &:has( > tool-tip){
+        position: relative;
+    }
+
+    &:hover > tool-tip{
+        opacity: 1;
+    }
+}
+
+
+
 @media (min-width: 1500px){
     .max-w-custom{
         // min-width: 1400px;
