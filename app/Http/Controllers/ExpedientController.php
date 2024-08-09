@@ -59,7 +59,7 @@ class ExpedientController extends Controller
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf' ));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf'));
     }
 
     /*  
@@ -195,14 +195,15 @@ class ExpedientController extends Controller
         }
         return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
     }
-
-    //   Id_reg: parseInt(id_reg),
-    //     Id_ahf: parseInt(Id_ahf),
-    //     Type
+    /* 
+    Funcion para hacer modificaciones en la tabla de Personas_AHF
+        donde se puede hacer el update, delete y el store
+            Segun el numerito que viene en la variable Type
+*/
     public function Update_Ahf_Data(Request $request)
     {
         $data = $request->validate([
-            'Id_reg' => 'required|numeric|exists:persona_ahf,id',
+            'Id_reg' => 'nullable|numeric',
             'Id_ahf' => 'nullable|numeric|exists:enfermedades_especificas,id_especifica_ahf',
             'Type' => 'required|numeric'
         ]);
@@ -211,68 +212,52 @@ class ExpedientController extends Controller
         $ahf = $data['Id_ahf'];
         $Type = $data['Type'];
 
-        $registro = persona_ahf::where('id', $id)->first();
+        if ($Type == 3) { // Agregar una nueva enfermedad
+            $Persona = persona::where('id_persona', $id)->first();
 
-        if ($registro) {
-            
-            try {
-                DB::transaction(function () use ($registro, $ahf, $Type) {
-                    if ($Type == 1) { // Delete
-                        $registro->delete();
-                    } else { // Update
-                        $registro->update([
-                            'id_ahf' => $ahf,
-                            'updated_by' => Auth::id()
-                        ]);
-                    }
-                });
-                return response()->json(['status' => 200]);
-            } catch (\Exception $e) {
-                // Log the error or handle it as needed
-                return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
+            if ($Persona) { // Si encontro la persona 
+                try {
+                    DB::transaction(function () use ($ahf, $id) {
+                        $Persona_ahf = new persona_ahf();
+                        $Persona_ahf->id_persona = $id;
+                        $Persona_ahf->id_ahf = $ahf;
+                        $Persona_ahf->created_at = Auth::id();
+                        $Persona_ahf->save();
+                    });
+                    return response()->json(['status' => 200]);
+                } catch (\Exception $e) {
+                    // Log the error or handle it as needed
+                    return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
+                }
+            } else { // No encontro a la persona
+                return response()->json(['status' => 404, 'msg' => '¡Error! No se encontro el registro.']);
             }
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
+/////////////////    Edicion o eliminacion
+        } else { 
+
+            $registro = persona_ahf::where('id', $id)->first();
+
+            if ($registro) {
+
+                try {
+                    DB::transaction(function () use ($registro, $ahf, $Type) {
+                        if ($Type == 1) { // Delete
+                            $registro->delete();
+                        } else { // Update
+                            $registro->update([
+                                'id_ahf' => $ahf,
+                                'updated_by' => Auth::id()
+                            ]);
+                        }
+                    });
+                    return response()->json(['status' => 200]);
+                } catch (\Exception $e) {
+                    // Log the error or handle it as needed
+                    return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
+                }
+            } else {
+                return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
+            }
         }
     }
 }
-
-
-// DB::transaction(
-//     function () use (
-//         $registro,
-//         $id,
-//         $ahf,
-//         $Type,
-//     ) {
-//         Contar el número de registros para el usuario con el ID dado
-//         $numeroRegistros = Personas_trabajo::where('id_persona', $Id)->count();
-//         Si el número de registros es igual a 2, eliminar el registro que tenga 0 en el campo "principal"
-//         if ($Type === 1) {
-//             Se borra el principal y el secundario pasa a ser el principal 
-//             $registros = persona_ahf::where('id_persona', $Id)->get();
-
-//             if ($registro->principal == 1) {
-//                 Eliminar el registro con principal = 1
-//                 $registro->delete();
-//             } else {
-//                 Actualizar el registro con principal = 0 a principal = 1
-//                 $registro->id_ahf = $ahf;
-//                 $registro->save();
-//             }
-//         }
-//     }
-// );
-
-//             DB::transaction(function () use ($registro, $id, $ahf, $Type) {
-//                 if ($Type == 1) { //Delete
-//                     $registro->delete();
-//                 } else { // update
-
-//                     $registro->update([
-//                         'id_ahf' => $ahf,
-//                         'id_persona' => $id,
-//                         'updated_by' => Auth::id()
-//                     ]);
-//                 }
-//             });

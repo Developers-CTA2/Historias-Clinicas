@@ -113,8 +113,8 @@
                                     <div class="d-flex justify-content-center gap-3">
 
                                         <div class="AHF-data d-none ">
-                                            <button href="" class="btn-blue-sec fst-normal tooltip-container"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#EditData">
+                                            <button href="" class="btn-blue-sec fst-normal tooltip-container add-Disease"
+                                                type="button" data-bs-toggle="collapse" data-bs-target="#Diseases" aria-expanded="false" aria-controls="Diseases">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     viewBox="0 0 24 24">
                                                     <path
@@ -127,7 +127,7 @@
 
                                         <div class="">
                                             <button class="btn-sec fst-normal tooltip-container  btn-refresh d-none"
-                                                type="button">
+                                                type="button" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     viewBox="0 0 20 20">
                                                     <path
