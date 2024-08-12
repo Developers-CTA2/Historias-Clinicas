@@ -164,9 +164,11 @@ Route::middleware('auth')->group(function () {
 
 
     /* APIS */
-    Route::post('/api/get-person/{code}/{token}', [WebServicePersonController::class, 'getPersonWebService'])->name('api.get-person');
+    Route::get('/api/web-service/get-person/{code}/{type}', [WebServicePersonController::class, 'getPersonWebService'])->name('api.web-service.get-person');
     Route::get('/api/get-deseases/{id}', [SpecificDiseasesController::class, 'getSpecificDiseases'])->name('api.get-deseases');
     Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
+
+    Route::get('/form-api', [WebServicePersonController::class, 'index'])->name('api.form');
     
 });
 
