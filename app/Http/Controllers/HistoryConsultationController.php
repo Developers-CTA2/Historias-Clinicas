@@ -7,13 +7,13 @@ use Carbon\Carbon;
 use App\Models\Persona;
 use App\Models\Consulta;
 
-class HistoryConsultation extends Controller
+class HistoryConsultationController extends Controller
 {
     // Renderizar la vista de historial de consulta
     public function show($id_persona)
     {
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('patients.patients')],
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
             ['name' => 'Historial de consulta', '' => ''],
         ];
 
@@ -61,7 +61,7 @@ class HistoryConsultation extends Controller
     {
 
         $breadcrumbs = [
-            ['name' => 'Pacientes', 'url' => route('patients.patients')],
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
             ['name' => 'Historial de consultas', '' => route('consultation.history',['id_persona' => $id_persona])],
             ['name' => 'Detalles de la consulta', '' => ''],
             

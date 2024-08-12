@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('colonia');
             $table->string('cp');
             $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users')->nullable();
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

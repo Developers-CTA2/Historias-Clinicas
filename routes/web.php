@@ -14,7 +14,7 @@ use App\Http\Controllers\AddictionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultationController;
-use App\Http\Controllers\HistoryConsultation;
+use App\Http\Controllers\HistoryConsultationController;
 use App\Http\Controllers\ExpedientController;
 use App\Http\Controllers\NutritionHistoryController;
 use App\Http\Controllers\newConsultationNutritionController;
@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('patients')->group(function () {
-        Route::get('/', [PatientsController::class, 'Patients_View'])->name('patients.index');
+        Route::get('/', [PatientsController::class, 'index'])->name('patients.index');
        // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
         Route::get('/expediente/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.expediente');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
@@ -116,9 +116,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/{id_persona}/new',[ConsultationController::class,'create'])->name('consultation.new');
             Route::post('/{id_persona}/save',[ConsultationController::class,'store'])->name('consultation.save');
 
-            Route::get('/{id_persona}/history',[HistoryConsultation::class,'show'])->name('consultation.history');
-            Route::get('/{id_persona}/history/{id_consulta}/details',[HistoryConsultation::class,'details'])->name('consultation.history.details');
-            Route::get('/{id_persona}/history/get-consultation',[HistoryConsultation::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
+            Route::get('/{id_persona}/history',[HistoryConsultationController::class,'show'])->name('consultation.history');
+            Route::get('/{id_persona}/history/{id_consulta}/details',[HistoryConsultationController::class,'details'])->name('consultation.history.details');
+            Route::get('/{id_persona}/history/get-consultation',[HistoryConsultationController::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
         }); 
 
         Route::prefix('/nutricion')->group(function () {
@@ -164,7 +164,7 @@ Route::middleware('auth')->group(function () {
 
 
     /* APIS */
-    Route::post('/api/get-person', [WebServicePersonController::class, 'getPersonWebService'])->name('api.get-person');
+    Route::post('/api/get-person/{code}/{token}', [WebServicePersonController::class, 'getPersonWebService'])->name('api.get-person');
     Route::get('/api/get-deseases/{id}', [SpecificDiseasesController::class, 'getSpecificDiseases'])->name('api.get-deseases');
     Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
     

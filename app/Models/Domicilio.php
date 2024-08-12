@@ -22,7 +22,9 @@ class Domicilio extends Model
         'cp',
         'estado',
         'pais',
-        'id_persona',
+        'created_by',
+        'updated_by',
+
     ];
 
     public function persona()

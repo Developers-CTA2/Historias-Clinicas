@@ -23,7 +23,7 @@
                    
                     <div class="col-12 col-lg-4">
                         <h5 class="fw-bold mb-2">Fecha de identificación</h5>
-                        <p class="m-0"><span class="fw-bold me-2">Código : </span>{{$person->codigo}}</p>
+                        <p class="m-0"><span class="fw-bold me-2">Código : </span>{{$person->codigo ?? 'No tiene código'}}</p>
                         <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{$person->nombre}}</p>
                         <p class="m-0"><span class="fw-bold me-2">Edad : </span>{{$person->edad}} años</p>
                     </div>

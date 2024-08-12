@@ -42,14 +42,16 @@ class ConsultationController extends Controller
             $validate = $request->validated();
             $dataConsultation = $this->purifyRequest($validate);
             $dataSignVital = $this->extractSignVitalConsultation($validate);
+            $diagnosticLabels = $this->extractDiagnosticLabels($validate['diagnosticLabels']);
 
 
-            DB::transaction(function () use ($dataConsultation, $dataSignVital,$id_persona) {
+            DB::transaction(function () use ($dataConsultation, $dataSignVital, $diagnosticLabels,$id_persona) {
 
                 $person = Persona::findOrfail($id_persona);
                 $dataConsultation = $this->completeDataConsultation($dataConsultation);
                 $consulta = $person->consulta()->create($dataConsultation);
                 $consulta->signos_vitales()->create($dataSignVital);
+                $consulta->consulta_has_enfermedad()->attach($diagnosticLabels);
             });
 
             return response()->json(['title' => 'Éxito..', 'message' => 'Consulta creada correctamente', 'error' => null]);
@@ -69,10 +71,23 @@ class ConsultationController extends Controller
             'presion_arterial' => $data['presionArterial'],
             'peso' => $data['pesoKilogramos'],
             'temperatura' => $data['temperatura'],
-            'Síndrome_autoinmune_tirogastrico' => $data['satPorcentaje'],
+            'sindrome_autoinmune_tirogastrico' => $data['satPorcentaje'],
             'glucosa' => $data['glucosa'],
             'talla' => $data['talla'],
         ];
+    }
+
+    private function extractDiagnosticLabels($data)
+    {
+        $diagnosticLabels = [];
+
+        foreach ($data as $label) {
+            $diagnosticLabels[] = [
+                'id_enfermedad' => $label
+            ];
+        }
+
+        return $diagnosticLabels;
     }
 
 

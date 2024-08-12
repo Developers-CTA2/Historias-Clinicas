@@ -41,6 +41,7 @@ class StoreConsultationRequest extends FormRequest
             'diagnosis' => 'required|string',
             'treatment' => 'required|string',
             'observations' => 'nullable',
+            'diagnosticLabels' => 'sometimes|array|exists:enfermedades_especificas,id_especifica_ahf',
         ];
     }
 

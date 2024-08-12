@@ -1,5 +1,10 @@
 export const templateArrayDiseases = (diseases = []) => {
-  return diseases.map(disease => disease.nombre);
+  return diseases.map(disease => {
+    return {
+      id: disease.id_especifica_ahf,
+      value: disease.nombre
+    }
+  });
 }
 
 export const messageWarningConsultation = (data = []) => {
