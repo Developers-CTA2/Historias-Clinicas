@@ -165,7 +165,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
 
     if (nss !== '' && !regexNss.test(nss)) {
         inputNss.addClass('is-invalid border-danger');
-        inputNss.next().text('Solo se permiten números').removeClass('d-none');
+        inputNss.next().text('Solo se permiten números y deben ser 11 dígitos').removeClass('d-none');
         validateForm = false;
     }
 
@@ -471,8 +471,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     });
 
 
-    if (menarca === '' && fum === '' && numGestas === '' && numPartos === '' && numCesareas === '' && numAbortos === '' && diasSangrado === '' && diasCiclo === '' && fechaCitologia === '' && mastografia === '' && inicioVidaSexual === '' && metodoDescriptivo === '' && cicloRegular === false && cicloIrregular === false) {
-        console.log('entro');
+    if (menarca === '' && fum === '' && diasSangrado === '' && diasCiclo === '' && fechaCitologia === '' && mastografia === '' && inicioVidaSexual === '' && metodoDescriptivo === '' && cicloRegular === false && cicloIrregular === false) {
         formGynecologyObstetrics.each(function () {
             let input = $(this).children('input');
             let textarea = $(this).children('textarea');
@@ -492,7 +491,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         inputMenarca.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
         applyValidation.menarca = true;
-        console.log('entro aqui',applyValidation.menarca);
+        
     }
 
     if(!applyValidation.menarca && !regexNumlenght2.test(menarca)){
@@ -515,53 +514,53 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         validateForm = false;
     }
 
-    if (numGestas === '') {
-        inputGestas.addClass('is-invalid border-danger');
-        inputGestas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-        validateForm = false;
-        applyValidation.numGestas = true;
-    }
+    // if (numGestas === '') {
+    //     inputGestas.addClass('is-invalid border-danger');
+    //     inputGestas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     validateForm = false;
+    //     applyValidation.numGestas = true;
+    // }
 
-    if( !applyValidation.numGestas && !regexNumlenght2.test(numGestas)){
+    if( numGestas !== '' && !regexNumlenght2.test(numGestas)){
         inputGestas.addClass('is-invalid border-danger');
         inputGestas.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
-    if (numPartos === '') {
-        inputPartos.addClass('is-invalid border-danger');
-        inputPartos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-        validateForm = false;
-        applyValidation.numPartos = true;
-    }
+    // if (numPartos !== '') {
+    //     inputPartos.addClass('is-invalid border-danger');
+    //     inputPartos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     validateForm = false;
+    //     applyValidation.numPartos = true;
+    // }
 
-    if(!applyValidation.numPartos && !regexNumlenght2.test(numPartos)){
+    if(numPartos !== '' && !regexNumlenght2.test(numPartos)){
         inputPartos.addClass('is-invalid border-danger');
         inputPartos.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
-    if (numCesareas === '') {
-        inputCesareas.addClass('is-invalid border-danger');
-        inputCesareas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-        validateForm = false;
-        applyValidation.numCesareas = true;
-    }
+    // if (numCesareas === '') {
+    //     inputCesareas.addClass('is-invalid border-danger');
+    //     inputCesareas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     validateForm = false;
+    //     applyValidation.numCesareas = true;
+    // }
 
-    if(!applyValidation.numCesareas && !regexNumlenght2.test(numCesareas)){
+    if(numCesareas !== '' && !regexNumlenght2.test(numCesareas)){
         inputCesareas.addClass('is-invalid border-danger');
         inputCesareas.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
-    if (numAbortos === '') {
-        inputAbortos.addClass('is-invalid border-danger');
-        inputAbortos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-        validateForm = false;
-        applyValidation.numAbortos = true;
-    }
+    // if (numAbortos === '') {
+    //     inputAbortos.addClass('is-invalid border-danger');
+    //     inputAbortos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     validateForm = false;
+    //     applyValidation.numAbortos = true;
+    // }
 
-    if(!applyValidation.numCesareas && !regexNumlenght2.test(numAbortos) ){
+    if(numAbortos !== '' && !regexNumlenght2.test(numAbortos) ){
         inputAbortos.addClass('is-invalid border-danger');
         inputAbortos.next().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
@@ -663,6 +662,8 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         radioCicloRegular.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
     } 
+
+    console.log(validateForm);
 
     return validateForm;
 

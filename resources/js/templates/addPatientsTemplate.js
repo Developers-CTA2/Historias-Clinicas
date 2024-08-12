@@ -94,4 +94,12 @@ export const templateAddLiistAccordionPathologicalHistory = (id,title, inputDate
 }
 
 
+export const  templateErrorItem = (itemError ) => {
+    return `<li class="list-group-item bg-danger-subtle">${itemError}</li>`
+}
+
+export const templateErrorList = (itemsErrors) => {
+    return `<ol class="list-group list-group-numbered text-start">${itemsErrors}</ol>`
+}
+
 

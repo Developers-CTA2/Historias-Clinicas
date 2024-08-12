@@ -89,3 +89,23 @@ export const AlertErrorHistoryConsultation = (title, msg) => {
         confirmButtonColor: '#047857'
     });
 }
+
+export const AlertError = (title, msg) => {
+    Swal.fire({
+        icon: "error",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#047857'
+    });
+}
+
+export const AlertErrorWithHTML = (title, msg) => {
+    Swal.fire({
+        icon: "error",
+        title: title,
+        html: msg,
+        confirmButtonText: 'Cerrar',
+        confirmButtonColor: '#047857'
+    });
+}

@@ -19,7 +19,7 @@ export const pathologicalHistory = (params ) => {
         inputTraumatism,
         inputTransfusions,
         btnAddPathological,
-        buttonAccordionCollapse,
+        btnNavItem,
         selectAllergies,
         selectDiseasePersonal,
         descriptionAllergies,
@@ -27,15 +27,15 @@ export const pathologicalHistory = (params ) => {
       }  = params;
 
 
-      buttonAccordionCollapse.off('click');
-      buttonAccordionCollapse.on('click',function(){
+      btnNavItem.off('click');
+      btnNavItem.on('click',function(){
         selectedOption = '';
         selectedOption = $(this).data('bs-target');
+        console.log(selectedOption);
       });
 
       
       btnAddPathological.on('click',function(){
-        
         const data = elementSelected(selectedOption);
 
 
@@ -64,7 +64,7 @@ export const pathologicalHistory = (params ) => {
       const elementSelected = (value)=>{
 
         switch(value){
-            case '#enfermedad' : {
+            case '#diseases-tab-pane' : {
 
                 selectDiseasePersonal.removeClass('is-invalid border-danger');
                 selectDiseasePersonal.parent().find('span').last().addClass('d-none').text('');
@@ -86,7 +86,7 @@ export const pathologicalHistory = (params ) => {
 
                 return data;    
             }
-            case '#alergiasAccordion' : {
+            case '#alergias-tab-pane' : {
 
                 const textValueAllergies = selectAllergies.select2('data')[0].text;
                 const idValueAllergies = selectAllergies.val();
@@ -109,7 +109,7 @@ export const pathologicalHistory = (params ) => {
 
                 return data;
             }
-            case '#hospitalizacionesRecientes' : {
+            case '#hospitalizaciones-tab-pane' : {
 
                 const date = inputHospitalizations.val();
                 const reason = descriptionHospitalizationsReason.val();
@@ -130,7 +130,7 @@ export const pathologicalHistory = (params ) => {
 
                 return data;
             }
-            case '#cirugias' : {
+            case '#cirugias-tab-pane' : {
 
                 const date = inputSurgeries.val();
                 const reason = descriptionSurgeriesReason.val();
@@ -153,7 +153,7 @@ export const pathologicalHistory = (params ) => {
                 return data;
             }
 
-            case '#transfusiones' : {
+            case '#transfusiones-tab-pane' : {
 
                 const date = inputTraumatism.val();
                 const reason = descriptionTraumatismReason.val();
@@ -174,7 +174,7 @@ export const pathologicalHistory = (params ) => {
 
                 return data;
             }
-            case '#traumatismos':{
+            case '#traumatismos-tab-pane':{
 
                     const date = inputTransfusions.val();
                     const reason = descriptionTransfusionsReason.val();

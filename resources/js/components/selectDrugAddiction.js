@@ -131,6 +131,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         let description = '';
         
         if(valueDrugAddiction == '1' ){
+        
             dataDrugAddiction.push({
                 id: idValue,
                 idReferenceTable: valueDrugAddiction,
@@ -172,6 +173,8 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         inputHowDateSmoking.val('');
         inputHowOtherDrugs.val('');
         descriptionOtherDrugs.val('');
+        contaienerOptionSmoking.addClass('d-none');
+        containerOptionOthers.addClass('d-none');
         $('#riegoEPOC').html('Nulo');
     }
 
