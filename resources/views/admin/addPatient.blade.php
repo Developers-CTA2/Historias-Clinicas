@@ -187,8 +187,393 @@
 
                     <x-data-personal-add-patient />
 
-                    {{-- AHF Data --}}
-                    <x-data-diseases-add-patient :enfermedades="$enfermedades" />
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="gender">
+                                                    Género:<span class="required-point">*</span></label>
+                                                <select class="form-control" name="gender" id="gender">
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="1">Masculino</option>
+                                                    <option value="2">Femenino</option>
+                                                </select>
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group pt-2 col-12 mb-2 group-custom">
+                                        <label for="name_P"> Nombre
+                                            Completo:<span class="required-point">*</span></label>
+                                        <input class="form-control" type="text" name="name_P" id="name_P"
+                                            oninput="this.value = this.value.toUpperCase()" />
+                                        <span class="text-danger fw-normal d-none"></span>
+
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="F_nacimiento"> Fecha de nacimiento <span class="required-point">*</span></label>
+                                                <input type="date" id="F_nacimiento" name="F_nacimiento"
+                                                    class="form-control" />
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="T_sangre"> Tipo de sangre <span class="required-point">*</span></label>
+                                                <select class="form-control" name="T_sangre" id="T_sangre">
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="1">Grupo A Rh positivo (A+)</option>
+                                                    <option value="2">Grupo A Rh negativo (A-)</option>
+                                                    <option value="3">Grupo B Rh positivo (B+)</option>
+                                                    <option value="4">Grupo B Rh negativo (B-)</option>
+                                                    <option value="5">Grupo AB Rh positivo (AB+)</option>
+                                                    <option value="6">Grupo AB Rh negativo (AB-)</option>
+                                                    <option value="7">Grupo O Rh positivo (O+)</option>
+                                                    <option value="8">Grupo O Rh negativo (O-)</option>
+                                                </select>
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hr-custom"></div>
+                                    <h4 class="text-center pt-3 fw-bold title-size-sm">Domicilio</h4>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="estado">
+                                                    Estado:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="estado"
+                                                    name="estado">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="ciudad">
+                                                    Ciudad: <span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="ciudad"
+                                                    name="ciudad">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-8 col-sm-12 mb-2 group-custom">
+                                                <label for="colonia">
+                                                    Colonia:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="colonia"
+                                                    name="colonia">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+
+                                            <div class="form-group col-md-4 col-sm-12 mb-2 group-custom">
+                                                <label for="cp">
+                                                    Código postal: <span class="required-point">*</span></label>
+                                                <input class="form-control" maxlength="5" type="number" id="cp" name="cp" >
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="calle"> Calle <span class="required-point">*</span></label>
+                                                <input type="text" id="calle" name="calle"
+                                                    class="form-control" />
+                                                <span class="text-danger fw-normal d-none"></span>
+
+                                            </div>
+                                            <div class="form-group col-md-3 col-sm-8 mb-2 group-custom">
+                                                <label for="sangre"> Num <span class="required-point">*</span></label>
+                                                <input type="number" id="num" name="num" min="1"
+                                                    class="form-control" />
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                            <div class="form-group col-md-3 col-sm-8 mb-2 ">
+                                                <label for="num_int">Num. Int </label>
+                                                <input type="number" id="num_int" name="num_int" min="0"
+                                                    class="form-control" />
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="telefono"> Teléfono: <span class="required-point">*</span></label>
+                                                <input type="text" id="telefono" name="telefono"
+                                                    class="form-control" maxlength="10" />
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="escolaridad"> Escolaridad: <span class="required-point">*</span></label>
+                                                <select class="form-control" name="escolaridad" id="escolaridad">
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="0">Sin estudios</option>
+                                                    <option value="1">Primaria</option>
+                                                    <option value="2">Secundaria</option>
+                                                    <option value="3">Preparatoria</option>
+                                                    <option value="4">Licenciatura</option>
+                                                    <option value="5">Maestría</option>
+                                                    <option value="6">Doctorado</option>
+                                                </select>
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="E_civil"> Estado
+                                                    civil:<span class="required-point">*</span></label>
+                                                <select class="form-control" name="E_civil" id="E_civil">
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="1">Soltero(a)</option>
+                                                    <option value="2">Casado(a)</option>
+                                                    <option value="3">Viudo(a)</option>
+                                                    <option value="4">Divorciado(a)</option>
+                                                    <option value="5">Separado(a)</option>
+                                                </select>
+                                                <span class="text-danger fw-normal d-none"></span>
+
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="nss"> NSS: <span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="nss" maxlength="11"
+                                                    name="nss">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row pt-2 mb-4">
+                                        <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                            <label for="Puesto">
+                                                Carrera/Puesto: <span class="required-point">*</span></label>
+                                            <input class="form-control" type="text" id="Puesto" name="puesto">
+                                            <span class="text-danger fw-normal d-none"></span>
+
+                                        </div>
+
+                                        <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                            <label for="religion">
+                                                Religión:<span class="required-point">*</span></label>
+                                            <input class="form-control" type="text" id="religion"
+                                                name="religion">
+                                            <span class="text-danger fw-normal d-none"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="hr-custom"></div>
+                                    <h4 class="text-center pt-3 fw-bold title-size-sm">Contacto de emergencia</h4>
+                                    <div class="form-group">
+                                        <div class="row pt-2">
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="nombre_e">
+                                                    Nombre:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="nombre_e"
+                                                    name="nombre_e">
+                                                <span class="text-danger fw-normal d-none"></span>
+
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 group-custom">
+                                                <label for="telefono_e">
+                                                    Telefono:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="telefono_e"
+                                                    name="telefono_e" maxlength="10">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+
+                                            <div class="form-group col-md-6 col-sm-12 mb-2 pt-md-2 group-custom">
+                                                <label for="parentesco">
+                                                    Parentesco:<span class="required-point">*</span></label>
+                                                <input class="form-control" type="text" id="parentesco"
+                                                    name="parentesco">
+                                                <span class="text-danger fw-normal d-none"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Datos AHF  -->
+                    <div class="row pb-3 mt-4 ahf-data d-none form-step animate__animated animate__fadeInUp">
+                        <div class="row pt-1">
+                            <div class="col-12 content-custom">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="row d-flex justify-content-center">
+                                                    <h5 class="md-w-custom text-center text-lg-start">Lista de enfermedades
+                                                    </h5>
+                                                </div>
+                                                <div class="hr-custom"></div>
+                                                <div class="form-group">
+                                                    <div class="row pt-2 d-flex justify-content-center">
+
+                                                        <div class="form-group md-w-custom mt-2"
+                                                            id="enfermedad-container">
+                                                            <label for="enfermedad" class="pb-1">Enfermedades <span class="required-point">*</span></label>
+                                                            <select class="form-control" name="enfermedad"
+                                                                id="enfermedad">
+                                                                <option value="0" selected>Seleccione una
+                                                                    opción</option>
+                                                                @if ($enfermedades->isEmpty())
+                                                                    <option value="0" disabled selected>No hay
+                                                                        enfermedades registradas</option>
+                                                                @else
+                                                                    @foreach ($enfermedades as $enfermedad)
+                                                                        <option
+                                                                            value="{{ $enfermedad->id_especifica_ahf }}">
+                                                                            {{ $enfermedad->nombre }}</option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                            <span class="text-danger fw-normal d-none"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- FIN contenedor 1  -->
+                                            <div class="col-lg-6 col-sm-12 mt-lg-0 mt-4">
+                                                <h5 class="text-center">Enfermedades seleccionadas</h5>
+                                                <div class="hr-custom"></div>
+                                                <div
+                                                    class="row d-flex justify-content-center justify-content-lg-start mt-3">
+                                                    <div class="form-group container-list-custom">
+                                                        <ul class="list-group mt-2 list-dependencies-custom"
+                                                            id="listDiseasesSelected"></ul>
+                                                    </div>
+                                                </div>
+                                            </div><!-- Fin de contenedor 2 -->
+                                            <!-- Fin de contenedor 3 -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- APNP Data --}}
+
+                    <!-- Datos APNP  -->
+                    <div class="row pb-3 mt-4 apnp-data d-none form-step animate__animated animate__fadeInUp">
+                        <div class="row pt-1">
+                            <div class="col-12 content-custom">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="row d-flex justify-content-center">
+                                                    <h5 class="md-w-custom text-center text-lg-start">Lista de toxicomanias
+                                                    </h5>
+                                                </div>
+                                                <div class="hr-custom"></div>
+                                                <div class="form-group">
+                                                    <div class="row pt-2 d-flex flex-column align-items-center">
+                                                        <div class="form-group md-w-custom mb-4">
+                                                            <label for="enfermedad" class="pb-1">Toxicomanias <span class="required-point">*</span></label>
+                                                            <select class="form-control" name="toxico" id="toxico">
+                                                                <option value="" disabled selected>Seleccione una
+                                                                    opción</option>
+                                                                @foreach ($toxicomania as $toxicomania)
+                                                                    <option value="{{ $toxicomania->id }}">
+                                                                        {{ $toxicomania->nombre }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span class="text-danger fw-normal mt-1"></span>
+                                                        </div>
+
+                                                        {{-- Section for dates and quantity smoking --}}
+                                                        <section id="optionSmoking"
+                                                            class="md-w-custom d-none animate__animated animate__fadeInUp">
+                                                            
+                                                            <div class="form-group mb-4">
+                                                                <label for="desdeCuando" class="pb-1">Desde cuando (años) <span class="required-point">*</span></label>
+                                                                <input class="form-control" type="number"
+                                                                    id="desdeCuandoFuma" />
+                                                                <span class="text-danger fw-normal"></span>
+                                                            </div>
+
+                                                            <div class="form-group mb-2">
+                                                                <label for="desdeCuando" class="pb-1">Cantidad de cigarros por día <span class="required-point">*</span></label>
+                                                                <input class="form-control" type="number"
+                                                                    id="cantidadCigarros" />
+                                                                <span class="text-danger fw-normal"></span>
+                                                            </div>
+
+                                                            <div
+                                                                class="form-group container-bg-custom text-center sm-h rounded-2">
+                                                                <h5 class="fw-bold pt-2">Riesgo de EPOC</h5>
+                                                                <p id="riegoEPOC"><span class="badge badge-custom-success">Nulo</span></p>
+                                                            </div>
+                                                        </section>
+
+                                                        <section id="optionOthersDrugAddiction"
+                                                            class="md-w-custom d-none animate__animated animate__fadeInUp">
+                                                            <div class="form-group mb-4">
+                                                                <label for="desdeCuandoOtros" class="pb-1"><span
+                                                                        class="required-point">*</span>Desde cuando
+                                                                    (años)</label>
+                                                                <input class="form-control" type="number"
+                                                                    id="desdeCuandoOtros" />
+                                                                <span class="text-danger fw-normal"></span>
+                                                            </div>
+
+                                                            <div class="form-floating">
+                                                                <textarea class="form-control" placeholder="Especifica la toxicomanía en específico" id="descripcionOtros"></textarea>
+                                                                <label for="descripcionOtros" class="text-dark">Descripción</label>
+                                                            </div>
+                                                            <span class="text-danger fw-normal d-none"></span>
+                                                        </section>
+                                                        <section class="md-w-custom mt-3">
+                                                            <button id="addDrugAddiction"
+                                                                class="btn-blue-sec px-3 py-2 w-full d-flex gap-1"
+                                                                disabled>
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    style="width: 20px;" fill="none"
+                                                                    viewBox="0 0 24 24" stroke-width="1.5"
+                                                                    stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M12 4.5v15m7.5-7.5h-15" />
+                                                                </svg>
+                                                                Agregar</button>
+                                                        </section>
+
+                                                    </div>
+                                                </div>
+                                            </div> <!-- FIN contenedor 1  -->
+                                            <div class="col-lg-6 col-sm-12">
+                                                <h5 class="text-center">Toxicomanias seleccionadas</h5>
+                                                <div class="hr-custom"></div>
+                                                <div
+                                                    class="row d-flex justify-content-center justify-content-lg-start mt-3">
+                                                    <div class="form-group container-list-custom">
+                                                        <div class="accordion mt-2 list-dependencies-custom"
+                                                            id="listDrugAddictionSelected"></div>
+                                                        {{-- <ul class="list-group mt-2 list-dependencies-custom"
+                                                            id="listDrugAddictionSelected"></ul> --}}
+                                                    </div>
+                                                </div>
+                                            </div><!-- Fin de contenedor 2 -->
+
+                                            <!-- Fin de contenedor 3 -->
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     {{-- ANP Data --}}
                     <x-data-drugs-addiction-add-patient :toxicomania="$toxicomania" />

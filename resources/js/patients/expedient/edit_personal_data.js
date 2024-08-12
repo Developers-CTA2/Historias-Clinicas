@@ -13,6 +13,7 @@ import {
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { AlertaSweerAlert } from "../../helpers/Alertas.js";
+import { IconInfo } from "../../templates/ExpedientTemplate.js";
 
 $(document).ready(function () {
     console.log("Editar datos personales");
@@ -26,9 +27,7 @@ function EventEditPersonal() {
     $("#Edit-personal").on("change", function () {
         const isChecked = $("#Edit-personal").is(":checked");
         if (isChecked) {
-            $(".text-alert").html(
-                '<svg class="pe-2" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#2196F3" /><path fill="#fff" d="M22 22h4v11h-4z" /><circle cx="24" cy="16.5" r="2.5" fill="#fff" /></svg> Ahora estás en modo de edición.'
-            );
+            $(".text-alert").html(IconInfo("Ahora estás en modo de edición.")); 
             $(".personal-data").removeClass("d-none").hide().fadeIn(400);
             $(".top-content").css("margin-top", "0", "!important");
             console.log($("#code").text());

@@ -4,6 +4,7 @@
     </div>
     <div class="card-body">
         <div class="row col-12">
+            
             {{-- Boton para habilitar la edicion  --}}
             @role('Administrador')
                 <div class="d-flex justify-content-between">
@@ -23,6 +24,9 @@
                         <span class="tooltip-text">Habilitar edición.</span>
                     </div>
                 </div>
+                {{-- Cargar collapse solo en caso de ser el usuario admin --}}
+                @include('patients.expedient_cards.modals_expedient.collapse_AHF')
+
             @endrole
             {{-- Contenedor de las enfermedades --}}
             <div class="col-12">
@@ -84,7 +88,10 @@
                                                         </button>
 
 
-                                                        <button class="btn-blue-sec fst-normal tooltip-container edit-AHF" data-id="{{ $enfermedad->id }}" data-name="{{ $enfermedad->especificar_ahf->nombre }}">
+                                                        <button
+                                                            class="btn-blue-sec fst-normal tooltip-container edit-AHF"
+                                                            data-id_reg="{{ $enfermedad->id }}"  data-id_ahf="{{ $enfermedad->especificar_ahf->id_especifica_ahf }}"
+                                                            data-name="{{ $enfermedad->especificar_ahf->nombre }}" data-bs-toggle="collapse" data-bs-target="#Diseases" aria-expanded="false" aria-controls="Diseases">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 32 32">
                                                                 <path
@@ -106,8 +113,8 @@
                                     <div class="d-flex justify-content-center gap-3">
 
                                         <div class="AHF-data d-none ">
-                                            <button href="" class="btn-blue-sec fst-normal tooltip-container"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#EditData">
+                                            <button href="" class="btn-blue-sec fst-normal tooltip-container add-Disease"
+                                                type="button" data-bs-toggle="collapse" data-bs-target="#Diseases" aria-expanded="false" aria-controls="Diseases">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     viewBox="0 0 24 24">
                                                     <path
@@ -119,7 +126,8 @@
                                         </div>
 
                                         <div class="">
-                                            <button  class="btn-sec fst-normal tooltip-container  btn-refresh d-none" type="button" >
+                                            <button class="btn-sec fst-normal tooltip-container  btn-refresh d-none"
+                                                type="button" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     viewBox="0 0 20 20">
                                                     <path
@@ -141,9 +149,3 @@
         </div>
     </div>
 </div>
-
-{{-- Si es administrador se cargará el modal --}}
-@role('Administrador')
-    @include('patients.expedient_cards.modals_expedient.modal_edit_AHF')
-@endrole
-
