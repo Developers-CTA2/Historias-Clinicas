@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('domicilio', function (Blueprint $table) {
             $table->id('id_domicilio'); // Asegúrate de que sea una clave primaria
             $table->string('cuidad_municipio');
-            $table->string('estado');
+            $table->foreignId('estado_id')->constrained('rep_estado', 'id_estado');
             $table->string('pais');
             $table->string('calle');
             $table->string('num');
@@ -35,6 +35,8 @@ return new class extends Migration
 
         // Eliminar restricciones de clave foránea
         Schema::table('domicilio', function (Blueprint $table) {
+            $table->dropForeign(['estado_id']);
+
             $table->dropForeign(['created_by']);
             $table->dropForeign(['updated_by']);
         });

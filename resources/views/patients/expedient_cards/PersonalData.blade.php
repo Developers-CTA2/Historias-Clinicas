@@ -119,15 +119,27 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
-                                <p class="fw-bold mb-0">Ocupación:</p>
-                                <div class="mt-0 W-data" id="ocupation"> {{ $Personal->ocupacion }} </div>
-
+                                <p class="fw-bold mb-0">Escolaridad:</p>
+                                <div class="mt-0 W-data" > {{ $Personal->escolaridad->nombre }} </div>
+                                <div class="mt-0 W-data d-none" id="escolaridad"> {{ $Personal->escolaridad->id_escolaridad }} </div>
 
                                 <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                    <label for="new_ocupation">Ocupación: <span class="red-color"> *</span></label>
-                                    <input class="form-control form-disabled" type="text" name="new_ocupation"
-                                        id="new_ocupation" value="{{ $Personal->ocupacion }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Ocupación no
+                                    <label for="new_escolaridad">Escolaridad: <span class="red-color"> *</span></label>
+
+                                    @php
+                                        $selected = $Personal->escolaridad->id_escolaridad ?? '';
+                                    @endphp
+
+                                    <select class="form-control" id="new_escolaridad" name="new_escolaridad">
+                                        @foreach ($escolaridades as $escolaridad)
+                                            <option value="{{ $escolaridad['id_escolaridad'] }}"
+                                                {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
+                                                {{ $escolaridad['nombre'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                    <span class="text-danger fw-normal" style="display: none;">Escolaridad no
                                         válida.</span>
                                 </div>
 
@@ -148,18 +160,38 @@
                         </div>
 
 
-                        <div class="form-group col-12 pt-2">
-                            <p class="fw-bold mb-0">Religion</p>
-                            <div class="mt-0 W-data" id="religion"> {{ $Personal->religion }} </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 col-sm-12 pt-2">
+                                <p class="fw-bold mb-0">Ocupación:</p>
+                                <div class="mt-0 W-data" id="ocupation"> {{ $Personal->ocupacion }} </div>
 
-                            <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                <label for="new_religion">Religion: <span class="red-color"> *</span></label>
-                                <input class="form-control form-disabled" type="text" name="new_religion"
-                                    id="new_religion" value="{{ $Personal->religion }}">
-                                <span class="text-danger fw-normal" style=" display: none;">Religión no
-                                    válido.</span>
+
+                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                    <label for="new_ocupation">Ocupación: <span class="red-color"> *</span></label>
+                                    <input class="form-control form-disabled" type="text" name="new_ocupation"
+                                        id="new_ocupation" value="{{ $Personal->ocupacion }}">
+                                    <span class="text-danger fw-normal" style=" display: none;">Ocupación no
+                                        válida.</span>
+                                </div>
+
                             </div>
+
+                            <div class="form-group col-md-6 col-sm-12 pt-2">
+                                <p class="fw-bold mb-0">Religion</p>
+                                <div class="mt-0 W-data" id="religion"> {{ $Personal->religion }} </div>
+
+                                <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                    <label for="new_religion">Religion: <span class="red-color"> *</span></label>
+                                    <input class="form-control form-disabled" type="text" name="new_religion"
+                                        id="new_religion" value="{{ $Personal->religion }}">
+                                    <span class="text-danger fw-normal" style=" display: none;">Religión no
+                                        válido.</span>
+                                </div>
+                            </div>
+
                         </div>
+
+
 
                         <h5 class="mt-4 aling-items-center">
                             <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25"
@@ -253,16 +285,41 @@
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Estado:</p>
-                                    <div class="mt-0 W-data" id="state"> {{ $domicilio->estado ?? '--' }} </div>
+                                    <div class="mt-0 W-data">
+                                        {{ $domicilio->rep_estado->nombre ?? '--' }} </div>
+                                    <div class="mt-0 d-none" id="state">
+                                        {{ $domicilio->rep_estado->id_estado}} </div>
 
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                    {{-- <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
                                         <label for="new_state">Estado: <span class="red-color">
                                                 *</span></label>
                                         <input class="form-control form-disabled" type="text" name="new_state"
                                             id="new_state" value="{{ $domicilio->estado }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Estado no
                                             válido.</span>
+                                    </div> --}}
+
+
+                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                        <label for="new_state">Estado: <span class="red-color">
+                                                *</span></label>
+                                        @php
+                                            $selected = $domicilio->rep_estado->id_estado ?? '';
+                                        @endphp
+
+                                        <select class="form-control" id="new_state" name="new_state">
+                                            @foreach ($rep_estados as $estados)
+                                                <option value="{{ $estados['id_estado'] }}"
+                                                    {{ $selected == $estados['id_estado'] ? 'selected' : '' }}>
+                                                    {{ $estados['nombre'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+
+                                         <span class="text-danger fw-normal" style=" display: none;">Estado no
+                                            válido.</span>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -337,7 +394,7 @@
                                             válida.</span>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
+                                <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Num. interior:</p>
                                     <div class="mt-0 W-data" id="int"> {{ $domicilio->num_int ?? '--' }} </div>
 
@@ -376,7 +433,7 @@
                                 <button class="btn-blue-sec fst-normal tooltip-container" type="button" id="savePD">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 20 20">
-                                        <path  d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                                        <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
                                     </svg>
                                     Guardar
                                     <span class="tooltip-text">Editar datos.</span>

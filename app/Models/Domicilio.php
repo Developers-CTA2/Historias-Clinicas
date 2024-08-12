@@ -20,7 +20,7 @@ class Domicilio extends Model
         'num_int',
         'colonia',
         'cp',
-        'estado',
+        'estado_id',
         'pais',
         'created_by',
         'updated_by',
@@ -30,6 +30,11 @@ class Domicilio extends Model
     public function persona()
     {
         return $this->hasOne(Persona::class, 'domicilio_id', 'id_domicilio');
+    }
+
+    public function rep_estado()
+    {
+        return $this->hasOne(Rep_estado::class, 'id_estado', 'estado_id');
     }
 }
  

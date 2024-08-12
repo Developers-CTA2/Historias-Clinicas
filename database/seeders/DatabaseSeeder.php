@@ -10,6 +10,9 @@ use App\Models\Tipos_enfermedades;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Models\Alergia;
+use App\Models\Escolaridad;
+use App\Models\Hemotipo;
+use App\Models\Rep_estado;
 
 class DatabaseSeeder extends Seeder{
     /**
@@ -17,6 +20,66 @@ class DatabaseSeeder extends Seeder{
      */
     public function run(): void
     {
+
+        $Hemotipo = [
+            ['id_hemotipo' => 1, 'nombre' => 'Grupo A Rh positivo (A+)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 2, 'nombre' => 'Grupo A Rh negativo (A-)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 3, 'nombre' => 'Grupo B Rh positivo (B+)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 4, 'nombre' => 'Grupo B Rh positivo (B-)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 5, 'nombre' => 'Grupo AB Rh positivo (AB+)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 6, 'nombre' => 'Grupo AB Rh positivo (AB-)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 7, 'nombre' => 'Grupo O Rh positivo (O+)', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 8, 'nombre' => 'Grupo O Rh positivo (O-)', 'created_by' => 1, 'updated_by' => 1],
+
+        ];
+
+        $Escolaridad = [
+            ['id_escolaridad' => 1, 'nombre' => 'Sin estudios', 'created_by' => 1, 'updated_by' => 1],
+            ['id_escolaridad' => 2, 'nombre' => 'Primaria', 'created_by' => 1, 'updated_by' => 1],
+            ['id_escolaridad' => 3, 'nombre' => 'Secundaria', 'created_by' => 1, 'updated_by' => 1],
+            ['id_escolaridad' => 4, 'nombre' => 'Bachillerato/Preparatoria', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 5, 'nombre' => 'Licenciatura/Ingeniaría', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 6, 'nombre' => 'Maestría', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 7, 'nombre' => 'Doctorado', 'created_by' => 1, 'updated_by' => 1],
+ 
+        ];
+
+        $Estados = [
+            ['id_estado' => 1, 'nombre' => 'Aguascalientes', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 2, 'nombre' => 'Baja California', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 3, 'nombre' => 'Baja California Sur', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 4, 'nombre' => 'Campeche', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 5, 'nombre' => 'Chiapas', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 6, 'nombre' => 'Chihuahua', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 7, 'nombre' => 'Ciudad de México', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 8, 'nombre' => 'Coahuila', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 9, 'nombre' => 'Colima', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 10, 'nombre' => 'Durango', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 11, 'nombre' => 'Estado de México', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 12, 'nombre' => 'Guanajuato', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 13, 'nombre' => 'Guerrero', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 14, 'nombre' => 'Hidalgo', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 15, 'nombre' => 'Jalisco', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 16, 'nombre' => 'Michoacán', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 17, 'nombre' => 'Morelos', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 18, 'nombre' => 'Nayarit', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 19, 'nombre' => 'Nuevo León', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 20, 'nombre' => 'Oaxaca', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 21, 'nombre' => 'Puebla', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 22, 'nombre' => 'Querétaro', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 23, 'nombre' => 'Quintana Roo', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 24, 'nombre' => 'San Luis Potosí', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 25, 'nombre' => 'Sinaloa', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 26, 'nombre' => 'Sonora', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 27, 'nombre' => 'Tabasco', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 28, 'nombre' => 'Tamaulipas', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 29, 'nombre' => 'Tlaxcala', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 30, 'nombre' => 'Veracruz', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 31, 'nombre' => 'Yucatán', 'created_by' => 1, 'updated_by' => 1],
+            ['id_estado' => 32, 'nombre' => 'Zacatecas', 'created_by' => 1, 'updated_by' => 1],
+        ];
+
+  
         //Tipo de AHF
         $Tipo_AHF = [
             ['id_tipo_ahf' => 1, 'nombre' => 'Dislipidemias','created_by'=> 1,'updated_by'=> 1],
@@ -177,6 +240,9 @@ class DatabaseSeeder extends Seeder{
         Toxicomanias::insert($Toxicomanias);
         Alergia::insert($Alergias);
         Enfermedad_especifica::insert($Especificar_ahf);
+        Hemotipo::insert($Hemotipo);
+        Escolaridad::insert($Escolaridad);
+        Rep_estado::insert($Estados);
     }
   
 }

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Persona;
 use App\Models\Persona_ahf;
-use App\Models\Especificar_ahf;
+use App\Models\Enfermedad_especifica;
 use App\Models\Domicilio;
+use App\Models\Escolaridad;
+use App\Models\Hemotipo;
+use App\Models\Rep_estado;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +22,8 @@ class ExpedientController extends Controller
     public function Patient_details($id)
     {
         $Personal = Persona::with([
-            'domicilio',
+            'domicilio.rep_estado',
+            'escolaridad',
             'persona_enfermedades.enfermedad_especifica',
             'toxicomanias_persona.toxicomanias',
             'nutricional',
@@ -51,15 +55,21 @@ class ExpedientController extends Controller
         $traumatismos = $Personal->traumatismos;
         $quirurgicos = $Personal->ant_quirurgicos;
         $gyo = $Personal->gyo;
+        $escolaridad = $Personal->escolaridad;
 
-        $esp_ahf = Especificar_ahf::all();
-        // return response()->json($ahf);
+        $esp_ahf = Enfermedad_especifica::all();
+        $rep_estados = Rep_estado::all();
+        $hemotipo = Hemotipo::all();
+        $escolaridades = Escolaridad::all();
+
+        //return response()->json($escolaridades);
+
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.index')],
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipo', 'escolaridades'));
     }
 
     /*  
@@ -72,7 +82,7 @@ class ExpedientController extends Controller
             'Id_dom' => 'required|numeric',
             'Id' => 'required|numeric|exists:personas,id_persona',
             'Direction.country' => 'required|string',
-            'Direction.state' => 'required|string',
+            'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
             'Direction.city' => 'required|string',
             'Direction.colony' => 'required|string',
             'Direction.cp' => 'required|numeric',
@@ -89,6 +99,7 @@ class ExpedientController extends Controller
             'Personal.name_e' => 'required|string',
             'Personal.tel_e' => 'required|string',
             'Personal.parent_e' => 'required|string',
+            'Personal.school' =>'required|numeric|exists:escolaridad,id_escolaridad',
         ]);
 
         $name = $data['Personal']['name'];
@@ -101,6 +112,7 @@ class ExpedientController extends Controller
         $name_e = $data['Personal']['name_e'];
         $tel_e = $data['Personal']['tel_e'];
         $parent_e = $data['Personal']['parent_e'];
+        $school = $data['Personal']['school'];
 
         $country = $data['Direction']['country'];
         $state = $data['Direction']['state'];
@@ -118,11 +130,12 @@ class ExpedientController extends Controller
             case 1: {  // Solo cambiaron los datos personales 
                     $Personal = Persona::where('id_persona', $Id)->first();
 
-                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $Personal) {
+                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $Personal, $school) {
                         $Personal->update([
                             'nombre' => $name,
                             'ocupacion' => $ocupation,
                             'fecha_nacimiento' => $birthday,
+                            'escolaridad_id' => $school,
                             'sexo' => $gender,
                             'telefono' => $tel,
                             'telefono_emerge' => $tel_e,
