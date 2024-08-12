@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Persona extends Model
 {
@@ -63,7 +64,7 @@ class Persona extends Model
         return $this->hasMany(Ant_quirurgicos::class, 'id_persona');
     }
 
-    public function persona_ahf()
+    public function persona_ahf() : HasMany
     {
         return $this->hasMany(Persona_ahf::class, 'id_persona');
     }

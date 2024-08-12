@@ -11,31 +11,35 @@ import {
     requestPostConsultation } from '../helpers';
 import { templateArrayDiseases } from '../templates'
 
-
-let listDiseases = [];
-
-
-
+let diagnosticLabels = [];
+let dataDiseases = [];
 
 
 const configTagify = () => {
 
+
     getAllSpecificDiseases().then(data => {
-        const whitelist = templateArrayDiseases(data)
         
         const input = document.querySelector('#enfermedades'),
-            // init Tagify script on the above inputs
+            
+        // init Tagify script on the above inputs
             tagify = new Tagify(input, {
                 enforceWhitelist: true,
                 delimiters: null,
-                whitelist: whitelist,
+                whitelist: templateArrayDiseases(data),
                 callbacks: {
-                    add: console.log,  // callback when adding a tag
-                    remove: console.log   // callback when removing a tag
+                    add: function(e){
+                        diagnosticLabels.push({id : e.detail.data.id});                        
+                    },
+                    remove: function(e){
+                        diagnosticLabels = diagnosticLabels.filter(disease => disease.id !== e.detail.data.id);
+                    }
                 },
 
             });
     });
+
+    
 
     
 
@@ -47,6 +51,8 @@ const configTagify = () => {
 $(function () {
 
     configTagify();
+
+    
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
@@ -73,16 +79,17 @@ $(function () {
     const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
     const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
+    btnSaveConsultation.on('click', function () {
+        
+    })
+
 
     btnSaveConsultation.on('click', function () {
-
-        
 
         const dataVitalSigns = getDataVitalSigns();
         const inputsDom = getInputsDom();
         const dataQuill = getDataQuill();
-
-        console.log(dataQuill);
+        const listDiseases = getDiagnosticLabels();
 
         if (!vitalSigns(dataVitalSigns, inputsDom)) {
             return;
@@ -94,8 +101,10 @@ $(function () {
             return;
         }
 
+
+
         const id_person = $(this).data('id');
-        requestPostConsultation({...dataVitalSigns,...dataQuill}, id_person)
+        requestPostConsultation({...dataVitalSigns,...dataQuill, diagnosticLabels : listDiseases}, id_person)
                 .then(data=>{
                     console.log(data);
                 }).catch(error=>{
@@ -148,6 +157,10 @@ $(function () {
             treatment: DomPurify(treatmentQuill.root.innerHTML),
             observations: DomPurify(observationsQuill.root.innerHTML)
         }
+    }
+
+    const getDiagnosticLabels = () => {
+        return diagnosticLabels.map(disease => disease.id);
     }
 
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\belongsToMany;
 
 
 class Consulta extends Model
@@ -38,5 +39,10 @@ class Consulta extends Model
     public function signos_vitales() : HasOne
     {
         return $this->hasOne(Signos_vitales::class, 'id_consulta');
+    }
+
+    public function consulta_has_enfermedad() : belongsToMany
+    {
+        return $this->belongsToMany(Enfermedad_especifica::class,'consulta_has_enfermedades','id_consulta','id_enfermedad');
     }
 }

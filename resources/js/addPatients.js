@@ -8,7 +8,7 @@ import { templateErrorItem, templateErrorList } from './templates/addPatientsTem
 
 
 const patientData = {
-    type: '' ,
+    type: '',
     code: '',
     name: '',
     career: '',
@@ -27,7 +27,7 @@ const patientData = {
     street: '',
     number: '',
     intNumber: null,
-    scholarship : '',
+    scholarship: '',
     emergencyName: '',
     emergencyPhone: '',
     relationship: '',
@@ -112,7 +112,7 @@ $(function () {
     const selectGender = $('#gender');
     const selectBloodType = $('#T_sangre');
     const selectCivilStatus = $('#E_civil');
-l
+
 
     /* Disease */
     // Selects 
@@ -198,12 +198,12 @@ l
     // Containers
     const formGynecologyObstetrics = $('.group-gyo');
 
-    
+
     // Button error list
     const btnErrorList = $('#errorList');
 
 
-    
+
 
     selectDisease.select2({
         theme: 'bootstrap-5',
@@ -238,7 +238,7 @@ l
 
 
 
-    inputCode.on('keydown', function (e) {
+   /* inputCode.on('keydown', function (e) {
 
         // Solo se ejecuta si da enter
         if (e.keyCode != 13) {
@@ -293,7 +293,7 @@ l
             careerPerson.text('-');
         })
 
-    });
+    });*/
 
     // Next for step 2
     btnNextPersonUdg.on('click', function () {
@@ -314,11 +314,11 @@ l
         }
     });
 
-      // Event listeners
-      btnCardUdgPerson.off('click');
-      btnCardUdgPerson.on('click', function () {
-          containerUdgPerson.removeClass('d-none');
-      });
+    // Event listeners
+    btnCardUdgPerson.off('click');
+    btnCardUdgPerson.on('click', function () {
+        containerUdgPerson.removeClass('d-none');
+    });
 
     btnCardexternalPerson.on('click', function () {
         containerUdgPerson.addClass('d-none');
@@ -369,13 +369,13 @@ l
     });
 
     btnNextStep.on('click', function () {
-        
+
         // Validate if the form is complete
         if (steps == 1) {
             const elements = getDataFirstStep();
             getDataFirstStepValues();
 
-            if(!validateStepFormOne(patientData, elements)) return;
+            if (!validateStepFormOne(patientData, elements)) return;
 
             console.log('Validado');
 
@@ -392,7 +392,7 @@ l
 
         steps++;
 
-       
+
 
 
         if (steps > formSteps.length) steps = formSteps.length;
@@ -413,9 +413,9 @@ l
             btnSendForm.removeClass('d-none');
             btnNextStep.addClass('d-none');
 
-        
+
             sendDataForm();
-            
+
 
         }
 
@@ -435,17 +435,15 @@ l
         }
     });
 
-    btnErrorList.on('click', function(){
-        templateErrors !== '' && AlertErrorWithHTML('Lista de errores',templateErrors);
+    btnErrorList.on('click', function () {
+        templateErrors !== '' && AlertErrorWithHTML('Lista de errores', templateErrors);
     })
 
     const sendDataForm = () => {
         btnSendForm.off('click');
         btnSendForm.on('click', function () {
 
-
-            console.log('steps', steps);
-            if(steps == 5){
+            if (steps == 5) {
                 const elements = getDomGynecologyObstetrics();
                 const values = getDataFiveStepValues();
                 if (!validateStepFormFive(values, elements)) return;
@@ -453,20 +451,20 @@ l
 
             getAllDataForm();
             console.log(patientData);
-            
-            requestSavePatient(patientData).then((data)=>{
-                const {title, message} = data; 
+
+            requestSavePatient(patientData).then((data) => {
+                const { title, message } = data;
                 AlertSweetSuccess(title, message);
-                
-        }).catch((error)=>{
+
+            }).catch((error) => {
                 const { errorList } = error;
 
-                if(errorList){
+                if (errorList) {
 
                     AlertError('Oops', 'Hubo un error al guardar los datos, por favor corrige estos errores pueden ser por campos vacíos o mal escritos, puedes verificarlos al presionar el botón "Errores", este se encuentra en la parte superior derecha.');
-                    
+
                     templateErrors = '';
-                    for (const [key, messages] of Object.entries(errorList)) {  
+                    for (const [key, messages] of Object.entries(errorList)) {
                         templateErrors += templateErrorItem(messages[0]);
                     }
 
@@ -483,7 +481,7 @@ l
     }
 
 
-    const getAllDataForm = ()=>{
+    const getAllDataForm = () => {
         insertDataGynecologyObstetrics();
         patientData.listPathologicalHistory = getListPathologicalHistory();
         patientData.listDrugAddiction = getListDrugAddiction();

@@ -9,12 +9,26 @@ use App\Models\Alergia;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Http\Requests\StorePatientRequest;
+use App\Models\Domicilio;
 use Illuminate\Support\Facades\DB;
 
 
 
 class PatientsController extends Controller
 {
+    
+    /*
+     Funcion que retorna la vista de Ver pacientes junto con el breadcrumb
+    */
+    public function index()
+    {
+        $breadcrumbs = [
+            ['name' => 'Pacientes', '' => ''],
+        ];
+
+        return view('patients.seePatient', compact('breadcrumbs'));
+    }
+
     /* 
     Funcion para mostrar los pacientes registrados en el sistema
     */
@@ -85,13 +99,15 @@ class PatientsController extends Controller
 
         DB::transaction(function () use ($validate) {
 
-            // Insertar la persona
+            
+            // Obtener los datos necesarios para la inserción
             $dataPersonal = $this->dataPersonalForDB($validate);
-            $persona = Persona::create($dataPersonal['dataPerson']);
-
+            
             // Insertar el domicilio
-            $persona->domicilio()->create($dataPersonal['dataDomicilio']);
-
+            $domicilio = Domicilio::create($dataPersonal['dataDomicilio']);
+            // Insertar la persona
+            $persona = $domicilio->persona()->create($dataPersonal['dataPerson']);
+            
             // Insertar las enfermedades familiares
             $diseasesFamiliar = $this->dataDiseasesFamiliar($validate);
             $persona->persona_ahf()->createMany($diseasesFamiliar);
@@ -120,17 +136,7 @@ class PatientsController extends Controller
         return response()->json(['title' => 'Éxito', 'message' => 'Paciente creado correctamente', 'error' => null], 201);
     }
 
-    /*
-     Funcion que retorna la vista de Ver pacientes junto con el breadcrumb
-    */
-    public function Patients_View()
-    {
-        $breadcrumbs = [
-            ['name' => 'Pacientes', '' => ''],
-        ];
-
-        return view('patients.seePatient', compact('breadcrumbs'));
-    }
+    
 
 
 
@@ -153,7 +159,6 @@ class PatientsController extends Controller
                 'fecha_registro' => Carbon::now(),
                 'religion' => $data['religion'],
                 'created_by' => auth()->user()->id,
-                'updated_by' => auth()->user()->id,
             ],
             'dataDomicilio' => [
                 'calle' => $data['street'],
@@ -161,9 +166,10 @@ class PatientsController extends Controller
                 'num_intt' => $data['number'],
                 'colonia' => $data['colony'],
                 'cp' => $data['cp'],
-                'municipio' => $data['city'],
+                'cuidad_municipio' => $data['city'],
                 'estado' => $data['state'],
                 'pais' => 'México',
+                'created_by' => auth()->user()->id,
             ]
         ];
     }

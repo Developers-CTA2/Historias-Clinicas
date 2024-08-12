@@ -10,41 +10,43 @@ class WebServicePersonController extends Controller
 {
     //
 
-    public function getPersonWebService(Request $request)
+    public function getPersonWebService($code, $token)
     {
 
         try {
 
+            
+            
 
-            $data = $request->all();
+            if ($token == null) {
+                $url = env('API_URL', '') . env('ENDPOIN_API_LOGIN', '');
+            }else{
 
-            $person[] = [
-                'Codigo' => '2921073',
-                'Nombre' => 'EDUARDO SOLANO GUZMAN',
-                'Estado' => 1,
-                'Carrera' => 'Licenciado en CTA'
-
-        ];
-
-            $person[] = [
-                'Codigo' => '2921074',
-                'Nombre' => 'JUAN PEREZ',
-                'Estado' => 1,
-                'Carrera' => 'Ing Computacion'
-            ];
-
-            // throw new \Exception('Error al obtener el usuario');
-
-            foreach ($person as $key => $value) {
-                if ($value['Codigo'] == $request->code) {
-                    return response()->json($value);
-                }
             }
-            return response()->json(['message' => 'No se encontro el registro', 'error' => null], 404);
 
+
+
+
+            
+
+            $headers = array(
+                'Content-Type: application/json',
+                'Username:' . env('HEADER_USERNAME_API', ''),
+                'Password:' . env('HEADER_PASSWORD_API', '')
+            );
+            $data = array(
+                'codigo' => $code
+            );
+
+            $payload = json_encode($data);
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         } catch (\Exception $e) {
             $type = gettype($e);
-            return response()->json(['message' => 'Ha sucedido un error inesperado al obtener el registro', 'error' => $e],500);
+            return response()->json(['message' => 'Ha sucedido un error inesperado al obtener el registro', 'error' => $e], 500);
         }
     }
 }
