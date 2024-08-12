@@ -7,6 +7,7 @@
     @role('Administrador')
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
+        {{-- <script src="{{ asset('js/select2.min.js') }}"></script> --}}
     @endrole
 @endsection
 
@@ -19,6 +20,7 @@
         {{-- Datos personales  --}}
         <div class="mb-3">
             @include('patients.expedient_cards.PersonalData')
+        
             {{-- Antecedentes heredofamiliares --}}
         </div>
         <div class="mb-3">

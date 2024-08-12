@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
         Route::post('/expediente/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
         Route::post('/expediente/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
+        Route::post('/expediente/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
 
         // Route::get('/expediente{/id}', function ($id) {
         //     return view('admin.expediente');
