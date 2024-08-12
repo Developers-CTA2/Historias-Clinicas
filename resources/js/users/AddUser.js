@@ -78,56 +78,6 @@ function ClicSearch() {
     });
 }
 
-async function SearchCode(dataSend, code) {
-    console.log(dataSend);
-    activeLoading();
-    axios
-        .post("/users/End-Point-Persons", dataSend)
-        .then((response) => {
-            const { data } = response.data.data;
-            const { respuesta } = response.data;
-            console.log(respuesta);
-            let p_nombre;
-            let p_codigo;
-            let p_correo = "";
-            if (code.length == 7) {
-                const { nombre_trabajador, codigo, correo } = data[0];
-                p_nombre = nombre_trabajador;
-                p_codigo = codigo;
-                p_correo = correo;
-            } else {
-                const { codigo_estudiante, nombre_estudiante } = data[0];
-                p_nombre = nombre_estudiante;
-                p_codigo = codigo_estudiante;
-            }
-
-            console.log(data);
-
-            TemplateData(p_nombre, p_codigo, p_correo);
-            $(".cont-user-data").removeClass("d-none");
-            $(".buttons-cont").addClass("d-none");
-        })
-        .finally(() => {
-            disableLoading();
-        })
-        .catch((error) => {
-            console.log(error.response);
-            const { status } = error.response;
-            const { message } = error.response.data;
-            //  const { data } = error.data;
-            console.log(status);
-            console.log(message);
-
-            Swal.fire({
-                title: "¡Error!",
-                text: message,
-                icon: "error",
-            });
-
-            $(".cont-user-data").addClass("d-none");
-            $(".buttons-cont").removeClass("d-none");
-        });
-}
 
 function TemplateData(name, code, email) {
     $("#R-nombre").text(name);

@@ -25,6 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+
+        Schema::table('rep_estado', function (Blueprint $table){
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
+
         Schema::dropIfExists('rep_estado');
     }
 };

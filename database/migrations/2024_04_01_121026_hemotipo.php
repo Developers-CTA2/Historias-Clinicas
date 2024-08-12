@@ -25,6 +25,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('hemotipo', function (Blueprint $table){
+            $table->dropForeign(['created_by']);
+            $table->dropForeign(['updated_by']);
+        });
         
         Schema::dropIfExists('hemotipo');
 
