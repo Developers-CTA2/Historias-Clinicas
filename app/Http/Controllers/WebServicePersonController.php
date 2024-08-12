@@ -15,14 +15,14 @@ class WebServicePersonController extends Controller
 
         try {
 
-            
-            
 
             if ($token == null) {
                 $url = env('API_URL', '') . env('ENDPOIN_API_LOGIN', '');
             }else{
 
             }
+
+            
 
 
 
