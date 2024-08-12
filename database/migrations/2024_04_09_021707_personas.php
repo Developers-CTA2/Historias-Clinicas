@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->id('id_persona');
             $table->foreignId('domicilio_id')->constrained('domicilio', 'id_domicilio');
+            $table->foreignId('hemotipo_id')->constrained('hemotipo', 'id_hemotipo');
+            $table->foreignId('escolaridad_id')->constrained('escolaridad', 'id_escolaridad');
             $table->string('codigo', 9)->nullable();
             $table->string('nombre', 120);
             $table->string('ocupacion', 50);
@@ -25,7 +27,7 @@ return new class extends Migration
             $table->string('parentesco_emerge', 60);
             $table->string('nss',12);
             $table->date('fecha_registro');
-            $table->string('escolaridad', 50);
+          
             $table->string('religion', 50);
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
@@ -42,6 +44,8 @@ return new class extends Migration
         // Eliminar la relación de la tabla personas con la tabla users
         Schema::table('personas', function (Blueprint $table) {
             $table->dropForeign(['domicilio_id']);
+            $table->dropForeign(['hemotipo_id']);
+            $table->dropForeign(['escolaridad_id']);
             $table->dropForeign(['created_by']);
             $table->dropForeign(['updated_by']);
         });

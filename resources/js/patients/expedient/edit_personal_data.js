@@ -18,7 +18,19 @@ import { IconInfo } from "../../templates/ExpedientTemplate.js";
 $(document).ready(function () {
     console.log("Editar datos personales");
     EventEditPersonal();
+    InitiliazeSelect();
+    F;
 });
+
+/* Funcion para inicializar el select2 de estados */
+function InitiliazeSelect() {
+    $("#new_state").select2({
+        theme: "bootstrap-5",
+        selectionCssClass: "select2--base",
+        dropdownCssClass: "select2--base",
+        width: "100%",
+    });
+}
 
 /* 
 Funcion para el switch de editar datos, donde si se activa miostrará todos los inputs para editar los datos
@@ -27,7 +39,7 @@ function EventEditPersonal() {
     $("#Edit-personal").on("change", function () {
         const isChecked = $("#Edit-personal").is(":checked");
         if (isChecked) {
-            $(".text-alert").html(IconInfo("Ahora estás en modo de edición.")); 
+            $(".text-alert").html(IconInfo("Ahora estás en modo de edición."));
             $(".personal-data").removeClass("d-none").hide().fadeIn(400);
             $(".top-content").css("margin-top", "0", "!important");
             console.log($("#code").text());
@@ -56,7 +68,7 @@ function EventEditPersonal() {
     input-optional y input-show
 */
 function ShowInputs(Type, Personal, Direction) {
-    console.log(Personal);
+  //  console.log(Personal);
     if (Type == 1) {
         $(".input-show").removeClass("d-none").hide().fadeIn(400);
     } else {
@@ -119,10 +131,10 @@ function EventSave(Personal, Direction) {
         let personal = VerifyChanges(newData, Personal);
         let direction = VerifyChanges(newDirection, Direction);
 
-        console.log(personal);
-        console.log(direction);
+        console.log(newDirection);
+        console.log(Direction);
 
-        let edicion = 0;
+       // let edicion = 0;
         // No hay ningun cambio
         if (personal && direction) {
             $(".text-alert").html(
@@ -163,6 +175,7 @@ function ObtainOldPersonalData() {
         // code: $("#code").text().trim(),
         tel: $("#tel").text().trim(),
         gender: $("#gender").text().trim(),
+        school: $("#escolaridad").text().trim(),
         birthday: $("#birthday").text().trim(),
         religion: $("#religion").text().trim(),
         ocupation: $("#ocupation").text().trim(),
@@ -171,17 +184,19 @@ function ObtainOldPersonalData() {
         tel_e: $("#tel_e").text().trim(),
         parent_e: $("#parent_e").text().trim(),
     };
+
     return OldData;
 }
 
 /* Obtener los antiguos datos (Datos de la direccion) */
 function ObtainOldDirectionData() {
     let num_int;
-    if ($("#int").val().trim() == "--") {
+    if ($("#int").text().trim() == "--") {
         num_int = "";
     } else {
-        num_int = $("#int").val().trim();
+        num_int = $("#int").text().trim();
     }
+    console.log(num_int);
     let OldDirection = {
         country: $("#country").text().trim(),
         state: $("#state").text().trim(),
@@ -199,7 +214,7 @@ function ObtainOldDirectionData() {
 function ObtainNewDirectionData() {
     let newDirecion = {
         country: $("#new_country").val().trim(),
-        state: $("#new_state").val().trim(),
+        state: $("#new_state").val(),
         city: $("#new_city").val().trim(),
         colony: $("#new_colony").val().trim(),
         cp: $("#new_cp").val().trim(),
@@ -217,8 +232,12 @@ function ObtainNewPersonalData() {
     if ($("#code").text().trim() != "--") {
         gender = $("#gender").text().trim();
     } else {
-       let aux = $("#new_gender").val();
-        if(aux == 1){gender = 'Masculino'}else{gender = 'Femenino'}
+        let aux = $("#new_gender").val();
+        if (aux == 1) {
+            gender = "Masculino";
+        } else {
+            gender = "Femenino";
+        }
     }
 
     let Data = {
@@ -226,6 +245,7 @@ function ObtainNewPersonalData() {
         // code: $("#new_code").val().trim(),
         tel: $("#new_tel").val().trim(),
         gender: gender,
+        school: $("#new_escolaridad").val(),
         birthday: $("#new_birthday").val().trim(),
         religion: $("#new_religion").val().trim(),
         ocupation: $("#new_ocupation").val().trim(),
@@ -295,7 +315,7 @@ function validateObjets(opc, personal, direction) {
     Funcion que valida con las expresiones regulares los datos personales 
 */
 function ValidatePersonalData(personal) {
-    console.log(personal.gender);
+    console.log(personal.school);
     let V_name = validarCampo(personal.name, regexLetters, "#new_name");
     let V_gender = validarCampo(personal.gender, regexLetters, "#new_gender");
     let V_tel = validarCampo(personal.tel, regexTelefono, "#new_tel");
@@ -323,6 +343,12 @@ function ValidatePersonalData(personal) {
         "#new_parent_e"
     );
 
+    let V_school = validarCampo(
+        personal.school,
+        regexNumeroEntero,
+        "#new_escolaridad"
+    );
+
     if (
         V_birthday &&
         V_gender &&
@@ -334,7 +360,8 @@ function ValidatePersonalData(personal) {
         V_tel &&
         V_name_e &&
         V_tel_e &&
-        V_parent_e
+        V_parent_e &&
+        V_school
     ) {
         console.log("Datos Correctos");
         return true;
@@ -353,7 +380,7 @@ function ValidateDirectionData(direction) {
         regexLetters,
         "#new_country"
     );
-    let V_state = validarCampo(direction.state, regexLetters, "#new_state");
+    let V_state = validarCampo(direction.state, regexNumeroEntero, "#new_state");
     let V_city = validarCampo(direction.city, regexLetters, "#new_city");
     let V_colony = validarCampo(direction.colony, regexLetters, "#new_colony");
     let V_cp = validarCampo(direction.cp, regexCp, "#new_cp");
@@ -421,7 +448,7 @@ async function RequestUpdate(Personal, Direction, Type) {
         Id_dom: parseInt($("#id_dom").text().trim()),
     };
     console.log(Data);
-     let timerInterval;
+    let timerInterval;
     try {
         const response = await axios.post(
             "/patients/expediente/Update_Personal_Data",

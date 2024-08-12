@@ -17,6 +17,7 @@ class Persona extends Model
     protected $fillable = [
         'codigo',
         'domicilio_id',
+        'hemotipo_id',
         'nombre',
         'domiclio',
         'ocupacion',
@@ -26,7 +27,7 @@ class Persona extends Model
         'telefono_emerge',
         'contacto_emerge',
         'parentesco_emerge',
-        'escolaridad',
+        'escolaridad_id',
         'nss',
         'fecha_registro',
         'religion',
@@ -92,6 +93,17 @@ class Persona extends Model
     public function diateticas()
     {
         return $this->hasMany(Diateticas::class, 'id_persona');
+    }
+
+    public function hemotipo()
+    {
+        return $this->hasOne(Hemotipo::class, 'hemotipo_id', 'id_hemotipo');
+    }
+
+    public function escolaridad()
+    {
+        return $this->hasOne(Escolaridad::class, 'id_escolaridad', 'escolaridad_id');
+
     }
 
     public function domicilio()
