@@ -58,7 +58,14 @@ const patientData = {
 
 let steps = 0;
 let activeSendButton = false;
+let typePerson = null;
 let templateErrors = '';
+
+const dataPersonWebService = {
+    code: '',
+    name : '',
+    dependency : ''
+}
 
 
 $(function () {
@@ -238,14 +245,14 @@ $(function () {
 
 
 
-   /* inputCode.on('keydown', function (e) {
+    inputCode.on('keydown', function (e) {
 
         // Solo se ejecuta si da enter
         if (e.keyCode != 13) {
             return;
         }
 
-        const valueCode = $(this).val();
+        const valueCode = $(this).val().trim();
         if (prevCode == valueCode) return;
 
         prevCode = valueCode;
@@ -253,6 +260,8 @@ $(function () {
         if (valueCode.length !== 7 && valueCode.length !== 9) {
             alertCodePerson.text('La estructura es incorrecta, el código debe ser de 7 o 9 números.').addClass('alert-danger').removeClass('d-none');
             $(this).addClass('border-danger');
+
+            return;
         }
 
         // Remove alert class and border danger
@@ -265,16 +274,37 @@ $(function () {
         patientData.name = '';
         patientData.career = '';
 
+        // Empty data person web service
+        dataPersonWebService.code = '';
+        dataPersonWebService.dependency = '';
+        dataPersonWebService.name = '';
+
+        typePerson = valueCode.length == 7 ? typePerson = 1 : typePerson = 2;
+
+
         // Request for get person data
-        getPerson({ code: valueCode }).then((data) => {
+        getPerson({ code: valueCode , type : typePerson}).then(({data}) => {
 
-            const { Codigo, Nombre, Carrera } = data;
+            console.log(data);
 
-            patientData.code = Codigo;
-            patientData.name = Nombre;
-            patientData.career = Carrera;
-            namePerson.text(Nombre);
-            careerPerson.text(Carrera);
+            if(typePerson == 1){
+                const { codigo, nombramiento,nombre } = data.worker;
+                dataPersonWebService.code = codigo;
+                dataPersonWebService.dependency = nombramiento;
+                dataPersonWebService.name = nombre;
+
+            }else{
+                const { codigo, carrera, nombre } = data.student;
+                dataPersonWebService.code = codigo;
+                dataPersonWebService.dependency = carrera;
+                dataPersonWebService.name = nombre;
+            }
+
+            patientData.code = dataPersonWebService.code;
+            patientData.name = dataPersonWebService.name;
+            patientData.career = dataPersonWebService.dependency;
+            namePerson.text(dataPersonWebService.name);
+            careerPerson.text(dataPersonWebService.dependency);
 
 
 
@@ -293,7 +323,7 @@ $(function () {
             careerPerson.text('-');
         })
 
-    });*/
+    });
 
     // Next for step 2
     btnNextPersonUdg.on('click', function () {

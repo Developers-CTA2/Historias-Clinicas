@@ -1,6 +1,7 @@
 /* Funcion para validar los campos segun su contenido con la expresion Regular, y marcando el error con rojo */
 export function validarCampo(valor, regex, campo) {
     if (!regex.test(valor)) {
+        console.log("Error en el campo");
         mostrarerr(campo);
         return false; // Devuelve falso si la validación falla
     } else {

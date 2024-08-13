@@ -7,8 +7,7 @@ export const getPerson = async(dataSend = {})=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const resp = await axios.post('/api/get-person',dataSend);
-            console.log(resp);
+            const resp = await axios.get(`/api/web-service/get-person/${dataSend.code}/${dataSend.type}`);
             const {status} = resp;
             
             if(status == 200) {

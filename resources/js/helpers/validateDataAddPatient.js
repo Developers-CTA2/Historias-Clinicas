@@ -1,4 +1,4 @@
-import { regexNumero,regexCp, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
+import { regexNumero,regexCp,regexIntNumero, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
 
 const yearActual = new Date().getFullYear();
 
@@ -237,7 +237,7 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         validateForm = false;
     }
 
-    if (intNumber != '' && !regexNumero.test(intNumber)) {
+    if (intNumber != '' && !regexIntNumero.test(intNumber)) {
         inputIntNumber.addClass('is-invalid border-danger');
         inputIntNumber.next().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;

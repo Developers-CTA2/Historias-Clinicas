@@ -2,8 +2,18 @@ import { validarCampo, ocultarerr } from "../helpers/ValidateFuntions.js";
 import { regexCorreo, regexNumero, regexCode } from "../helpers/Regex.js";
 import { activeLoading, disableLoading } from "../loading-screen.js";
 import { AlertaSweerAlert } from "../helpers/Alertas.js";
+import { getPerson } from '../helpers/request-get-person.js';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+
+
+let typePerson = 1;
+
+const dataPersonWebService = {
+    code: '',
+    name: '',
+    dependency: ''
+}
 
 $(document).ready(function () {
     ClicSearch();
@@ -13,69 +23,61 @@ $(document).ready(function () {
 function ClicSearch() {
     $("#Search").off("click");
     $("#Search").click(function (e) {
+        console.log("Buscar");
         let code = $("#code").val().trim();
-        let V_code = validarCampo(code, regexCode, "#code");
-        if (V_code) {
-            const dataSend = {
-                code: code,
-            };
-            SearchCode(dataSend, code);
-        } else {
-            console.log("Codigo invalido");
+
+
+
+        if (validarCampo(code, regexCode, "#code") && (code.length == 7 || code.length == 9)) {
+
+            // Clear the data of the person
+            dataPersonWebService.code = '';
+            dataPersonWebService.name = '';
+            dataPersonWebService.dependency = '';
+
+            typePerson = code.length == 7 ? typePerson = 1 : typePerson = 2;
+
+            getPerson({ code, type: typePerson }).then(({ data }) => {
+                if (typePerson == 1) {
+                    const { codigo, nombramiento, nombre } = data.worker;
+                    dataPersonWebService.code = codigo;
+                    dataPersonWebService.dependency = nombramiento;
+                    dataPersonWebService.name = nombre;
+
+                } else {
+                    const { codigo, carrera, nombre } = data.student;
+                    dataPersonWebService.code = codigo;
+                    dataPersonWebService.dependency = carrera;
+                    dataPersonWebService.name = nombre;
+                }
+
+                TemplateData(dataPersonWebService.name, dataPersonWebService.code, '');
+                $(".cont-user-data").removeClass("d-none");
+                $(".buttons-cont").addClass("d-none");
+            }) 
+            .catch((error) => {
+                console.log(error.response);
+                const { status } = error.response;
+                const { message } = error.response.data;
+                //  const { data } = error.data;
+                console.log(status);
+                console.log(message);
+    
+                Swal.fire({
+                    title: "¡Error!",
+                    text: message,
+                    icon: "error",
+                });
+    
+                $(".cont-user-data").addClass("d-none");
+                $(".buttons-cont").removeClass("d-none");
+            });
+
         }
+
     });
 }
 
-async function SearchCode(dataSend, code) {
-    console.log(dataSend);
-    activeLoading();
-    axios
-        .post("/users/End-Point-Persons", dataSend)
-        .then((response) => {
-            const { data } = response.data.data;
-            const { respuesta } = response.data;
-            console.log(respuesta);
-            let p_nombre;
-            let p_codigo;
-            let p_correo = "";
-            if (code.length == 7) {
-                const { nombre_trabajador, codigo, correo } = data[0];
-                p_nombre = nombre_trabajador;
-                p_codigo = codigo;
-                p_correo = correo;
-            } else {
-                const { codigo_estudiante, nombre_estudiante } = data[0];
-                p_nombre = nombre_estudiante;
-                p_codigo = codigo_estudiante;
-            }
-
-            console.log(data);
-
-            TemplateData(p_nombre, p_codigo, p_correo);
-            $(".cont-user-data").removeClass("d-none");
-            $(".buttons-cont").addClass("d-none");
-        })
-        .finally(() => {
-            disableLoading();
-        })
-        .catch((error) => {
-            console.log(error.response);
-            const { status } = error.response;
-            const { message } = error.response.data;
-            //  const { data } = error.data;
-            console.log(status);
-            console.log(message);
-
-            Swal.fire({
-                title: "¡Error!",
-                text: message,
-                icon: "error",
-            });
-
-            $(".cont-user-data").addClass("d-none");
-            $(".buttons-cont").removeClass("d-none");
-        });
-}
 
 function TemplateData(name, code, email) {
     $("#R-nombre").text(name);
@@ -118,7 +120,7 @@ function ClicNewUser(name, code, email, userType) {
         let V_cedula = true;
         if (userType == 1) {
             cedula = $("#Usercedula").val().trim();
-          
+
             V_cedula = validarCampo(cedula, regexNumero, "#Usercedula");
         } else {
             V_cedula = true;
