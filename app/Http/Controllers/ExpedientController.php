@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Persona;
 use App\Models\Persona_ahf;
 use App\Models\Enfermedad_especifica;
@@ -10,8 +13,7 @@ use App\Models\Domicilio;
 use App\Models\Escolaridad;
 use App\Models\Hemotipo;
 use App\Models\Rep_estado;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+
 
 
 class ExpedientController extends Controller
@@ -24,6 +26,7 @@ class ExpedientController extends Controller
         $Personal = Persona::with([
             'domicilio.rep_estado',
             'escolaridad',
+            'hemotipo',
             'persona_enfermedades.enfermedad_especifica',
             'toxicomanias_persona.toxicomanias',
             'nutricional',
@@ -56,20 +59,21 @@ class ExpedientController extends Controller
         $quirurgicos = $Personal->ant_quirurgicos;
         $gyo = $Personal->gyo;
         $escolaridad = $Personal->escolaridad;
+        $hemotipo = $Personal->hemotipo;
 
         $esp_ahf = Enfermedad_especifica::all();
         $rep_estados = Rep_estado::all();
-        $hemotipo = Hemotipo::all();
+        $hemotipos = Hemotipo::all();
         $escolaridades = Escolaridad::all();
 
-        //return response()->json($escolaridades);
+        //return response()->json($escolaridad);
 
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' =>  route('patients.index')],
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipo', 'escolaridades'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades'));
     }
 
     /*  
@@ -99,7 +103,7 @@ class ExpedientController extends Controller
             'Personal.name_e' => 'required|string',
             'Personal.tel_e' => 'required|string',
             'Personal.parent_e' => 'required|string',
-            'Personal.school' =>'required|numeric|exists:escolaridad,id_escolaridad',
+            'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
         ]);
 
         $name = $data['Personal']['name'];
@@ -245,8 +249,8 @@ class ExpedientController extends Controller
             } else { // No encontro a la persona
                 return response()->json(['status' => 404, 'msg' => '¡Error! No se encontro el registro.']);
             }
-/////////////////    Edicion o eliminacion
-        } else { 
+            /////////////////    Edicion o eliminacion
+        } else {
 
             $registro = persona_ahf::where('id', $id)->first();
 
@@ -272,5 +276,72 @@ class ExpedientController extends Controller
                 return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
             }
         }
+    }
+
+    public function Update_APNP(Request $request)
+    {
+        // Errores en español 
+        $messages = [
+            'Id_person.required' => 'El ID de la persona es requerido.',
+            'Id_person.numeric' => 'El ID de la persona debe ser un número.',
+            'Id_person.exists' => 'El ID de la persona NO existe.',
+            'Id_hemotipo.numeric' => 'El dato del hemotipo no es válido.',
+            'Id_hemotipo.exists' => 'El hemotipo no es válido.',
+            'Id_school.numeric' => 'El dato de la escoalridad no es válido.',
+            'Id_school.exists' => 'La escolaridad no es válida.',
+            'Type.required' => 'El ID del tipo de acción es requerido.',
+            'Type.numeric' => 'El ID del tipo de acción debe ser un número.',
+            'Type.in' => 'El ID del tipo de acción no es válido.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'Id_person' => 'required|numeric|exists:personas,id_persona',
+            'Id_hemotipo' => 'nullable|numeric|exists:hemotipo,id_hemotipo',
+            'Id_school' => 'nullable|numeric|exists:escolaridad,id_escolaridad',
+            'Type' => 'required|numeric|in:1,2'
+        ], $messages);
+
+        // Error en algún dato
+        if ($validator->fails()) {
+            return response()->json(['msg' => "Error en los datos recibidos.", 'errors' => $validator->errors()], 400);
+        }
+
+
+        $Id =  intval($request['Id_person']);
+        $Type = intval($request['Type']);
+
+        if ($Type == 1) { // Edit hemotipo
+            $hemotipo = intval($request['Id_hemotipo']);
+
+            $Update = Persona::where('id_persona', $Id)->first();
+            try {
+                DB::transaction(function () use ($Update, $hemotipo) {
+                    $Update->update([
+                        'hemotipo_id' => $hemotipo,
+                    ]);
+                });
+                return response()->json(['status' => 200]);
+            } catch (\Exception $e) {
+                // Log the error or handle it as needed
+                return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
+            }
+        } else {
+            $Id_school = intval($request['Id_school']);
+            $school = Persona::where('id_persona', $Id)->first();
+
+            try {
+                DB::transaction(function () use ($school, $Id_school) {
+                    $school->update([
+                        'escolaridad_id' => $Id_school,
+                    ]);
+                });
+                return response()->json(['status' => 200]);
+            } catch (\Exception $e) {
+                // Log the error or handle it as needed
+                return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
+            }
+        }
+        return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
+
     }
 }

@@ -74,7 +74,7 @@ $(function () {
                         name: html('<p class="mb-0 text-center">Acciones</p>'),
                         formatter: (_, row) =>
                             html(
-                                `<div class="d-flex justify-content-center"><a href="/patients/expediente/${row.cells[0].data}" class="btn btn-primary expediente">Expediente</a> </div>`
+                                `<div class="d-flex justify-content-center"><a href="/patients/medical_record/${row.cells[0].data}" class="btn btn-primary expediente">Expediente</a> </div>`
                             ),
                         resizable: true,
                     },

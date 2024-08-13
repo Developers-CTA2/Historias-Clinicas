@@ -19,8 +19,8 @@ class Hemotipo extends Model
 
     ];
 
-    public function persona_hemotipo()
-    {
-        return $this->hasOne(Persona::class, 'id_hemotipo', 'hemotipo_id');
-    }
+    // public function persona_hemotipo()
+    // {
+    //     return $this->hasOne(Persona::class, 'id_hemotipo', 'hemotipo_id',);
+    // }
 }

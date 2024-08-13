@@ -19,7 +19,6 @@ $(document).ready(function () {
     console.log("Editar datos personales");
     EventEditPersonal();
     InitiliazeSelect();
-    F;
 });
 
 /* Funcion para inicializar el select2 de estados */
@@ -39,7 +38,7 @@ function EventEditPersonal() {
     $("#Edit-personal").on("change", function () {
         const isChecked = $("#Edit-personal").is(":checked");
         if (isChecked) {
-            $(".text-alert").html(IconInfo("Ahora estás en modo de edición."));
+            $(".P-data").html(IconInfo("Ahora estás en modo de edición."));
             $(".personal-data").removeClass("d-none").hide().fadeIn(400);
             $(".top-content").css("margin-top", "0", "!important");
             console.log($("#code").text());
@@ -451,7 +450,7 @@ async function RequestUpdate(Personal, Direction, Type) {
     let timerInterval;
     try {
         const response = await axios.post(
-            "/patients/expediente/Update_Personal_Data",
+            "/patients/medical_record/Update_Personal_Data",
             Data
         );
         console.log(response.data);
@@ -459,7 +458,7 @@ async function RequestUpdate(Personal, Direction, Type) {
         const { status, msg } = data;
         let timerInterval;
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", "Todo fallo exitosamamte.", "success", 1);
     } catch (error) {
         timerInterval = AlertaSweerAlert(
             2500,

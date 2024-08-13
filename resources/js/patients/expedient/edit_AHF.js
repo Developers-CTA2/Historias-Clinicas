@@ -1,6 +1,4 @@
 import { Modal } from "bootstrap";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
 import { regexNumero } from "../../helpers/Regex.js";
 import { IconInfo, IconWarning } from "../../templates/ExpedientTemplate.js";
@@ -244,7 +242,7 @@ async function RequestUpdate(id_reg, Type, Id_ahf) {
     };
     try {
         const response = await axios.post(
-            "/patients/expediente/Update_ahf_Data",
+            "/patients/medical_record/Update_ahf_Data",
             Data
         );
 

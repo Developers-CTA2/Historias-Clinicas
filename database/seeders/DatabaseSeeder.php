@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder{
             ['id_escolaridad' => 2, 'nombre' => 'Primaria', 'created_by' => 1, 'updated_by' => 1],
             ['id_escolaridad' => 3, 'nombre' => 'Secundaria', 'created_by' => 1, 'updated_by' => 1],
             ['id_escolaridad' => 4, 'nombre' => 'Bachillerato/Preparatoria', 'created_by' => 1, 'updated_by' => 1],
-            ['id_hemotipo' => 5, 'nombre' => 'Licenciatura/Ingeniaría', 'created_by' => 1, 'updated_by' => 1],
+            ['id_hemotipo' => 5, 'nombre' => 'Licenciatura/Ingeniería', 'created_by' => 1, 'updated_by' => 1],
             ['id_hemotipo' => 6, 'nombre' => 'Maestría', 'created_by' => 1, 'updated_by' => 1],
             ['id_hemotipo' => 7, 'nombre' => 'Doctorado', 'created_by' => 1, 'updated_by' => 1],
  
