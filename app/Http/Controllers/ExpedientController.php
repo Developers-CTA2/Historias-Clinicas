@@ -155,7 +155,7 @@ class ExpedientController extends Controller
                         DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio) {
                             $Domicilio->update([
                                 'cuidad_municipio' => $city,
-                                'estado' => $state,
+                                'estado_id' => $state,
                                 'pais' => $country,
                                 'calle' => $street,
                                 'num' => $ext,
