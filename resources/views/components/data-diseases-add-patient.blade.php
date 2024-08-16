@@ -1,9 +1,9 @@
 @props(['enfermedades'])
 
 <!-- Datos Antecendentes Hederofamiliares  -->
-<div class="row pb-3 mt-4 ahf-data d-none form-step animate__animated animate__fadeInUp">
-    <div class="row pt-1">
-        <div class="col-12 content-custom">
+<div class="row p-3 ahf-data d-none form-step animate__animated animate__fadeInUp bg-content-custom shadow-custom">
+    <div class="col-12 pt-1">
+        <div class="col-12 content-custom ">
             <div class="row">
                 <div class="col-12">
                     <div class="row">
@@ -47,7 +47,7 @@
                             <h5 class="text-center">Enfermedades seleccionadas</h5>
                             <div class="hr-custom"></div>
                             <div
-                                class="row d-flex justify-content-center justify-content-lg-start mt-3">
+                                class="row d-flex justify-content-center justify-content-lg-start mt-3 mx-2">
                                 <div class="form-group container-list-custom">
                                     <ul class="list-group mt-2 list-dependencies-custom"
                                         id="listDiseasesSelected"></ul>

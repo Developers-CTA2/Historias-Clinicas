@@ -27,19 +27,27 @@ export const pathologicalHistory = (params ) => {
       }  = params;
 
 
+    //   Initial state
+    
+    selectedOption = btnNavItem.first().data('bs-target')
+    
       btnNavItem.off('click');
       btnNavItem.on('click',function(){
+        // managementData();
         selectedOption = '';
         selectedOption = $(this).data('bs-target');
-        console.log(selectedOption);
+        
+        
       });
 
       
       btnAddPathological.on('click',function(){
+        managementData();
+        
+      });
+
+      const managementData = (chageTap = false)=>{
         const data = elementSelected(selectedOption);
-
-
-        console.log(data, selectedOption);
 
         if(data.title == undefined) return;
 
@@ -52,13 +60,8 @@ export const pathologicalHistory = (params ) => {
         });
 
         accordionListPathologicalHistory.append(templateAddLiistAccordionPathologicalHistory(id,title, value, reason));        
-
-        console.log(listPathologicalHistory);
-
         deletePathologicalHistoryItem();
-
-
-      });
+      }
 
       
       const elementSelected = (value)=>{
@@ -91,8 +94,7 @@ export const pathologicalHistory = (params ) => {
                 const textValueAllergies = selectAllergies.select2('data')[0].text;
                 const idValueAllergies = selectAllergies.val();
                 const description = descriptionAllergies.val();
-
-
+                
                 if (!validateAllergies({allergies : idValueAllergies, description},{ selectAllergies, textDescription : descriptionAllergies})) return {};
 
                 const data = {

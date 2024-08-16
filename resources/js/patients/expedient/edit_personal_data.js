@@ -19,7 +19,6 @@ $(document).ready(function () {
     console.log("Editar datos personales");
     EventEditPersonal();
     InitiliazeSelect();
-    F;
 });
 
 /* Funcion para inicializar el select2 de estados */

@@ -1,6 +1,6 @@
 {{-- Ginecologia y obstetricia --}}
 
-<div class="row form-step d-none animate__animated animate__fadeInUp">
+<div class="row form-step d-none animate__animated animate__fadeInUp bg-content-custom shadow-custom p-3">
     <div class="col-12">
         <h5 class="text-center">Ginecología y Obstetricia</h5>
         <div class="hr-custom"></div>

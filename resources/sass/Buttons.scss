@@ -62,6 +62,10 @@
     border: 1.5px solid $green-sec;
 }
 
+.btn-blue-red{
+    border: 1.5px solid $red;
+}
+
 /* Cuando el boton se muestra pero esta inabilitado */
 .disabled {
     opacity: 0.5;

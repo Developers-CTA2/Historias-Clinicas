@@ -9,14 +9,17 @@ use App\Models\Alergia;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Http\Requests\StorePatientRequest;
+use App\Models\Hemotipo;
 use App\Models\Domicilio;
+use App\Models\Escolaridad;
+use App\Models\Rep_estado;
 use Illuminate\Support\Facades\DB;
 
 
 
 class PatientsController extends Controller
 {
-    
+
     /*
      Funcion que retorna la vista de Ver pacientes junto con el breadcrumb
     */
@@ -89,54 +92,64 @@ class PatientsController extends Controller
         $enfermedades = Enfermedad_especifica::all();
         $toxicomania = Toxicomanias::all();
         $alergias = Alergia::all();
-        return view('admin.AddPatient', compact('enfermedades', 'toxicomania', 'alergias', 'breadcrumbs'));
+        $hemotipos = Hemotipo::all();
+        $escolidades = Escolaridad::all();
+        $estados = Rep_estado::all();
+
+        return view('admin.AddPatient', compact('enfermedades', 'toxicomania', 'alergias', 'breadcrumbs', 'hemotipos', 'escolidades', 'estados'));
     }
 
 
     public function store(StorePatientRequest $request)
     {
-        $validate = $request->validated();
 
-        DB::transaction(function () use ($validate) {
-
+        try {
             
-            // Obtener los datos necesarios para la inserción
-            $dataPersonal = $this->dataPersonalForDB($validate);
-            
-            // Insertar el domicilio
-            $domicilio = Domicilio::create($dataPersonal['dataDomicilio']);
-            // Insertar la persona
-            $persona = $domicilio->persona()->create($dataPersonal['dataPerson']);
-            
-            // Insertar las enfermedades familiares
-            $diseasesFamiliar = $this->dataDiseasesFamiliar($validate);
-            $persona->persona_ahf()->createMany($diseasesFamiliar);
+            $validate = $request->validated();
 
-            // Insertar las enfermedades personales 
-            $diseasesPersonal = $this->dataDiseasesPersonal($validate);
-            $persona->persona_enfermedades()->createMany($diseasesPersonal['diseases']);
-            $persona->persona_alergia()->createMany($diseasesPersonal['allegeries']);
-            $persona->hospitalizaciones()->createMany($diseasesPersonal['hopitalizations']);
-            $persona->traumatismos()->createMany($diseasesPersonal['traumatisms']);
-            $persona->transfusiones()->createMany($diseasesPersonal['transfusions']);
-            $persona->ant_quirurgicos()->createMany($diseasesPersonal['cirugies']);
-
-            // Insertar las toxicomanias
-            $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate));
-
-            // Si es mujer, insertar los datos de embarazo
-            if ($dataPersonal['dataPerson']['sexo'] == 'Femenino') {
-                $gyo = $this->dataGyo($validate);
-                $persona->gyo()->create($gyo);
-            }
-        });
+            DB::transaction(function () use ($validate) {
 
 
+                // Obtener los datos necesarios para la inserción
+                $dataPersonal = $this->dataPersonalForDB($validate);
 
-        return response()->json(['title' => 'Éxito', 'message' => 'Paciente creado correctamente', 'error' => null], 201);
+                // Insertar el domicilio
+                $domicilio = Domicilio::create($dataPersonal['dataDomicilio']);
+                // Insertar la persona
+                $persona = $domicilio->persona()->create($dataPersonal['dataPerson']);
+
+                // Insertar las enfermedades familiares
+                $diseasesFamiliar = $this->dataDiseasesFamiliar($validate);
+                $persona->persona_ahf()->createMany($diseasesFamiliar);
+
+                // Insertar las enfermedades personales 
+                $diseasesPersonal = $this->dataDiseasesPersonal($validate);
+                $persona->persona_enfermedades()->createMany($diseasesPersonal['diseases']);
+                $persona->persona_alergia()->createMany($diseasesPersonal['allegeries']);
+                $persona->hospitalizaciones()->createMany($diseasesPersonal['hopitalizations']);
+                $persona->traumatismos()->createMany($diseasesPersonal['traumatisms']);
+                $persona->transfusiones()->createMany($diseasesPersonal['transfusions']);
+                $persona->ant_quirurgicos()->createMany($diseasesPersonal['cirugies']);
+
+                // Insertar las toxicomanias
+                $persona->toxicomanias_persona()->createMany($this->dataDrugsAddiction($validate));
+
+                // Si es mujer, insertar los datos de embarazo
+                if ($dataPersonal['dataPerson']['sexo'] == 'Femenino') {
+                    $gyo = $this->dataGyo($validate);
+                    $persona->gyo()->create($gyo);
+                }
+            });
+
+
+
+            return response()->json(['title' => 'Éxito', 'message' => 'Expediente del paciente creado correctamente', 'error' => null], 201);
+        } catch (\Exception $e) {
+            return response()->json(['title' => 'Error', 'message' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
+        }
     }
 
-    
+
 
 
 
@@ -152,7 +165,8 @@ class PatientsController extends Controller
                 'fecha_nacimiento' => $data['birthdate'],
                 'telefono' => $data['phone'],
                 'nss' => $data['nss'],
-                'escolaridad' => $data['scholarship'],
+                'hemotipo_id' => $data['bloodType'],
+                'escolaridad_id' => $data['scholarship'],
                 'telefono_emerge' => $data['emergencyPhone'],
                 'contacto_emerge' => $data['emergencyName'],
                 'parentesco_emerge' => $data['relationship'],
@@ -167,7 +181,7 @@ class PatientsController extends Controller
                 'colonia' => $data['colony'],
                 'cp' => $data['cp'],
                 'cuidad_municipio' => $data['city'],
-                'estado' => $data['state'],
+                'estado_id' => $data['state'],
                 'pais' => 'México',
                 'created_by' => auth()->user()->id,
             ]

@@ -148,7 +148,7 @@ class SpecificDiseasesController extends Controller
             return response()->json(['status' => 404, 'msg' => 'El tipo de AHF no existe.'],404);
         }
 
-        $diseases = Especificar_ahf::where('id_tipo_ahf', $typeId)->get();
+        $diseases = Enfermedad_especifica::where('id_tipo_ahf', $typeId)->get();
         return response()->json($diseases);
     }
 
@@ -156,7 +156,7 @@ class SpecificDiseasesController extends Controller
     public function getSpecificDiseasesAll()
     {
         try {
-            $diseases = Especificar_ahf::select('id_especifica_ahf', 'nombre')->get();
+            $diseases = Enfermedad_especifica::select('id_especifica_ahf', 'nombre')->get();
             return response()->json($diseases);
 
         }catch(\Exception $e){

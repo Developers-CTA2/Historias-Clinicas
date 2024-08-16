@@ -1,6 +1,35 @@
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
 import { regexNumero,regexCp,regexIntNumero, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
+import { templateModalErrorPersonalData } from '../templates/addPatientsTemplate.js';
 
 const yearActual = new Date().getFullYear();
+
+const moduleValidate = {
+    validatePersonalData: {
+        validate: true,
+        message: 'Tienes errores en el formulario los datos personales'
+    },
+    validateDomicileData: {
+        validate: true,
+        message: 'Tienes errores en los datos del domicilio'
+    },
+    validateEmergencyData: {
+        validate: true,
+        message: 'Tienes errores en los datos de contacto de emergencia'
+    },
+}
+
+const alertError = (html) => {
+    Swal.fire({
+        title: "Tienes errores en el formulario",
+        html: html,
+        icon: "error",
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#007F73"
+      })
+}
 
 // Función para validar los campos del formulario dee los datos personales del paciente
 export const validateStepFormOne = (dataValidate, elementsForm) => {
@@ -56,228 +85,278 @@ export const validateStepFormOne = (dataValidate, elementsForm) => {
         inputEmergencyPhone,
         inputRelationship } = elementsForm;
 
-
-        console.log(inputColony,colony);
-
     allInputsPD.each(function () {
-
-        $(this).children('input').removeClass('is-invalid border-danger');
+        $(this).find('.input-group').children('input').removeClass('is-invalid border-danger');
         $(this).children('span').addClass('d-none').text('');
-        $(this).children('select').removeClass('is-invalid border-danger');
+        $(this).find('.input-group').children('select').removeClass('is-invalid border-danger');
+
     });
 
 
+        moduleValidate.validatePersonalData.validate = true;
+        moduleValidate.validateDomicileData.validate = true;
+        moduleValidate.validateEmergencyData.validate = true;
+
     if ((type === 'udg' && code === '') && name === '' && career === '' && gender === null && birthdate === '' && bloodType === null && phone === '' && nss === '' && civilStatus === null && religion === '' && dependency === '' && state === '' && city === '' && street === '' && number === '' && emergencyName === '' && emergencyPhone === '' && relationship === '' && colony === '' && cp === '' && scholarship === null) {  
         allInputsPD.each(function () {
-            let input = $(this).children('input');
+            let input = $(this).find('.input-group').children('input');
             let span = $(this).children('span');
-            let select = $(this).children('select');
+            let select = $(this).find('.input-group').children('select');
 
             select.addClass('is-invalid border-danger');
             input.addClass('is-invalid border-danger');
             span.text('El campo es requerido, por favor llénalo').removeClass('d-none');
 
-        })
-        validateForm = false
+        });
+        validateForm = false;
+
+        moduleValidate.validatePersonalData.validate = false;
+        moduleValidate.validateDomicileData.validate = false;
+        moduleValidate.validateEmergencyData.validate = false;
+
+        !validateForm && alertError(templateModalErrorPersonalData(moduleValidate));
+
+        
+
         return validateForm;
 
 
     }
 
+
     if (type == 'udg' && code === '') {
         inputCodePD.addClass('is-invalid border-danger');
-        inputCodePD.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputCodePD.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (type == 'udg' && code !== '' && !regexNumero.test(code)) {
         inputCodePD.addClass('is-invalid border-danger');
-        inputCodePD.next().text('Solo se permiten números').removeClass('d-none');
+        inputCodePD.parent('div').parent('div').find('span').last().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
 
     }
 
     if (name === '') {
         inputNamePD.addClass('is-invalid border-danger');
-        inputNamePD.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputNamePD.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (name !== '' && !regexLetters.test(name)) {
         inputNamePD.addClass('is-invalid border-danger');
-        inputNamePD.next().text('Solo se permiten letras').removeClass('d-none');
+        inputNamePD.parent('div').parent('div').find('span').last().text('Solo se permiten letras').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (career === '') {
         inputCareerPD.addClass('is-invalid border-danger');
-        inputCareerPD.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputCareerPD.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (birthdate === '') {
         inputBirthDate.addClass('is-invalid border-danger');
-        inputBirthDate.next().text('El campo es requerido, por favor selecciona una fecha').removeClass('d-none');
+        inputBirthDate.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor selecciona una fecha').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (birthdate !== '' && !regexFecha.test(birthdate)) {
         inputBirthDate.addClass('is-invalid border-danger');
-        inputBirthDate.next().text('Formato de fecha incorrecto').removeClass('d-none');
+        inputBirthDate.parent('div').parent('div').find('span').last().text('Formato de fecha incorrecto').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (gender === null) {
         selectGender.addClass('is-invalid border-danger');
-        selectGender.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
+        selectGender.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (bloodType === null) {
         selectBloodType.addClass('is-invalid border-danger');
-        selectBloodType.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
+        selectBloodType.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (phone === '') {
         inputPhone.addClass('is-invalid border-danger');
-        inputPhone.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputPhone.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (phone !== '' && !regexNumero.test(phone)) {
         inputPhone.addClass('is-invalid border-danger');
-        inputPhone.next().text('Solo se permiten números').removeClass('d-none');
+        inputPhone.parent('div').parent('div').find('span').last().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (phone !== '' && !regexTelefono.test(phone)) {
         inputPhone.addClass('is-invalid border-danger');
-        inputPhone.next().text('El número debe tener 10 dígitos').removeClass('d-none');
+        inputPhone.parent('div').parent('div').find('span').last().text('El número debe tener 10 dígitos').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (nss === '') {
         inputNss.addClass('is-invalid border-danger');
-        inputNss.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputNss.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (nss !== '' && !regexNss.test(nss)) {
         inputNss.addClass('is-invalid border-danger');
-        inputNss.next().text('Solo se permiten números y deben ser 11 dígitos').removeClass('d-none');
+        inputNss.parent('div').parent('div').find('span').last().text('Solo se permiten números y deben ser 11 dígitos').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (civilStatus === null) {
         selectCivilStatus.addClass('is-invalid border-danger');
-        selectCivilStatus.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        selectCivilStatus.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (religion === '') {
         inputReligion.addClass('is-invalid border-danger');
-        inputReligion.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputReligion.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     if (dependency === '') {
         inputDependency.addClass('is-invalid border-danger');
-        inputDependency.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputDependency.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
-    if (state === '') {
+    if (state === '' || state === null) {
         inputState.addClass('is-invalid border-danger');
-        inputState.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputState.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if (city === '') {
         inputCity.addClass('is-invalid border-danger');
-        inputCity.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputCity.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if (colony === '') {
-        console.log('entro');
         inputColony.addClass('is-invalid border-danger');
-        inputColony.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputColony.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if (cp === '') {
+        console.log('entro cp', inputCp);
         inputCp.addClass('is-invalid border-danger');
-        inputCp.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputCp.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if(cp !== '' && !regexCp.test(cp)){
+        console.log('entro cp 2', inputCp);
         inputCp.addClass('is-invalid border-danger');
-        inputCp.next().text('Formato de código postal erroneo').removeClass('d-none');
+        inputCp.parent('div').parent('div').find('span').last().text('Formato de código postal erroneo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if (street === '') {
         inputStreet.addClass('is-invalid border-danger');
-        inputStreet.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputStreet.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if(scholarship === null){
         inputScholarship.addClass('is-invalid border-danger');
-        inputScholarship.next().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
+        inputScholarship.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor selecciona una opción').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validatePersonalData.validate = false;
     }
 
     
     if (number === '') {
         inputNumber.addClass('is-invalid border-danger');
-        inputNumber.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputNumber.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
     }
 
     if (intNumber != '' && !regexIntNumero.test(intNumber)) {
         inputIntNumber.addClass('is-invalid border-danger');
-        inputIntNumber.next().text('Solo se permiten números').removeClass('d-none');
+        inputIntNumber.parent('div').parent('div').find('span').last().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateDomicileData.validate = false;
+
     }
 
     if (emergencyName === '') {
         inputEmergencyName.addClass('is-invalid border-danger');
-        inputEmergencyName.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputEmergencyName.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateEmergencyData.validate = false;
+
     }
 
     if (emergencyName !== '' && !regexLetters.test(emergencyName)) {
         inputEmergencyName.addClass('is-invalid border-danger');
-        inputEmergencyName.next().text('Solo se permiten letras').removeClass('d-none');
+        inputEmergencyName.parent('div').parent('div').find('span').last().text('Solo se permiten letras').removeClass('d-none');
         validateForm = false;
     }
 
     if (emergencyPhone === '') {
         inputEmergencyPhone.addClass('is-invalid border-danger');
-        inputEmergencyPhone.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputEmergencyPhone.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateEmergencyData.validate = false;
+
     }
 
     if (emergencyPhone !== '' && !regexNumero.test(emergencyPhone)) {
         inputEmergencyPhone.addClass('is-invalid border-danger');
-        inputEmergencyPhone.next().text('Solo se permiten números').removeClass('d-none');
+        inputEmergencyPhone.parent('div').parent('div').find('span').last().text('Solo se permiten números').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateEmergencyData.validate = false;
+
     }
 
     if (emergencyPhone !== '' && !regexTelefono.test(emergencyPhone)) {
         inputEmergencyPhone.addClass('is-invalid border-danger');
-        inputEmergencyPhone.next().text('El número debe tener 10 dígitos').removeClass('d-none');
+        inputEmergencyPhone.parent('div').parent('div').find('span').last().text('El número debe tener 10 dígitos').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateEmergencyData.validate = false;
+
     }
 
     if (relationship === '') {
         inputRelationship.addClass('is-invalid border-danger');
-        inputRelationship.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputRelationship.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
+        moduleValidate.validateEmergencyData.validate = false;
     }
+    
+    !validateForm && alertError(templateModalErrorPersonalData(moduleValidate));
 
     return validateForm;
 
@@ -307,35 +386,35 @@ export const validateFormDateAndReason = (sinceWhen, reason, inputDate, inputRea
     let validate = true;
     inputDate.removeClass('is-invalid border-danger');
     inputReason.removeClass('is-invalid border-danger');
-    inputDate.next().addClass('d-none').text('');
-    inputReason.parent().next().addClass('d-none').text('');
+    inputDate.parent('div').parent('div').find('span').last().addClass('d-none').text('');
+    inputReason.parent().parent('div').parent('div').find('span').last().addClass('d-none').text('');
 
     let validateReason = false;
 
     if(sinceWhen == '' && reason == ''){
         inputDate.addClass('is-invalid border-danger');
-        inputDate.next().removeClass('d-none').text('Campo es requerido');
+        inputDate.parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
         inputReason.addClass('is-invalid border-danger');
-        inputReason.parent().next().removeClass('d-none').text('Campo es requerido');
+        inputReason.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
         return false;
     }
 
     if(sinceWhen == ''){
         inputDate.addClass('is-invalid border-danger');
-        inputDate.next().removeClass('d-none').text('Campo es requerido');
+        inputDate.parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
         validate = false;
     }
 
     if(reason == ''){
         inputReason.addClass('is-invalid border-danger');
-        inputReason.parent().next().removeClass('d-none').text('Campo es requerido');
+        inputReason.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
         validate = false;
         validateReason = true;
     }
 
     if(!validateReason && !regexDescription.test(reason)){
         inputReason.addClass('is-invalid border-danger');
-        inputReason.parent().next().removeClass('d-none').text('Este campo solo acepta letras, números y algunos caracteres especiales');
+        inputReason.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Este campo solo acepta letras, números y algunos caracteres especiales');
         validate = false;
     }
 
@@ -366,7 +445,7 @@ export const validateAllergies = (dataValidate, elementsForm) => {
     selectAllergies.removeClass('is-invalid border-danger');
     selectAllergies.parent().find('span').last().addClass('d-none').text('');
     textDescription.removeClass('is-invalid border-danger');
-    textDescription.parent().next().addClass('d-none').text('');
+    textDescription.parent().parent('div').parent('div').find('span').last().addClass('d-none').text('');
 
     console.log(allergies, allergies.length);
 
@@ -375,7 +454,7 @@ export const validateAllergies = (dataValidate, elementsForm) => {
         selectAllergies.addClass('is-invalid border-danger');
         selectAllergies.parent().find('span').last().removeClass('d-none').text('Campo es requerido');
         textDescription.addClass('is-invalid border-danger');
-        textDescription.parent().next().removeClass('d-none').text('Campo es requerido');
+        textDescription.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
 
         validate = false;
         return validate;
@@ -389,14 +468,14 @@ export const validateAllergies = (dataValidate, elementsForm) => {
 
     if(description === ''){
         textDescription.addClass('is-invalid border-danger');
-        textDescription.parent().next().removeClass('d-none').text('Campo es requerido');
+        textDescription.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Campo es requerido');
         validate = false;
         applyValidation = true;
     }
 
     if(!applyValidation && !regexDescription.test(description)){
         textDescription.addClass('is-invalid border-danger');
-        textDescription.parent().next().removeClass('d-none').text('Este campo solo acepta letras, números y algunos caracteres especiales');
+        textDescription.parent().parent('div').parent('div').find('span').last().removeClass('d-none').text('Este campo solo acepta letras, números y algunos caracteres especiales');
         validate = false;
     
     }
@@ -488,7 +567,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
 
     if (menarca === '') {
         inputMenarca.addClass('is-invalid border-danger');
-        inputMenarca.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputMenarca.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
         applyValidation.menarca = true;
         
@@ -497,152 +576,152 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     if(!applyValidation.menarca && !regexNumlenght2.test(menarca)){
         console.log('entro');   
         inputMenarca.addClass('is-invalid border-danger');
-        inputMenarca.next().text('Solo se permiten números enteros enteros, con una longitud de 2 número').removeClass('d-none');
+        inputMenarca.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros enteros, con una longitud de 2 número').removeClass('d-none');
         validateForm = false;
     }
 
     if (fum === '') {
         inputFum.addClass('is-invalid border-danger');
-        inputFum.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+        inputFum.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
         validateForm = false;
         applyValidation.fum = true;
     }
 
     if( !applyValidation.fum && !regexFecha.test(fum)){
         inputFum.addClass('is-invalid border-danger');
-        inputFum.next().text('Formato de fecha incorrecto').removeClass('d-none');
+        inputFum.parent('div').parent('div').find('span').last().text('Formato de fecha incorrecto').removeClass('d-none');
         validateForm = false;
     }
 
     // if (numGestas === '') {
     //     inputGestas.addClass('is-invalid border-danger');
-    //     inputGestas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     inputGestas.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
     //     validateForm = false;
     //     applyValidation.numGestas = true;
     // }
 
     if( numGestas !== '' && !regexNumlenght2.test(numGestas)){
         inputGestas.addClass('is-invalid border-danger');
-        inputGestas.next().text('Solo se permiten números enteros').removeClass('d-none');
+        inputGestas.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
     // if (numPartos !== '') {
     //     inputPartos.addClass('is-invalid border-danger');
-    //     inputPartos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     inputPartos.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
     //     validateForm = false;
     //     applyValidation.numPartos = true;
     // }
 
     if(numPartos !== '' && !regexNumlenght2.test(numPartos)){
         inputPartos.addClass('is-invalid border-danger');
-        inputPartos.next().text('Solo se permiten números enteros').removeClass('d-none');
+        inputPartos.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
     // if (numCesareas === '') {
     //     inputCesareas.addClass('is-invalid border-danger');
-    //     inputCesareas.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     inputCesareas.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
     //     validateForm = false;
     //     applyValidation.numCesareas = true;
     // }
 
     if(numCesareas !== '' && !regexNumlenght2.test(numCesareas)){
         inputCesareas.addClass('is-invalid border-danger');
-        inputCesareas.next().text('Solo se permiten números enteros').removeClass('d-none');
+        inputCesareas.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
     // if (numAbortos === '') {
     //     inputAbortos.addClass('is-invalid border-danger');
-    //     inputAbortos.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+    //     inputAbortos.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
     //     validateForm = false;
     //     applyValidation.numAbortos = true;
     // }
 
     if(numAbortos !== '' && !regexNumlenght2.test(numAbortos) ){
         inputAbortos.addClass('is-invalid border-danger');
-        inputAbortos.next().text('Solo se permiten números enteros').removeClass('d-none');
+        inputAbortos.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
     if (diasSangrado === '') {
         inputDiasSangrado.addClass('is-invalid border-danger');
-        inputDiasSangrado.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+        inputDiasSangrado.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
         validateForm = false;
         applyValidation.diasSangrado = true;
     }
 
     if(!applyValidation.diasSangrado && !regexNumlenght2.test(diasSangrado)){
         inputDiasSangrado.addClass('is-invalid border-danger');
-        inputDiasSangrado.next().text('Solo se permiten números enteros, con una longitud de 2 números').removeClass('d-none');
+        inputDiasSangrado.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros, con una longitud de 2 números').removeClass('d-none');
         validateForm = false;
     }
 
     if (diasCiclo === '') {
         inputDiasCiclo.addClass('is-invalid border-danger');
-        inputDiasCiclo.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
+        inputDiasCiclo.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
         validateForm = false;
         applyValidation.diasCiclo = true;
     }
 
     if(!applyValidation.diasCiclo && !regexNumlenght2.test(diasCiclo)){
         inputDiasCiclo.addClass('is-invalid border-danger');
-        inputDiasCiclo.next().text('Solo se permiten números enteros, con una longitud de 2 números').removeClass('d-none');
+        inputDiasCiclo.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros, con una longitud de 2 números').removeClass('d-none');
         validateForm = false;
     }
 
     if (fechaCitologia === '') {
         inputfechaCitologia.addClass('is-invalid border-danger');
-        inputfechaCitologia.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputfechaCitologia.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
         applyValidation.fechaCitologia = true;
     }
 
     if(!applyValidation.fechaCitologia && !regexAnio.test(fechaCitologia)){
         inputfechaCitologia.addClass('is-invalid border-danger');
-        inputfechaCitologia.next().text('Formato de año incorrecto').removeClass('d-none');
+        inputfechaCitologia.parent('div').parent('div').find('span').last().text('Formato de año incorrecto').removeClass('d-none');
         validateForm = false;
         applyValidation.fechaCitologia = true;
     }
 
     if(!applyValidation.fechaCitologia && fechaCitologia > yearActual){
         inputfechaCitologia.addClass('is-invalid border-danger');
-        inputfechaCitologia.next().text('El año no puede ser mayor al año actual').removeClass('d-none');
+        inputfechaCitologia.parent('div').parent('div').find('span').last().text('El año no puede ser mayor al año actual').removeClass('d-none');
         validateForm = false;
     }
 
 
     if (mastografia === '') {
         inputMastografia.addClass('is-invalid border-danger');
-        inputMastografia.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputMastografia.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
         applyValidation.mastografia = true;
     }
 
     if(!applyValidation.mastografia && !regexAnio.test(mastografia)){
         inputMastografia.addClass('is-invalid border-danger');
-        inputMastografia.next().text('Formato de año incorrecto').removeClass('d-none');
+        inputMastografia.parent('div').parent('div').find('span').last().text('Formato de año incorrecto').removeClass('d-none');
         validateForm = false;
         applyValidation.mastografia = true;
     }
 
     if(!applyValidation.mastografia && mastografia > yearActual){
         inputMastografia.addClass('is-invalid border-danger');
-        inputMastografia.next().text('El año no puede ser mayor al año actual').removeClass('d-none');
+        inputMastografia.parent('div').parent('div').find('span').last().text('El año no puede ser mayor al año actual').removeClass('d-none');
         validateForm = false;
     }
 
     if (inicioVidaSexual === '') {
         inputInicioVidaSexual.addClass('is-invalid border-danger');
-        inputInicioVidaSexual.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        inputInicioVidaSexual.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
         applyValidation.inicioVidaSexual = true;
     }
 
     if(!applyValidation.inicioVidaSexual && !regexNumlenght2.test(inicioVidaSexual)){
         inputInicioVidaSexual.addClass('is-invalid border-danger');
-        inputInicioVidaSexual.next().text('Formato de fecha incorrecto').removeClass('d-none');
+        inputInicioVidaSexual.parent('div').parent('div').find('span').last().text('Formato de fecha incorrecto').removeClass('d-none');
         validateForm = false;
     }
 
@@ -659,7 +738,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
 
     if(!cicloRegular && !cicloIrregular){
         radioCicloRegular.addClass('is-invalid border-danger');
-        radioCicloRegular.next().text('El campo es requerido, por favor llénalo').removeClass('d-none');
+        radioCicloRegular.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');
         validateForm = false;
     } 
 

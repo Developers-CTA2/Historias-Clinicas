@@ -10,13 +10,13 @@ import {
     validateQuill,DomPurify, 
     requestPostConsultation } from '../helpers';
 import { templateArrayDiseases } from '../templates'
+import { Swal } from 'sweetalert2/dist/sweetalert2';
 
 let diagnosticLabels = [];
 let dataDiseases = [];
 
 
 const configTagify = () => {
-
 
     getAllSpecificDiseases().then(data => {
         
@@ -39,12 +39,24 @@ const configTagify = () => {
             });
     });
 
-    
-
-    
-
 };
 
+const confirmationAlertCancel = () => {
+    Swal.fire({
+        title: '¿Estás seguro de cancelar la consulta?',
+        text: "No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, cancelar!',
+        cancelButtonText: 'No, seguir aquí!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.href = '/patients';
+        }
+    })
+}
 
 
 
@@ -56,6 +68,7 @@ $(function () {
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
+    const btnCancelConsultation = $('#cancelConsultation');
 
     // Inputs
     const inputFrecuenciaCardiaca = $('#fcIpm');
@@ -79,10 +92,10 @@ $(function () {
     const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
     const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
-    btnSaveConsultation.on('click', function () {
-        
+ 
+    btnCancelConsultation.on('click', function () {
+        confirmationAlertCancel();
     })
-
 
     btnSaveConsultation.on('click', function () {
 
