@@ -62,9 +62,7 @@
     border: 1.5px solid $green-sec;
 }
 
-.btn-blue-red{
-    border: 1.5px solid $red;
-}
+
 
 /* Cuando el boton se muestra pero esta inabilitado */
 .disabled {
@@ -78,6 +76,11 @@
 .btn-sec svg {
     fill: currentColor; /* Hace que el SVG herede el color del texto */
     transition: fill 0.3s;
+}
+
+.btn-cancel {
+    color: $red;
+    border: 1.5px solid $red;
 }
 
 .btn-blue,

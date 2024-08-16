@@ -15,7 +15,7 @@
     <div class="container max-w-custom" id="containerPersonSelect">
         <h4 class="fw-bold">Consulta médica</h4>
 
-        <x-button-top-screen />
+        
 
         <div class="row">
             <div class="col-12">

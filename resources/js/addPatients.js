@@ -566,12 +566,9 @@ $(function () {
 
             sendDataForm();
 
-
         }
 
-        console.log(patientData);
-
-
+ 
     });
 
 
