@@ -22,6 +22,7 @@
                         <span class="tooltip-text">Habilitar edición.</span>
                     </div>
                 </div>
+                @include('patients.expedient_cards.modals_expedient.modal_add_toxic')
             @endrole
             {{-- Contenedor de las enfermedades --}}
             @php
@@ -130,6 +131,27 @@
                                 @endforeach
                             @endif
                         </ul>
+                    </div>
+
+                    <div class="col-12 mt-3 ">
+                        <div class="row">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <button
+                                        class="btn-blue-sec fst-normal p-1 tooltip-container APNP-data d-none animate__animated animate__fadeInUp"
+                                        type="button" data-bs-toggle="modal" data-bs-target="#add-toxic">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
+                                        </svg>
+                                        Agregar
+                                        <span class="tooltip-text">Agregar nueva toxicomanía.</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div> <!-- FIN contenedor 1  -->
             </div>
@@ -281,7 +303,9 @@
                 <div class="row">
                     <div class="d-flex justify-content-center">
                         <div class="">
-                            <button class="btn-sec fst-normal tooltip-container  apnp-refresh d-none animate__animated animate__fadeInUp" type="button">
+                            <button
+                                class="btn-sec fst-normal tooltip-container  apnp-refresh d-none animate__animated animate__fadeInUp"
+                                type="button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                     viewBox="0 0 20 20">
                                     <path

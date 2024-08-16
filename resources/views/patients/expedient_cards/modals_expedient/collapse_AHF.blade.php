@@ -3,7 +3,7 @@
 <div class="col pt-1 Section-Collapse">
     <div class="collapse" id="Diseases">
         <div class="card card-body">
-            <p class="text-center Type-accion p-0 m-0"> Antecedentes herdo-familiares</p>
+            <p class="text-center Type-accion p-0 m-0"> Antecedentes heredo-familiares</p>
             <div class="d-flex row">
                 <p class="fw-normal Old_disease text-muted fs-4 text-center">Selecciona una enfermedad
                 </p>

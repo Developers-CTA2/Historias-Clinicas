@@ -29,4 +29,5 @@ export const regexPorcentaje = /^(100|[1-9][0-9]?|0)$/;
 export const regexGlucosa = /^(?:[1-9][0-9]?|[1-3][0-9]{2}|400)$/;
 
 
+export const RegexPositiveNumer = /^[1-9]\d*$/;
 

@@ -1,7 +1,7 @@
 import { Modal } from "bootstrap";
 
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
-import { regexNumero } from "../../helpers/Regex.js";
+import { RegexPositiveNumer, regexDescription } from "../../helpers/Regex.js";
 import {
     IconInfo,
     IconWarning,
@@ -11,10 +11,8 @@ import {
 
 $(document).ready(function () {
     console.log("Editar APNP");
-
     EventEditAPNP();
 });
-//apnp-edit
 
 /*
     HABILITAR LA EDICION DE AHF
@@ -24,18 +22,13 @@ function EventEditAPNP() {
     $("#Edit-apnp").on("change", function () {
         const isChecked = $("#Edit-apnp").is(":checked");
         if (isChecked) {
-            // IconInfo();
-
             $(".alert-APNP").html(IconInfo("Ahora estás en modo de edición."));
             $(".APNP-data").removeClass("d-none").hide().fadeIn(400);
 
             $(".apnp-edit").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
-
             EventHemotipo();
             EventSchool();
-            // ClicEdit();
-            // ClicAdd();
-            // DeleteAHF();
+            listenDrugs();
         } else {
             /* Cancelar edicion */
             $(".APNP-data")
@@ -83,15 +76,14 @@ async function EventHemotipo() {
 async function EventSchool() {
     $("#save-School").off("click");
     $("#save-School").on("click", function () {
-        let Old_school= $("#id_escolaridad").text().trim();
-        let New_school= $("#new_school").val();
-        
+        let Old_school = $("#id_escolaridad").text().trim();
+        let New_school = $("#new_school").val();
+
         if (Old_school == New_school) {
             $(".alert-APNP").html(
                 IconWarning("No se ha realizado ningun cambio.")
             );
         } else {
-           
             Confirm(
                 "¿Estás seguro de editar el hemotipo?",
                 "El nuevo dato será parte del expediente.",
@@ -106,7 +98,7 @@ async function EventSchool() {
         }
     });
 }
- 
+
 /*
     Funcion que hace la consulta al controlador para la edicion o eliminacion del registro
 */
@@ -145,8 +137,6 @@ async function RequestUpdate(Hemotipo, school, Type) {
 }
 
 function ShowAlerts(type) {
-    
-
     if (type == 1) {
         if ($(".apnp-refresh-homo").hasClass("d-none")) {
             $(".apnp-refresh-homo").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
@@ -167,9 +157,146 @@ function ClicRefresh() {
     $(".alert-APNP").html(
         IconWarning(" Recarga la página para ver los cambios.")
     );
-    
+
     $(".apnp-refresh").off("click");
     $(".apnp-refresh").on("click", function () {
         window.location.reload();
+    });
+}
+
+////////////////////////////  TOXICOMANIAS         //////////////////////////////////
+/*
+    Funcion que muestra el formulario segun la opcion que de seleccione en el input
+*/
+function listenDrugs() {
+    $("#new_toxic").on("change", function () {
+        if (!$(".Add_drug").hasClass("d-none")) {
+            $(".Add_drug").addClass("d-none").hide().fadeOut(400);
+        }
+        if ($("#new_toxic").val() == 1) {
+            
+            if ($("#optionSmoking").hasClass("d-none")) {
+                $("#optionSmoking").removeClass("d-none"); // Show smoking
+            }
+            $("#optionOthersDrugAddiction").addClass("d-none");
+
+            smoking();
+            ClicSaveDrugs(1, $("#new_toxic").val());
+        } else {
+            if ($("#optionOthersDrugAddiction").hasClass("d-none")) {
+                $("#optionOthersDrugAddiction").removeClass("d-none"); // Show others
+            }
+            $("#optionSmoking").addClass("d-none");
+            ClicSaveDrugs(2, $("#new_toxic").val());
+        }
+    });
+
+    $("#saveDrugs").off("click");
+    $("#saveDrugs").on("click", function () {
+        if (
+            $("#desdeCuandoFuma").val().trim() == "" ||
+            $("#desdeCuandoFuma").val().trim() == null
+        ) {
+            $(".alert-add-Drug").html(
+                IconWarning("No se ha detectado ningun cambio.")
+            );
+            $(".Add_drug").removeClass("d-none").hide().fadeIn(400);
+        }
+    });
+}
+
+/*
+    Funcion para extraer los datos de smoking y mandarlos a la funcin para calculo del riesgo
+*/
+function smoking() {
+    $("#desdeCuandoFuma").on("change", function () {
+        let desde = $("#desdeCuandoFuma").val().trim();
+        $("#cantidadCigarros").on("change", function () {
+            let cantidad = $("#cantidadCigarros").val().trim();
+            Risk(desde, cantidad);
+        });
+    });
+}
+
+/*
+    Funcion para hacer el calculo y mostrar el riesgo
+*/
+
+function Risk(tiempo, cantidad) {
+    let result = (cantidad * tiempo) / 20;
+    let riskEPOCGlobal = riskEPOCresult(result);
+    console.log(riskEPOCGlobal);
+    $("#riegoEPOC").html(riskEPOCGlobal.html);
+}
+
+/*
+    Mostrar en tiempo real el calculo
+*/
+function riskEPOCresult(result) {
+    if (result < 10)
+        return {
+            text: "Nulo",
+            html: '<span class="badge-custom badge-custom-success">Nulo</span>',
+        };
+    if (result >= 10 && result <= 20)
+        return {
+            text: "Moderado",
+            html: '<span class="badge-custom badge-custom-moderade">Moderado</span>',
+        };
+    if (result > 20 && result < 41)
+        return {
+            text: "Intenso",
+            html: '<span class="badge-custom badge-custom-warning">Intenso</span>',
+        };
+    if (result > 40)
+        return {
+            text: "Alto",
+            html: '<span class="badge-custom badge-custom-danger">Alto</span>',
+        };
+
+    return "Sin dato";
+}
+
+function ClicSaveDrugs(opc, Id) {
+    $("#saveDrugs").off("click");
+    $("#saveDrugs").on("click", function () {
+        if (opc == 1) {
+            //Smoking
+            let desde = $("#desdeCuandoFuma").val().trim();
+            let cantidad = $("#cantidadCigarros").val().trim();
+
+            let V_desde = validarCampo(
+                desde,
+                RegexPositiveNumer,
+                "#desdeCuandoFuma"
+            );
+            let V_cantidad = validarCampo(
+                cantidad,
+                RegexPositiveNumer,
+                "#cantidadCigarros"
+            );
+
+            if (V_cantidad && V_desde) {
+                console.log("Todo bien");
+            }
+        } else {
+            let desde = $("#desdeCuandoOtros").val().trim();
+            let descripcion = $("#descripcionOtros").val().trim();
+
+            let V_desde = validarCampo(
+                desde,
+                RegexPositiveNumer,
+                "#desdeCuandoOtros"
+            );
+            let V_descripcion = validarCampo(
+                descripcion,
+                regexDescription,
+                "#descripcionOtros"
+            );
+
+              if (V_desde && V_descripcion) {
+                  console.log("Todo bien");
+              }
+        }
     });
 }

@@ -91,3 +91,27 @@ input:checked + .label-check {
   text-decoration: none;
   cursor: pointer;
 }
+
+/* Custom Badges */
+
+.badge-custom{
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.badge-custom-warning {
+    background-color: #FF661A;
+}
+
+.badge-custom-danger {  
+    background-color: #FF0000;
+}
+
+.badge-custom-moderade {
+    background-color: #5a5a5a;
+}
+
+.badge-custom-success {
+    background-color: #0AA760 ;
+}

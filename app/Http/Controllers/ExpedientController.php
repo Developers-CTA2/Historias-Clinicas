@@ -13,8 +13,7 @@ use App\Models\Domicilio;
 use App\Models\Escolaridad;
 use App\Models\Hemotipo;
 use App\Models\Rep_estado;
-
-
+use App\Models\Toxicomanias;
 
 class ExpedientController extends Controller
 {
@@ -65,6 +64,7 @@ class ExpedientController extends Controller
         $rep_estados = Rep_estado::all();
         $hemotipos = Hemotipo::all();
         $escolaridades = Escolaridad::all();
+        $Toxicomanias = Toxicomanias::all();
 
         //return response()->json($escolaridad);
 
@@ -73,7 +73,7 @@ class ExpedientController extends Controller
             ['name' => 'Expediente', '' => ''],
 
         ];
-        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades'));
+        return view('patients.expediente', compact('breadcrumbs',  'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
     }
 
     /*  

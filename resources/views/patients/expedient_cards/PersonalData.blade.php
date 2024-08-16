@@ -422,7 +422,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             {{-- Botones  --}}
 
             @role('Administrador')
