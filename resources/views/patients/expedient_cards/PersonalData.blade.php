@@ -8,14 +8,25 @@
             @role('Administrador')
                 <div class="d-flex justify-content-between">
                     <div>
-                        <div class="p-0 m-0  personal-data d-none animate__animated animate__fadeInUp">
+                        <div class="p-0 m-0 personal-data d-none animate__animated animate__fadeInUp">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
+                                role="alert">
+                                <p class="p-2 mb-0 me-3 P-data">
+                                </p>
+
+                            </div>
+                        </div>
+
+
+
+                        {{-- <div class="p-0 m-0   d-none animate__animated animate__fadeInUp">
                             <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
                                 role="alert">
                                 <p class="p-2 mb-0 me-3 text-alert">
                                 </p>
 
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="toggle tooltip-container">
                         <input type="checkbox" id="Edit-personal">
@@ -57,17 +68,14 @@
                                 <p class="fw-bold mb-0">Genero:</p>
                                 <div class="mt-0 W-data" id="gender"> {{ $Personal->sexo }} </div>
 
+                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">                                  
 
-
-                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                    {{-- <label for="new_gender">Genero: </label>
-                                    <input class="form-control form-disabled" type="text" name="new_gender"
-                                        id="new_gender" maxlength="9"> --}}
-
-                                    <label for="new_gender">Genero: <span class="red-color"> *</span></label>
+                                    <label for="new_gender">Género: <span class="red-color"> *</span></label>
                                     @php
+                                    
                                         $Male = $Personal->sexo == 'Masculino' ? 'selected' : '';
-                                        $Female = $Personal->sex === 'Femenino' ? 'selected' : '';
+                                        $Female = $Personal->sexo === 'Femenino' ? 'selected' : '';
+ 
                                     @endphp
 
                                     <select class="form-control" id="new_gender" name="new_gender">
@@ -75,7 +83,7 @@
                                         <option value="2" {{ $Female }}> Femenino </option>
                                     </select>
 
-                                    <span class="text-danger fw-normal" style=" display: none;">Genero no válido.</span>
+                                    <span class="text-danger fw-normal" style=" display: none;">Género no válido.</span>
                                 </div>
 
                             </div>
@@ -120,8 +128,9 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
                                 <p class="fw-bold mb-0">Escolaridad:</p>
-                                <div class="mt-0 W-data" > {{ $Personal->escolaridad->nombre }} </div>
-                                <div class="mt-0 W-data d-none" id="escolaridad"> {{ $Personal->escolaridad->id_escolaridad }} </div>
+                                <div class="mt-0 W-data"> {{ $Personal->escolaridad->nombre }} </div>
+                                <div class="mt-0 W-data d-none" id="escolaridad">
+                                    {{ $Personal->escolaridad->id_escolaridad }} </div>
 
                                 <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
                                     <label for="new_escolaridad">Escolaridad: <span class="red-color"> *</span></label>
@@ -288,17 +297,7 @@
                                     <div class="mt-0 W-data">
                                         {{ $domicilio->rep_estado->nombre ?? '--' }} </div>
                                     <div class="mt-0 d-none" id="state">
-                                        {{ $domicilio->rep_estado->id_estado}} </div>
-
-                                    {{-- <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_state">Estado: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_state"
-                                            id="new_state" value="{{ $domicilio->estado }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Estado no
-                                            válido.</span>
-                                    </div> --}}
-
+                                        {{ $domicilio->rep_estado->id_estado }} </div>
 
                                     <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
                                         <label for="new_state">Estado: <span class="red-color">
@@ -316,7 +315,7 @@
                                             @endforeach
                                         </select>
 
-                                         <span class="text-danger fw-normal" style=" display: none;">Estado no
+                                        <span class="text-danger fw-normal" style=" display: none;">Estado no
                                             válido.</span>
                                     </div>
 
@@ -410,7 +409,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             {{-- Botones  --}}
 
             @role('Administrador')

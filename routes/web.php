@@ -97,16 +97,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [ProfileController::class, 'changePass'])->name('change-password');
     });
 
+
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientsController::class, 'index'])->name('patients.index');
        // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
-        Route::get('/expediente/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.expediente');
+        Route::get('/medical_record/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
-        Route::post('/expediente/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
-        Route::post('/expediente/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
-        Route::post('/expediente/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
+        Route::post('/medical_record/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+        Route::post('/medical_record/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
+        Route::post('/medical_record/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
+        Route::post('/medical_record/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
 
         // Route::get('/expediente{/id}', function ($id) {
         //     return view('admin.expediente');

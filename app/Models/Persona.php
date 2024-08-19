@@ -97,7 +97,7 @@ class Persona extends Model
 
     public function hemotipo()
     {
-        return $this->hasOne(Hemotipo::class, 'hemotipo_id', 'id_hemotipo');
+        return $this->hasOne(Hemotipo::class, 'id_hemotipo', 'hemotipo_id' );
     }
 
     public function escolaridad()
