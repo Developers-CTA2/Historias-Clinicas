@@ -2,6 +2,8 @@ import { Modal } from "bootstrap";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
 import { regexNumero } from "../../helpers/Regex.js";
 import { IconInfo, IconWarning } from "../../templates/ExpedientTemplate.js";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 
 $(document).ready(function () {
     console.log("Editar AHF");
