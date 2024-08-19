@@ -3,7 +3,7 @@
 <div class="row d-none form-step animate__animated animate__fadeInUp">
     <div class="col-12">
 
-        <div class="nav nav-pills mb-3" role="tablist" aria-orientation="vertical">
+        <div class="nav nav-pills mb-3 justify-content-center justify-content-lg-start" role="tablist" aria-orientation="vertical">
             <x-item-tab id="datapersonal-tab-pane" name="Datos personales" :active=true>
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20">
                     <g fill="none" stroke="#0284c7" stroke-linecap="round">

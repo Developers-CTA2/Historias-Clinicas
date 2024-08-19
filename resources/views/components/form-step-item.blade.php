@@ -1,6 +1,6 @@
 @props(['active' => false])
 <div class="col-2 p-0 m-0">
-    <div class="step-group d-flex flex-column align-items-center">
+<div class="step-group d-flex flex-column align-items-center">
         <div class="step-progress">
             <span class="step-circle {{$active ? 'active' : ''}}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

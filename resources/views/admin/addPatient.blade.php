@@ -3,7 +3,7 @@
 @section('title', 'Agregar nuevo paciente')
 
 @section('viteConfig')
-    @vite(['resources/sass/add-patients.scss', 'resources/sass/form-style.scss','resources/sass/steps-bar.scss'])
+    @vite(['resources/sass/add-patients.scss', 'resources/sass/form-style.scss', 'resources/sass/steps-bar.scss'])
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
 @endsection
@@ -13,11 +13,11 @@
 
 
     {{-- Select type Person --}}
-    <div class="container max-w-custom" >
+    <div class="container max-w-custom">
         <x-type-person />
 
-        <div class="container m-0 d-none mb-2 m-" id="containerFatherForm">
-            <div class="d-flex justify-content-between align-items-center">
+        <div class="row- m-0 d-none mb-2 m-" id="containerFatherForm">
+            <div class="col-12 d-flex justify-content-between align-items-center">
                 <div>
                     <h4 class="fw-bold">Dar de alta a un paciente</h4>
                     <h6>Ingresa los datos correspondientes del paciente</h6>
@@ -37,41 +37,42 @@
                     Errores</button>
             </div>
 
-            <div class="row justify-content-center px-0 d-flex justify-content-center">
+            <div class="col-12 px-0 d-flex justify-content-center">
 
-    
-                <div class="row">
+                <div class="container">
+                    <div class="row">
 
-                    <div class="col-12 bg-content-custom shadow-custom p-3 mb-4">
-                        {{-- Steps progress --}}
-                        <x-form-step-container />
+                        <div class="col-12 bg-content-custom shadow-custom p-3 mb-4">
+                            {{-- Steps progress --}}
+                            <x-form-step-container />
 
-                    </div>
+                        </div>
 
-                    <div class="col-12 content-custom person-data">
-                        
-                        {{-- Form Container --}}
+                        <div class="col-12 content-custom person-data">
 
-                        <x-data-personal-add-patient :hemotipos="$hemotipos" :escolaridades="$escolidades" :estados="$estados" />
+                            {{-- Form Container --}}
 
-                        {{-- AHF Data --}}
-                        <x-data-diseases-add-patient :enfermedades="$enfermedades" />
+                            <x-data-personal-add-patient :hemotipos="$hemotipos" :escolaridades="$escolidades" :estados="$estados" />
 
-                        {{-- ANP Data --}}
-                        <x-data-drugs-addiction-add-patient :toxicomania="$toxicomania" />
+                            {{-- AHF Data --}}
+                            <x-data-diseases-add-patient :enfermedades="$enfermedades" />
 
-                        {{-- APP Data --}}
-                        <x-data-app-add-patient :enfermedades="$enfermedades" :alergias="$alergias" />
+                            {{-- ANP Data --}}
+                            <x-data-drugs-addiction-add-patient :toxicomania="$toxicomania" />
 
-                        {{-- Ginecologia y obstetricia --}}
-                        <x-data-gyo-add-patient />
+                            {{-- APP Data --}}
+                            <x-data-app-add-patient :enfermedades="$enfermedades" :alergias="$alergias" />
+
+                            {{-- Ginecologia y obstetricia --}}
+                            <x-data-gyo-add-patient />
 
 
-                        <div class="row mt-3 justify-content-end text-end">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-secondary-custom" id="prevStep">Regresar</button>
-                                <button type="button" class="btn btn-primary" id="nextStep">Siguiente</button>
-                                <button type="button" class="btn btn-primary d-none" id="sendForm">Enviar</button>
+                            <div class="row mt-3 justify-content-end text-end">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-secondary-custom" id="prevStep">Regresar</button>
+                                    <button type="button" class="btn btn-primary" id="nextStep">Siguiente</button>
+                                    <button type="button" class="btn btn-primary d-none" id="sendForm">Enviar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
