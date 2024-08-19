@@ -370,7 +370,7 @@
                         </x-slot>
 
                         <x-slot name="input">
-                            <input class="form-control" maxlength="5" type="number" id="colonia"
+                            <input class="form-control" maxlength="5" type="text" id="colonia"
                                 name="colonia">
                         </x-slot>
 
@@ -455,7 +455,7 @@
                         </x-slot>
 
                         <x-slot name="input">
-                            <input type="number" id="num_int" name="num_int" min="0"
+                            <input type="text" id="num_int" name="num_int" min="0"
                                 class="form-control" />
                         </x-slot>
 
