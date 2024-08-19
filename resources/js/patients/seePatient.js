@@ -89,7 +89,7 @@ $(function () {
                             }, [
                                 h('a', {
                                     className: 'btn btn-primary expediente',
-                                    href: `/patients/expediente/${row.cells[0].data}`
+                                    href: `/patients/medical_record/${row.cells[0].data}`
                                 }, 'Expediente')
                             ])
 
