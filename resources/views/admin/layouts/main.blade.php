@@ -17,7 +17,7 @@
     @yield('viteConfig')
 
     <!-- Cargar scripts que utilizan jQuery y Bootstrap -->
-    @vite(['resources/sass/sideBar.scss',  'resources/js/modal.js', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/SideBar.js'])
+    @vite(['resources/sass/sideBar.scss',  'resources/js/modal.js', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/SideBar.js','resources/sass/main.scss'])
     <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
 
 </head>

@@ -1,6 +1,6 @@
 @props(['toxicomania'])
 {{-- Antecedentes no patológicos --}}
-<div class="row pb-3 mt-4 apnp-data d-none form-step animate__animated animate__fadeInUp">
+<div class="row p-3 apnp-data d-none form-step animate__animated animate__fadeInUp bg-content-custom shadow-custom">
     <div class="row pt-1">
         <div class="col-12 content-custom">
             <div class="row">
@@ -94,7 +94,7 @@
                             <h5 class="text-center">Toxicomanias seleccionadas</h5>
                             <div class="hr-custom"></div>
                             <div
-                                class="row d-flex justify-content-center justify-content-lg-start mt-3">
+                                class="row d-flex justify-content-center justify-content-lg-start mt-3 mx-2">
                                 <div class="form-group container-list-custom">
                                     <div class="accordion mt-2 list-dependencies-custom"
                                         id="listDrugAddictionSelected"></div>

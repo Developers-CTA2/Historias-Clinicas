@@ -61,12 +61,6 @@ let activeSendButton = false;
 let typePerson = null;
 let templateErrors = '';
 
-const dataPersonWebService = {
-    code: '',
-    name : '',
-    dependency : ''
-}
-
 
 $(function () {
 
@@ -74,6 +68,7 @@ $(function () {
     const btnCardUdgPerson = $('#udgPerson');
     const btnCardexternalPerson = $('#externalPerson');
     const btnNextPersonUdg = $('#nextPersonUdg');
+    const btnSearchCode = $('#searchCode');
     const btnPrevStep = $('#prevStep');
     const btnNextStep = $('#nextStep');
     const btnSendForm = $('#sendForm');
@@ -210,8 +205,6 @@ $(function () {
     const btnErrorList = $('#errorList');
 
 
-
-
     selectDisease.select2({
         theme: 'bootstrap-5',
         selectionCssClass: "select2--base",
@@ -257,88 +250,218 @@ $(function () {
 
         prevCode = valueCode;
 
-        if (valueCode.length !== 7 && valueCode.length !== 9) {
-            alertCodePerson.text('La estructura es incorrecta, el código debe ser de 7 o 9 números.').addClass('alert-danger').removeClass('d-none');
+        if (!isValidateCodeLength(valueCode)) {
+            showAlertError('La estructura es incorrecta, el código debe ser de 7 o 9 números.', 'alert-danger');
             $(this).addClass('border-danger');
 
             return;
         }
 
+        resetAlertAndData();
+        typePerson = getTypePerson(valueCode);
+
+
+
+        // Request for get person data
+        getPerson({ code: valueCode, type: typePerson }).then(handlePersonData).catch(handleError)
+
+    });
+
+    btnSearchCode.on('click', function () {
+
+        console.log('click');
+        const valueCode = inputCode.val().trim();
+
+        if (prevCode == valueCode) return;
+
+        prevCode = valueCode;
+
+        if (!isValidateCodeLength(valueCode)) {
+            showAlertError('La estructura es incorrecta, el código debe ser de 7 o 9 números.', 'alert-danger');
+            inputCode.addClass('border-danger');
+            return;
+        }
+
+        resetAlertAndData();
+        typePerson = getTypePerson(valueCode);
+
+        // Request for get person data
+        getPerson({ code: valueCode, type: typePerson }).then(handlePersonData).catch(handleError)
+    })
+
+
+    /* Logic for handling a person belonging to the UDG */
+    const isValidateCodeLength = (code) => code.length == 7 || code.length == 9;
+
+
+
+    const resetAlertAndData = () => {
         // Remove alert class and border danger
         alertCodePerson.removeClass('alert-danger alert-info').addClass('d-none');
-        $(this).removeClass('border-danger');
+        inputCode.removeClass('border-danger');
         containerDataPerson.addClass('d-none');
 
         // Empty code
         patientData.code = '';
         patientData.name = '';
         patientData.career = '';
+        patientData.gender = null;
+        patientData.birthdate = '';
+        patientData.scholarship = null;
 
-        // Empty data person web service
-        dataPersonWebService.code = '';
-        dataPersonWebService.dependency = '';
-        dataPersonWebService.name = '';
-
-        typePerson = valueCode.length == 7 ? typePerson = 1 : typePerson = 2;
-
-
-        // Request for get person data
-        getPerson({ code: valueCode , type : typePerson}).then(({data}) => {
-
-            console.log(data);
-
-            if(typePerson == 1){
-                const { codigo, nombramiento,nombre } = data.worker;
-                dataPersonWebService.code = codigo;
-                dataPersonWebService.dependency = nombramiento;
-                dataPersonWebService.name = nombre;
-
-            }else{
-                const { codigo, carrera, nombre } = data.student;
-                dataPersonWebService.code = codigo;
-                dataPersonWebService.dependency = carrera;
-                dataPersonWebService.name = nombre;
-            }
-
-            patientData.code = dataPersonWebService.code;
-            patientData.name = dataPersonWebService.name;
-            patientData.career = dataPersonWebService.dependency;
-            namePerson.text(dataPersonWebService.name);
-            careerPerson.text(dataPersonWebService.dependency);
+        // Reset inputs and selects
+        inputCodePD.val('').attr('disabled', false);
+        inputNamePD.val('').attr('disabled', false);
+        inputCareerPD.val('').attr('disabled', false);
+        selectGender.val('').attr('disabled', false);
+        inputScholarship.val('').attr('disabled', false);
+        inputBirthDate.val('').attr('disabled', false);
 
 
+        typePerson = null;
+    }
 
-            containerDataPerson.removeClass('d-none');
+    // Get person Worker or Student
+    const getTypePerson = (code) => code.length == 7 ? 1 : 2;
+
+    const handlePersonData = ({ data }) => {
+        console.log(data, typePerson);
+        if (typePerson == 1) {
+            const { codigo, nombramiento, nombre, fecha_nacimiento, sexo, ultimo_grado } = data.worker;
+
+            const adicionalData = formatToId(sexo, ultimo_grado, fecha_nacimiento);
+            setPersonData(codigo, nombre, nombramiento, adicionalData);
 
 
+        } else {
+
+            const { codigo, carrera, nombre } = data.student;
+            setPersonData(codigo, nombre, carrera);
+        }
 
 
-        }).catch((error) => {
-            const { message, status } = error;
-            console.log(error);
-            alertCodePerson.text(message.message);
-            status == 404 ? alertCodePerson.addClass('alert-info') : alertCodePerson.addClass('alert-danger');
-            alertCodePerson.removeClass('d-none');
-            namePerson.text('-');
-            careerPerson.text('-');
-        })
+    }
 
-    });
+    const setPersonData = (code, name, dependency, adicionalData = {}) => {
+        patientData.code = code;
+        patientData.name = name;
+        patientData.career = dependency;
+
+
+        if (adicionalData.sexo) {
+            const { sexo, grado, fecha_nacimiento } = adicionalData;
+            patientData.gender = sexo;
+            patientData.scholarship = grado;
+            patientData.birthdate = fecha_nacimiento;
+        }
+
+        updateUI(name, dependency);
+    }
+
+    const formatToId = (sexo, grado, fecha_nacimiento) => {
+
+        let sexoId = null;
+        let gradoId = null;
+
+        switch (sexo) {
+            case 'Masculino':
+                sexoId = 1;
+                break;
+            case 'Femenino':
+                sexoId = 2;
+                break;
+            default:
+                sexoId = null;
+                break;
+        }
+
+        switch (grado) {
+            case 'Primaria':
+                gradoId = 2;
+                break;
+            case 'Secundaria':
+                gradoId = 3;
+                break;
+            case 'Preparatoria':
+                gradoId = 4;
+                break;
+            case 'Licenciatura/Ingeniería':
+                gradoId = 5;
+                break;
+            case 'Maestría':
+                gradoId = 6;
+                break;
+            case 'Doctorado':
+                gradoId = 7;
+                break;
+            default:
+                gradoId = null;
+                break;
+        }
+
+        return {
+            sexo: sexoId,
+            grado: gradoId,
+            fecha_nacimiento
+        }
+
+    }
+
+    const updateUI = (name, dependency) => {
+        namePerson.text(name);
+        careerPerson.text(dependency);
+        containerDataPerson.removeClass('d-none');
+    }
+
+    const updateUIFormPersonData = () => {
+
+        // If the person is a worker
+        if (patientData.gender) {
+            selectGender.val(patientData.gender).trigger('change').attr('disabled', true);
+            inputScholarship.val(patientData.scholarship).trigger('change').attr('disabled', true);
+            inputBirthDate.val(patientData.birthdate).attr('disabled', true);
+        }
+
+        inputCodePD.val(patientData.code).attr('disabled', true);
+        inputNamePD.val(patientData.name).attr('disabled', true);
+        inputCareerPD.val(patientData.career).attr('disabled', true);
+
+        // Show form for person data
+        containerFatherForm.removeClass('d-none');
+    }
+
+    // Handle error for request person
+    const handleError = (error) => {
+        const { message, status } = error;
+        console.log(error);
+        showAlertError(message.error.data.message, status == 404 || message.error.status == 400 ? 'alert-info' : 'alert-danger');
+        namePerson.text('-');
+        careerPerson.text('-');
+    };
+
+    const showAlertError = (message, alertClass) => {
+        alertCodePerson.text(message)
+            .addClass(alertClass)
+            .removeClass('d-none');
+    }
+
 
     // Next for step 2
     btnNextPersonUdg.on('click', function () {
 
         containerPersonSelect.addClass('d-none');
         if (patientData.code !== '') {
-            inputCodePD.val(patientData.code).attr('disabled', true);
-            inputNamePD.val(patientData.name).attr('disabled', true);
-            inputCareerPD.val(patientData.career).attr('disabled', true);
 
-            containerFatherForm.removeClass('d-none');
+            updateUIFormPersonData();
+
             formSteps.first().removeClass('d-none');
             stepCicles.first().addClass('active');
 
             patientData.type = 'udg';
+
+            setTimeout(() => {
+                inputNamePD.focus(); // Remove focus
+            }, 1000);
 
             steps = 1;
         }
@@ -364,6 +487,9 @@ $(function () {
 
         patientData.type = 'external';
 
+        setTimeout(() => {
+            inputNamePD.focus(); // Remove focus
+        }, 1000);
 
         steps = 1;
     });
@@ -406,10 +532,6 @@ $(function () {
             getDataFirstStepValues();
 
             if (!validateStepFormOne(patientData, elements)) return;
-
-            console.log('Validado');
-
-
         }
 
 
@@ -421,8 +543,6 @@ $(function () {
         }
 
         steps++;
-
-
 
 
         if (steps > formSteps.length) steps = formSteps.length;
@@ -446,12 +566,9 @@ $(function () {
 
             sendDataForm();
 
-
         }
 
-        console.log(patientData);
-
-
+ 
     });
 
 

@@ -3,13 +3,16 @@ import Tagify from '@yaireo/tagify'
 import "quill/dist/quill.snow.css";
 import '@yaireo/tagify/dist/tagify.css'
 
-import { 
-    vitalSigns, options, 
-    getAllSpecificDiseases, 
-    AlertErrorConsultation, 
-    validateQuill,DomPurify, 
-    requestPostConsultation } from '../helpers';
+import {
+    vitalSigns, options,
+    getAllSpecificDiseases,
+    AlertErrorConsultation,
+    validateQuill, DomPurify,
+    requestPostConsultation
+} from '../helpers';
 import { templateArrayDiseases } from '../templates'
+import { btnUpScreenFunction } from '../components';
+import { Swal } from 'sweetalert2/dist/sweetalert2';
 
 let diagnosticLabels = [];
 let dataDiseases = [];
@@ -17,34 +20,45 @@ let dataDiseases = [];
 
 const configTagify = () => {
 
-
     getAllSpecificDiseases().then(data => {
-        
+
         const input = document.querySelector('#enfermedades'),
-            
-        // init Tagify script on the above inputs
+
+            // init Tagify script on the above inputs
             tagify = new Tagify(input, {
                 enforceWhitelist: true,
                 delimiters: null,
                 whitelist: templateArrayDiseases(data),
                 callbacks: {
-                    add: function(e){
-                        diagnosticLabels.push({id : e.detail.data.id});                        
+                    add: function (e) {
+                        diagnosticLabels.push({ id: e.detail.data.id });
                     },
-                    remove: function(e){
+                    remove: function (e) {
                         diagnosticLabels = diagnosticLabels.filter(disease => disease.id !== e.detail.data.id);
-                    }
+                    },
                 },
 
             });
     });
 
-    
-
-    
-
 };
 
+const confirmationAlertCancel = () => {
+    Swal.fire({
+        title: '¿Estás seguro de cancelar la consulta?',
+        text: "No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, cancelar!',
+        cancelButtonText: 'No, seguir aquí!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.href = '/patients';
+        }
+    })
+}
 
 
 
@@ -52,10 +66,10 @@ $(function () {
 
     configTagify();
 
-    
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
+    const btnCancelConsultation = $('#cancelConsultation');
 
     // Inputs
     const inputFrecuenciaCardiaca = $('#fcIpm');
@@ -79,10 +93,13 @@ $(function () {
     const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
     const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
-    btnSaveConsultation.on('click', function () {
-        
-    })
+    // Active button for up screen
+    btnUpScreenFunction();
 
+    // Button for cancel consultation
+    btnCancelConsultation.on('click', function () {
+        confirmationAlertCancel();
+    })
 
     btnSaveConsultation.on('click', function () {
 
@@ -95,8 +112,8 @@ $(function () {
             return;
         }
 
-        const {listWarnings, validate } = validateQuill(dataQuill);
-        if(!validate){
+        const { listWarnings, validate } = validateQuill(dataQuill);
+        if (!validate) {
             AlertErrorConsultation('Error..!', listWarnings);
             return;
         }
@@ -104,18 +121,25 @@ $(function () {
 
 
         const id_person = $(this).data('id');
-        requestPostConsultation({...dataVitalSigns,...dataQuill, diagnosticLabels : listDiseases}, id_person)
-                .then(data=>{
-                    console.log(data);
-                }).catch(error=>{
-                    console.log(error);
-                })
+        requestPostConsultation({ ...dataVitalSigns, ...dataQuill, diagnosticLabels: listDiseases }, id_person)
+            .then(data => {
+                Swal.fire({
+                    title: 'Consulta guardada',
+                    text: 'La consulta ha sido guardada con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    location.href = '/patients';
+                });
+            }).catch(error => {
+                console.log(error);
+            })
 
 
     })
 
 
-    
+
 
 
     const getDataVitalSigns = () => {

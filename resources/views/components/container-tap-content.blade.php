@@ -2,7 +2,7 @@
 <div class="tab-content" id="tab-content-app">
 
     {{-- Enfermedades --}}
-    <x-item-content-tab-pane id="diseases-tab-pane" active="true">
+    <x-item-content-tab-pane id="diseases-tab-pane" :active="true">
         <div class="form-group " id="enfermedad-container">
             <label for="enfermedad" class="pb-1">Enfermedades</label>
             <select class="form-control" name="enfermedadPersonal" id="enfermedadPersonal">
@@ -24,7 +24,7 @@
 
 
     {{-- Alergias --}}
-    <x-item-content-tab-pane id="alergias-tab-pane" active="false">
+    <x-item-content-tab-pane id="alergias-tab-pane" :active="false">
         <div class="form-group mt-2" id="enfermedad-container">
             <label for="enfermedad" class="pb-1">Alergias</label>
             <select class="form-control" name="alergias" id="alergias">
@@ -52,7 +52,7 @@
 
 
     {{-- Hospitalizaciones --}}
-    <x-item-content-tab-pane id="hospitalizaciones-tab-pane" active="false">
+    <x-item-content-tab-pane id="hospitalizaciones-tab-pane" :active="false">
         <div class="form-group mb-2">
             <label for="fecha_H">Fecha:</label>
             <input class="form-control" type="date" name="fecha_H"
@@ -69,7 +69,7 @@
     </x-item-content-tab-pane>
 
     {{-- Cirugías --}}
-    <x-item-content-tab-pane id="cirugias-tab-pane" active="false">
+    <x-item-content-tab-pane id="cirugias-tab-pane" :active="false">
         <div class="form-group  mb-2">
             <label for="fecha_C">Fecha:</label>
             <input class="form-control" type="date" name="fecha_C"
@@ -87,7 +87,7 @@
     </x-item-content-tab-pane>
 
     {{-- Transfusiones --}}
-    <x-item-content-tab-pane id="transfusiones-tab-pane" active="false">
+    <x-item-content-tab-pane id="transfusiones-tab-pane" :active="false">
         <div class="form-group mb-2">
             <label for="fecha_TF">Fecha:</label>
             <input class="form-control" type="date" name="fecha_TF"
@@ -103,7 +103,7 @@
     </x-item-content-tab-pane>
 
     {{-- Traumatismo --}}
-    <x-item-content-tab-pane id="traumatismos-tab-pane" active="false">
+    <x-item-content-tab-pane id="traumatismos-tab-pane" :active="false">
         <div class="form-group mb-2">
             <label for="fecha_TU">Fecha:</label>
             <input class="form-control" type="date" name="fecha_TU"

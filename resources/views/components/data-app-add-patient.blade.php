@@ -2,7 +2,7 @@
 
 {{-- Antecedentes patológicos --}}
 
-<div class="row form-step d-none animate__animated animate__fadeInUp">
+<div class="row p-3 form-step d-none animate__animated animate__fadeInUp bg-content-custom shadow-custom">
     <div class="col-xl-7 col-xxl-6 col-sm-12">
 
         <div class="d-flex justify-content-between my-1">
@@ -38,7 +38,7 @@
             <h5>Lista de Antecedentes patológicos</h5>
         </div>
         <div class="hr-custom"></div>
-        <div class="row d-flex justify-content-center justify-content-lg-start mt-4">
+        <div class="row d-flex justify-content-center justify-content-lg-start mt-4 mx-2">
             <div class="form-group container-list-custom">
                 <div class="accordion mt-2 mb-2 list-dependencies-custom" id="listPathologicalHistory">
                 </div>
