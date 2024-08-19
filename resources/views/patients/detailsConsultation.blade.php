@@ -3,7 +3,7 @@
 @section('title', 'Detalles')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/main.scss', 'resources/sass/history-consultation.scss'])
+    @vite(['resources/sass/form-style.scss'])
 @endsection
 
 
@@ -28,23 +28,23 @@
                                 <div class="col-12 col-lg-6">
                                     <div class="d-flex">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="12" cy="7" r="5"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 14h.352a3 3 0 0 1 2.976 2.628l.391 3.124A2 2 0 0 1 18.734 22H5.266a2 2 0 0 1-1.985-2.248l.39-3.124A3 3 0 0 1 6.649 14H7"/></g></svg>
-                                        <h5 class="fw-bold mb-2">Fecha de identificación</h5>
+                                        <h5 class="fw-bold mb-2 text-muted">Fecha de identificación</h5>
                                     </div>
-                                    <p class="m-0"><span class="fw-bold me-2">Código : </span>{{ $person->codigo }}</p>
-                                    <p class="m-0"><span class="fw-bold me-2">Nombre : </span>{{ $person->nombre }}</p>
-                                    <p class="m-0"><span class="fw-bold me-2">Edad : </span>{{ $person->edad }} años</p>
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Código : </span>{{ $person->codigo }}</p>
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Nombre : </span>{{ $person->nombre }}</p>
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Edad : </span>{{ $person->edad }} años</p>
                                 </div>
 
                                 <div class="col-12 col-lg-6">
                                     <div class="d-flex">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="25" height="25" viewBox="0 0 48 48"><path fill="#0891b2" fill-rule="evenodd" d="M14.433 33.442a3 3 0 1 0 1.96-.416a9 9 0 0 1-.103-.405a20 20 0 0 1-.32-1.87a17 17 0 0 1-.14-1.914a7 7 0 0 1 .015-.527q.577-.166 1.155-.297c.441-.1.703.42.914.842l.086.169h11.749c.229-.434.748-1.126 1.251-1.011q.806.184 1.609.433l-.003.001q-.003-.003 0 .002c.004.014.026.08.048.22q.038.244.05.625c.014.504-.015 1.117-.074 1.735c-.06.617-.149 1.214-.249 1.685q-.033.157-.066.286H31a1 1 0 0 0-.894.553l-1 2A1 1 0 0 0 29 36v2a1 1 0 0 0 1 1h2v-2h-1v-.764L31.618 35h2.764L35 36.236V37h-1v2h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-.106-.447l-1-2A1 1 0 0 0 35 33h-.636c.107-.533.196-1.155.256-1.779c.066-.674.1-1.373.083-1.983l-.001-.028C38.69 30.895 42 33.666 42 36.57V42H6v-5.43c0-3.032 3.61-5.92 7.831-7.577c.011.622.07 1.325.155 2.006c.092.735.217 1.466.355 2.068q.045.193.092.375M16 37.015c.538 0 1-.44 1-1.015c0-.574-.462-1.015-1-1.015s-1 .44-1 1.015c0 .574.462 1.015 1 1.015M24 24a8 8 0 1 0 0-16a8 8 0 0 0 0 16m0 2c5.523 0 10-4.477 10-10S29.523 6 24 6s-10 4.477-10 10s4.477 10 10 10" clip-rule="evenodd"/></svg>
-                                        <h5 class="fw-bold mb-2">Atendido por</h5>
+                                        <h5 class="fw-bold mb-2 text-muted">Atendido por</h5>
                                     </div>
-                                    <p class="m-0"><span class="fw-bold me-2">Nombre :
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Nombre :
                                         </span>{{ auth()->user()->name }}</p>
-                                    <p class="m-0"><span class="fw-bold me-2">Cédula :
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Cédula :
                                         </span>{{ auth()->user()->cedula ?? 'No tiene' }}</p>
-                                    <p class="m-0"><span class="fw-bold me-2">Fecha de consulta : </span>{{ $consulta->fecha }}</p>
+                                    <p class="m-0"><span class="fw-bold me-2 text-muted">Fecha de consulta : </span>{{ $consulta->fecha }}</p>
                                 </div>
                             </div>
 

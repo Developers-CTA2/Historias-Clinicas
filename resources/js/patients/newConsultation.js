@@ -3,13 +3,15 @@ import Tagify from '@yaireo/tagify'
 import "quill/dist/quill.snow.css";
 import '@yaireo/tagify/dist/tagify.css'
 
-import { 
-    vitalSigns, options, 
-    getAllSpecificDiseases, 
-    AlertErrorConsultation, 
-    validateQuill,DomPurify, 
-    requestPostConsultation } from '../helpers';
+import {
+    vitalSigns, options,
+    getAllSpecificDiseases,
+    AlertErrorConsultation,
+    validateQuill, DomPurify,
+    requestPostConsultation
+} from '../helpers';
 import { templateArrayDiseases } from '../templates'
+import { btnUpScreenFunction } from '../components';
 import { Swal } from 'sweetalert2/dist/sweetalert2';
 
 let diagnosticLabels = [];
@@ -19,21 +21,21 @@ let dataDiseases = [];
 const configTagify = () => {
 
     getAllSpecificDiseases().then(data => {
-        
+
         const input = document.querySelector('#enfermedades'),
-            
-        // init Tagify script on the above inputs
+
+            // init Tagify script on the above inputs
             tagify = new Tagify(input, {
                 enforceWhitelist: true,
                 delimiters: null,
                 whitelist: templateArrayDiseases(data),
                 callbacks: {
-                    add: function(e){
-                        diagnosticLabels.push({id : e.detail.data.id});                        
+                    add: function (e) {
+                        diagnosticLabels.push({ id: e.detail.data.id });
                     },
-                    remove: function(e){
+                    remove: function (e) {
                         diagnosticLabels = diagnosticLabels.filter(disease => disease.id !== e.detail.data.id);
-                    }
+                    },
                 },
 
             });
@@ -64,7 +66,6 @@ $(function () {
 
     configTagify();
 
-    
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
@@ -92,7 +93,10 @@ $(function () {
     const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
     const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
- 
+    // Active button for up screen
+    btnUpScreenFunction();
+
+    // Button for cancel consultation
     btnCancelConsultation.on('click', function () {
         confirmationAlertCancel();
     })
@@ -108,8 +112,8 @@ $(function () {
             return;
         }
 
-        const {listWarnings, validate } = validateQuill(dataQuill);
-        if(!validate){
+        const { listWarnings, validate } = validateQuill(dataQuill);
+        if (!validate) {
             AlertErrorConsultation('Error..!', listWarnings);
             return;
         }
@@ -117,18 +121,25 @@ $(function () {
 
 
         const id_person = $(this).data('id');
-        requestPostConsultation({...dataVitalSigns,...dataQuill, diagnosticLabels : listDiseases}, id_person)
-                .then(data=>{
-                    console.log(data);
-                }).catch(error=>{
-                    console.log(error);
-                })
+        requestPostConsultation({ ...dataVitalSigns, ...dataQuill, diagnosticLabels: listDiseases }, id_person)
+            .then(data => {
+                Swal.fire({
+                    title: 'Consulta guardada',
+                    text: 'La consulta ha sido guardada con éxito',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    location.href = '/patients';
+                });
+            }).catch(error => {
+                console.log(error);
+            })
 
 
     })
 
 
-    
+
 
 
     const getDataVitalSigns = () => {

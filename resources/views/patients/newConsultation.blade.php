@@ -15,11 +15,11 @@
     <div class="container max-w-custom" id="containerPersonSelect">
         <h4 class="fw-bold">Consulta médica</h4>
 
-        
+        <x-button-up-screen/>        
 
         <div class="row">
             <div class="col-12">
-                <div class="row">
+                <div class="row d-flex flex-column-reverse flex-lg-row">
                     {{-- Datos del paciente y médico --}}
                     <div class="col-12 col-lg-9">
                         <x-card-custom>
@@ -51,7 +51,7 @@
                         </x-card-custom>
                     </div>
 
-                    <div class="col-12 col-lg-3">
+                    <div class="col-12 col-lg-3 mb-3 mb-lg-0">
                         <div class="d-flex flex-column justify-content-start">
                             <button data-id="{{ $person->id_persona }}"
                                 class="fst-normal tooltip-container py-2 px-3 btn-blue-sec mb-3" id="saveConsultation">
@@ -82,7 +82,7 @@
 
                 {{-- Breadcrumbs --}}
 
-                <div class="row mt-3 mb-5">
+                <div class="row mb-5">
                     <div class="col-12 col-lg-8">
 
                         {{-- Card Integorratorio --}}

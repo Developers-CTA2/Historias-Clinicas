@@ -1,6 +1,6 @@
 <section id="containerPersonSelect">
     <div class="row d-flex justify-content-center align-items-start gap-3">
-        <div class="col-12 col-md-6 col-lg-3 col-xl-2 d-flex flex-column align-items-center bg-content-custom shadow-custom text-center py-3 card-hover"
+        <div class="col-12 col-md-6 col-lg-3 col-xl-3 col-xxl-2 d-flex flex-column align-items-center bg-content-custom shadow-custom text-center py-3 card-hover"
             id="udgPerson">
             <div class="bg-avatar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
@@ -14,7 +14,7 @@
             </div>
             <h4 class="fw-bold title-size-sm mt-2">Perteneciente UDG</h4>
         </div>
-        <div class="col-12 col-md-6 col-lg-3 col-xl-2 d-flex flex-column align-items-center bg-content-custom shadow-custom text-center py-3 card-hover"
+        <div class="col-12 col-md-6 col-lg-3 col-xl-3 col-xxl-2 d-flex flex-column align-items-center bg-content-custom shadow-custom text-center py-3 card-hover"
             id="externalPerson">
             <div class="bg-avatar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
