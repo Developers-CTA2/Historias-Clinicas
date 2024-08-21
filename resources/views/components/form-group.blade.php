@@ -1,4 +1,4 @@
-<div class="form-group col-lg-6 col-12 mb-3 group-custom">
+<div @class(['form-group', 'col-lg-6','col-12', 'mb-3', 'group-custom', $class]) id="{{$id}}">
 
     {!! $label !!}
     

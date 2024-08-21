@@ -265,8 +265,8 @@ class PatientsController extends Controller
         $toxicomanias = [];
         foreach ($data['listDrugAddiction'] as $item) {
 
-            $desde_cuando = Carbon::now()->subYears($item['input1'])->format('Y-m-d');
-            $observacion = $item['input2'];
+            $desde_cuando = Carbon::now()->subYears($item['date'])->format('Y-m-d');
+            $observacion = $item['description'];
 
 
 

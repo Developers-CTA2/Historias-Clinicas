@@ -41,6 +41,7 @@
 .container-custom {
     margin-left: 300px;
     padding-top: 80px;
+    padding-right: 10px;
     width: calc(100% - 300px);
     /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
     min-height: 100vh;
@@ -544,14 +545,14 @@
 
     .container-custom.container-expanded {
         margin-left: 0px;
-        padding: 0 20px;
+        padding: 0 10px;
         padding-top: 100px;
         width: 100%;
     }
 
     .container-custom {
         margin-left: 0px;
-        padding: 0 20px;
+        padding: 0 10px;
         padding-top: 100px;
         width: 100%;
 

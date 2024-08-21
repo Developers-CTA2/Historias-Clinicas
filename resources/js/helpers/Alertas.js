@@ -48,6 +48,23 @@ export const AlertSweetSuccess = (title, msg) => {
 };
 
 
+export const AlertCancelConfirmation = (title, msg, url) => {
+    Swal.fire({
+        icon: "warning",
+        title: title,
+        text: msg,
+        confirmButtonText : 'Si estoy seguro',
+        showCancelButton : true,
+        cancelButtonText : 'Cancelar',
+        reverseButtons : true,
+    }).then((result) => {
+        if(result.isConfirmed){
+            window.location.href = url;
+        }
+    });
+}
+
+
 export const AlertForWarningConsultation = (data) => {
 
     return new Promise((resolve, reject) => {

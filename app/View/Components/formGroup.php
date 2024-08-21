@@ -11,9 +11,16 @@ class formGroup extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
+
+    public $class;
+    public $id;
+
+    public function __construct(
+        string $class = '',
+        string $id = ''
+    ) {
+        $this->class = $class;
+        $this->id = $id;
     }
 
     /**

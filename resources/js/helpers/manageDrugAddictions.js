@@ -11,33 +11,48 @@ Funcion para manejar la lógica de las toxicomanías, se recibe un objeto con lo
 
 */
 
+const responseEPOC = {
+    text: '',
+    html: ''
+};
+
+const result = {
+    id: '',
+    idReferenceTable: '',
+    date: '',
+    description: '',
+    descriptionUI: ''
+};
+
 export const manageDrugAddictions = (parameters) => {
 
     // Obtener los parametros de la función
     const { optionDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs, riskEPOCGlobal } = parameters;
     // Almacena el resultado a retornar
-    let result = {};
+    
 
     // Generar un id aleatorio
     let idRandom = Math.random().toString(36).substr(2, 9);
+    result.id = '';
+    result.idReferenceTable = '';
+    result.date = '';
+    result.description = '';
+    result.descriptionUI = '';
     
 
     if (optionDrugAddiction == '1') {
-        result = {
-            id: idRandom,
-            idReferenceTable: optionDrugAddiction,
-            date: valueHowDateSmoking,
-            description: `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal}`,
-            descriptionUI: `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal}`
-        }
+        result.id = idRandom;
+        result.idReferenceTable = optionDrugAddiction;
+        result.date = valueHowDateSmoking;
+        result.description = `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal}`;
+        result.descriptionUI = `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal}`;
+            
     } else {
-        result = {
-            id: idRandom,
-            idReferenceTable: optionDrugAddiction,
-            date: valueHowOtherDrugs,
-            description: valueDescriptionOtherDrugs,
-            descriptionUI: `Frecuencia de consumo: ${valueHowOtherDrugs} años  |   Descripción: ${valueDescriptionOtherDrugs}`
-        }
+        result.id = idRandom;
+        result.idReferenceTable = optionDrugAddiction;
+        result.date = valueHowOtherDrugs;
+        result.description = `${valueHowOtherDrugs},${valueDescriptionOtherDrugs}`;
+        result.descriptionUI = `Frecuencia de consumo: ${valueHowOtherDrugs}  |  Descripción: ${valueDescriptionOtherDrugs}`;
     }
 
     return result;
@@ -50,21 +65,17 @@ export const calculateEPOC = (parameters) => {
     // let numberOfCigarettes = inputNumberOfCigarettes.val();
     // let howDateSmoking = inputHowDateSmoking.val();
 
-    let result = {
-        text: '',
-        html: ''
-    };
+    let data = null;
 
     if (numberOfCigarettes != '' && howDateSmoking != '') {
         const result = (numberOfCigarettes * howDateSmoking) / 20;
         data = riskEPOCTemplate(result);
-        result = {
-            text: data.text ?? '',
-            html: data.html ?? ''
-        }
+            responseEPOC.text = data.text ?? '';
+            responseEPOC.html = data.html ?? '';
+        
     }
 
-    return result;
+    return responseEPOC;
 }
 
 
@@ -76,7 +87,7 @@ const riskEPOCTemplate = (result) => {
         template = { text: 'Nulo', html: '<span class="badge-custom badge-custom-success">Nulo</span>' };
     }
     else if (result >= 10 && result <= 20) {
-        template = { text: 'Moderado', html: '<span class="badge-custom badge-custom-moderade">Moderado</span>' }; a
+        template = { text: 'Moderado', html: '<span class="badge-custom badge-custom-moderade">Moderado</span>' }; 
     }
     else if (result > 20 && result < 41) {
         template = { text: 'Intenso', html: '<span class="badge-custom badge-custom-warning">Intenso</span>' };

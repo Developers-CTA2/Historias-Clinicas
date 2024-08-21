@@ -2,7 +2,7 @@ import { getPerson } from './helpers/request-get-person.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
 import { validateStepFormOne, validateStepFormFive } from './helpers/validateDataAddPatient.js';
 import { selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML } from './helpers';
+import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation } from './helpers';
 import { templateErrorItem, templateErrorList } from './templates/addPatientsTemplate.js';
 
 
@@ -165,6 +165,7 @@ $(function () {
 
     // Buttons 
     const btnAddPathological = $('#addAntecedentesPatologicos');
+    const btnCancelRegister = $('#cancel');
 
     // Containers 
     const btnNavItem = $('.list-btn-nav');
@@ -236,6 +237,11 @@ $(function () {
     const namePerson = $('#namePerson');
     const careerPerson = $('#careerPerson');
 
+
+    // Event listeners
+    btnCancelRegister.on('click', function () {
+        AlertCancelConfirmation('¿Estás seguro de cancelar el registro?','No podrás recuperar la información ingresada','/patients');
+    })
 
 
     inputCode.on('keydown', function (e) {
@@ -604,7 +610,8 @@ $(function () {
                 AlertSweetSuccess(title, message);
 
             }).catch((error) => {
-                const { errorList } = error;
+                console.log(error);
+                const { errorList, message } = error;
 
                 if (errorList) {
 
@@ -618,7 +625,13 @@ $(function () {
                     templateErrors = templateErrorList(templateErrors);
 
                     btnErrorList.removeClass('d-none');
+
+                    return;
                 }
+
+                AlertError(message.title, message.message);
+
+
 
 
 

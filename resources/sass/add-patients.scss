@@ -30,14 +30,10 @@
 }
 
 
-
-
-
-
 .container-list-custom{
     background-color: $bg-color-opacity;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     max-width: 500px;
     min-height: 65px;
@@ -84,7 +80,7 @@
 }
 
 .h-custom-metodo{
-    height: 275px !important;
+    height: 100px !important;
     resize: none;
 }
 
