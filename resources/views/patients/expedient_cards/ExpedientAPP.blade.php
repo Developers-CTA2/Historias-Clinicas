@@ -4,6 +4,26 @@
     </div>
     <div class="card-body">
         <div class="row col-12">
+             @role('Administrador')
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="p-0 m-0 APP-data d-none animate__animated animate__fadeInUp">
+                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
+                                role="alert">
+                                <p class="p-2 mb-0 me-3 alert-APP">
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toggle tooltip-container">
+                        <input type="checkbox" id="Edit-APP">
+                        <label for="Edit-APP" class="label-check"></label>
+                        <span class="tooltip-text">Habilitar edición.</span>
+                    </div>
+                </div>
+                {{-- @include('patients.expedient_cards.modals_expedient.modal_add_toxic') --}}
+            @endrole
             {{-- Contenedor de las enfermedades --}}
             <div class="col-lg-6 col-md-6 col-sm-12">
 

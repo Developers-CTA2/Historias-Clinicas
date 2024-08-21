@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Persona;
 use  Carbon\Carbon;
 use App\Models\Alergia;
@@ -13,8 +16,7 @@ use App\Models\Hemotipo;
 use App\Models\Domicilio;
 use App\Models\Escolaridad;
 use App\Models\Rep_estado;
-use Illuminate\Support\Facades\DB;
-
+ 
 
 
 class PatientsController extends Controller
@@ -158,8 +160,8 @@ class PatientsController extends Controller
 
         return [
             'dataPerson' => [
-                'codigo' => $data['code'],
-                'nombre' => $data['name'],
+                'id_persona' => $data['code'],
+                'id_toxicomania' => $data['name'],
                 'sexo' => $data['gender'] == '1' ? 'Masculino' : 'Femenino',
                 'ocupacion' => $data['career'],
                 'fecha_nacimiento' => $data['birthdate'],
@@ -300,5 +302,144 @@ class PatientsController extends Controller
             'metodo' => $gyo['metodoDescriptivo'],
             'mastografia' => $gyo['mastografia'],
         ];
+    }
+
+
+
+    /*  
+        Funcion para hacer un update en los datos del paciente 
+    */
+    public function Update_Personal_Data(Request $request)
+    {
+        $data = $request->validate([
+            'Type' => 'required|numeric',
+            'Id_dom' => 'required|numeric',
+            'Id' => 'required|numeric|exists:personas,id_persona',
+            'Direction.country' => 'required|string',
+            'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
+            'Direction.city' => 'required|string',
+            'Direction.colony' => 'required|string',
+            'Direction.cp' => 'required|numeric',
+            'Direction.street' => 'required|string',
+            'Direction.ext' => 'required|numeric',
+            'Direction.int' => 'nullable|string',
+            'Personal.name' => 'required|string',
+            'Personal.tel' => 'required|string',
+            'Personal.gender' => 'required|string',
+            'Personal.birthday' => 'required|date',
+            'Personal.religion' => 'required|string',
+            'Personal.ocupation' => 'required|string',
+            'Personal.nss' => 'required|numeric',
+            'Personal.name_e' => 'required|string',
+            'Personal.tel_e' => 'required|string',
+            'Personal.parent_e' => 'required|string',
+            'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
+        ]);
+
+        $name = $data['Personal']['name'];
+        $tel = $data['Personal']['tel'];
+        $birthday = $data['Personal']['birthday'];
+        $gender = $data['Personal']['gender'];
+        $religion = $data['Personal']['religion'];
+        $ocupation = $data['Personal']['ocupation'];
+        $nss = $data['Personal']['nss'];
+        $name_e = $data['Personal']['name_e'];
+        $tel_e = $data['Personal']['tel_e'];
+        $parent_e = $data['Personal']['parent_e'];
+        $school = $data['Personal']['school'];
+
+        $country = $data['Direction']['country'];
+        $state = $data['Direction']['state'];
+        $city = $data['Direction']['city'];
+        $cp = $data['Direction']['cp'];
+        $colony = $data['Direction']['colony'];
+        $num_int = $data['Direction']['int'];
+        $ext = $data['Direction']['ext'];
+        $street = $data['Direction']['street'];
+        $Id = $data['Id'];
+
+        //  return response()->json($data);
+
+        switch ($data['Type']) {
+            case 1: {  // Solo cambiaron los datos personales 
+                    $Personal = Persona::where('id_persona', $Id)->first();
+
+                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $Personal, $school) {
+                        $Personal->update([
+                            'nombre' => $name,
+                            'ocupacion' => $ocupation,
+                            'fecha_nacimiento' => $birthday,
+                            'escolaridad_id' => $school,
+                            'sexo' => $gender,
+                            'telefono' => $tel,
+                            'telefono_emerge' => $tel_e,
+                            'contacto_emerge' => $name_e,
+                            'parentesco_emerge' => $parent_e,
+                            'nss' => $nss,
+                            'religion' => $religion,
+                            'updated_by' => Auth::id()
+                        ]);
+                    });
+                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
+                }
+            case 2: {    // Solo cambiaron los datos del domicilio
+                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
+
+                    if ($Domicilio) {
+                        DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio) {
+                            $Domicilio->update([
+                                'cuidad_municipio' => $city,
+                                'estado_id' => $state,
+                                'pais' => $country,
+                                'calle' => $street,
+                                'num' => $ext,
+                                'num_int' => $num_int,
+                                'colonia' => $colony,
+                                'cp' => $cp,
+                                'updated_by' => Auth::id()
+                            ]);
+                        });
+                        return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
+                    } else {
+                        return response()->json(['msg' => 'Error al actualizar los datos.'], 404);
+                    }
+                }
+            case 3: {   // Cambiaron los datos del domicilio y personales
+                    $Personal = Persona::where('id_persona', $data['Id'])->first();
+                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
+
+                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $country, $street, $ext, $num_int, $colony, $cp, $city, $state, $Personal, $Domicilio) {
+                        $Personal->update([
+                            'nombre' => $name,
+                            'ocupacion' => $ocupation,
+                            'fecha_nacimiento' => $birthday,
+                            'sexo' => $gender,
+                            'telefono' => $tel,
+                            'telefono_emerge' => $tel_e,
+                            'contacto_emerge' => $name_e,
+                            'parentesco_emerge' => $parent_e,
+                            'nss' => $nss,
+                            'religion' => $religion,
+                            'updated_by' => Auth::id()
+
+                        ]);
+
+                        $Domicilio->update([
+                            'ciudad_municipio' => $city,
+                            'estado' => $state,
+                            'pais' => $country,
+                            'calle' => $street,
+                            'num' => $ext,
+                            'num_int' => $num_int,
+                            'colonia' => $colony,
+                            'cp' => $cp,
+                            'updated_by' => Auth::id()
+
+                        ]);
+                    });
+                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
+                }
+        }
+        return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
     }
 }

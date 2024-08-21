@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Persona;
 use App\Models\Persona_ahf;
 use App\Models\Enfermedad_especifica;
-use App\Models\Domicilio;
 use App\Models\Escolaridad;
 use App\Models\Hemotipo;
 use App\Models\Rep_estado;
 use App\Models\Toxicomanias;
+use App\Http\Requests\AddictionsRequest;
+use App\Models\Persona_toxicomanias;
+use  Carbon\Carbon;
+
 
 class ExpedientController extends Controller
 {
@@ -59,8 +62,11 @@ class ExpedientController extends Controller
         $gyo = $Personal->gyo;
         $escolaridad = $Personal->escolaridad;
         $hemotipo = $Personal->hemotipo;
+        //return response()->json($ahf);
 
-        $esp_ahf = Enfermedad_especifica::all();
+        $ahfIds = $ahf->pluck('especificar_ahf.id_tipo_ahf');  
+       
+        $esp_ahf = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $ahfIds)->get();  // No repeat
         $rep_estados = Rep_estado::all();
         $hemotipos = Hemotipo::all();
         $escolaridades = Escolaridad::all();
@@ -76,272 +82,77 @@ class ExpedientController extends Controller
         return view('patients.expediente', compact('breadcrumbs',  'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
     }
 
-    /*  
-        Funcion para hacer un update en los datos del paciente 
+    /*
+        Funcion para ver los detalles de las enfermedades personales patologicas
     */
-    public function Update_Personal_Data(Request $request)
+    public function Details_APP($id)
     {
-        $data = $request->validate([
-            'Type' => 'required|numeric',
-            'Id_dom' => 'required|numeric',
-            'Id' => 'required|numeric|exists:personas,id_persona',
-            'Direction.country' => 'required|string',
-            'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
-            'Direction.city' => 'required|string',
-            'Direction.colony' => 'required|string',
-            'Direction.cp' => 'required|numeric',
-            'Direction.street' => 'required|string',
-            'Direction.ext' => 'required|numeric',
-            'Direction.int' => 'nullable|string',
-            'Personal.name' => 'required|string',
-            'Personal.tel' => 'required|string',
-            'Personal.gender' => 'required|string',
-            'Personal.birthday' => 'required|date',
-            'Personal.religion' => 'required|string',
-            'Personal.ocupation' => 'required|string',
-            'Personal.nss' => 'required|numeric',
-            'Personal.name_e' => 'required|string',
-            'Personal.tel_e' => 'required|string',
-            'Personal.parent_e' => 'required|string',
-            'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
-        ]);
+        $Personal = Persona::with([        
+            'persona_enfermedades.enfermedad_especifica',
+            'Persona_alergia.alergias',
+            'transfusiones',
+            'hospitalizaciones',
+            'traumatismos',
+            'ant_quirurgicos',
 
-        $name = $data['Personal']['name'];
-        $tel = $data['Personal']['tel'];
-        $birthday = $data['Personal']['birthday'];
-        $gender = $data['Personal']['gender'];
-        $religion = $data['Personal']['religion'];
-        $ocupation = $data['Personal']['ocupation'];
-        $nss = $data['Personal']['nss'];
-        $name_e = $data['Personal']['name_e'];
-        $tel_e = $data['Personal']['tel_e'];
-        $parent_e = $data['Personal']['parent_e'];
-        $school = $data['Personal']['school'];
+        ])->find($id);
 
-        $country = $data['Direction']['country'];
-        $state = $data['Direction']['state'];
-        $city = $data['Direction']['city'];
-        $cp = $data['Direction']['cp'];
-        $colony = $data['Direction']['colony'];
-        $num_int = $data['Direction']['int'];
-        $ext = $data['Direction']['ext'];
-        $street = $data['Direction']['street'];
-        $Id = $data['Id'];
+        // No existe la persona
+        if (!$Personal) {
+            $breadcrumbs = [
+                ['name' => 'Pacientes', '' => ''],
+            ];
 
-        //  return response()->json($data);
-
-        switch ($data['Type']) {
-            case 1: {  // Solo cambiaron los datos personales 
-                    $Personal = Persona::where('id_persona', $Id)->first();
-
-                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $Personal, $school) {
-                        $Personal->update([
-                            'nombre' => $name,
-                            'ocupacion' => $ocupation,
-                            'fecha_nacimiento' => $birthday,
-                            'escolaridad_id' => $school,
-                            'sexo' => $gender,
-                            'telefono' => $tel,
-                            'telefono_emerge' => $tel_e,
-                            'contacto_emerge' => $name_e,
-                            'parentesco_emerge' => $parent_e,
-                            'nss' => $nss,
-                            'religion' => $religion,
-                            'updated_by' => Auth::id()
-                        ]);
-                    });
-                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
-                }
-            case 2: {    // Solo cambiaron los datos del domicilio
-                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
-
-                    if ($Domicilio) {
-                        DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio) {
-                            $Domicilio->update([
-                                'cuidad_municipio' => $city,
-                                'estado_id' => $state,
-                                'pais' => $country,
-                                'calle' => $street,
-                                'num' => $ext,
-                                'num_int' => $num_int,
-                                'colonia' => $colony,
-                                'cp' => $cp,
-                                'updated_by' => Auth::id()
-                            ]);
-                        });
-                        return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
-                    } else {
-                        return response()->json(['msg' => 'Error al actualizar los datos.'], 404);
-                    }
-                }
-            case 3: {   // Cambiaron los datos del domicilio y personales
-                    $Personal = Persona::where('id_persona', $data['Id'])->first();
-                    $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
-
-                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $country, $street, $ext, $num_int, $colony, $cp, $city, $state, $Personal, $Domicilio) {
-                        $Personal->update([
-                            'nombre' => $name,
-                            'ocupacion' => $ocupation,
-                            'fecha_nacimiento' => $birthday,
-                            'sexo' => $gender,
-                            'telefono' => $tel,
-                            'telefono_emerge' => $tel_e,
-                            'contacto_emerge' => $name_e,
-                            'parentesco_emerge' => $parent_e,
-                            'nss' => $nss,
-                            'religion' => $religion,
-                            'updated_by' => Auth::id()
-
-                        ]);
-
-                        $Domicilio->update([
-                            'ciudad_municipio' => $city,
-                            'estado' => $state,
-                            'pais' => $country,
-                            'calle' => $street,
-                            'num' => $ext,
-                            'num_int' => $num_int,
-                            'colonia' => $colony,
-                            'cp' => $cp,
-                            'updated_by' => Auth::id()
-
-                        ]);
-                    });
-                    return response()->json(['status' => 200, 'msg' => 'Datos actualizados correctamente.']);
-                }
+            return view('patients.seePatient', compact('breadcrumbs'));
         }
-        return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
-    }
-    /* 
-    Funcion para hacer modificaciones en la tabla de Personas_AHF
-        donde se puede hacer el update, delete y el store
-            Segun el numerito que viene en la variable Type
-*/
-    public function Update_Ahf_Data(Request $request)
-    {
-        $data = $request->validate([
-            'Id_reg' => 'nullable|numeric',
-            'Id_ahf' => 'nullable|numeric|exists:enfermedades_especificas,id_especifica_ahf',
-            'Type' => 'required|numeric'
-        ]);
+        // Data 
+        $alergias = $Personal->Persona_alergia;
+        $transfusiones = $Personal->transfusiones;
+        $hospitalizaciones = $Personal->hospitalizaciones;
+        $traumatismos = $Personal->traumatismos;
+        $quirurgicos = $Personal->ant_quirurgicos;
+        $enfermedades = $Personal->persona_enfermedades;
 
-        $id = $data['Id_reg'];
-        $ahf = $data['Id_ahf'];
-        $Type = $data['Type'];
+        $esp_Ids = $enfermedades->pluck('especificar_ahf.id_tipo_ahf');
+        $Ant_pp = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $esp_Ids)->get();  // No repeat
+        $Ant_pp = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $esp_Ids)->get();  // No repeat
 
-        if ($Type == 3) { // Agregar una nueva enfermedad
-            $Persona = persona::where('id_persona', $id)->first();
+        return response()->json($Ant_pp);
 
-            if ($Persona) { // Si encontro la persona 
-                try {
-                    DB::transaction(function () use ($ahf, $id) {
-                        $Persona_ahf = new persona_ahf();
-                        $Persona_ahf->id_persona = $id;
-                        $Persona_ahf->id_ahf = $ahf;
-                        $Persona_ahf->created_at = Auth::id();
-                        $Persona_ahf->save();
-                    });
-                    return response()->json(['status' => 200]);
-                } catch (\Exception $e) {
-                    // Log the error or handle it as needed
-                    return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
-                }
-            } else { // No encontro a la persona
-                return response()->json(['status' => 404, 'msg' => '¡Error! No se encontro el registro.']);
-            }
-            /////////////////    Edicion o eliminacion
-        } else {
+        $breadcrumbs = [
+            ['name' => 'Expediente', 'url' =>   route('admin.medical_record', ['id' => $id])],
+            ['name' => 'Detalles', '' => ''],
 
-            $registro = persona_ahf::where('id', $id)->first();
-
-            if ($registro) {
-
-                try {
-                    DB::transaction(function () use ($registro, $ahf, $Type) {
-                        if ($Type == 1) { // Delete
-                            $registro->delete();
-                        } else { // Update
-                            $registro->update([
-                                'id_ahf' => $ahf,
-                                'updated_by' => Auth::id()
-                            ]);
-                        }
-                    });
-                    return response()->json(['status' => 200]);
-                } catch (\Exception $e) {
-                    // Log the error or handle it as needed
-                    return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
-                }
-            } else {
-                return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
-            }
-        }
-    }
-
-    public function Update_APNP(Request $request)
-    {
-        // Errores en español 
-        $messages = [
-            'Id_person.required' => 'El ID de la persona es requerido.',
-            'Id_person.numeric' => 'El ID de la persona debe ser un número.',
-            'Id_person.exists' => 'El ID de la persona NO existe.',
-            'Id_hemotipo.numeric' => 'El dato del hemotipo no es válido.',
-            'Id_hemotipo.exists' => 'El hemotipo no es válido.',
-            'Id_school.numeric' => 'El dato de la escoalridad no es válido.',
-            'Id_school.exists' => 'La escolaridad no es válida.',
-            'Type.required' => 'El ID del tipo de acción es requerido.',
-            'Type.numeric' => 'El ID del tipo de acción debe ser un número.',
-            'Type.in' => 'El ID del tipo de acción no es válido.',
         ];
+        return view('patients.expedient_cards.modals_expedient.Details_App', compact('breadcrumbs', 'Ant_pp'));
+    }
 
-        $validator = Validator::make($request->all(), [
-            'Id_person' => 'required|numeric|exists:personas,id_persona',
-            'Id_hemotipo' => 'nullable|numeric|exists:hemotipo,id_hemotipo',
-            'Id_school' => 'nullable|numeric|exists:escolaridad,id_escolaridad',
-            'Type' => 'required|numeric|in:1,2'
-        ], $messages);
 
-        // Error en algún dato
-        if ($validator->fails()) {
-            return response()->json(['msg' => "Error en los datos recibidos.", 'errors' => $validator->errors()], 400);
+    /*
+    Funcion para agregar una nueva toxicomania desde la vista del Expediente
+*/
+    public function Add_Adiction(AddictionsRequest $request)
+    {
+        try {
+            $validate = $request->validated();
+
+            $Id_Persona = $validate['IdPerson'];
+            $Data = $validate['Data'];
+            DB::transaction(function () use ($Id_Persona, $Data) {
+                $Persona_Addiction = new Persona_toxicomanias();
+                $Persona_Addiction->id_persona = $Id_Persona;
+                $Persona_Addiction->id_toxicomania = $Data['idReferenceTable'];
+                $Persona_Addiction->observacion = $Data['description'];
+                $Persona_Addiction->desde_cuando =
+                    Carbon::now()->subYears($Data['date'])->format('Y-m-d');
+                $Persona_Addiction->created_at = now();
+                $Persona_Addiction->save();
+            });
+
+            return response()->json(['title' => 'Éxito', 'message' => 'Toxicomanía agregada correctamente', 'error' => null], 201);
+        } catch (\Exception $e) {
+
+            return response()->json(['title' => 'Error', 'message' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
         }
-
-
-        $Id =  intval($request['Id_person']);
-        $Type = intval($request['Type']);
-
-        if ($Type == 1) { // Edit hemotipo
-            $hemotipo = intval($request['Id_hemotipo']);
-
-            $Update = Persona::where('id_persona', $Id)->first();
-            try {
-                DB::transaction(function () use ($Update, $hemotipo) {
-                    $Update->update([
-                        'hemotipo_id' => $hemotipo,
-                    ]);
-                });
-                return response()->json(['status' => 200]);
-            } catch (\Exception $e) {
-                // Log the error or handle it as needed
-                return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
-            }
-        } else {
-            $Id_school = intval($request['Id_school']);
-            $school = Persona::where('id_persona', $Id)->first();
-
-            try {
-                DB::transaction(function () use ($school, $Id_school) {
-                    $school->update([
-                        'escolaridad_id' => $Id_school,
-                    ]);
-                });
-                return response()->json(['status' => 200]);
-            } catch (\Exception $e) {
-                // Log the error or handle it as needed
-                return response()->json(['status' => 500, 'msg' => 'Error al realizar la operación', 'error' => $e->getMessage()]);
-            }
-        }
-        return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
-
     }
 }

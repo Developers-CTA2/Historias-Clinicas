@@ -64,15 +64,15 @@
 
 
 
-/* Cuando el boton se muestra pero esta inabilitado */
+/* Cuando el boton se muestra pero esta inhabilitado */
 .disabled {
     opacity: 0.5;
 }
 
 /* caso de tener un svg de imagen */
 .btn-blue-sec svg,
-.btn-blue-red svg,
-.btn-blue-blue svg,
+.btn-red svg,
+.btn-blue svg,
 .btn-sec svg {
     fill: currentColor; /* Hace que el SVG herede el color del texto */
     transition: fill 0.3s;

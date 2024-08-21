@@ -51,16 +51,16 @@ export const calculateEPOC = (parameters) => {
     // let howDateSmoking = inputHowDateSmoking.val();
 
     let result = {
-        text: '',
-        html: ''
+        risk: "",
+        html: "",
     };
 
     if (numberOfCigarettes != '' && howDateSmoking != '') {
-        const result = (numberOfCigarettes * howDateSmoking) / 20;
-        data = riskEPOCTemplate(result);
+        const resultEPOCT = (numberOfCigarettes * howDateSmoking) / 20;
+      let data = riskEPOCTemplate(resultEPOCT);    
         result = {
-            text: data.text ?? '',
-            html: data.html ?? ''
+            risk: data.text ?? '',
+            html: data.html ?? '',
         }
     }
 
@@ -76,7 +76,7 @@ const riskEPOCTemplate = (result) => {
         template = { text: 'Nulo', html: '<span class="badge-custom badge-custom-success">Nulo</span>' };
     }
     else if (result >= 10 && result <= 20) {
-        template = { text: 'Moderado', html: '<span class="badge-custom badge-custom-moderade">Moderado</span>' }; a
+        template = { text: 'Moderado', html: '<span class="badge-custom badge-custom-moderade">Moderado</span>' }; 
     }
     else if (result > 20 && result < 41) {
         template = { text: 'Intenso', html: '<span class="badge-custom badge-custom-warning">Intenso</span>' };

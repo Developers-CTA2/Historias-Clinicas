@@ -17,3 +17,6 @@ export * from './configQuillJs';
 
 // Helpers
 export * from './DomPurify';
+export * from './manageDrugAddictions';
+export * from "./ValidateFuntions";
+ 
