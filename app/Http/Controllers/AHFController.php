@@ -17,13 +17,26 @@ class AHFController extends Controller
 */
     public function Update(Request $request)
     {
-        $data = $request->validate([
+        $messages = [
+            'Id_reg.required' => 'El ID del registro es requerido.',
+            'Id_reg.numeric' => 'El ID  del registro debe ser un número.',
+            'Id_reg.exists' => 'El ID del registro NO existe.',
+            'Id_ahf.required' => 'El ID de la enfermedad es requerido.',
+            'Id_ahf.numeric' => 'El ID de la enfermedad no es válido.',
+            'Id_ahf.exists' => 'La enfermedad no existe.',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'Id_reg' => 'required|numeric|exists:persona_ahf,id',
             'Id_ahf' => 'required|numeric|exists:enfermedades_especificas,id_especifica_ahf',
-        ]);
+        ], $messages);
 
-        $id = $data['Id_reg'];
-        $ahf = $data['Id_ahf'];
+        if ($validator->fails()) {
+            return response()->json(['msg' => "Error en los datos recibidos.", 'errors' => $validator->errors()], 400);
+        }
+
+        $id = $request['Id_reg'];
+        $ahf = $request['Id_ahf'];
 
         $registro = persona_ahf::where('id', $id)->first();
 

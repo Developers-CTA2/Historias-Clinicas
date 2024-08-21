@@ -25,7 +25,7 @@ class AddictionsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'IdPerson' => 'nullable|numeric|exists:personas,id_persona',
+            'IdPerson' => 'required|numeric|exists:personas,id_persona',
             'Data.idReferenceTable' => 'required|numeric|exists:toxicomanias,id',
             'Data.date' => 'required|numeric',
             'Data.description' => 'required|string',
@@ -35,6 +35,7 @@ class AddictionsRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'IdPerson.required' => 'El ID de la persona es requerido.',
             'IdPerson.numeric' => 'El ID de la persona no es válido.',
             'IdPerson.exists' => 'El ID de la persona no existe.',
             'idReferenceTable.required' => 'El ID de la toxicomanía es requerido.',

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Persona;
+use App\Http\Requests\AddictionsRequest;
+use App\Models\Persona_toxicomanias;
+use  Carbon\Carbon;
 
 class APNPController extends Controller
 {
@@ -93,6 +95,36 @@ class APNPController extends Controller
             }
         } else {
             return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
+        }
+    }
+
+
+
+    /*
+    Funcion para agregar una nueva toxicomania desde la vista del Expediente
+*/
+    public function Add_Adiction(AddictionsRequest $request)
+    {
+        try {
+            $validate = $request->validated();
+
+            $Id_Persona = $validate['IdPerson'];
+            $Data = $validate['Data'];
+            DB::transaction(function () use ($Id_Persona, $Data) {
+                $Persona_Addiction = new Persona_toxicomanias();
+                $Persona_Addiction->id_persona = $Id_Persona;
+                $Persona_Addiction->id_toxicomania = $Data['idReferenceTable'];
+                $Persona_Addiction->observacion = $Data['description'];
+                $Persona_Addiction->desde_cuando =
+                Carbon::now()->subYears($Data['date'])->format('Y-m-d');
+                $Persona_Addiction->created_at = now();
+                $Persona_Addiction->save();
+            });
+
+            return response()->json(['title' => 'Éxito', 'message' => 'Toxicomanía agregada correctamente', 'error' => null], 201);
+        } catch (\Exception $e) {
+
+            return response()->json(['title' => 'Error', 'message' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
         }
     }
 }

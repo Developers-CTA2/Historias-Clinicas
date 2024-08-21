@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 /*
     HABILITAR LA EDICION DE APNP
-    Funcion para el switch de editar datos, donde si se activa miostrará todos los inputs para editar los datos
+        Funcion para el switch de editar datos, donde si se activa miostrará todos los inputs para editar los datos
 */
 function EventEditAPNP() {
     $("#Edit-apnp").on("change", function () {
@@ -44,7 +44,6 @@ function EventEditAPNP() {
         }
     });
 }
-
 /*
     Funcion para validar el nuevo dato en caso de que se edite el tipo de sangre 
 */
@@ -60,7 +59,6 @@ async function EventHemotipo() {
                 IconWarning("No se ha realizado ningun cambio.")
             );
         } else {
-            console.log("sI EDITAR");
             Confirm(
                 "¿Estás seguro de editar el hemotipo?",
                 "El nuevo dato será parte del expediente.",
@@ -73,13 +71,14 @@ async function EventHemotipo() {
         }
     });
 }
-
+/*
+    Funcion para editar el dato de la escolaridad 
+*/
 async function EventSchool() {
     $("#save-School").off("click");
     $("#save-School").on("click", function () {
         let Old_school = $("#id_escolaridad").text().trim();
         let New_school = $("#new_school").val();
-
         if (Old_school == New_school) {
             $(".alert-APNP").html(
                 IconWarning("No se ha realizado ningun cambio.")
@@ -99,7 +98,6 @@ async function EventSchool() {
         }
     });
 }
-
 /*
     Funcion que hace la consulta al controlador para la edicion o eliminacion del registro
 */
@@ -109,7 +107,7 @@ async function RequestUpdate(Hemotipo, school, Type) {
     var id = segments[segments.length - 1];
 
     const Data = {
-        Id_person: parseInt("id"),
+        Id_person: parseInt(id),
         Id_hemotipo: parseInt(Hemotipo),
         Id_school: parseInt(school),
     };
@@ -136,12 +134,10 @@ async function RequestUpdate(Hemotipo, school, Type) {
             "error",
             errors
         );
-
         console.log(errors);
         console.log(error);
     }
 }
-
 function ShowAlerts(type) {
     if (type == 1) {
         if ($(".apnp-refresh-homo").hasClass("d-none")) {
@@ -155,7 +151,6 @@ function ShowAlerts(type) {
 
     ClicRefresh();
 }
-
 /* Funcion para recargar la pagina y ver los cambios refeljados ya en la vista */
 function ClicRefresh() {
     // Mostramos alertas y el boton de refresh
@@ -169,7 +164,6 @@ function ClicRefresh() {
         window.location.reload();
     });
 }
-
 ////////////////////////////  TOXICOMANIAS         //////////////////////////////////
 /*
     Funcion que muestra el formulario segun la opcion que de seleccione en el input
@@ -177,7 +171,6 @@ function ClicRefresh() {
 async function listenDrugs() {
     ListenInputsSmoking();
 
-    // hacer funcion
     $("#new_toxic").on("change", function () {
         if (!$(".Add_drug").hasClass("d-none")) {
             $(".Add_drug").addClass("d-none").hide().fadeOut(400);
@@ -216,7 +209,6 @@ async function listenDrugs() {
         }
     });
 }
-
 /*
     Funcion para mostrar y ocultar los formularios segun sea necesario en la opcion seleccionada en el select
 */
@@ -312,7 +304,6 @@ function ValidateDataAdictions(idAdiction) {
         }
     }
 }
-
 /* 
     Funcion que hace la consulta al controlador para la edicion o eliminacion del registro
 */
@@ -327,19 +318,22 @@ async function RequestAddiction(idPerson, Datos) {
             "/patients/medical_record/Add_Adiction",
             Data
         );
-
         console.log(response);
-        const { data } = response;
         $("#add-toxic").modal("hide");
         ClicRefresh();
     } catch (error) {
         console.log(error);
-        const { errors } = error.response;
-        //const {  } = error;
-        console.log(errors);
+        const { data } = error.response;
 
-        // $(".alert-AHF").html(
-        //     '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
-        // );
+        console.log(data);
+        $(".alert-AHF").html(
+            '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
+        );
+        await ShowErrors(
+            "¡Error!",
+            "Error en los datos.",
+            "error",
+            data.errors
+        );
     }
 }
