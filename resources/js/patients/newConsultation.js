@@ -1,23 +1,29 @@
 import Quill from 'quill';
 import Tagify from '@yaireo/tagify'
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import "quill/dist/quill.snow.css";
 import '@yaireo/tagify/dist/tagify.css'
+import "sweetalert2/src/sweetalert2.scss";
 
 import {
     vitalSigns, options,
     getAllSpecificDiseases,
     AlertErrorConsultation,
     validateQuill, DomPurify,
-    requestPostConsultation
+    requestPostConsultation,
+    AlertConfirmationForm,
+    AlertCancelConfirmation,
+    AlertSweetSuccess,
+    AlertError
 } from '../helpers';
 import { templateArrayDiseases } from '../templates'
 import { btnUpScreenFunction } from '../components';
-import { Swal } from 'sweetalert2/dist/sweetalert2';
+
 
 let diagnosticLabels = [];
 let dataDiseases = [];
 
-
+// Configurar Tagify que permite agregar etiquetas de enfermedades
 const configTagify = () => {
 
     getAllSpecificDiseases().then(data => {
@@ -42,25 +48,6 @@ const configTagify = () => {
     });
 
 };
-
-const confirmationAlertCancel = () => {
-    Swal.fire({
-        title: '¿Estás seguro de cancelar la consulta?',
-        text: "No podrás revertir esto!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, cancelar!',
-        cancelButtonText: 'No, seguir aquí!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            location.href = '/patients';
-        }
-    })
-}
-
-
 
 $(function () {
 
@@ -97,46 +84,78 @@ $(function () {
     btnUpScreenFunction();
 
     // Button for cancel consultation
-    btnCancelConsultation.on('click', function () {
-        confirmationAlertCancel();
-    })
+    btnCancelConsultation.on('click', function(){
+        AlertCancelConfirmation('¿Estás seguro de cancelar la consulta?', 'La información no se guardará', '/patients')
+    });
 
+    // Button for save consultation
     btnSaveConsultation.on('click', function () {
+        managementDataForRequest($(this).data('id'));
+    });
 
-        const dataVitalSigns = getDataVitalSigns();
-        const inputsDom = getInputsDom();
-        const dataQuill = getDataQuill();
-        const listDiseases = getDiagnosticLabels();
 
+    const managementDataForRequest = (idPatient) => {
+        // Get all data from form
+        const { dataVitalSigns, inputsDom, dataQuill, listDiseases } = getAllDataForm();
+
+        // Validate form data
+        if (!validateData(dataVitalSigns, inputsDom, dataQuill)) return;
+
+        // Request for store consultation
+        AlertConfirmationForm(
+            '¿Estás seguro de guardar la consulta?', 
+            'La información se guardará en el historial del paciente', 
+            ()=> managementRequestForStoreConsultation(dataVitalSigns, dataQuill, listDiseases, idPatient)
+        );
+
+    }
+
+
+    // Get all data from form
+    const getAllDataForm = () => {
+        return {
+            dataVitalSigns: getDataVitalSigns(),
+            inputsDom: getInputsDom(),
+            dataQuill: getDataQuill(),
+            listDiseases: getDiagnosticLabels()
+        }
+    }
+
+    // Validate form data
+    const validateData = (dataVitalSigns, inputsDom, dataQuill) => {
+
+        const validateForm = true;
+
+        // Validate vital signs
         if (!vitalSigns(dataVitalSigns, inputsDom)) {
-            return;
+            AlertError('Error..!', 'Existen campos sin llenar, por favor revisa la información antes de guardar la consulta');
+            validateForm = false;
         }
 
+        // Validate textAreas of quill
         const { listWarnings, validate } = validateQuill(dataQuill);
         if (!validate) {
             AlertErrorConsultation('Error..!', listWarnings);
-            return;
+            validateForm = false;
         }
 
 
+        return validateForm;
+    }
 
-        const id_person = $(this).data('id');
-        requestPostConsultation({ ...dataVitalSigns, ...dataQuill, diagnosticLabels: listDiseases }, id_person)
+    // Request for store consultation
+    const managementRequestForStoreConsultation = (dataVitalSigns, dataQuill, diagnosticLabels, idPatient) => {
+        requestPostConsultation({ ...dataVitalSigns, ...dataQuill, diagnosticLabels }, idPatient)
             .then(data => {
-                Swal.fire({
-                    title: 'Consulta guardada',
-                    text: 'La consulta ha sido guardada con éxito',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                }).then(() => {
-                    location.href = '/patients';
-                });
+                const { title, message, idConsultation } = data;
+                console.log(data);
+                AlertSweetSuccess(title, message, `/patients/consultation/${idPatient}/history/${idConsultation}/details`);
             }).catch(error => {
                 console.log(error);
-            })
-
-
-    })
+                const { title, message } = error;
+                AlertError(title, message);
+            });
+    }
 
 
 

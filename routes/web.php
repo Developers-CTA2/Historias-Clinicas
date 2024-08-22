@@ -114,13 +114,13 @@ Route::middleware('auth')->group(function () {
         //     return view('admin.expediente');
         // });
 
-        Route::prefix('/consultation')->group(function () {
-            Route::get('/{id_persona}/new',[ConsultationController::class,'create'])->name('consultation.new');
-            Route::post('/{id_persona}/save',[ConsultationController::class,'store'])->name('consultation.save');
+        Route::prefix('/consultation/{id_persona}')->group(function () {
+            Route::get('/new',[ConsultationController::class,'create'])->name('consultation.new');
+            Route::post('/save',[ConsultationController::class,'store'])->name('consultation.save');
 
-            Route::get('/{id_persona}/history',[HistoryConsultationController::class,'show'])->name('consultation.history');
-            Route::get('/{id_persona}/history/{id_consulta}/details',[HistoryConsultationController::class,'details'])->name('consultation.history.details');
-            Route::get('/{id_persona}/history/get-consultation',[HistoryConsultationController::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
+            Route::get('/history',[HistoryConsultationController::class,'show'])->name('consultation.history');
+            Route::get('/history/{id_consulta}/details',[HistoryConsultationController::class,'details'])->name('consultation.history.details');
+            Route::get('/history/get-consultation',[HistoryConsultationController::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
         }); 
 
         Route::prefix('/nutricion')->group(function () {

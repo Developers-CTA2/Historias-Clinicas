@@ -3,6 +3,6 @@
         {!! $icon !!}
     </div>
     {{$text}}
-    {{-- <span class="tooltip-text">{{$tooltipText}}</span> --}}
+    <span class="tooltip-text">{{$tooltipText}}</span>
 </a>
 
