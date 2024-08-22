@@ -1,5 +1,3 @@
-@props(['enfermedades'])
-
 <!-- Datos Antecendentes Hederofamiliares  -->
 <div class="row p-2 p-sm-3 ahf-data d-none form-step animate__animated animate__fadeInUp bg-content-custom shadow-custom">
     <div class="col-12 pt-1">
@@ -18,10 +16,7 @@
 
                                     <div class="form-group md-w-custom mt-2"
                                         id="enfermedad-container">
-                                        <x-label-with-tooltip 
-                                            labelFor="enfermedad"
-                                            titleLabel="Enfermedad" required="true"
-                                            message="Seleccione la lista de enfermedades que tiene tu familia" />
+                                        <x-label-with-tooltip labelFor="enfermedad" titleLabel="Enfermedad" :required=false message="Seleccione la lista de enfermedades que tiene tu familia" />
 
                                         <select class="form-control" name="enfermedad"
                                             id="enfermedad">
@@ -48,7 +43,7 @@
                             <div class="hr-custom"></div>
                             <div
                                 class="row d-flex justify-content-center justify-content-lg-start mt-3 mx-2">
-                                <div class="form-group container-list-custom">
+                            <div class="form-group container-list-custom">
                                     <ul class="list-group mt-2 list-dependencies-custom"
                                         id="listDiseasesSelected"></ul>
                                 </div>

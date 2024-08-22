@@ -11,11 +11,16 @@ class itemContentTabPane extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
-    }
 
+     public $active;
+    public $id;
+
+    public function __construct(string $id = '', bool $active = false)
+    {
+        $this->id = $id;
+        $this->active = $active;
+    }
+    
     /**
      * Get the view / contents that represent the component.
      */

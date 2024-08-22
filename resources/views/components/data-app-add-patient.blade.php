@@ -1,5 +1,3 @@
-@props(['enfermedades', 'alergias'])
-
 {{-- Antecedentes patológicos --}}
 
 <div class="row p-3 form-step d-none animate__animated animate__fadeInUp bg-content-custom shadow-custom">
@@ -17,7 +15,7 @@
         {{-- Tabs para las opciones --}}
         <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start  mt-3">
             <x-container-tap-links />
-            <x-container-tap-content :enfermedades="$enfermedades" :alergias="$alergias" />
+            <x-container-tap-content :enfermedades=$enfermedades :alergias=$alergias />
         </div>
     
         <section class="mt-4 d-flex flex-column flex-md-row justify-content-md-center justify-content-lg-start">

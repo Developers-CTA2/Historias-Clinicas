@@ -11,10 +11,29 @@ class labelWithTooltip extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+    public $labelFor;
+    public $titleLabel;
+    public $required;
+    public $message;
+    public $haveTooltip;
+    // labelFor','titleLabel','required','message' => '','haveTooltip' => false
+
+    public function __construct(
+        string $labelFor ,
+        string $titleLabel ,
+        bool $required ,
+        string $message = '' ,
+        bool $haveTooltip = false,
+    )
     {
-        //
+        $this->labelFor = $labelFor;
+        $this->titleLabel = $titleLabel;
+        $this->required = $required;
+        $this->message = $message;
+        $this->haveTooltip = $haveTooltip;
     }
+    
 
     /**
      * Get the view / contents that represent the component.

@@ -3,6 +3,7 @@ import "sweetalert2/src/sweetalert2.scss";
 
 import { regexNumero,regexCp,regexIntNumero, regexDescription, regexLetters,regexNumlenght2, regexAnio, regexFecha, regexTelefono, regexNss } from './Regex.js';
 import { templateModalErrorPersonalData } from '../templates/addPatientsTemplate.js';
+import { AlertError } from "./Alertas.js";
 
 const yearActual = new Date().getFullYear();
 
@@ -544,9 +545,13 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     
 
     formGynecologyObstetrics.each(function () {
-        $(this).children('input').removeClass('is-invalid border-danger');
+        $(this).find('.input-group').children('input').removeClass('is-invalid border-danger');
         $(this).children('span').addClass('d-none').text('');
-        $(this).children('textarea').removeClass('is-invalid border-danger');
+        $(this).find('.input-group').children('select').removeClass('is-invalid border-danger');
+        checkEstaEmbarazada.removeClass('is-invalid border-danger');
+        radioCicloRegular.removeClass('is-invalid border-danger');
+        radioCicloIrregular.removeClass('is-invalid border-danger');
+        
     });
 
 
@@ -742,7 +747,7 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         validateForm = false;
     } 
 
-    console.log(validateForm);
+    !validateForm && AlertError('Oops.. !', 'Tienes errores en el formulario de ginecología y obstetricia, por favor revisa los campos', 'Corregir');
 
     return validateForm;
 

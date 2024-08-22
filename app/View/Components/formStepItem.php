@@ -11,9 +11,12 @@ class formStepItem extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+     public $active;
+
+    public function __construct(bool $active = false)
     {
-        //
+        $this->active = $active;
     }
 
     /**

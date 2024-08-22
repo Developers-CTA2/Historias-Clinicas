@@ -1,4 +1,3 @@
-@props(['toxicomania'])
 {{-- Antecedentes no patológicos --}}
 <div class="row p-2 p-sm-3 apnp-data d-none form-step animate__animated animate__fadeInUp bg-content-custom shadow-custom">
     <div class="container pt-1">
@@ -16,13 +15,13 @@
                                     <div class="form-group md-w-custom mb-4 mb-lg-2">
                                         <x-label-with-tooltip 
                                             labelFor="toxico"
-                                            titleLabel="Toxicomanía" required="true"
+                                            titleLabel="Toxicomanía" :required=false
                                             message="Seleccione las toxicomanías que tiene el paciente, tales como: tabaco, alcohol y otras" />
 
                                         <select class="form-control" name="toxico" id="toxico">
                                             <option value="" disabled selected>Seleccione una
                                                 opción</option>
-                                            @foreach ($toxicomania as $toxicomania)
+                                            @foreach ($toxicomanias as $toxicomania)
                                                 <option value="{{ $toxicomania->id }}">
                                                     {{ $toxicomania->nombre }}</option>
                                             @endforeach

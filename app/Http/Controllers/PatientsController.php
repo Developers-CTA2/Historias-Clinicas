@@ -90,13 +90,13 @@ class PatientsController extends Controller
         ];
         // $tipos_ahf = Tipo_ahf::all();
         $enfermedades = Enfermedad_especifica::all();
-        $toxicomania = Toxicomanias::all();
+        $toxicomanias = Toxicomanias::all();
         $alergias = Alergia::all();
         $hemotipos = Hemotipo::all();
         $escolidades = Escolaridad::all();
         $estados = Rep_estado::all();
 
-        return view('admin.AddPatient', compact('enfermedades', 'toxicomania', 'alergias', 'breadcrumbs', 'hemotipos', 'escolidades', 'estados'));
+        return view('admin.AddPatient', compact('enfermedades', 'toxicomanias', 'alergias', 'breadcrumbs', 'hemotipos', 'escolidades', 'estados'));
     }
 
 
