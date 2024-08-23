@@ -3,6 +3,7 @@ import {
     IconInfo,
     IconWarning,
     ShowErrors,
+    //Confirm,
 } from "../../templates/ExpedientTemplate.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -178,7 +179,7 @@ function ClicRefresh() {
 }
 
 /*
-    Funcion para cerrar el Collapse desde el boron de cerrar
+    Funcion para cerrar el Collapse desde el boron de cerlrar
 */
 function CloseCollapse() {
     $(".cerrar").on("click", function () {

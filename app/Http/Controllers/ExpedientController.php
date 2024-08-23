@@ -40,11 +40,10 @@ class ExpedientController extends Controller
 
         if (!$Personal) {
 
-            $breadcrumbs = [
-                ['name' => 'Pacientes', '' => ''],
-            ];
+            
+            return redirect()->route('patients.index');
 
-            return view('patients.seePatient', compact('breadcrumbs'));
+            //return view('patients.seePatient', compact('breadcrumbs'));
         }
 
         $domicilio = $Personal->domicilio;
@@ -110,18 +109,17 @@ class ExpedientController extends Controller
         $quirurgicos = $Personal->ant_quirurgicos;
         $enfermedades = $Personal->persona_enfermedades;
 
-        $esp_Ids = $enfermedades->pluck('especificar_ahf.id_tipo_ahf');
+        $esp_Ids = $enfermedades->pluck('enfermedad_especifica.id_tipo_ahf');
         $Ant_pp = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $esp_Ids)->get();  // No repeat
-        $Ant_pp = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $esp_Ids)->get();  // No repeat
-
-        return response()->json($Ant_pp);
+ 
+       //return response()->json($enfermedades);
 
         $breadcrumbs = [
             ['name' => 'Expediente', 'url' =>   route('admin.medical_record', ['id' => $id])],
             ['name' => 'Detalles', '' => ''],
 
         ];
-        return view('patients.expedient_cards.modals_expedient.Details_App', compact('breadcrumbs', 'Ant_pp'));
+        return view('patients.expedient_cards.modals_expedient.Details_App', compact('breadcrumbs', 'Ant_pp', 'alergias', 'transfusiones', 'hospitalizaciones', 'traumatismos', 'quirurgicos', 'enfermedades'));
     }
 
 

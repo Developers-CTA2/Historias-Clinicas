@@ -20,6 +20,7 @@ use App\Http\Controllers\NutritionHistoryController;
 use App\Http\Controllers\newConsultationNutritionController;
 use App\Http\Controllers\AHFController;
 use App\Http\Controllers\APNPController;
+use App\Http\Controllers\APPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,23 +109,30 @@ Route::middleware('auth')->group(function () {
         
         // Medical record 
         Route::prefix('/medical_record')->group(function () {
-        Route::get('/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
-        Route::post('/Update_Personal_Data', [PatientsController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
-        //AHF
-        Route::post('/Update_Ahf', [AHFController::class, 'Update'])->name('Update_Ahf');
-        Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
-        Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
-        // APNP 
-        Route::post('/Update_BloodType', [APNPController::class, 'Update_bloodType'])->name('Update_BloodType');
-        Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
-        Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
-        Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
+            Route::get('/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
+            Route::post('/Update_Personal_Data', [PatientsController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+            //AHF
+            Route::post('/Update_Ahf', [AHFController::class, 'Update'])->name('Update_Ahf');
+            Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
+            Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
+            // APNP 
+            Route::post('/Update_BloodType', [APNPController::class, 'Update_bloodType'])->name('Update_BloodType');
+            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+            Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
+            
+            // APP
+            Route::post('/Add_Disease', [APPController::class, 'Store'])->name('Add_Disease');
+            Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
 
 
-        // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
-        // Route::post('/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
-        Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record');
-        });
+            // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
+            // Route::post('/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
+            Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
+         
+    
+    
+    });
         
 
         Route::prefix('/consultation')->group(function () {

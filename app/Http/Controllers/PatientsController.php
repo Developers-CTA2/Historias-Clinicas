@@ -160,8 +160,8 @@ class PatientsController extends Controller
 
         return [
             'dataPerson' => [
-                'id_persona' => $data['code'],
-                'id_toxicomania' => $data['name'],
+                'codigo' => $data['code'],
+                'nombre' => $data['name'],
                 'sexo' => $data['gender'] == '1' ? 'Masculino' : 'Femenino',
                 'ocupacion' => $data['career'],
                 'fecha_nacimiento' => $data['birthdate'],

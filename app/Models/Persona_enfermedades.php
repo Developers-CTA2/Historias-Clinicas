@@ -10,11 +10,11 @@ class Persona_enfermedades extends Model
     // use HasFactory;
     // protected $table = 'persona_enfermedades';
 
-    protected $fillable = ['id_enfermedad'];
-
+    
     use HasFactory;
-
+    protected $primaryKey = 'id';
     protected $table = 'persona_enfermedades';
+    protected $fillable = ['id_enfermedad'];
 
     public function persona()
     {

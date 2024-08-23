@@ -115,7 +115,7 @@ async function RequestUpdate(Hemotipo, school, Type) {
         let response = "";
         if (Type == 1) {// Update BloodType
             response = await axios.post(
-                "/patients/medical_record/Update_BloodType",
+                "/patients/medical_record/Add_Disease",
                 Data
             );
         } else {// Update school

@@ -23,8 +23,6 @@ export function ocultarerr(campo) {
 }
 
 
-
-
 /* Funcion que muestra los errores que manda el controlador*/
 export function showErrors(errors, campoAlerta, campoLista) {
     if (errors) {
