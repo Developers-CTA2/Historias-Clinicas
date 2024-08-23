@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona_enfermedades extends Model
 {
-    // use HasFactory;
     // protected $table = 'persona_enfermedades';
 
     

@@ -11,7 +11,7 @@ $(document).ready(function () {
     console.log("Editar APP");
     InitiliazeSelect1();
     CloseCollapse();
-    ClicSaveDisease(1); // 1 = Disease-store
+    ClicSaveDisease(1, ""); // 1 = Disease-store
     EventEditDisease();
 });
 
@@ -37,6 +37,7 @@ function CloseCollapse() {
 function EventEditDisease() {
     $(".edit-APP").off("click");
     $(".edit-APP").on("click", function () {
+        var Id_reg = $(this).data("id_reg");
         var name = $(this).data("name");
         var Id_ahf = $(this).data("id_app");
 
@@ -62,7 +63,7 @@ function EventEditDisease() {
                     IconInfo(" No se realizó  ningun cambio.")
                 );
             } else {
-                ClicSaveDisease(2); // 2 = Disease-edit
+                ClicSaveDisease(2, Id_reg); // 2 = Disease-edit
             }
         });
     });
@@ -74,7 +75,11 @@ function ShowCollapseData(Cont, text) {
     $(Cont).removeClass("text-muted").addClass("font-weight-normal"); // quitar estilos
 }
 
-function ClicSaveDisease(Type) {
+/*  
+    Funcion para validar el dato que se seleccione en el select y si esta correcto mandará a llamar a la funcion para hacer la peticion
+    ya sea un Store o un Update 
+*/
+function ClicSaveDisease(Type, Id_reg) {
     listenSelect2();
 
     $(".Save-changes").off("click");
@@ -86,12 +91,12 @@ function ClicSaveDisease(Type) {
         );
         if (opc != 0) {
             Confirm(
-                "¿Estás seguro de agregar la enfermedad?",
+                "¿Estás seguro sde realizar la acción?",
                 "El nuevo dato será parte del expediente.",
                 "warning"
             ).then((isConfirmed) => {
                 if (isConfirmed) {
-                    RequestAdd(Type, opc, ""); 
+                    RequestAdd(Type, Id_reg, opc, "");
                 }
             });
         }
@@ -126,7 +131,7 @@ function ClicValidateData(Id, Span, Container) {
 /*
     Funcion que hace la peticion al controlador para hacer una insercion
 */
-async function RequestAdd(Type, Id, Descrption) {
+async function RequestAdd(Type, Id_reg, Id, Descrption) {
     console.log(Type);
     var path = window.location.pathname;
     var segments = path.split("/");
@@ -134,6 +139,7 @@ async function RequestAdd(Type, Id, Descrption) {
 
     const Data = {
         Id_person: parseInt(id_person),
+        Id_reg: parseInt(Id_reg),
         Id: parseInt(Id),
         Descrption: Descrption,
     };
@@ -148,7 +154,7 @@ async function RequestAdd(Type, Id, Descrption) {
             "/patients/medical_record/" + Route,
             Data
         );
-        
+
         console.log(response);
 
         $(collapse).collapse("hide"); // Cerrar collapse
@@ -194,14 +200,14 @@ function SwitchRountes(Type) {
             collapse: "#Diseases_APP",
         };
     } else if (Type == 2) {
-       result = {
-           Route: "Update_Disease",
-           IdContainer: ".Diseases",
-           span: ".Disease-Text",
-           collapse: "#Diseases_APP",
-       };
+        result = {
+            Route: "Update_Disease",
+            IdContainer: ".Diseases",
+            span: ".Disease-Text",
+            collapse: "#Diseases_APP",
+        };
     }
-     return result;
+    return result;
 }
 /* Funcion para recargar la pagina y ver los cambios refeljados ya en la vista */
 function ClicRefresh() {
