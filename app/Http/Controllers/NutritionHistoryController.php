@@ -29,9 +29,15 @@ class NutritionHistoryController extends Controller
 
     public function create($id)
     {
+
+        $breadcrumbs = [
+            ['name' => 'Pacientes', 'url' => route('patients.index')],
+            ['name' => 'Historial de consulta', '' => ''],
+        ];
+
         $person = Persona::findOrFail($id);
         $dateNow = now()->toDateString();
-        return view('admin.historial.create', compact('person', 'dateNow'));
+        return view('patients.newConsultationNutrition', compact('person', 'dateNow', 'breadcrumbs'));
     }
 
     public function store(Request $request)

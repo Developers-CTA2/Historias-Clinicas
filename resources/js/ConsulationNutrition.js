@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 cancelButtonColor: "#B04759",
                 confirmButtonText: '<i class="fa-solid fa-save animated-icon px-1"></i> Guardar',
                 cancelButtonText: '<i class="fa-solid fa-times"></i> Cancelar',
+                reverseButtons: true,
             });
 
             if (response.isConfirmed) {
