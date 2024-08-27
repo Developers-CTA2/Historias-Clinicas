@@ -122,8 +122,11 @@ Route::middleware('auth')->group(function () {
             Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
             
             // APP
-            Route::post('/Add_Disease', [APPController::class, 'Store'])->name('Add_Disease');
+            Route::post('/Add_Disease', [APPController::class, 'Store_Disease'])->name('Add_Disease');
             Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
+            Route::post('/Delete_Disease', [APPController::class, 'Delete_Disease'])->name('Delete_Disease');
+            Route::post('/Add_Allergy', [APPController::class, 'Store_Allergy'])->name('Add_Allergy');
+            Route::post('/Update_Allergy', [APPController::class, 'Update_Allergy'])->name('Update_Allergy');
 
 
             // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');

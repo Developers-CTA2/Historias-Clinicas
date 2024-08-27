@@ -35,10 +35,6 @@ export const IconError = (Text) => {
  );
 
 
-
-
-
-
 /* Funcion para confimar que los datos seran editados  */
 export async function Confirm(Title, Text, Icon) {
     const result = await Swal.fire({
@@ -76,5 +72,16 @@ export async function ShowErrors(Title, Text, Icon, errors) {
         // icon: Icon,
         confirmButtonColor: "#d33",
         confirmButtonText: "Aceptar",
+    });
+}
+
+
+/* Funcion para recargar la pagina y ver los cambios refeljados ya en la vista */
+export function ClicRefresh(btn, icon) {
+    $(icon).removeClass("d-none");
+    $(btn).off("click");
+    $(btn).on("click", function () {
+        console.log("Refrescar pagina ");
+        window.location.reload();
     });
 }

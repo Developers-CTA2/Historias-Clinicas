@@ -35,7 +35,7 @@
 
                             <div class="form-group">
                                 <div class="row">
-                                    <h5 class="m-0 d-flex justify-content-start">
+                                    <h5 class="m-0 d-flex justify-content-start mt-1">
                                         <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25"
                                                 height="25" viewBox="0 0 48 48">
                                                 <g fill="rgb(19, 87, 78)">
@@ -51,7 +51,8 @@
                                             </svg>
                                         </span> Enfermedades
 
-                                        <div class="ms-3 icon-refresh d-none animate__animated animate__fadeInUp" data-icon="">
+                                        <div class="ms-3 icon-refresh-Diseases d-none animate__animated animate__fadeInUp"
+                                            data-icon="">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 64 64">
                                                 <path fill="#ffdd15"
@@ -83,7 +84,8 @@
                                                         {{ $enfermedad->enfermedad_especifica->nombre }}
 
                                                         <div class="d-flex gap-1">
-                                                            <button class="btn-red fst-normal tooltip-container">
+                                                            <button class="btn-red fst-normal tooltip-container"
+                                                                id="Delete-Disease" data-id_reg="{{ $enfermedad->id }}">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                     height="20" viewBox="0 0 24 24">
                                                                     <path
@@ -92,9 +94,11 @@
                                                                 <span class="tooltip-text">Eliminar enfermedad.</span>
                                                             </button>
 
+
+
                                                             <button
                                                                 class="btn-blue-sec fst-normal tooltip-container edit-APP"
-                                                                data-id_reg="{{ $enfermedad->id }}" 
+                                                                data-id_reg="{{ $enfermedad->id }}"
                                                                 data-id_app="{{ $enfermedad->enfermedad_especifica->id_especifica_ahf }}"
                                                                 data-name="{{ $enfermedad->enfermedad_especifica->nombre }}"
                                                                 data-bs-toggle="collapse" data-bs-target="#Diseases_APP"
@@ -112,8 +116,9 @@
                                             @endif
                                         </ul>
                                     </div>
-
+                                    {{-- Botones de las opciones --}}
                                     <div class="col-12 mt-2">
+
                                         <div class="row">
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
@@ -131,7 +136,8 @@
                                                     </button>
                                                 </div>
 
-                                                <div class="icon-refresh d-none animate__animated animate__fadeInUp">
+                                                <div
+                                                    class="icon-refresh-Diseases d-none animate__animated animate__fadeInUp">
                                                     <button class="btn-sec fst-normal tooltip-container btn-refresh"
                                                         type="button">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18"
@@ -157,10 +163,21 @@
                         @endphp
 
                         <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <div class="p-0 m-0 Allergies d-none animate__animated animate__fadeInUp">
+                                        <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
+                                            role="alert">
+                                            <p class="p-2 mb-0 me-3 Allergy-Text">
+                                            </p>
 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="row">
-                                    <h5 class="m-0 mt-1 aling-items-center">
+                                    <h5 class="m-0 d-flex justify-content-start mt-1">
                                         <span class="pe-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                                 viewBox="0 0 64 64">
@@ -170,7 +187,23 @@
                                                     d="M20.514 12.738c-.643.065-.351 2.021.177 1.965a12.803 12.803 0 0 1 10.237 3.725c.369.385 1.848-.926 1.398-1.389a14.778 14.778 0 0 0-11.812-4.301m18.56 5.69a12.81 12.81 0 0 1 10.236-3.725c.527.057.82-1.899.177-1.965a14.783 14.783 0 0 0-11.813 4.301c-.447.463 1.031 1.774 1.4 1.389m5.578 4.355c2.324-1.287 4.773-1.681 7.084-2.026a.5.5 0 0 0 .143-.938c-4.889-2.915-12.84-.583-14.252 5.599c-.09.384.27.625.687.582c5.292-.544 9.503.261 13.597 1.747c.381.139.805-.413.467-.819c-1.505-1.803-4.274-3.573-7.726-4.145m-26.531-2.965a.5.5 0 0 0 .144.938c2.312.346 4.761.739 7.085 2.026c-3.451.572-6.222 2.342-7.725 4.144c-.341.406.085.958.464.819c4.097-1.486 8.307-2.291 13.6-1.747c.417.043.774-.198.687-.582c-1.413-6.181-9.364-8.513-14.255-5.598" />
                                             </svg>
                                         </span> Alergias
+
+                                        <div class="ms-3 icon-refresh-Allergy d-none animate__animated animate__fadeInUp"
+                                            data-icon="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 64 64">
+                                                <path fill="#ffdd15"
+                                                    d="M63.37 53.52C53.982 36.37 44.59 19.22 35.2 2.07a3.687 3.687 0 0 0-6.522 0C19.289 19.22 9.892 36.37.508 53.52c-1.453 2.649.399 6.083 3.258 6.083h56.35c1.584 0 2.648-.853 3.203-2.01c.698-1.102.885-2.565.055-4.075" />
+                                                <path fill="#1f2e35"
+                                                    d="m28.917 34.477l-.889-13.262c-.166-2.583-.246-4.439-.246-5.565c0-1.534.4-2.727 1.202-3.588c.805-.856 1.863-1.286 3.175-1.286c1.583 0 2.646.551 3.178 1.646c.537 1.102.809 2.684.809 4.751c0 1.215-.066 2.453-.198 3.708l-1.19 13.649c-.129 1.626-.404 2.872-.827 3.739c-.426.871-1.128 1.301-2.109 1.301c-.992 0-1.69-.419-2.072-1.257c-.393-.841-.668-2.12-.833-3.836m3.072 18.217c-1.125 0-2.106-.362-2.947-1.093c-.841-.728-1.26-1.748-1.26-3.058c0-1.143.4-2.12 1.202-2.921c.805-.806 1.786-1.206 2.951-1.206s2.153.4 2.977 1.206c.815.801 1.234 1.778 1.234 2.921c0 1.29-.419 2.308-1.246 3.044a4.245 4.245 0 0 1-2.911 1.107" />
+                                            </svg>
+                                        </div>
                                     </h5>
+
+                                    @role('Administrador')
+                                        @include('patients.expedient_cards.modals_expedient.collapse_APP_Allergies')
+                                    @endrole
+
 
                                     <div class="cont-list p-2">
                                         <ul class="list-group">
@@ -195,17 +228,14 @@
                                                         </div>
                                                         <div class="d-flex gap-1">
 
-                                                            <button class="btn-red fst-normal tooltip-container">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                    height="20" viewBox="0 0 24 24">
-                                                                    <path
-                                                                        d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                                </svg>
-                                                                <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                            </button>
-
-
-                                                            <button class="btn-blue-sec fst-normal tooltip-container">
+                                                            <button
+                                                                class="btn-blue-sec fst-normal tooltip-container Edit-Allergy"
+                                                                data-id_reg="{{ $alergia->id }}"
+                                                                data-name="{{ $alergia->alergias->nombre }}"
+                                                                data-description="{{ $alergia->especificar }}"
+                                                                data-id_alergia="{{ $alergia->id_alergia }}"
+                                                                data-bs-toggle="collapse" data-bs-target="#Allergies_APP"
+                                                                aria-expanded="false" aria-controls="Allergies_APP">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                     height="20" viewBox="0 0 32 32">
                                                                     <path
@@ -218,6 +248,42 @@
                                                 @endforeach
                                             @endif
                                         </ul>
+                                    </div>
+                                    {{-- Botones de las opciones --}}
+                                    <div class="col-12 mt-2">
+                                        <div class="row">
+                                            <div class="d-flex justify-content-center gap-3">
+                                                <div class=" ">
+                                                    <button class="btn-blue-sec fst-normal tooltip-container add-Allergy"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#Allergies_APP" aria-expanded="false"
+                                                        aria-controls="Allergies_APP">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                            height="18" viewBox="0 0 24 24">
+                                                            <path
+                                                                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
+                                                        </svg>
+                                                        Agregar
+                                                        <span class="tooltip-text">Agregar una alergía.</span>
+                                                    </button>
+                                                </div>
+
+                                                <div
+                                                    class="icon-refresh-Allergy d-none animate__animated animate__fadeInUp">
+                                                    <button class="btn-sec fst-normal tooltip-container btn-refresh"
+                                                        type="button">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                                            height="18" viewBox="0 0 20 20">
+                                                            <path
+                                                                d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
+                                                        </svg>
+                                                        Recargar
+                                                        <span class="tooltip-text">Recargar página.</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -512,7 +578,7 @@
     @role('Administrador')
         @section('scripts')
             <script src="{{ asset('js/select2.min.js') }}"></script>
-            @vite('resources/js/patients/expedient/APP_details.js')
+            @vite('resources/js/patients/expedient/Diseases_Allergies.js')
         @endsection
     @endrole
 

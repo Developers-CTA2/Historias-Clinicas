@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alergia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -38,12 +39,8 @@ class ExpedientController extends Controller
             'gyo',
         ])->find($id);
 
-        if (!$Personal) {
-
-            
+        if (!$Personal) { // No existe el paciente
             return redirect()->route('patients.index');
-
-            //return view('patients.seePatient', compact('breadcrumbs'));
         }
 
         $domicilio = $Personal->domicilio;
@@ -93,14 +90,11 @@ class ExpedientController extends Controller
 
         ])->find($id);
 
-        // No existe la persona
-        if (!$Personal) {
-            $breadcrumbs = [
-                ['name' => 'Pacientes', '' => ''],
-            ];
-
-            return view('patients.seePatient', compact('breadcrumbs'));
+     
+        if (!$Personal) {// No existe el paciente
+            return redirect()->route('patients.index');
         }
+
         // Data 
         $alergias = $Personal->Persona_alergia;
         $transfusiones = $Personal->transfusiones;
@@ -111,15 +105,16 @@ class ExpedientController extends Controller
 
         $esp_Ids = $enfermedades->pluck('enfermedad_especifica.id_tipo_ahf');
         $Ant_pp = Enfermedad_especifica::whereNotIn('id_tipo_ahf', $esp_Ids)->get();  // No repeat
+        $SelectAlergias = Alergia::all();  // No repeat
  
-       //return response()->json($enfermedades);
+     //return response()->json($alergias);
 
         $breadcrumbs = [
             ['name' => 'Expediente', 'url' =>   route('admin.medical_record', ['id' => $id])],
             ['name' => 'Detalles', '' => ''],
 
         ];
-        return view('patients.expedient_cards.modals_expedient.Details_App', compact('breadcrumbs', 'Ant_pp', 'alergias', 'transfusiones', 'hospitalizaciones', 'traumatismos', 'quirurgicos', 'enfermedades'));
+        return view('patients.expedient_cards.modals_expedient.Details_App', compact('breadcrumbs', 'Ant_pp', 'alergias', 'transfusiones', 'hospitalizaciones', 'traumatismos', 'quirurgicos', 'enfermedades', 'SelectAlergias'));
     }
 
 
