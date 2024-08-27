@@ -249,8 +249,8 @@
 
                     <div class="col-12 col-md-6 col-lg-5 col-xl-3">
                         <x-card-only-shadow>
-                            <x-button-custom type="text" class="btn-blue-sec justify-content-center w-100 mb-2"
-                                text="Descargar receta" id="btnDownloadRecipe"
+                            <x-button-link-custom type="text" class="btn-blue-sec justify-content-center w-100 mb-2"
+                                text="Descargar receta" :route="route('consultation.history.pdf',[ $person->id_persona, $consulta->id_consulta])"
                                 tooltipText="Presiona para descargar la receta de la consulta">
                                 <x-slot name="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="me-1"
