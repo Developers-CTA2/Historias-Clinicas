@@ -19,4 +19,4 @@ export * from './configQuillJs';
 export * from './DomPurify';
 export * from './manageDrugAddictions';
 export * from "./ValidateFuntions";
- 
+ export * from "./ValidateFuntions";

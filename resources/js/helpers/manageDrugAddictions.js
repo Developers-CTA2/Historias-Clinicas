@@ -11,33 +11,48 @@ Funcion para manejar la lógica de las toxicomanías, se recibe un objeto con lo
 
 */
 
+const responseEPOC = {
+    text: '',
+    html: ''
+};
+
+const result = {
+    id: '',
+    idReferenceTable: '',
+    date: '',
+    description: '',
+    descriptionUI: ''
+};
+
 export const manageDrugAddictions = (parameters) => {
 
     // Obtener los parametros de la función
     const { optionDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs, riskEPOCGlobal } = parameters;
     // Almacena el resultado a retornar
-    let result = {};
+    
 
     // Generar un id aleatorio
     let idRandom = Math.random().toString(36).substr(2, 9);
+    result.id = '';
+    result.idReferenceTable = '';
+    result.date = '';
+    result.description = '';
+    result.descriptionUI = '';
     
 
     if (optionDrugAddiction == '1') {
-        result = {
-            id: idRandom,
-            idReferenceTable: optionDrugAddiction,
-            date: valueHowDateSmoking,
-            description: `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal}`,
-            descriptionUI: `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal}`
-        }
+        result.id = idRandom;
+        result.idReferenceTable = optionDrugAddiction;
+        result.date = valueHowDateSmoking;
+        result.description = `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal}`;
+        result.descriptionUI = `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal}`;
+            
     } else {
-        result = {
-            id: idRandom,
-            idReferenceTable: optionDrugAddiction,
-            date: valueHowOtherDrugs,
-            description: valueDescriptionOtherDrugs,
-            descriptionUI: `Frecuencia de consumo: ${valueHowOtherDrugs} años  |   Descripción: ${valueDescriptionOtherDrugs}`
-        }
+        result.id = idRandom;
+        result.idReferenceTable = optionDrugAddiction;
+        result.date = valueHowOtherDrugs;
+        result.description = `${valueHowOtherDrugs},${valueDescriptionOtherDrugs}`;
+        result.descriptionUI = `Frecuencia de consumo: ${valueHowOtherDrugs}  |  Descripción: ${valueDescriptionOtherDrugs}`;
     }
 
     return result;
@@ -64,7 +79,7 @@ export const calculateEPOC = (parameters) => {
         }
     }
 
-    return result;
+    return responseEPOC;
 }
 
 

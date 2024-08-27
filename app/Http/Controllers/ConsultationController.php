@@ -54,7 +54,12 @@ class ConsultationController extends Controller
                 $consulta->consulta_has_enfermedad()->attach($diagnosticLabels);
             });
 
-            return response()->json(['title' => 'Éxito..', 'message' => 'Consulta creada correctamente', 'error' => null]);
+            // Get id of the consultation
+
+            $data = Consulta::latest()->first();
+            $idConsultation = Consulta::latest()->first()->id_consulta;
+
+            return response()->json(['title' => 'Éxito..', 'message' => 'La consulta se ha guardado correctamente', 'error' => null, 'idConsultation' => $idConsultation]);
         } catch (\Exception $e) {
             return response()->json(['title' => 'Oops.. ha sucedido un error', 'message' => 'Error al guardar la consulta del paciente', 'error' => $e], 500);
         }

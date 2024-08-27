@@ -1,4 +1,3 @@
-@props(['active' => false])
 <div class="col-2 p-0 m-0">
 <div class="step-group d-flex flex-column align-items-center">
         <div class="step-progress">

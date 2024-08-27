@@ -92,13 +92,13 @@ class PatientsController extends Controller
         ];
         // $tipos_ahf = Tipo_ahf::all();
         $enfermedades = Enfermedad_especifica::all();
-        $toxicomania = Toxicomanias::all();
+        $toxicomanias = Toxicomanias::all();
         $alergias = Alergia::all();
         $hemotipos = Hemotipo::all();
         $escolidades = Escolaridad::all();
         $estados = Rep_estado::all();
 
-        return view('admin.AddPatient', compact('enfermedades', 'toxicomania', 'alergias', 'breadcrumbs', 'hemotipos', 'escolidades', 'estados'));
+        return view('admin.AddPatient', compact('enfermedades', 'toxicomanias', 'alergias', 'breadcrumbs', 'hemotipos', 'escolidades', 'estados'));
     }
 
 
@@ -267,8 +267,8 @@ class PatientsController extends Controller
         $toxicomanias = [];
         foreach ($data['listDrugAddiction'] as $item) {
 
-            $desde_cuando = Carbon::now()->subYears($item['input1'])->format('Y-m-d');
-            $observacion = $item['input2'];
+            $desde_cuando = Carbon::now()->subYears($item['date'])->format('Y-m-d');
+            $observacion = $item['description'];
 
 
 

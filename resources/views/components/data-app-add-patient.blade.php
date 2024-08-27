@@ -1,5 +1,3 @@
-@props(['enfermedades', 'alergias'])
-
 {{-- Antecedentes patológicos --}}
 
 <div class="row p-3 form-step d-none animate__animated animate__fadeInUp bg-content-custom shadow-custom">
@@ -15,25 +13,30 @@
         
 
         {{-- Tabs para las opciones --}}
-        <div class="d-flex align-items-start mt-3">
+        <div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start  mt-3">
             <x-container-tap-links />
-            <x-container-tap-content :enfermedades="$enfermedades" :alergias="$alergias" />
+            <x-container-tap-content :enfermedades=$enfermedades :alergias=$alergias />
         </div>
     
-        <section class="mt-4 d-flex">
-            <button id="addAntecedentesPatologicos" class="btn-blue-sec px-3 py-2 w-full d-flex gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px;" fill="none" viewBox="0 0 24 24"
+        <section class="mt-4 d-flex flex-column flex-md-row justify-content-md-center justify-content-lg-start">
+
+            <x-button-custom id="addAntecedentesPatologicos" class="btn-blue-sec" text="Agregar antecedente" tooltipText="Agregar antecedente patológico a la lista">   
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 20px;" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Agregar</button>
+                </svg>    
+                </x-slot>
+
+            </x-button-custom>
+
         </section>
 
 
 
     </div> <!-- FIN contenedor 1  -->
     {{-- Contenedor 2 --}}
-    <div class="col-xl-5 col-xxl-6 col-sm-12 mt-xl-0 mt-3">
+    <div class="col-xl-5 col-xxl-6 col-sm-12 mt-xl-0 mt-4 mt-lg-3">
         <div class="d-flex my-1">
             <h5>Lista de Antecedentes patológicos</h5>
         </div>

@@ -1,3 +1,4 @@
+import { calculateEPOC, manageDrugAddictions } from '../helpers';
 import { templateAddListAccordionDrugAddiction } from '../templates';
 
 let dataDrugAddiction = [];
@@ -44,7 +45,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
     const getDataForm = ()=>{
         let data = {
-            textDrugAddiction: selectDrugAddiction.find('option:selected').text(),
+            textDrugAddiction: selectDrugAddiction.find('option:selected').text().trim(),
             valueDrugAddiction: selectDrugAddiction.val(),
             valueNumberOfCigarettes: inputNumberOfCigarettes.val(),
             valueHowDateSmoking: inputHowDateSmoking.val(),
@@ -125,35 +126,30 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
     }
 
     const addedListDrugAddiction = (data)=>{
+    
+        let response = manageDrugAddictions(convertFormat(data));
 
-        const { valueDrugAddiction, textDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs } = data;
-        let idValue = Math.random().toString(36).substr(2, 9);
-        let description = '';
-        
-        if(valueDrugAddiction == '1' ){
-        
-            dataDrugAddiction.push({
-                id: idValue,
-                idReferenceTable: valueDrugAddiction,
-                input1 : valueHowDateSmoking,
-                input2 : `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal.text}`
-            });
-            description = `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal.text}`;
-        }else{
-            dataDrugAddiction.push({
-                id: idValue,
-                idReferenceTable: valueDrugAddiction,
-                input1 : valueHowOtherDrugs,
-                input2 : valueDescriptionOtherDrugs
-            });
-            description = `Frecuencia de consumo: ${valueHowOtherDrugs} años  |   Descripción: ${valueDescriptionOtherDrugs}`;  
-        }
+        const { id, descriptionUI } = response;
+        const { textDrugAddiction } = data;
 
+        dataDrugAddiction.push(response);
+        
         // ulListDrugAddiction.append(templateAddListDrugAddiction(idValue ,textDrugAddiction));
-        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(idValue ,textDrugAddiction, description));
+        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(id ,textDrugAddiction, descriptionUI));
 
         clearForm();
         deleteDrugAddiction();
+    }
+
+    const convertFormat = (data)=>{
+        return {
+            optionDrugAddiction : data.valueDrugAddiction,
+            valueNumberOfCigarettes : data.valueNumberOfCigarettes,
+            valueHowDateSmoking : data.valueHowDateSmoking,
+            valueHowOtherDrugs : data.valueHowOtherDrugs,
+            valueDescriptionOtherDrugs : data.valueDescriptionOtherDrugs,
+            riskEPOCGlobal : riskEPOCGlobal
+        }
     }
 
     const deleteDrugAddiction = ()=>{
@@ -181,38 +177,24 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
     // Calculate EPOC
     inputNumberOfCigarettes.on('keyup', function(){
-        calculateEPOC();
+        getCalculateEPOC();
     });
 
     inputHowDateSmoking.on('keyup', function(){
-        calculateEPOC();
+        getCalculateEPOC();
     })
 
 
-    const calculateEPOC = ()=>{
+    const getCalculateEPOC = ()=>{
         let numberOfCigarettes = inputNumberOfCigarettes.val();
         let howDateSmoking = inputHowDateSmoking.val();
-        let result = 0;
+        let response = null;
 
-        console.log('numberOfCigarettes', numberOfCigarettes, 'howDateSmoking', howDateSmoking);
-        if(numberOfCigarettes != '' && howDateSmoking != ''){
-            result = (numberOfCigarettes * howDateSmoking) / 20;
-            riskEPOCGlobal = riskEPOC(result);
-            
-            $('#riegoEPOC').html(riskEPOCGlobal.html);
-            
-        }
+        response = calculateEPOC({numberOfCigarettes, howDateSmoking});
+        $('#riegoEPOC').html(response.html);
+        riskEPOCGlobal = response.text;
     }
 
-
-    const riskEPOC = (result)=>{
-        if(result < 10) return {text :'Nulo', html: '<span class="badge-custom badge-custom-success">Nulo</span>'};
-        if(result >= 10 && result <= 20) return {text : 'Moderado' , html: '<span class="badge-custom badge-custom-moderade">Moderado</span>'};
-        if(result > 20 && result < 41) return {text : 'Intenso' , html: '<span class="badge-custom badge-custom-warning">Intenso</span>'};
-        if(result > 40) return {text : 'Alto' , html: '<span class="badge-custom badge-custom-danger">Alto</span>'};
-
-        return 'Sin dato';
-    }
 
 }
 

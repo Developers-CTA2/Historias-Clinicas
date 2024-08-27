@@ -6,28 +6,29 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class formGroup extends Component
+class formGroupVitalSigns extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-
+    
+    public $label;
+    public $text;
     public $class;
-    public $id;
 
     public function __construct(
-        string $class = '',
-        string $id = ''
-    ) {
+        string $label = '',
+        string $text = '',
+        string $class = ''
+    )
+    {
+        $this->label = $label;
+        $this->text = $text;
         $this->class = $class;
-        $this->id = $id;
     }
-
+    
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.form-group');
+        return view('components.form-group-vital-signs');
     }
 }

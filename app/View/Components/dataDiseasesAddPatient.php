@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class dataDiseasesAddPatient extends Component
@@ -11,9 +12,14 @@ class dataDiseasesAddPatient extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+
+     public $enfermedades;
+
+    public function __construct(
+        Collection $enfermedades
+    )
     {
-        //
+        $this->enfermedades = $enfermedades;
     }
 
     /**
