@@ -115,7 +115,7 @@
                                                 </p>
                                             </span>
                                         @endif
-                                        {{-- boton de de editar --}}
+                                        {{-- boton de de editar 
                                         <div class="align-self-center">
                                             <button
                                                 class="btn-blue-sec fst-normal tooltip-container APNP-data d-none animate__animated animate__fadeInUp">
@@ -127,6 +127,7 @@
                                                 <span class="tooltip-text">Editar registro.</span>
                                             </button>
                                         </div>
+                                        --}}  
                                     </li>
                                 @endforeach
                             @endif
@@ -156,7 +157,7 @@
                 </div> <!-- FIN contenedor 1  -->
             </div>
 
-
+{{-- Contenedor del Hemotipo y la escoliaridad  --}}
             <div class="col-lg-4 col-md-4 col-sm-12 m-0">
                 <div class="form-group">
 
@@ -179,7 +180,7 @@
 
                     </h5>
 
-                    <div class="p-2">
+                    <div class="p-2 mb-2">
                         <div class="d-flex justify-content-between">
                             <div class="align-self-center">
                                 {{ $hemotipo->nombre }}
@@ -228,7 +229,7 @@
                     </div>
 
 
-                    <h5 class="m-0 d-flex justify-content-start ">
+                    <h5 class="m-0 d-flex justify-content-start mt-2">
                         <span class="pe-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 24 24">

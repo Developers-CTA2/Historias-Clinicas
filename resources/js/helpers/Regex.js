@@ -13,7 +13,7 @@ export const regexIntNumero = /^[\w\s\-.,#\/]+$/;
 
 
 export const regexNss = /^[0-9]{11}$/;
-export const regexDescription = /^[a-zA-Z0-9\s.,;:?!'"\-()@#&]+$/;
+export const regexDescription = /^[a-zA-ZáÁéÉíÍóÓúÚÑñ0-9\s.,;:?!'"\-()@#&]+$/;
 
 export const regexNumeroEntero = /^\d+$/;
 export const regexNumlenght2 = /^[0-9]{1,2}$/;

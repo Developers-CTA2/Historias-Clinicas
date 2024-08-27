@@ -9,15 +9,15 @@
             </div>
             <div class="modal-body">
                 <div>
-                        <div class="p-0 m-0 Add_drug d-none animate__animated animate__fadeInUp">
-                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                                role="alert">
-                                <p class="p-2 mb-0 me-3 alert-add-Drug">
-                                </p>
+                    <div class="p-0 m-0 Add_drug d-none animate__animated animate__fadeInUp">
+                        <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
+                            role="alert">
+                            <p class="p-2 mb-0 me-3 alert-add-Drug">
+                            </p>
 
-                            </div>
                         </div>
                     </div>
+                </div>
                 <div class="col-12 p-2">
                     <div class="row d-flex justify-content-start">
                         <label for="new_toxic">Nombre de la toxicomanía <span class="red-color"> *</span></label>

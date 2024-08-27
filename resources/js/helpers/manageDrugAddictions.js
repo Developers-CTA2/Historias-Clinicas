@@ -65,14 +65,18 @@ export const calculateEPOC = (parameters) => {
     // let numberOfCigarettes = inputNumberOfCigarettes.val();
     // let howDateSmoking = inputHowDateSmoking.val();
 
-    let data = null;
+    let result = {
+        risk: "",
+        html: "",
+    };
 
     if (numberOfCigarettes != '' && howDateSmoking != '') {
-        const result = (numberOfCigarettes * howDateSmoking) / 20;
-        data = riskEPOCTemplate(result);
-            responseEPOC.text = data.text ?? '';
-            responseEPOC.html = data.html ?? '';
-        
+        const resultEPOCT = (numberOfCigarettes * howDateSmoking) / 20;
+      let data = riskEPOCTemplate(resultEPOCT);    
+        result = {
+            risk: data.text ?? '',
+            html: data.html ?? '',
+        }
     }
 
     return responseEPOC;

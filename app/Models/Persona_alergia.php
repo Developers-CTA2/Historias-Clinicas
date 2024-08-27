@@ -10,8 +10,11 @@ class Persona_alergia extends Model
     use HasFactory;
 
     protected $table = 'persona_alergia';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 
     protected $fillable = [
+        'id_persona',
         'id_alergia',
         'especificar',
     ];

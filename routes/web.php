@@ -18,6 +18,10 @@ use App\Http\Controllers\HistoryConsultationController;
 use App\Http\Controllers\ExpedientController;
 use App\Http\Controllers\MedicalPrescriptionController;
 use App\Http\Controllers\NutritionHistoryController;
+use App\Http\Controllers\newConsultationNutritionController;
+use App\Http\Controllers\AHFController;
+use App\Http\Controllers\APNPController;
+use App\Http\Controllers\APPController;
 
 
 /*
@@ -101,19 +105,40 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientsController::class, 'index'])->name('patients.index');
-       // Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
-        Route::get('/medical_record/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
-        Route::post('/medical_record/Update_Personal_Data', [ExpedientController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
-        Route::post('/medical_record/Update_ahf_Data', [ExpedientController::class, 'Update_Ahf_Data'])->name('Update_Ahf_Data');
-        Route::post('/medical_record/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
-        Route::post('/medical_record/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
+        
+        // Medical record 
+        Route::prefix('/medical_record')->group(function () {
+            Route::get('/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
+            Route::post('/Update_Personal_Data', [PatientsController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+            //AHF
+            Route::post('/Update_Ahf', [AHFController::class, 'Update'])->name('Update_Ahf');
+            Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
+            Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
+            // APNP 
+            Route::post('/Update_BloodType', [APNPController::class, 'Update_bloodType'])->name('Update_BloodType');
+            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+            Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
+            
+            // APP
+            Route::post('/Add_Disease', [APPController::class, 'Store_Disease'])->name('Add_Disease');
+            Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
+            Route::post('/Delete_Disease', [APPController::class, 'Delete_Disease'])->name('Delete_Disease');
+            Route::post('/Add_Allergy', [APPController::class, 'Store_Allergy'])->name('Add_Allergy');
+            Route::post('/Update_Allergy', [APPController::class, 'Update_Allergy'])->name('Update_Allergy');
 
-        // Route::get('/expediente{/id}', function ($id) {
-        //     return view('admin.expediente');
-        // });
+
+            // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
+            // Route::post('/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
+            Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
+         
+    
+    
+    });
+        
 
         Route::prefix('/consultation/{id_persona}')->group(function () {
             Route::get('/new',[ConsultationController::class,'create'])->name('consultation.new');
@@ -138,26 +163,23 @@ Route::middleware('auth')->group(function () {
                 Route::post('/store', [NutritionHistoryController::class, 'store'])->name('historial.nutricion.store');
             });
 
-            // Route::prefix('/consulta')->group(function(){
-            //     Route::get('/create/{id}', [newConsultationNutritionController::class, 'crear'])->name('consulta.nutricion.create');
-            //     Route::post('/store', [newConsultationNutritionController::class, 'consulta'])->name('consulta.nutricion.store');
-            //     Route::get('/{id_persona}', [newConsultationNutritionController::class, 'show'])->name('consulta.nutricion.show');
-            // });
-            
+            Route::get('/consulta/create/{id}', [newConsultationNutritionController::class, 'crear'])->name('consulta.nutricion.create');
+            Route::post('/consulta/store', [newConsultationNutritionController::class, 'consulta'])->name('consulta.nutricion.store');
+            Route::get('/consulta/{id_persona}', [newConsultationNutritionController::class, 'show'])->name('consulta.nutricion.show');
         }); 
 
     });
 
-    
+
 
     ///// REGISTROS DE PACIENTES
-    
+
 
 
     ///// VER PACIENTES
-   
+
     // Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
-    
+
 
     //AGREGAR PACIENTE
     // Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
@@ -167,7 +189,7 @@ Route::middleware('auth')->group(function () {
 
     // Route::prefix('nutrition')->group(function () {
     //     Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details.nutrition');
-         
+
     // });
 
 
@@ -184,7 +206,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
 
     Route::get('/form-api', [WebServicePersonController::class, 'index'])->name('api.form');
-    
 });
 
 // AGENDAR CITAS
@@ -210,9 +231,3 @@ Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::clas
 
 Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
 Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
-
-
-
-
-
-
