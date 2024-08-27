@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             title: "¡Éxito!",
                             text: data.message,
                             icon: "success",
-                        }).then(() => {
+                    }).then(() => {
                             form.reset();  // Opcional: Limpiar el formulario
                         });
                     } else {
