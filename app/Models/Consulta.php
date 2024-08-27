@@ -28,6 +28,7 @@ class Consulta extends Model
         'observaciones',
         'created_by',
         'updated_by',
+        'id_folio'
         
     ];
 
@@ -44,5 +45,10 @@ class Consulta extends Model
     public function consulta_has_enfermedad() : belongsToMany
     {
         return $this->belongsToMany(Enfermedad_especifica::class,'consulta_has_enfermedades','id_consulta','id_enfermedad');
+    }
+
+    public function folio() : BelongsTo
+    {
+        return $this->belongsTo(Folio::class, 'id_folio');
     }
 }

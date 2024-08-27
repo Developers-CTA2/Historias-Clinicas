@@ -138,7 +138,7 @@
 
         {{-- Folio --}}
         <div class="absolute folio">
-            <p>Hola</p>
+            <p>{{$consultation->id_folio}}</p>
         </div>
         
         
@@ -148,10 +148,6 @@
         </div>
 
     </div>
-
-    {{-- {{ $patient->nombre }}
-    {{ $patient->created_at->locale('es')->isoFormat('LL') }}
-    {{ $patient->age ?? 'Error al obtener la edad'}} --}}
     
 
 </body>
