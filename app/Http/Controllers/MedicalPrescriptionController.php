@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Persona;
 use App\Models\Folio;
-use App\Models\Consulta;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\User;
 use Carbon\Carbon;
 
 class MedicalPrescriptionController extends Controller
@@ -16,9 +16,15 @@ class MedicalPrescriptionController extends Controller
         $patient = Persona::select('id_persona','nombre','fecha_nacimiento', 'created_at')->findOrFail($id_persona);
         $consultation = $patient->consulta()->select('tratamiento','id_folio')->findOrFail($id_consulta);
 
+    
+        $doctor = User::with('roles')
+            ->whereHas('roles', function($query){
+                $query->where('name','Administrador');
+            })
+            ->where('estado','Activo')
+            ->select('id','name','cedula')
+            ->first();
 
-
-        // return response()->json([$consultation->folio, $patient]);
 
         // Check if the patient has a folio
         if($consultation->folio == null){
@@ -41,8 +47,8 @@ class MedicalPrescriptionController extends Controller
         $patient->age = Carbon::parse($patient->fecha_nacimiento)->age;
 
                 
-        $pdf = PDF::loadView('patients.medical_prescription.format-cualtos', compact('patient', 'consultation'));
-        return $pdf->stream('prescripcion-medica.pdf');
+        $pdf = PDF::loadView('patients.medical_prescription.format-cualtos', compact('patient', 'consultation','doctor'));
+        return $pdf->download('prescripcion-medica'. $patient->id_person .'.pdf');
 
     }
 

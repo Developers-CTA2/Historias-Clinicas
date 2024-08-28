@@ -114,10 +114,10 @@
     <div class="container">
 
         <div class="absolute dataDoctor">
-            <p class="nameDoctor fw-bold">Yolanda Rosina González Rodríguez</p>
+            <p class="nameDoctor fw-bold">{{$doctor->name}}</p>
             <p class="fw-bold">MÉDICO CIRUJADO Y PARTERO</p>
             <p class="text-sm">Universidad de Guadalajara</p>
-            <p class="text-sm">Cédula profesional: <span>38483483</span> / Estatal> PEJ 2938347</p>
+            <p class="text-sm">Cédula profesional: <span>{{$doctor->cedula}}</span> / Estatal> PEJ 2938347</p>
         </div>
 
         {{-- Nombre del paciente --}}

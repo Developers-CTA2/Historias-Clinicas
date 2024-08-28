@@ -1,14 +1,17 @@
 import { calculateEPOC, manageDrugAddictions } from '../helpers';
 import { templateAddListAccordionDrugAddiction } from '../templates';
 
+// Data for the list of drug addictions
 let dataDrugAddiction = [];
 
 
+// Variables for the EPOC calculation
 let riskEPOCGlobal = '';
 
 
 export const selectDynamicDrugAddiction = ( parameters )=>{
 
+    // Get the parameters
     const { selectDrugAddiction, 
             inputNumberOfCigarettes, 
             inputHowDateSmoking, 
@@ -21,28 +24,35 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
          } = parameters;
 
         
-    
-
+        //  Select the drug addiction option, tabaquism or other drugs
     selectDrugAddiction.on('change', function(){
+        // Get the value of the select
         let value = $(this).val();
 
+        // Enable the button
         btnAddDrugAddiction.attr('disabled', false);
 
+        // If the value is tabaquism
         if(value == '1'){
+            // Show the container for tabaquism
             contaienerOptionSmoking.removeClass('d-none');
             containerOptionOthers.addClass('d-none');
         }else{
+            // Show the container for other drugs
             contaienerOptionSmoking.addClass('d-none');
             containerOptionOthers.removeClass('d-none');    
         }
     });
 
 
+    // Add the drug addiction to the list
     btnAddDrugAddiction.on('click',function(){
         const data = getDataForm();
+        console.log(data);
         validateForm(data) ? addedListDrugAddiction(data) : null;
     });
 
+    // Get the data from the form
     const getDataForm = ()=>{
         let data = {
             textDrugAddiction: selectDrugAddiction.find('option:selected').text().trim(),
@@ -57,6 +67,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
     }
 
 
+    // Validate the form
     const validateForm  = (data)=>{
         const { valueDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs } = data;
         let validate = true;
@@ -125,6 +136,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
     }
 
+    // Add the drug addiction to the list
     const addedListDrugAddiction = (data)=>{
     
         let response = manageDrugAddictions(convertFormat(data));
@@ -132,15 +144,19 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         const { id, descriptionUI } = response;
         const { textDrugAddiction } = data;
 
+        // Add the data to the list
         dataDrugAddiction.push(response);
         
-        // ulListDrugAddiction.append(templateAddListDrugAddiction(idValue ,textDrugAddiction));
+        // Add the data to the UI
         accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(id ,textDrugAddiction, descriptionUI));
 
+        // Clear the form
         clearForm();
+        // Delete the drug addiction
         deleteDrugAddiction();
     }
 
+    // Convert the format of the data to send backend
     const convertFormat = (data)=>{
         return {
             optionDrugAddiction : data.valueDrugAddiction,
@@ -152,17 +168,20 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         }
     }
 
+    // Delete the drug addiction
     const deleteDrugAddiction = ()=>{
         
         $('.deleteDrugAddiction').off('click');
         $('.deleteDrugAddiction').on('click', function(){
             let id = $(this).parent().data('id');
+            // Delete the data from the list
             dataDrugAddiction = dataDrugAddiction.filter(drugAddiction => drugAddiction.id != id)
             $(this).parent().remove();
         });
         
     }
 
+    // Clear the form
     const clearForm = ()=>{
         selectDrugAddiction.val('');
         inputNumberOfCigarettes.val('');
@@ -185,18 +204,23 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
     })
 
 
+    // Get the calculate EPOC
     const getCalculateEPOC = ()=>{
         let numberOfCigarettes = inputNumberOfCigarettes.val();
         let howDateSmoking = inputHowDateSmoking.val();
         let response = null;
-
+        
         response = calculateEPOC({numberOfCigarettes, howDateSmoking});
-        $('#riegoEPOC').html(response.html);
-        riskEPOCGlobal = response.text;
+        if(response.html != ""){
+            // Add the data to the UI
+            $('#riegoEPOC').html(response.html);
+            riskEPOCGlobal = response.text;
+        }
+        
     }
 
 
 }
 
-
+// Export the list of drug addictions data
 export const getListDrugAddiction = () => { return dataDrugAddiction; }

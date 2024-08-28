@@ -11,10 +11,6 @@ Funcion para manejar la lógica de las toxicomanías, se recibe un objeto con lo
 
 */
 
-const responseEPOC = {
-    text: '',
-    html: ''
-};
 
 const result = {
     id: '',
@@ -79,7 +75,7 @@ export const calculateEPOC = (parameters) => {
         }
     }
 
-    return responseEPOC;
+    return result;
 }
 
 
@@ -94,6 +90,7 @@ const riskEPOCTemplate = (result) => {
         template = { text: 'Moderado', html: '<span class="badge-custom badge-custom-moderade">Moderado</span>' }; 
     }
     else if (result > 20 && result < 41) {
+
         template = { text: 'Intenso', html: '<span class="badge-custom badge-custom-warning">Intenso</span>' };
     }
     else if (result > 40) {
@@ -101,6 +98,7 @@ const riskEPOCTemplate = (result) => {
     } else {
         template = { text: null, html: null };
     }
+
 
     return template;
 

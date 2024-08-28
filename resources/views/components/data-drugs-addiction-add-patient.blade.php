@@ -50,7 +50,7 @@
                                         <div
                                             class="form-group container-bg-custom text-center sm-h rounded-2">
                                             <h5 class="fw-bold pt-2">Riesgo de EPOC</h5>
-                                            <p id="riegoEPOC"><span class="badge badge-custom-success">Nulo</span></p>
+                                            <p id="riegoEPOC"><span class="badge-custom badge-custom-success">Nulo</span></p>
                                         </div>
                                     </section>
 
@@ -60,7 +60,7 @@
                                             <label for="desdeCuandoOtros" class="pb-1"><span
                                                     class="required-point">*</span>Desde cuando
                                                 (años)</label>
-                                            <input class="form-control" type="number"
+                                        <input class="form-control" type="number"
                                                 id="desdeCuandoOtros" />
                                             <span class="text-danger fw-normal"></span>
                                         </div>
