@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Administrativo;
 use App\Models\Alergia;
+use App\Models\Enfermedad_especifica;
 use App\Models\Personas_trabajo;
 use App\Models\Nombramiento;
 use App\Models\Tipo_ahf;
@@ -55,7 +56,7 @@ class addPatientsController extends Controller
 
         ];
         // $tipos_ahf = Tipo_ahf::all();
-        $enfermedades = Especificar_ahf::all();
+        $enfermedades = Enfermedad_especifica::all();
         $toxicomania = Toxicomanias::all();
         $alergias = Alergia::all();
         return view('admin.AddPatient', compact('enfermedades','toxicomania', 'alergias','breadcrumbs'));
@@ -63,7 +64,7 @@ class addPatientsController extends Controller
 
     public function getEnfermedadesRelacionadas($tipoAHFId)
     {
-        $enfermedades = Especificar_ahf::where('id_tipo_ahf', $tipoAHFId)->get();
+        $enfermedades = Enfermedad_especifica::where('id_tipo_ahf', $tipoAHFId)->get();
         return response()->json($enfermedades);
     }
 }

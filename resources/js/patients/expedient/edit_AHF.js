@@ -157,8 +157,11 @@ function ShowIcon(id_Icon) {
             }
         }
 
+         
         $(".alert-AHF").html(
-            IconWarning(" Recarga la página para ver los cambios.")
+            IconWarning(
+                " Cambio realizado da clic en <strong> Recargar </strong>."
+            )
         );
 
         // solo si teien la clase

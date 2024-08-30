@@ -1,5 +1,5 @@
-<button type="{{$type}}" @class(['fst-normal','px-3 py-2' ,'tooltip-container','d-flex','gap-1',  $class]) id="{{$id}}" {{$disabled ? 'disabled' : ''}} >
-    <div class="me-1">
+<button type="{{$type}}" {{ $attributes }} @class(['fst-normal',$padding ,'tooltip-container','d-flex','gap-1',  $class]) id="{{$id}}" {{$disabled ? 'disabled' : ''}} >
+    <div @class(['me-1'=>  !$onlyIcon]) >
         {!! $icon !!}
     </div>
     {{$text}}

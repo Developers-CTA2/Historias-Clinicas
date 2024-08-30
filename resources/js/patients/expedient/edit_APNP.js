@@ -156,8 +156,10 @@ function ClicRefresh() {
     // Mostramos alertas y el boton de refresh
     $(".apnp-refresh").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
     $(".alert-APNP").html(
-        IconWarning(" Recarga la página para ver los cambios.")
+        IconWarning(" Cambio realizado da clic en <strong> Recargar </strong>.")
     );
+
+    
 
     $(".apnp-refresh").off("click");
     $(".apnp-refresh").on("click", function () {

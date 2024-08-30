@@ -122,11 +122,19 @@ Route::middleware('auth')->group(function () {
             Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
             
             // APP
-            Route::post('/Add_Disease', [APPController::class, 'Store_Disease'])->name('Add_Disease');
+            Route::post('/Add_Disease', [APPController::class, 'Add_Disease'])->name('Add_Disease');
             Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
             Route::post('/Delete_Disease', [APPController::class, 'Delete_Disease'])->name('Delete_Disease');
             Route::post('/Add_Allergy', [APPController::class, 'Store_Allergy'])->name('Add_Allergy');
             Route::post('/Update_Allergy', [APPController::class, 'Update_Allergy'])->name('Update_Allergy');
+            Route::post('/Add_Hospital', [APPController::class, 'Add_Hospital'])->name('Add_Hospital');
+            Route::post('/Update_Hospital', [APPController::class, 'Update_Hospital'])->name('Update_Hospital');
+            Route::post('/Add_Transfusion', [APPController::class, 'Add_Transfusion'])->name('Add_Transfusion');
+            Route::post('/Update_Transfusion', [APPController::class, 'Update_Transfusion'])->name('Update_Transfusion');
+            Route::post('/Add_Surgery', [APPController::class, 'Add_Surgery'])->name('Add_Surgery');
+            Route::post('/Update_Surgery', [APPController::class, 'Update_Surgery'])->name('Update_Surgery');
+            Route::post('/Add_Trauma', [APPController::class, 'Add_Trauma'])->name('Add_Trauma');
+            Route::post('/Update_Trauma', [APPController::class, 'Update_Trauma'])->name('Update_Trauma');
 
 
             // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');

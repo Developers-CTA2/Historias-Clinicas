@@ -10,8 +10,11 @@ class Transfusiones extends Model
     use HasFactory;
 
     protected $table = 'transfusiones';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 
     protected $fillable = [
+        'id_persona',
         'fecha',
         'detalles',
     ];

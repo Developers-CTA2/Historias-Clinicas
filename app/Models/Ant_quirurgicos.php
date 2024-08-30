@@ -10,8 +10,11 @@ class Ant_quirurgicos extends Model
     use HasFactory;
 
     protected $table = 'ant_quirurgicos';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 
     protected $fillable = [
+        'id_persona',
         'fecha',
         'detalles',
     ];

@@ -81,7 +81,6 @@ export function ClicRefresh(btn, icon) {
     $(icon).removeClass("d-none");
     $(btn).off("click");
     $(btn).on("click", function () {
-        console.log("Refrescar pagina ");
-        window.location.reload();
+         window.location.reload();
     });
 }
