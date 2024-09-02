@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <!-- Tabla para mostrar los datos  -->
-            <div class="col-12 bg-content-custom shadow-custom p-3"> <!-- Ajusta el tamaño de la tabla para dispositivos grandes -->
+            <div class="col-12 p-3"> <!-- Ajusta el tamaño de la tabla para dispositivos grandes -->
                 <div class="mt-2 col-12 mb-2 d-flex justify-content-end">
                     <x-button-link-custom :route="route('patients.add-patient')" class="btn-blue-sec" text="Agregar" tooltipText="Agregar un nuevo paciente">
                         <x-slot name="icon">

@@ -58,9 +58,9 @@
                                         <h5 class="fw-bold mb-2 text-muted">Atendido por</h5>
                                     </div>
                                     <p class="m-0"><span class="fw-bold me-2 text-muted">Nombre :
-                                        </span>{{ auth()->user()->name }}</p>
+                                        </span>{{ $doctor->name }}</p>
                                     <p class="m-0"><span class="fw-bold me-2 text-muted">Cédula :
-                                        </span>{{ auth()->user()->cedula ?? 'No tiene' }}</p>
+                                        </span>{{ $doctor->cedula ?? 'No tiene' }}</p>
                                     <p class="m-0"><span class="fw-bold me-2 text-muted">Fecha de consulta :
                                         </span>{{ $consulta->fecha }}</p>
                                 </div>
@@ -261,18 +261,7 @@
                                 </x-slot>
                             </x-button-custom>
 
-                            <x-button-link-custom :route="route('consultation.history', $person->id_persona)" class="btn-sec justify-content-center mb-2"
-                                text="Historial de consultas" tooltipText="Ver el historial de consultas del paciente">
-                                <x-slot name="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24">
-                                        <path
-                                            d="M7 9V7h14v2zm0 4v-2h14v2zm0 4v-2h14v2zM4 9q-.425 0-.712-.288T3 8t.288-.712T4 7t.713.288T5 8t-.288.713T4 9m0 4q-.425 0-.712-.288T3 12t.288-.712T4 11t.713.288T5 12t-.288.713T4 13m0 4q-.425 0-.712-.288T3 16t.288-.712T4 15t.713.288T5 16t-.288.713T4 17" />
-                                    </svg>
-                                </x-slot>
-                            </x-button-link-custom>
-
-                            <x-button-link-custom :route="route('consultation.new', $person->id_persona)" class="btn-blue justify-content-center"
+                            <x-button-link-custom :route="route('consultation.new', $person->id_persona)" class="btn-blue justify-content-center  mb-2"
                                 text="Agregar consulta" tooltipText="Agregar una nueva consulta al paciente">
                                 <x-slot name="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -282,6 +271,16 @@
                                 </x-slot>
                             </x-button-link-custom>
 
+                            <x-button-link-custom :route="route('consultation.history', $person->id_persona)" class="btn-sec justify-content-center "
+                                text="Historial de consultas" tooltipText="Ver el historial de consultas del paciente">
+                                <x-slot name="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24">
+                                        <path
+                                            d="M7 9V7h14v2zm0 4v-2h14v2zm0 4v-2h14v2zM4 9q-.425 0-.712-.288T3 8t.288-.712T4 7t.713.288T5 8t-.288.713T4 9m0 4q-.425 0-.712-.288T3 12t.288-.712T4 11t.713.288T5 12t-.288.713T4 13m0 4q-.425 0-.712-.288T3 16t.288-.712T4 15t.713.288T5 16t-.288.713T4 17" />
+                                    </svg>
+                                </x-slot>
+                            </x-button-link-custom>
 
                         </x-card-only-shadow>
 

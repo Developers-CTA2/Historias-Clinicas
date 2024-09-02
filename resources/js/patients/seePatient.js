@@ -116,10 +116,8 @@ $(function () {
                     },
                 },
                 server: {
-                    url: "patients/obt-pacientes?",
+                    url: "/patients/obt-pacientes?",
                     then: (data) => {
-                        console.log("Datos del servidor:", data);
-                        //Mapear los datos según tu lógica
                         return data.results.map((person) => [
                             person.id,
                             person.codigo ?? 'Sin código',
@@ -138,7 +136,10 @@ $(function () {
                 className: {
                     th: 'thead-color text-black',
                     search: "d-flex justify-content-center justify-content-lg-end w-100 ",
-                    container: 'container-table bg-white shadow-none',
+                    container: 'container-table',
+                    table: 'shadow-none',
+                    footer: 'mt-2',
+                
                 },
                 autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
                 fixedHeader: true,

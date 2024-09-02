@@ -57,8 +57,8 @@ export const AlertCancelConfirmation = (title, msg, url) => {
         showCancelButton: true,
         cancelButtonText: 'Cancelar',
         reverseButtons: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#afafaf',
     }).then((result) => {
         if (result.isConfirmed) {
             window.location.href = url;

@@ -1,5 +1,5 @@
-import { AlertErrorHistoryConsultation, requestGetConsultation } from "../helpers";
-import { historyConsultationTemplate } from '../templates'
+import { AlertErrorHistoryConsultation, requestGetNutritionConsultation } from "../helpers";
+import { nutritionHistoryConsultation, nutritionHistoryConsultationEmpty } from '../templates'
 
 // Request 
 const limit = 10;
@@ -33,24 +33,27 @@ let observer = new IntersectionObserver((entries, observer) => {
 
 const requestHistoryReportFuncion = (limit, page) => {
     console.log('Request', limit, page, idPersona);
-    requestGetConsultation({ limit, page, idPersona })
+    requestGetNutritionConsultation({ limit, page, idPersona })
         .then(data => {
-
+            console
             manageObserver(data);
 
         })
         .catch(error => {
             console.log(error);
-            $('#containerListConsultation').html(`<p class="text-center text-danger"> Error al cargar los datos del historial...! </p>`)
+            $('#containerListNutritionConsultation').html(`<p class="text-center text-danger"> Error al cargar los datos del historial...! </p>`)
             AlertErrorHistoryConsultation('Error', 'Ha ocurrido un error al cargar los datos del historial...!');
         })
 }
 
 const manageObserver = (data) => {
+
+    console.log(data)
      // Si no hay datos, detener el observer
      if (data.length === 0 ) {
                 
         if (lastElement) observer.unobserve(lastElement[0]);
+        $('#containerListNutritionConsultation').html(nutritionHistoryConsultationEmpty());
         return;
     }
 
@@ -67,8 +70,8 @@ const manageObserver = (data) => {
 
 const updateUI = (data) => {
     // Agregar los datos al template
-    $('#containerListConsultation').append(historyConsultationTemplate(data));
-    lastElement = $('#containerListConsultation').children().last();
+    $('#containerListNutritionConsultation').append(nutritionHistoryConsultation(data));
+    lastElement = $('#containerListNutritionConsultation').children().last();
 }
 
 

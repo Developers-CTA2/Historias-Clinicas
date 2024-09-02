@@ -22,7 +22,7 @@ use App\Http\Controllers\newConsultationNutritionController;
 use App\Http\Controllers\AHFController;
 use App\Http\Controllers\APNPController;
 use App\Http\Controllers\APPController;
-
+use App\Http\Controllers\NutritionConsultationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
         Route::get('/add-patient', [PatientsController::class, 'create'])->name('patients.add-patient');
         Route::post('/save-patient', [PatientsController::class, 'store'])->name('save-patient');
-        
+
         // Medical record 
         Route::prefix('/medical_record')->group(function () {
             Route::get('/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
@@ -122,7 +122,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
             Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
             Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
-            
+
             // APP
             Route::post('/Add_Disease', [APPController::class, 'Store_Disease'])->name('Add_Disease');
             Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
@@ -134,40 +134,43 @@ Route::middleware('auth')->group(function () {
             // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
             // Route::post('/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
             Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
-         
-    
-    
-    });
-        
+        });
+
 
         Route::prefix('/consultation/{id_persona}')->group(function () {
-            Route::get('/new',[ConsultationController::class,'create'])->name('consultation.new');
-            Route::post('/save',[ConsultationController::class,'store'])->name('consultation.save');
+            Route::get('/new', [ConsultationController::class, 'create'])->name('consultation.new');
+            Route::post('/save', [ConsultationController::class, 'store'])->name('consultation.save');
 
-            Route::prefix('history')->group(function(){
-                Route::get('/',[HistoryConsultationController::class,'show'])->name('consultation.history');
-                Route::prefix('/{id_consulta}')->group(function(){
-                    Route::get('/details',[HistoryConsultationController::class,'details'])->name('consultation.history.details');
-                    Route::get('/pdf',[MedicalPrescriptionController::class,'generateMedicalPrescription'])->name('consultation.history.pdf');
+            Route::prefix('/history')->group(function () {
+                Route::get('/', [HistoryConsultationController::class, 'show'])->name('consultation.history');
+                Route::prefix('/{id_consulta}')->group(function () {
+                    Route::get('/details', [HistoryConsultationController::class, 'details'])->name('consultation.history.details');
+                    Route::get('/pdf', [MedicalPrescriptionController::class, 'generateMedicalPrescription'])->name('consultation.history.pdf');
                 });
 
-                Route::get('/get-consultation',[HistoryConsultationController::class,'getConsultationsPerson'])->name('consultation.history.obt-consultations');
-    
+                Route::get('/get-consultation', [HistoryConsultationController::class, 'getConsultationsPerson'])->name('consultation.history.obt-consultations');
             });
-        }); 
+        });
 
-        Route::prefix('/nutricion')->group(function () {
-            Route::prefix('/historial-nutricion')->group(function(){
-                Route::get('/{id_persona}', [NutritionHistoryController::class, 'show'])->name('historial.nutricion');
-                Route::get('/create/{id}', [NutritionHistoryController::class, 'create'])->name('historial.nutricion.create');
-                Route::post('/store', [NutritionHistoryController::class, 'store'])->name('historial.nutricion.store');
+        Route::prefix('/nutrition/{id_persona}')->group(function () {
+            Route::prefix('/complete/nutrition-history')->group(function(){
+                Route::get('/', [NutritionHistoryController::class, 'create'])->name('nutrition.complete.nutrition-history');
+                Route::post('/save', [PatientsController::class, 'nutritionStore'])->name('complete.nutrition.history.store');
             });
+            Route::prefix('/consultation')->group(function () {
+                Route::get('/new', [NutritionConsultationController::class, 'create'])->name('nutrition.consultation.create');
+                Route::post('/save', [NutritionConsultationController::class, 'store'])->name('nutrition.consultation.store');
+            });
+            
+            Route::prefix('/history')->group(function(){
+                Route::get('/', [NutritionHistoryController::class, 'show'])->name('nutrition.consultation.history');
+                Route::prefix('/{id_consulta}')->group(function () {
+                    Route::get('/details', [NutritionHistoryController::class, 'details'])->name('nutrition.consultation.history.details');
+                });
 
-            Route::get('/consulta/create/{id}', [newConsultationNutritionController::class, 'crear'])->name('consulta.nutricion.create');
-            Route::post('/consulta/store', [newConsultationNutritionController::class, 'consulta'])->name('consulta.nutricion.store');
-            Route::get('/consulta/{id_persona}', [newConsultationNutritionController::class, 'show'])->name('consulta.nutricion.show');
-        }); 
-
+                Route::get('/get-consultation', [NutritionHistoryController::class, 'getConsultationsPerson'])->name('nutrition.consultation.history.obt-consultations');
+            });
+        });
     });
 
 

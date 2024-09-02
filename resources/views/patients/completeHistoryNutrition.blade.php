@@ -11,7 +11,7 @@
     <div class="container max-w-custom" id="containerPersonSelect">
         <h4 class="fw-bold">Registrar Historial de Nutrición</h4>
 
-        <form id="historialNutricionForm" action="{{ route('historial.nutricion.store') }}" method="POST">
+        <form id="historialNutricionForm" action="{{ route('complete.nutrition.history.store',['id_persona'=> $person->id_persona]) }}" method="POST">
             @csrf
             <input type="hidden" name="id_persona" value="{{ $person->id_persona }}">
 
@@ -49,26 +49,24 @@
 
                 <div class="col-12 col-lg-3 mb-3 mb-lg-0">
                     <div class="d-flex flex-column justify-content-start">
-                        <button type="submit"
-                            class="fst-normal tooltip-container py-2 px-3 btn-blue-sec mb-3" id="saveConsultation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="pe-2"
-                                viewBox="0 0 2048 2048">
-                                <path
-                                    d="M1728 640q66 0 124 25t101 69t69 102t26 124q0 57-19 109t-53 93t-81 71t-103 41v102q0 89-22 173t-62 160t-98 137t-129 107t-155 70t-174 25q-91 0-174-25t-154-70t-129-107t-98-137t-63-159t-22-174v-229q-123-11-218-59T133 962T34 781T0 558V0h320q26 0 45 19t19 45t-19 45t-45 19H128v430q0 106 29 192t87 147t140 94t192 33q101 0 184-31t141-89t91-140t32-185V128H832q-26 0-45-19t-19-45t19-45t45-19h320v558q0 120-34 223t-99 181t-160 126t-219 59v229q0 107 38 205t107 174t162 120t205 45q111 0 204-45t162-120t107-173t39-206v-102q-56-12-103-41t-81-70t-53-94t-19-109q0-66 25-124t68-101t102-69t125-26m0 512q40 0 75-15t61-41t41-61t15-75t-15-75t-41-61t-61-41t-75-15t-75 15t-61 41t-41 61t-15 75t15 75t41 61t61 41t75 15" />
-                            </svg>
-                            Finalizar historial
-                            <span class="tooltip-text">Guardar la consulta.</span>
-                        </button>
 
-                        <button class="fst-normal tooltip-container py-2 px-3 btn-red" id="cancelConsultation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
-                            </svg>
-                            Cancelar
-                            <span class="tooltip-text">Cancelar la consulta.</span>
-                        </button>
+                        <x-button-custom type="submit" class="btn-blue-sec justify-content-center mb-2" text="Finalizar historial" id="saveConsultation" tooltipText="Guardar el historial del paciente.">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 256 256"><path fill="currentColor" d="M216 72h-84.69L104 44.69A15.86 15.86 0 0 0 92.69 40H40a16 16 0 0 0-16 16v144.62A15.4 15.4 0 0 0 39.38 216h177.51A15.13 15.13 0 0 0 232 200.89V88a16 16 0 0 0-16-16M40 56h52.69l16 16H40Zm176 144H40V88h176Z"/></svg>
+                            </x-slot>
+                        </x-button-custom>
+
+
+                        <x-button-custom  class="btn-red justify-content-center" text="Cancelar"  tooltipText="No completar el historial" id="cancelConsultation">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                                </svg>
+                            </x-slot>
+                        </x-button-custom>
+
                     </div>
                 </div>
 
@@ -161,5 +159,5 @@
 @endsection
 
 @section('scripts')
-    @vite('resources/js/nutrition.js')
+    @vite('resources/js/completeHistoryNutrition.js')
 @endsection

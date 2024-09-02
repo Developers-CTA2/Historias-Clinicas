@@ -9,8 +9,8 @@
 @section('content')
 
     <div class="container max-w-custom" id="containerPersonSelect">
-        <h4 class="fw-bold">Registrar Consulta de Nutrición</h4>
-        <form id="nutricionalForm" action="{{ route('consulta.nutricion.store') }}" method="POST">
+        <h4 class="fw-bold my-3">Consulta de Nutrición</h4>
+        <form id="nutricionalForm" action="{{ route('nutrition.consultation.store',['id_persona'=> $person->id_persona]) }}" method="POST">
             @csrf
             <input type="hidden" name="id_persona" value="{{ $person->id_persona }}">
             <div class="row">
@@ -46,27 +46,28 @@
                 </div>
 
                 <div class="col-12 col-lg-3 mb-3 mb-lg-0">
-                    <div class="d-flex flex-column justify-content-start">
-                        <button type="submit" class="fst-normal tooltip-container py-2 px-3 btn-blue-sec mb-3"
-                            id="saveConsultation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="pe-2"
-                                viewBox="0 0 2048 2048">
-                                <path
-                                    d="M1728 640q66 0 124 25t101 69t69 102t26 124q0 57-19 109t-53 93t-81 71t-103 41v102q0 89-22 173t-62 160t-98 137t-129 107t-155 70t-174 25q-91 0-174-25t-154-70t-129-107t-98-137t-63-159t-22-174v-229q-123-11-218-59T133 962T34 781T0 558V0h320q26 0 45 19t19 45t-19 45t-45 19H128v430q0 106 29 192t87 147t140 94t192 33q101 0 184-31t141-89t91-140t32-185V128H832q-26 0-45-19t-19-45t19-45t45-19h320v558q0 120-34 223t-99 181t-160 126t-219 59v229q0 107 38 205t107 174t162 120t205 45q111 0 204-45t162-120t107-173t39-206v-102q-56-12-103-41t-81-70t-53-94t-19-109q0-66 25-124t68-101t102-69t125-26m0 512q40 0 75-15t61-41t41-61t15-75t-15-75t-41-61t-61-41t-75-15t-75 15t-61 41t-41 61t-15 75t15 75t41 61t61 41t75 15" />
-                            </svg>
-                            Finalizar consulta
-                            <span class="tooltip-text">Guardar la consulta del paciente.</span>
-                        </button>
+                    <div class="d-flex flex-column justify-content-start gap-3">
 
-                        <button class="fst-normal tooltip-container py-2 px-3 btn-red" id="cancelConsultation">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
-                            </svg>
-                            Cancelar
-                            <span class="tooltip-text">Cancelar la consulta.</span>
-                        </button>
+                        <x-button-custom type="submit" class="btn-blue-sec justify-content-center" text="Finalizar consulta" id="saveConsultation" tooltipText="Guardar la consulta del paciente.">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                                    <path
+                                        d="M8.397 11.235a.75.75 0 0 0-.294-1.471c-.903.18-1.585.812-1.948 1.659c-.36.838-.413 1.886-.132 3.008a.75.75 0 1 0 1.455-.363c-.22-.878-.148-1.58.055-2.054c.2-.466.518-.71.864-.78M5.471 3.419A5.18 5.18 0 0 0 6.89 7.302a5.12 5.12 0 0 0-3.66 4.216a10.46 10.46 0 0 0 1.37 6.796l.35.59l.043.063l1.416 1.906a3.462 3.462 0 0 0 5.275.336a.437.437 0 0 1 .63 0a3.462 3.462 0 0 0 5.275-.336l1.416-1.907l.042-.063l.351-.59a10.46 10.46 0 0 0 1.373-6.795a5.12 5.12 0 0 0-6.11-4.306l-1.901.394h-.003c.03-.78.152-1.62.391-2.338c.29-.868.692-1.39 1.14-1.576a.75.75 0 1 0-.578-1.385c-1.052.439-1.65 1.48-1.985 2.486l-.046.142a5.2 5.2 0 0 0-.943-1.29a5.18 5.18 0 0 0-3.98-1.51A1.367 1.367 0 0 0 5.47 3.418m1.493.207a3.68 3.68 0 0 1 2.712 1.08a3.68 3.68 0 0 1 1.08 2.712a4 4 0 0 1-.543-.025l-.617-.128a3.7 3.7 0 0 1-1.552-.927a3.68 3.68 0 0 1-1.08-2.712m2.07 5.055l.202.042q.36.102.73.152l.97.2a5.25 5.25 0 0 0 2.13 0l1.902-.394a3.62 3.62 0 0 1 4.32 3.045a8.96 8.96 0 0 1-1.177 5.821l-.331.557l-1.393 1.876a1.962 1.962 0 0 1-2.99.19a1.936 1.936 0 0 0-2.792 0a1.962 1.962 0 0 1-2.99-.19l-1.393-1.876l-.331-.557a8.96 8.96 0 0 1-1.176-5.821A3.62 3.62 0 0 1 9.033 8.68" />
+                                </svg>
+                            </x-slot>
+                        </x-button-custom>
+
+
+                        <x-button-custom  class="btn-red justify-content-center" text="Cancelar"  tooltipText="Cancelar la consulta del paciente." id="cancelConsultation">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
+                                </svg>
+                            </x-slot>
+                        </x-button-custom>
+
                     </div>
                 </div>
 
@@ -147,5 +148,5 @@
 
 @section('scripts')
     {{-- <script src="{{asset('js/quill.js')}}"></script> --}}
-    @vite('resources/js/ConsulationNutrition.js')
+    @vite('resources/js/consultationNutrition.js')
 @endsection

@@ -112,15 +112,15 @@ async function initialData() {
                         if (status === "Activo") {
                             statusHtml = html(
                                 `<div class="d-flex justify-content-center gap-2">
-                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
-                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal tooltip-container inhabilitar-button" type="button">Inhabilitar<span class="tooltip-text">Quitar acceso</span>  </button>
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal px-3 py-2" type="button"> Detalles</a>
+                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal  inhabilitar-button px-3 py-2" type="button">Inhabilitar</button>
                          </div>`
                             );
                         } else {
                          statusHtml = html(
                              `<div class="d-flex justify-content-center gap-2">
-                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
-                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled" type="button" disabled>Inhabilitar</button>
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal px-3 py-2" type="button"> Detalles</a>
+                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled px-3 py-2" type="button" disabled>Inhabilitar</button>
                          </div>`
                          );
                         }
@@ -176,6 +176,9 @@ async function initialData() {
             className: {
                 th: "thead-color text-black",
                 search: "d-flex justify-content-center justify-content-lg-end w-100",
+                table: 'shadow-none',
+                footer: 'mt-2',
+            
             },
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: false,

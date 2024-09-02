@@ -1,10 +1,19 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import axios from 'axios';
 import { activeLoading, disableLoading } from "./loading-screen.js";
+import { AlertCancelConfirmation } from "./helpers";
 
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("historialNutricionForm");
+    const btnCancelConsultation = document.getElementById("cancelConsultation");
+    const idPerson = document.getElementsByName('id_persona')[0].value;
+    
+    // console.log(idPerson[0].value);
+
+
+    btnCancelConsultation.addEventListener('click',function(){
+        AlertCancelConfirmation('¿Estás seguro?','Perderás toda la información que has ingresado.',`/patients/medical_record/${idPerson}`)
+    });
 
     if (form) {
         form.addEventListener("submit", async function(event) {
@@ -40,13 +49,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 cancelButtonColor: "#B04759",
                 confirmButtonText: '<i class="fa-solid fa-save animated-icon px-1"></i> Guardar',
                 cancelButtonText: '<i class="fa-solid fa-times"></i> Cancelar',
+                reverseButtons: true,
             });
 
             if (response.isConfirmed) {
                 try {
                     activeLoading();  // Muestra el loading
 
-                    const { data } = await axios.post(form.action, {
+                    const  {data}  = await axios.post(form.action, {
                         id_persona,
                         comidas_al_dia,
                         qien_prepara_comida,
@@ -67,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             icon: "success",
                     }).then(() => {
                             form.reset();  // Opcional: Limpiar el formulario
+                            location.href = `/patients/nutrition/${data.idPersona}/consultation/new`;  // Redireccionar a la lista de pacientes
                         });
                     } else {
                         Swal.fire({
@@ -76,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         });
                     }
                 } catch (error) {
+                    console.error(error);
                     Swal.fire({
                         title: "¡Error!",
                         text: "Ocurrió un error al intentar registrar el historial de nutrición.",

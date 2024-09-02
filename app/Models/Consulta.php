@@ -51,4 +51,11 @@ class Consulta extends Model
     {
         return $this->belongsTo(Folio::class, 'id_folio');
     }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreNutritionMedicalRecordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -12,11 +13,13 @@ use App\Models\Alergia;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Http\Requests\StorePatientRequest;
+use App\Models\Diateticas;
 use App\Models\Hemotipo;
 use App\Models\Domicilio;
 use App\Models\Escolaridad;
+use App\Models\Estilo_vida;
 use App\Models\Rep_estado;
- 
+
 
 
 class PatientsController extends Controller
@@ -106,7 +109,7 @@ class PatientsController extends Controller
     {
 
         try {
-            
+
             $validate = $request->validated();
 
             DB::transaction(function () use ($validate) {
@@ -148,6 +151,48 @@ class PatientsController extends Controller
             return response()->json(['title' => 'Éxito', 'message' => 'Expediente del paciente creado correctamente', 'error' => null], 201);
         } catch (\Exception $e) {
             return response()->json(['title' => 'Error', 'message' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
+        }
+    }
+
+
+    // Store the data of nutrition patient
+
+    public function nutritionStore(StoreNutritionMedicalRecordRequest $request)
+    {
+        try {
+
+            $validate = $request->validated();
+
+            DB::transaction(function () use ($validate) {
+                $indicadoresDieteticos = new Diateticas([
+                    'id_persona' => $validate['id_persona'],
+                    'comidas_al_dia' => $validate['comidas_al_dia'],
+                    'qien_prepara_comida' => $validate['qien_prepara_comida'],
+                    'apetito' => $validate['apetito'],
+                    'alimentos_no_preferidos' => $validate['alimentos_no_preferidos'],
+                    'suplementos' => $validate['suplementos'],
+                    'grasas_consumidas' => $validate['grasas_consumidas'],
+                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
+                ]);
+                $indicadoresDieteticos->save();
+
+                $estiloVida = new Estilo_vida([
+                    'id_persona' => $validate['id_persona'],
+                    'actividad' => $validate['actividad'],
+                    'tipo_ejercicio' => $validate['tipo_ejercicio'],
+                    'frecuencia_ejercicio' => $validate['frecuencia_ejercicio'],
+                    'duracion_ejercicio' => $validate['duracion_ejercicio'],
+                    'created_by' => auth()->user()->id,
+                    'updated_by' => auth()->user()->id,
+                ]);
+                $estiloVida->save();
+            });
+
+            return response()->json(['status' => 'success', 'message' => 'Historial guardado correctamente, el historial se ha completado. Enseguida te redireccionará para generar la consulta','idPersona'=> $validate['id_persona']], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => 'Error al guardar el historial', 'error' => $e], 500);
         }
     }
 
