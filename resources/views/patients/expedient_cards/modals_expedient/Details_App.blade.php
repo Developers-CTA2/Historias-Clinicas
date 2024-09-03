@@ -315,7 +315,7 @@
                                                             {{ $hospital->detalles }}
                                                         </div>
                                                         <div class="">
-                                                            {{ Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }}
+                                                            {{-- {{ Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }} --}}
                                                         </div>
 
                                                         <div class="d-flex">
@@ -432,7 +432,7 @@
                                                             {{ $transfucion->detalles }}
                                                         </div>
                                                         <div class="">
-                                                            {{ Carbon::parse( $transfucion->fecha)->locale('es')->isoFormat('LL') }}
+                                                            {{-- {{ Carbon::parse( $transfucion->fecha)->locale('es')->isoFormat('LL') }} --}}
                                                         </div>
                                                         <div class="d-flex">
                                                                                                               

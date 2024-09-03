@@ -27,7 +27,7 @@ async function initialData() {
                 },
                 {
                     id: "name",
-                    name: "Enfermedad",
+                    name: "Tipo de enfermedad",
 
                     formatter: (_, row) =>
                         html(
@@ -41,14 +41,13 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-sec fst-normal tooltip-container py-1 px-2 edit-disease" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-diseasse">
+                            <button class="btn-sec fst-normal py-1 px-2 edit-disease" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-diseasse">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
                                         </svg>
                                 Editar
-                                <span class="tooltip-text">Editar datos.</span></button>
                              </div>`
                         ),
                 },
@@ -90,8 +89,11 @@ async function initialData() {
             },
 
             className: {
-                th: "thead-color text-black",
-                search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
+                th: 'thead-color text-black',
+                search: "d-flex justify-content-center justify-content-lg-end w-100 ",
+                container: 'container-table',
+                table: 'shadow-none',
+                footer: 'mt-2',
             },
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: {
