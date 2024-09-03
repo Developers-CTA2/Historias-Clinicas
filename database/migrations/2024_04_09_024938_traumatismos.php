@@ -12,6 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('traumatismos', function (Blueprint $table) {
+            $table->id('id');
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->string('fecha')->nullable();
             $table->string('detalles')->nullable();

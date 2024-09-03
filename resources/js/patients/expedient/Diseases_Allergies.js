@@ -1,4 +1,3 @@
-import { AlertaSweerAlert } from "../../helpers/Alertas.js";
 import {
     IconInfo,
     IconWarning,
@@ -11,11 +10,10 @@ import {
 import { validarCampo, regexDescription } from "../../helpers";
 
 $(document).ready(function () {
-    console.log("Editar APP");
     Select2Diseases();
-
     ListenEventDiseases();
     ListenEventAllergies();
+    console.log("dffddfd")
 });
 
 /*
@@ -32,6 +30,8 @@ function ListenEventDiseases() {
     };
 
     $($(".add-Disease")).on("click", function () {
+        $(".Old_disease").text("Selecciona una enfermedad");
+        console.log("Add ");
         ClicButtonSave(1, "", Ids, "", ""); // 1 = Disease-store
     });
     ClicEdit(Ids);
@@ -48,17 +48,20 @@ function ListenEventAllergies() {
         description: "#Description",
         Alerta: ".Allergies",
         text_Alert: ".Allergy-Text",
+        Text_Collapse: ".Old_disease",
     };
 
     $($(".add-Allergy")).on("click", function () {
-        console.log("Se abrio collapse");
+        $(".Old_allergy").text("Selecciona una enfermedad");
+        $("#Allergies_APP").collapse("show");
         ClicButtonSave(4, "", Ids, "", ""); // 4 = Allergy-store
+        
     });
 
     ClicEditAllergy(Ids);
 }
 
-/* Inicializar el selct de las enfermedades */
+/* Inicializar los selects para las ediciones de los datos */
 function Select2Diseases() {
     $("#New_disease").select2({
         theme: "bootstrap-5",
@@ -93,6 +96,7 @@ function ShowCollapseData(Cont, text) {
 */
 function CloseCollapse(btn, Idcont) {
     $(btn).on("click", function () {
+        $(".Old_disease").text("Selecciona una enfermedad");
         $(Idcont).collapse("hide");
     });
 }
@@ -101,7 +105,7 @@ function CloseCollapse(btn, Idcont) {
 Funcion para editar los datos de una enfermedad 
 */
 function ClicEdit(Ids) {
-    const { btn, select, Alerta, text_Alert, description } = Ids;
+    const { btn, select, text_Alert, description, Alerta } = Ids;
     $(".edit-APP").off("click");
     $(".edit-APP").on("click", function () {
         var Id_reg = $(this).data("id_reg");
@@ -112,27 +116,40 @@ function ClicEdit(Ids) {
         $(".Type-accion").text("Modificar enfermedad");
         // verificar que si haya cambios
         $(select).on("change", function () {
-            //moostrar en tiempo real el dato
+            //mostrar en tiempo real el dato
             ShowCollapseData(
                 ".Old_disease",
                 $("#New_disease option:selected").text()
             );
+            if (!$(Alerta).hasClass("d-none")) {
+                $(Alerta).addClass("d-none").hide().fadeOut(400);
+            }
             if (Id_ahf == $(select).val()) {
                 // Todo igual regresar cambios
                 $(".Old_disease")
                     .removeClass("font-weight-normal")
                     .addClass("text-muted");
+
                 $(text_Alert).html(IconInfo(" No se realizó  ningun cambio."));
+                if ($(Alerta).hasClass("d-none")) {
+                    $(Alerta).removeClass("d-none").hide().fadeIn(400);
+                }
             } else {
                 ClicButtonSave(2, Id_reg, Ids, "", ""); // 2 = Disease-edit
             }
         });
+        /* Dio clic sin hacer ningun cambio*/
+        $(btn).off("click");
+        $(btn).on("click", function () {
+            $(text_Alert).html(IconInfo(" No se realizó  ningun cambio."));
+            if ($(Alerta).hasClass("d-none")) {
+                $(Alerta).removeClass("d-none").hide().fadeIn(400);
+            }
+        });
     });
 }
-
+/*  Funcion que mustra los datos en el Collapse cuando se va a editar una alergia */ 
 function ClicEditAllergy(Ids) {
-    const { btn, select, Alerta, text_Alert, description } = Ids;
-
     $(".Edit-Allergy").off("click");
     $(".Edit-Allergy").on("click", function () {
         var Id_reg = $(this).data("id_reg");
@@ -158,9 +175,12 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
     listenSelect2();
     //$(".Save-changes").off("click");
     $(btn).on("click", function () {
+        console.log()
         if (Type <= 3) {
+            console.log(select, text_Alert, Alerta);
             // Diseases
             let opc = ClicValidateData(select, text_Alert, Alerta);
+            console.log(opc)
             if (opc != 0) {
                 Confirm(
                     "¿Estás seguro de realizar la acción?",
@@ -173,35 +193,39 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                 });
             }
         } else {
-            console.log(btn, select, Alerta, text_Alert, description, Type);
+        
+                console.log(btn, select, Alerta, text_Alert, description, Type);
             let opc;
             let V_description;
             let textDescription = $("#Description").val().trim();
 
-            if (Type == 4) { // Agregra un alerrgia Validar ambos dattos
+            if (Type == 4) {
+                // Agregra un alerrgia Validar ambos dattos
                 opc = ClicValidateData(select, text_Alert, Alerta);
                 V_description = validarCampo(
                     textDescription,
                     regexDescription,
                     description
                 );
-            } else { // Editar un registro existente
+            } else {
+                // Editar un registro existente
                 let newId = ListenSelctAllergy(Id_Old_alergia, select);
-                if (newId === newId && textdescr == textDescription) {
-                      $(text_Alert).html(
-                          IconInfo("No se realizó  ningun cambio.")
-                      );
-                      if ($(Alerta).hasClass("d-none")) {
-                          $(Alerta).removeClass("d-none").hide().fadeIn(400);
-                      }
+                if (newId === newId && textdescr === textDescription) { 
+                    console.log("NO ")
+                    $(text_Alert).html(
+                        IconInfo("No se realizó  ningun cambio.")
+                    );
+                    if ($(Alerta).hasClass("d-none")) {
+                        $(Alerta).removeClass("d-none").hide().fadeIn(400);
+                    }
                     opc = 0;
                 } else {
-                      V_description = validarCampo(
-                          textDescription,
-                          regexDescription,
-                          description
+                    V_description = validarCampo(
+                        textDescription,
+                        regexDescription,
+                        description
                     );
-                   opc = newId;
+                    opc = newId;
                 }
             }
 
@@ -216,7 +240,6 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                     }
                 });
             }
-             
         }
     });
 }
@@ -225,15 +248,9 @@ function ListenSelctAllergy(Id_Data, select) {
     let value = Id_Data;
     $(select).on("change", function () {
         // //mostrar en tiempo real el dato
-        ShowCollapseData(
-            ".Old_allergy",
-            $("#New_allergy option:selected").text()
-        );
         if (Id_Data == $(select).val()) {
-            console.log("Select Igual ");
             value = Id_Data;
         } else {
-            console.log("Select Cambio ");
             value = $(select).val();
         }
     });
@@ -313,23 +330,21 @@ async function Request(Type, Id_reg, Id, Description) {
         Id: parseInt(Id),
         Description: Description,
     };
-    console.log(Data)
+    console.log(Data);
 
     const data = SwitchRountes(Type);
     const { Route, IdContainer, span, collapse, btn } = data;
     console.log(data);
     try {
-
         const response = await axios.post(
             "/patients/medical_record/" + Route,
             Data
         );
-        console.log(response);
         $(collapse).collapse("hide"); // Cerrar collapse
         ShowConfirmation(
             IdContainer,
             span,
-            " Recarga la página para ver los cambios."
+            " Cambio realizado da clic en <strong> Recargar </strong>."
         );
 
         ClicRefresh(".btn-refresh", btn);

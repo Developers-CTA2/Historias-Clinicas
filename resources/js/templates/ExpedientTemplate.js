@@ -81,7 +81,16 @@ export function ClicRefresh(btn, icon) {
     $(icon).removeClass("d-none");
     $(btn).off("click");
     $(btn).on("click", function () {
-        console.log("Refrescar pagina ");
-        window.location.reload();
+         window.location.reload();
     });
+}
+
+
+
+export function HideAnimation(campo) {
+    $(campo)
+        .addClass("animate__fadeOutUp")
+        .fadeOut(400, function () {
+            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+        });
 }

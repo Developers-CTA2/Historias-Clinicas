@@ -10,8 +10,11 @@ class Traumatismos extends Model
     use HasFactory;
 
     protected $table = 'traumatismos';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
 
     protected $fillable = [
+        'id_persona',
         'fecha',
         'detalles',
     ];

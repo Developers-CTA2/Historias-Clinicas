@@ -12,6 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('gyo', function (Blueprint $table) {
+            $table->id('id');
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
             $table->integer('menarca');
             $table->date('fecha_um');

@@ -10,8 +10,12 @@ class Hospitalizaciones extends Model
     use HasFactory;
 
     protected $table = 'hospitalizaciones';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+
 
     protected $fillable = [
+        'id_persona',
         'fecha',
         'detalles',
     ];
