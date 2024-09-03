@@ -100,9 +100,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-3">
+                            {{-- <div class="col-12 mt-3">
                                 <x-drag-and-drop-file />
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
