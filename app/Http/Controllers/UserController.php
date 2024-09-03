@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Mail\RegistroMail;
 use App\Mail\ResetearMail;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Support\Facades\Validator;
 use  Carbon\Carbon;
-
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -68,51 +69,45 @@ class UserController extends Controller
         return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count', 'created_at'));
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
 
-        $data = $request->validate([
-            'name' => 'required|string',
-            'code' => 'required|numeric|digits_between:7,9',
-            'email' => 'required|email',
-            'cedula' => 'nullable|numeric',
-            'userType' => 'required|numeric|in:1,2,3',
-        ]);
-
-        $code = $data['code'];
-        $name = $data['name'];
-        $email = $data['email'];
-        $cedula = $data['cedula'];
-        $type = $data['userType'];
-
+        $validated = $request->validated();
+        
+        
         //$user = User::where('id', $Id)->first();
 
-        $users = User::where('user_name', $code)->first();
+        $users = User::where('user_name', $request->only('code'))->first();
         if ($users) {
             return response()->json(['status' => 202, 'msg' => '¡Error! El usuario ya existe en el sistema.']);
         } else {
 
-            DB::transaction(
-                function () use ($code, $name, $email, $cedula, $users, $type) {
-                    // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
-                    $user = new User;
-                    $user->user_name = $code;
-                    $user->name = $name;
-                    $user->email = $email;
-                    $user->cedula = $cedula;
-                    $user->estado = "Activo";
-                    $user->password = bcrypt('Cu@ltos2024');
-                    $user->save(); // Guarda el usuario en la base de datos
+            // Store the file securely 
+            $filename = $request->file('file')->store('cartas-compromiso');
 
-                    $role = Role::find($type); //Buscar si el rol existe
-                    if ($role) {
-                        $user->syncRoles($role);  // Asignarle su rol 
-                    }
+             DB::transaction(
+                function () use ($request, $filename) {
+
+                    // Obtiene el rol
+                    $role = Role::findOrFail($request->userType); //Buscar si el rol existe
+                    
+                    // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
+                    User::create([
+                        'user_name' => $request->code,
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'cedula' => $request->cedula,
+                        'file' => $filename,
+                        'estado' => 'Activo',
+                        'password' => bcrypt(env('DEFAULT_PASSWORD', 'Cu@ltos2024')),
+                    ])->syncRoles($role);
+                    
+                    
                     // Envío de correo electrónico
                    // Mail::to($mail)->send(new RegistroMail($username));
                 }
             );
-                    return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
+            return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
         }
         return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
     }
@@ -130,7 +125,7 @@ class UserController extends Controller
         $query = User::query();
 
         if (!empty($search)) {
-           
+
             $query->where(function ($q) use ($search) {
                 $q->where('users.name', 'like', "%$search%")
                     ->orWhere('users.user_name', 'like', "%$search%")
@@ -183,7 +178,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
 
-           // return response()->json(['status' => 202, 'errors' => $validator->errors()]);
+            // return response()->json(['status' => 202, 'errors' => $validator->errors()]);
         }
 
         $Id = $request['Id'];
@@ -213,10 +208,8 @@ class UserController extends Controller
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
         } else {
             return response()->json(['type' => 1, 'msg' => 'El usuario ya existe en la base de datos.'], 400);
-
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
- 
     }
 
     public function Desactive(Request $request)

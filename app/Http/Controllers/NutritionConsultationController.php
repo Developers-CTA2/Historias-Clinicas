@@ -7,8 +7,6 @@ use App\Models\Medidas;
 use App\Models\Nutricional;
 use App\Models\Persona;
 use Carbon\Carbon;
-use Illuminate\Contracts\Cache\Store;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 

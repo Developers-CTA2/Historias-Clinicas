@@ -5,6 +5,7 @@ import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import { getPerson } from '../helpers/request-get-person.js';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import { dragAndDropFile } from "../helpers/drag-and-drop-file.js";
 
 
 let typePerson = 1;
@@ -15,9 +16,18 @@ const dataPersonWebService = {
     dependency: ''
 }
 
+let isCalledDragAndDrop = false;
+
 $(document).ready(function () {
     ClicSearch();
 });
+
+/* Upload file */
+function uploadFile(){
+    !isCalledDragAndDrop && dragAndDropFile();
+
+    isCalledDragAndDrop = true;
+}
 
 /* Funcion para buscar el codigo ingresado */
 function ClicSearch() {
@@ -54,6 +64,7 @@ function ClicSearch() {
                 TemplateData(dataPersonWebService.name, dataPersonWebService.code, '');
                 $(".cont-user-data").removeClass("d-none");
                 $(".buttons-cont").addClass("d-none");
+                uploadFile();
             }) 
             .catch((error) => {
                 console.log(error.response);
@@ -112,12 +123,15 @@ function ValidateUserData(name, code, email) {
 }
 
 function ClicNewUser(name, code, email, userType) {
-    console.log("Esperar");
+    
+    
     $("#save-user").off("click");
     $("#save-user").on("click", function () {
         email = $("#Useremail").val().trim();
+        let file = $('#upload-image')[0].files[0];
         let cedula = "";
         let V_cedula = true;
+        let v_file = true;
         if (userType == 1) {
             cedula = $("#Usercedula").val().trim();
 
@@ -128,19 +142,26 @@ function ClicNewUser(name, code, email, userType) {
         let V_correo = validarCampo(email, regexCorreo, "#Useremail");
         let V_type = validarCampo(userType, regexNumero, "#Usertype");
 
-        if (V_cedula && V_correo && V_type) {
-            const datos = {
-                name: name,
-                code: code,
-                email: email,
-                userType: userType,
-                cedula: cedula,
-            };
-            RequestAdd(datos);
+        if(!file){
+            v_file = false;
+        }
+
+        
+
+        if (V_cedula && V_correo && V_type && v_file) {
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('name', name);
+            formData.append('code', code);
+            formData.append('email', email);
+            formData.append('userType', userType);
+            formData.append('cedula', cedula);
+            RequestAdd(formData);
         } else {
             console.log(email);
 
-            console.log(V_cedula, V_correo, V_type);
+            console.log(V_cedula, V_correo, V_type, v_file);
             console.log("Error ");
         }
     });

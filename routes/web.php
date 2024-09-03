@@ -22,6 +22,7 @@ use App\Http\Controllers\newConsultationNutritionController;
 use App\Http\Controllers\AHFController;
 use App\Http\Controllers\APNPController;
 use App\Http\Controllers\APPController;
+use App\Http\Controllers\FileUserController;
 use App\Http\Controllers\NutritionConsultationController;
 
 /*
@@ -39,7 +40,7 @@ Auth::routes();
 
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {
-        return view('auth.login');
+        return redirect()->route('login');    
     });
 });
 
@@ -66,6 +67,13 @@ Route::middleware('auth')->group(function () {
         Route::post('/End-Point-Persons', [EndPointPersonsController::class, 'getUser'])->name('End-Point-Persons');
         Route::post('/edit-user', [UserController::class, 'Update'])->name('users.edit-user');
         Route::post('/new-user', [UserController::class, 'store'])->name('new-user');
+
+        // Download PDF
+        Route::get('/carta-compromiso/{id_user}/download', [FileUserController::class, 'getUserFile'])->name('users.file');
+
+        // Download PDF
+        Route::get('/download-template', [FileUserController::class, 'downloadTemplate'])->name('users.download-template');
+    
     });
 
 
