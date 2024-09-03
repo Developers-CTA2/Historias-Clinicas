@@ -21,6 +21,7 @@ use App\Http\Controllers\newConsultationNutritionController;
 use App\Http\Controllers\AHFController;
 use App\Http\Controllers\APNPController;
 use App\Http\Controllers\APPController;
+use App\Http\Controllers\GYOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +136,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/Update_Surgery', [APPController::class, 'Update_Surgery'])->name('Update_Surgery');
             Route::post('/Add_Trauma', [APPController::class, 'Add_Trauma'])->name('Add_Trauma');
             Route::post('/Update_Trauma', [APPController::class, 'Update_Trauma'])->name('Update_Trauma');
+          
+            Route::post('/Update_Gyo', [GYOController::class, 'Update_Gyo'])->name('Update_Gyo');
 
 
             // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');

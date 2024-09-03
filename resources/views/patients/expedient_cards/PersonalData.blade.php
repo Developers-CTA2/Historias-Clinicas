@@ -6,7 +6,7 @@
         <div class="row col-12 m-0 p-0 cont-start">
 
             @role('Administrador')
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between ">
                     <div>
                         <div class="p-0 m-0 personal-data d-none animate__animated animate__fadeInUp">
                             <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
@@ -16,17 +16,6 @@
 
                             </div>
                         </div>
-
-
-
-                        {{-- <div class="p-0 m-0   d-none animate__animated animate__fadeInUp">
-                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                                role="alert">
-                                <p class="p-2 mb-0 me-3 text-alert">
-                                </p>
-
-                            </div>
-                        </div> --}}
                     </div>
                     <div class="toggle tooltip-container">
                         <input type="checkbox" id="Edit-personal">
@@ -68,14 +57,14 @@
                                 <p class="fw-bold mb-0">Genero:</p>
                                 <div class="mt-0 W-data" id="gender"> {{ $Personal->sexo }} </div>
 
-                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">                                  
+                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
 
                                     <label for="new_gender">Género: <span class="red-color"> *</span></label>
                                     @php
-                                    
+
                                         $Male = $Personal->sexo == 'Masculino' ? 'selected' : '';
                                         $Female = $Personal->sexo === 'Femenino' ? 'selected' : '';
- 
+
                                     @endphp
 
                                     <select class="form-control" id="new_gender" name="new_gender">
@@ -113,8 +102,6 @@
                                     {{ Carbon::parse($Personal->fecha_nacimiento)->locale('es')->isoFormat('LL') }}
                                 </div>
                                 <div class="mt-0 d-none" id="birthday"> {{ $Personal->fecha_nacimiento }} </div>
-
-
 
                                 <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
                                     <label for="new_birthday">F. nacimiento: <span class="red-color"> *</span></label>
@@ -409,7 +396,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             {{-- Botones  --}}
 
             @role('Administrador')
@@ -417,26 +404,30 @@
                     <div class="row">
                         <div class="d-flex justify-content-end gap-2">
                             <div class="">
-                                <button class="btn-red fst-normal tooltip-container" type="button" id="cancel_PD">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 0 1-1.06-1.06L6.94 8L3.47 4.53a.75.75 0 0 1 0-1.06"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Cancelar
-                                    <span class="tooltip-text">Cancelar edición.</span>
-                                </button>
+                                <x-button-custom type="button"
+                                    class="btn-red  justify-content-center justify-content-lg-start" text="Cancelar"
+                                    id="cancel_PD" tooltipText="Cancelar edición.">
+                                    <x-slot name="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 0 1-1.06-1.06L6.94 8L3.47 4.53a.75.75 0 0 1 0-1.06"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </x-slot>
+                                </x-button-custom>
                             </div>
                             <div class="">
-                                <button class="btn-blue-sec fst-normal tooltip-container" type="button" id="savePD">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 20 20">
-                                        <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
-                                    </svg>
-                                    Guardar
-                                    <span class="tooltip-text">Editar datos.</span>
-                                </button>
+                                  <x-button-custom type="button"
+                                    class="btn-blue-sec justify-content-center justify-content-lg-start" text="Guardar"
+                                    id="savePD" tooltipText="Guardar cambios.">
+                                    <x-slot name="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 20 20">
+                                            <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                                        </svg>
+                                    </x-slot>
+                                </x-button-custom>
                             </div>
                         </div>
                     </div>

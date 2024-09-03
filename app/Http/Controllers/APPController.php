@@ -502,6 +502,7 @@ class APPController extends Controller
     {
 
         try {
+            
             $messages = [
                 'Id_person.required' => 'El ID de la persona es requerido.',
                 'Id_person.numeric' => 'El ID de la persona debe ser un número.',

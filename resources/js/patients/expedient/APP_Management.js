@@ -189,11 +189,9 @@ function Traumas() {
      });
 }
 
-
-
 function ShowORHideAlert(Type) {
     if (Type == 1) {
-        // Oculatar alerta
+        // Ocultar alerta
         if (!$(".Modal-Alert").hasClass("d-none")) {
             $(".Modal-Alert").addClass("d-none");
         }

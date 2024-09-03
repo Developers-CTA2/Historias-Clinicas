@@ -128,6 +128,7 @@ async function RequestUpdate(Hemotipo, school, Type) {
         console.log(response);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
+        
         await ShowErrors(
             "¡Error!",
             "No fue posible la edición de los datos",

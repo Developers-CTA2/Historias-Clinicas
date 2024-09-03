@@ -1,5 +1,5 @@
 /*
-    Funcion donde entran 2 arreglos y se valida si son iguales, en caso de ser iguales devueve un true
+    Funcion donde entran 2 arreglos y se valida si son iguales, en caso de ser iguales devuelve un true
  */
 export function VerifyChanges(obj1, obj2) {
     const keys1 = Object.keys(obj1);

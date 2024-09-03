@@ -84,3 +84,13 @@ export function ClicRefresh(btn, icon) {
          window.location.reload();
     });
 }
+
+
+
+export function HideAnimation(campo) {
+    $(campo)
+        .addClass("animate__fadeOutUp")
+        .fadeOut(400, function () {
+            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+        });
+}
