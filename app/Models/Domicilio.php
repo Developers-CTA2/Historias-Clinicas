@@ -14,6 +14,7 @@ class Domicilio extends Model
     public $incrementing = true;
 
     protected $fillable = [
+        'estado_id',
         'cuidad_municipio',
         'calle',
         'num',

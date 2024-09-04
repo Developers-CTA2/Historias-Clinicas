@@ -471,7 +471,7 @@ class PatientsController extends Controller
 
                         $Domicilio->update([
                             'ciudad_municipio' => $city,
-                            'estado' => $state,
+                            'estado_id' => $state,
                             'pais' => $country,
                             'calle' => $street,
                             'num' => $ext,

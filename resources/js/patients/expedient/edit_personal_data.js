@@ -50,6 +50,7 @@ function EventEditPersonal() {
             /* No pertenece a la UDG */
             let old = ObtainOldPersonalData();
             let oldDirection = ObtainOldDirectionData();
+            console.log($("#code").text().trim());
             if ($("#code").text().trim() == "--") {
                 ShowInputs(0, old, oldDirection);
             } else {
@@ -461,7 +462,7 @@ async function RequestUpdate(Personal, Direction, Type) {
         timerInterval = AlertaSweerAlert(
             2500,
             "¡Éxito!",
-            "Todo fallo exitosamamte.",
+            "Datos actualizados correctamente.",
             "success",
             1
         );

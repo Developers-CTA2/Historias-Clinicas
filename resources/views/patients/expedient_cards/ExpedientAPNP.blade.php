@@ -6,16 +6,11 @@
         <div class="row col-12">
             @role('Administrador')
                 <div class="d-flex justify-content-between">
-                    <div>
-                        <div class="p-0 m-0 APNP-data d-none animate__animated animate__fadeInUp">
-                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                                role="alert">
-                                <p class="p-2 mb-0 me-3 alert-APNP">
-                                </p>
 
-                            </div>
-                        </div>
-                    </div>
+                    {{-- Alerta de edicion  --}}
+                    <x-alert-manage containerClass="APNP-data apnp-refresh" textClass="alert-APNP">
+                    </x-alert-manage>
+
                     <div class="toggle tooltip-container">
                         <input type="checkbox" id="Edit-apnp">
                         <label for="Edit-apnp" class="label-check"></label>
@@ -43,6 +38,10 @@
                                 </g>
                             </svg>
                         </span> Toxicomanías
+                        {{-- Icono de warning --}}
+                        <div class="ms-3 apnp-refresh-toxi d-none animate__animated animate__fadeInUp">
+                            <x-icon-warning />
+                        </div>
                     </h5>
                     <div class="cont-list p-2">
                         <ul class="list-group">
@@ -74,21 +73,20 @@
                                                 $años = $fechaInicio->diffInYears(Carbon::now());
                                             @endphp
 
-                                            <div>
-                                                <p class="m-0 fst-italic text-muted">Desde</p>
+                                            <div class="align-self-center">
+                                                <p class="m-0 fst-italic text-muted">Tiempo</p>
 
                                                 <p> {{ $años }} años
 
                                                 </p>
 
                                             </div>
-                                            <div>
-
+                                            <div class="align-self-center">
                                                 <p class="m-0 fst-italic text-muted">Cantidad</p>
-
                                                 <p class="text-center"> {{ trim($cadena[0]) }}</p>
                                             </div>
-                                            <div>
+
+                                            <div class="align-self-center">
                                                 <p class="m-0 fst-italic text-muted">Riesgo</p>
                                                 @if (trim($cadena[2]) == 'Alto')
                                                     <p class="text-center text-danger">{{ trim($cadena[2]) }}</p>
@@ -101,33 +99,33 @@
                                                 @endif
                                             </div>
                                         @else
+                                            @php
+                                                $string = $toxicomania->observacion;
+                                                $cadena = explode(',', $string);
+                                            @endphp
                                             {{-- Caso de las demas toxicomanias  --}}
-                                            <span>
-                                                <p> {{ $toxicomania->observacion }}</p>
-                                            </span>
-                                            <span>
-                                                @php
-                                                    $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
-                                                    $años = $fechaInicio->diffInYears(Carbon::now());
-                                                @endphp
-                                                <p> {{ $años }} años
+                                            <div class="align-self-center"
+                                                style="max-width: 80%; overflow: hidden; text-overflow: ellipsis;">
+                                                <span>
+                                                    <p class="m-0 fst-italic text-muted">Observación</p>
 
-                                                </p>
-                                            </span>
+                                                    <p> {{ $cadena[1] }}</p>
+                                                </span>
+                                            </div>
+                                            <div class="align-self-center">
+                                                <span>
+                                                    @php
+                                                        $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
+                                                        $años = $fechaInicio->diffInYears(Carbon::now());
+                                                    @endphp
+                                                    <p class="m-0 fst-italic text-muted">Tiempo</p>
+
+                                                    <p> {{ $años }} años
+
+                                                    </p>
+                                                </span>
+                                            </div>
                                         @endif
-                                        {{-- boton de de editar 
-                                        <div class="align-self-center">
-                                            <button
-                                                class="btn-blue-sec fst-normal tooltip-container APNP-data d-none animate__animated animate__fadeInUp">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 32 32">
-                                                    <path
-                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                </svg>
-                                                <span class="tooltip-text">Editar registro.</span>
-                                            </button>
-                                        </div>
-                                        --}}  
                                     </li>
                                 @endforeach
                             @endif
@@ -137,27 +135,25 @@
                     <div class="col-12 mt-3 ">
                         <div class="row">
                             <div class="d-flex justify-content-center">
-                                <div class="">
-                                    <button
-                                        class="btn-blue-sec fst-normal p-1 tooltip-container APNP-data d-none animate__animated animate__fadeInUp"
-                                        type="button" data-bs-toggle="modal" data-bs-target="#add-toxic">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                <x-button-custom type="button"
+                                    class="btn-blue-sec justify-content-center justify-content-lg-start  APNP-data d-none animate__animated animate__fadeInUp"
+                                    data-bs-toggle="modal" data-bs-target="#add-toxic" text="Agregar"
+                                    tooltipText="Agregar nueva toxicomanía.">
+                                    <x-slot name="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
                                         </svg>
-                                        Agregar
-                                        <span class="tooltip-text">Agregar nueva toxicomanía.</span>
-                                    </button>
-                                </div>
+                                    </x-slot>
+                                </x-button-custom>
                             </div>
                         </div>
-
                     </div>
                 </div> <!-- FIN contenedor 1  -->
             </div>
 
-{{-- Contenedor del Hemotipo y la escoliaridad  --}}
+            {{-- Contenedor del Hemotipo y la escoliaridad  --}}
             <div class="col-lg-4 col-md-4 col-sm-12 m-0">
                 <div class="form-group">
 
@@ -169,67 +165,78 @@
                             </svg>
                         </span>
                         Hemotipo
-                        <div class="ms-3 apnp-refresh-homo d-none animate__animated animate__fadeInUp" data-icon="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 64 64">
-                                <path fill="#ffdd15"
-                                    d="M63.37 53.52C53.982 36.37 44.59 19.22 35.2 2.07a3.687 3.687 0 0 0-6.522 0C19.289 19.22 9.892 36.37.508 53.52c-1.453 2.649.399 6.083 3.258 6.083h56.35c1.584 0 2.648-.853 3.203-2.01c.698-1.102.885-2.565.055-4.075" />
-                                <path fill="#1f2e35"
-                                    d="m28.917 34.477l-.889-13.262c-.166-2.583-.246-4.439-.246-5.565c0-1.534.4-2.727 1.202-3.588c.805-.856 1.863-1.286 3.175-1.286c1.583 0 2.646.551 3.178 1.646c.537 1.102.809 2.684.809 4.751c0 1.215-.066 2.453-.198 3.708l-1.19 13.649c-.129 1.626-.404 2.872-.827 3.739c-.426.871-1.128 1.301-2.109 1.301c-.992 0-1.69-.419-2.072-1.257c-.393-.841-.668-2.12-.833-3.836m3.072 18.217c-1.125 0-2.106-.362-2.947-1.093c-.841-.728-1.26-1.748-1.26-3.058c0-1.143.4-2.12 1.202-2.921c.805-.806 1.786-1.206 2.951-1.206s2.153.4 2.977 1.206c.815.801 1.234 1.778 1.234 2.921c0 1.29-.419 2.308-1.246 3.044a4.245 4.245 0 0 1-2.911 1.107" />
-                            </svg>
+                        {{-- Icono de warning --}}
+                        <div class="ms-3 apnp-refresh-homo d-none animate__animated animate__fadeInUp">
+                            <x-icon-warning />
                         </div>
-
                     </h5>
 
-                    <div class="p-2 mb-2">
-                        <div class="d-flex justify-content-between">
-                            <div class="align-self-center">
-                                {{ $hemotipo->nombre }}
+                    <ul class="list-group">
+                        <li class="list-group-item p-2 mt-2">
 
+                            <div class="d-flex justify-content-between">
+                                <div class="align-self-center">
+                                    {{ $hemotipo->nombre }}
+
+                                </div>
+                                <div class="align-self-center d-none" id="id_hemotipo">
+                                    {{ $hemotipo->id_hemotipo }}
+                                </div>
+                                <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
+                                    <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
+                                        href="#Edit-Hemotipo" role="button" aria-expanded="false"
+                                        aria-controls="collapseExample">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 32 32">
+                                            <path
+                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                        </svg>
+                                        <span class="tooltip-text">Editar hemotipo.</span>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="align-self-center d-none" id="id_hemotipo">
-                                {{ $hemotipo->id_hemotipo }}
+
+                            {{-- Collapse para el cambio de tipo de sangre --}}
+                            <div class="Edit-hemotipo collapse mt-1" id="Edit-Hemotipo">
+                                @php
+                                    $selected = $hemotipo->id_hemotipo ?? '';
+                                @endphp
+
+                                <label for="new_hemotipo"> Selecciona un hemotipo <span class="red-color">
+                                        *</span></label>
+                                <select class="form-control" id="new_hemotipo" name="new_hemotipo">
+                                    @foreach ($hemotipos as $hemotipo)
+                                        <option value="{{ $hemotipo['id_hemotipo'] }}"
+                                            {{ $selected == $hemotipo['id_hemotipo'] ? 'selected' : '' }}>
+                                            {{ $hemotipo['nombre'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{-- Boton de guardar cambios  --}}
+                                <div class="d-flex justify-content-center mt-2">
+
+
+                                    <x-button-custom type="button"
+                                        class="btn-sec justify-content-center justify-content-lg-start"
+                                        id="save-Hemotipo" text="Guardar" tooltipText="Guardar cambios.">
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 20 20">
+                                                <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button-custom>
+                                </div>
                             </div>
-                            <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
-                                <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
-                                    href="#Edit-Hemotipo" role="button" aria-expanded="false"
-                                    aria-controls="collapseExample">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 32 32">
-                                        <path
-                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                    </svg>
-                                    <span class="tooltip-text">Editar hemotipo.</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        {{-- Collapse para el cambio de tipo de sangre --}}
-                        <div class="Edit-hemotipo collapse mt-1" id="Edit-Hemotipo">
-                            @php
-                                $selected = $hemotipo->id_hemotipo ?? '';
-                            @endphp
-
-                            <select class="form-control" id="new_hemotipo" name="new_hemotipo">
-                                @foreach ($hemotipos as $hemotipo)
-                                    <option value="{{ $hemotipo['id_hemotipo'] }}"
-                                        {{ $selected == $hemotipo['id_hemotipo'] ? 'selected' : '' }}>
-                                        {{ $hemotipo['nombre'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            {{-- Boton de guardar cambios  --}}
-                            <div class="d-flex justify-content-center mt-2">
-
-                                <button class="btn-sec fst-normal tooltip-container" id="save-Hemotipo">
-                                    Guardar
-                                    <span class="tooltip-text2">Guardar cambios.</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <h5 class="m-0 d-flex justify-content-start mt-2">
+                        </li>
+                    </ul>
+
+
+
+
+                    <h5 class="m-0 d-flex justify-content-start mt-3">
                         <span class="pe-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 24 24">
@@ -239,71 +246,79 @@
                             </svg>
                         </span>
                         Escolaridad
-
-                        <div class="ms-3 apnp-refresh-esc d-none animate__animated animate__fadeInUp" data-icon="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 64 64">
-                                <path fill="#ffdd15"
-                                    d="M63.37 53.52C53.982 36.37 44.59 19.22 35.2 2.07a3.687 3.687 0 0 0-6.522 0C19.289 19.22 9.892 36.37.508 53.52c-1.453 2.649.399 6.083 3.258 6.083h56.35c1.584 0 2.648-.853 3.203-2.01c.698-1.102.885-2.565.055-4.075" />
-                                <path fill="#1f2e35"
-                                    d="m28.917 34.477l-.889-13.262c-.166-2.583-.246-4.439-.246-5.565c0-1.534.4-2.727 1.202-3.588c.805-.856 1.863-1.286 3.175-1.286c1.583 0 2.646.551 3.178 1.646c.537 1.102.809 2.684.809 4.751c0 1.215-.066 2.453-.198 3.708l-1.19 13.649c-.129 1.626-.404 2.872-.827 3.739c-.426.871-1.128 1.301-2.109 1.301c-.992 0-1.69-.419-2.072-1.257c-.393-.841-.668-2.12-.833-3.836m3.072 18.217c-1.125 0-2.106-.362-2.947-1.093c-.841-.728-1.26-1.748-1.26-3.058c0-1.143.4-2.12 1.202-2.921c.805-.806 1.786-1.206 2.951-1.206s2.153.4 2.977 1.206c.815.801 1.234 1.778 1.234 2.921c0 1.29-.419 2.308-1.246 3.044a4.245 4.245 0 0 1-2.911 1.107" />
-                            </svg>
+                        {{-- Icono de warning --}}
+                        <div class="ms-3 apnp-refresh-esc d-none animate__animated animate__fadeInUp">
+                            <x-icon-warning />
                         </div>
                     </h5>
 
-                    <div class="p-2">
-                        <div class="d-flex justify-content-between">
-                            <div class="align-self-center">
-                                {{ $escolaridad->nombre }}
-                            </div>
-                            <div class="align-self-center d-none" id="id_escolaridad">
-                                {{ $escolaridad->id_escolaridad }}
-                            </div>
-                            <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
-                                <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
-                                    href="#Edit-escolaridad" role="button" aria-expanded="false"
-                                    aria-controls="collapseExample">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 32 32">
-                                        <path
-                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                    </svg>
-                                    <span class="tooltip-text">Editar escolaridad.</span>
-                                </a>
-                            </div>
-                        </div>
+                    <ul class="list-group">
+                        <li class="list-group-item p-2 mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div class="align-self-center">
+                                    {{ $escolaridad->nombre }}
+                                </div>
+                                <div class="align-self-center d-none" id="id_escolaridad">
+                                    {{ $escolaridad->id_escolaridad }}
+                                </div>
+                                <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
 
-                        <div class="Edit-school collapse mt-1" id="Edit-escolaridad">
-                            @php
-                                $selected = $escolaridad->id_escolaridad ?? '';
-                            @endphp
-
-                            <select class="form-control" id="new_school" name="new_school">
-                                @foreach ($escolaridades as $escolaridad)
-                                    <option value="{{ $escolaridad['id_escolaridad'] }}"
-                                        {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
-                                        {{ $escolaridad['nombre'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            {{-- Boton de guardar cambios  --}}
-                            <div class="d-flex justify-content-center mt-2">
-
-                                <button class="btn-sec fst-normal tooltip-container" id="save-School">
-                                    Guardar
-                                    <span class="tooltip-text2">Guardar cambios.</span>
-                                </button>
+                                    <x-button-custom type="button"
+                                        class="btn-blue-sec justify-content-center edit-hospital" padding="px-1 py-1"
+                                        :onlyIcon="true" data-bs-toggle="collapse" href="#Edit-escolaridad"
+                                        role="button" aria-expanded="false" aria-controls="collapseExample"
+                                        tooltipText="Editar escolaridad.">
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 32 32">
+                                                <path
+                                                    d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button-custom>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+
+                            <div class="Edit-school collapse mt-1" id="Edit-escolaridad">
+                                @php
+                                    $selected = $escolaridad->id_escolaridad ?? '';
+                                @endphp
+                                <label for="new_school"> Selecciona una escolaridad <span class="red-color">
+                                        *</span></label>
+                                <select class="form-control" id="new_school" name="new_school">
+                                    @foreach ($escolaridades as $escolaridad)
+                                        <option value="{{ $escolaridad['id_escolaridad'] }}"
+                                            {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
+                                            {{ $escolaridad['nombre'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{-- Boton de guardar cambios  --}}
+                                <div class="d-flex justify-content-center mt-2">
+                                    <x-button-custom type="button"
+                                        class="btn-sec justify-content-center justify-content-lg-start"
+                                        id="save-School" text="Guardar" tooltipText="Guardar cambios.">
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 20 20">
+                                                <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button-custom>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
                 </div>
             </div>
-
+          
 
             <div class="col-12 mt-3 ">
                 <div class="row">
                     <div class="d-flex justify-content-center">
-                        <div class="">
+                        {{-- <div class="">
                             <button
                                 class="btn-sec fst-normal tooltip-container  apnp-refresh d-none animate__animated animate__fadeInUp"
                                 type="button">
@@ -315,6 +330,20 @@
                                 Recargar
                                 <span class="tooltip-text">Recargar página.</span>
                             </button>
+                        </div> --}}
+
+                        <div class="apnp-refresh d-none animate__animated animate__fadeInUp">
+                            <x-button-custom type="button"
+                                class="btn-sec justify-content-center justify-content-lg-start" text="Recargar"
+                                tooltipText="Recargar página." onclick="location.reload();">
+                                <x-slot name="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
+                                    </svg>
+                                </x-slot>
+                            </x-button-custom>
                         </div>
                     </div>
                 </div>

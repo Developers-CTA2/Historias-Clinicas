@@ -4,11 +4,11 @@
     </div>
     <div class="card-body">
         <div class="row col-12">
-            
+
             {{-- Boton para habilitar la edicion  --}}
             @role('Administrador')
                 <div class="d-flex justify-content-between">
-                    <div>
+                    {{-- <div>
                         <div class="p-0 m-0  AHF-data d-none animate__animated animate__fadeInUp">
                             <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
                                 role="alert">
@@ -17,7 +17,11 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+                    {{-- Alerta de edicion  --}}
+                    <x-alert-manage containerClass="AHF-data" textClass="alert-AHF">
+                    </x-alert-manage>
+
                     <div class="toggle tooltip-container">
                         <input type="checkbox" id="Edit-AHF">
                         <label for="Edit-AHF" class="label-check"></label>
@@ -26,7 +30,6 @@
                 </div>
                 {{-- Cargar collapse solo en caso de ser el usuario admin --}}
                 @include('patients.expedient_cards.modals_expedient.collapse_AHF')
-
             @endrole
             {{-- Contenedor de las enfermedades --}}
             <div class="col-12">
@@ -75,8 +78,22 @@
                                                             </svg>
                                                         </div>
 
+                                                        <x-button-custom type="button"
+                                                            class="btn-red justify-content-center justify-content-lg-start Del-AHF"
+                                                            padding="px-1 py-1" :onlyIcon="true"
+                                                            data-ahf="{{ $enfermedad->id }}"                             
+                                                              tooltipText="Eliminar enfermedad" >
+                                                            <x-slot name="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                height="20" viewBox="0 0 24 24">
+                                                                <path
+                                                                    d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
+                                                            </svg>
+                                                            </x-slot>
+                                                        </x-button-custom>
 
-                                                        <button class="btn-red fst-normal tooltip-container Del-AHF"
+
+                                                        {{-- <button class="btn-red fst-normal tooltip-container Del-AHF"
                                                             data-ahf="{{ $enfermedad->id }}">
 
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -85,20 +102,40 @@
                                                                     d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
                                                             </svg>
                                                             <span class="tooltip-text2">Eliminar enfermedad.</span>
-                                                        </button>
+                                                        </button> --}}
 
 
-                                                        <button
+                                                        {{-- <button
                                                             class="btn-blue-sec fst-normal tooltip-container edit-AHF"
-                                                            data-id_reg="{{ $enfermedad->id }}"  data-id_ahf="{{ $enfermedad->especificar_ahf->id_especifica_ahf }}"
-                                                            data-name="{{ $enfermedad->especificar_ahf->nombre }}" data-bs-toggle="collapse" data-bs-target="#Diseases" aria-expanded="false" aria-controls="Diseases">
+                                                            data-id_reg="{{ $enfermedad->id }}"
+                                                            data-id_ahf="{{ $enfermedad->especificar_ahf->id_especifica_ahf }}"
+                                                            data-name="{{ $enfermedad->especificar_ahf->nombre }}"
+                                                            data-bs-toggle="collapse" data-bs-target="#Diseases"
+                                                            aria-expanded="false" aria-controls="Diseases">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 32 32">
                                                                 <path
                                                                     d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
                                                             </svg>
                                                             <span class="tooltip-text2">Editar registro.</span>
-                                                        </button>
+                                                        </button> --}}
+                                                        <x-button-custom type="button"
+                                                            class="btn-blue-sec justify-content-center justify-content-lg-start edit-AHF"
+                                                            padding="px-1 py-1" :onlyIcon="true"
+                                                            data-id_reg="{{ $enfermedad->id }}"
+                                                            data-id_ahf="{{ $enfermedad->especificar_ahf->id_especifica_ahf }}"
+                                                            data-name="{{ $enfermedad->especificar_ahf->nombre }}"
+                                                            data-bs-toggle="collapse" data-bs-target="#Diseases"
+                                                            aria-expanded="false" aria-controls="Diseases"
+                                                              tooltipText="Editar registro" >
+                                                            <x-slot name="icon">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                    height="20" viewBox="0 0 32 32">
+                                                                    <path
+                                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                                </svg>
+                                                            </x-slot>
+                                                        </x-button-custom>
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -113,30 +150,35 @@
                                     <div class="d-flex justify-content-center gap-3">
 
                                         <div class="AHF-data d-none ">
-                                            <button href="" class="btn-blue-sec fst-normal tooltip-container add-Disease"
-                                                type="button" data-bs-toggle="collapse" data-bs-target="#Diseases" aria-expanded="false" aria-controls="Diseases">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
-                                                </svg>
-                                                Agregar
-                                                <span class="tooltip-text">Agregar una enfermedad.</span>
-                                            </button>
+                                            <x-button-custom type="button"
+                                                class="btn-blue-sec justify-content-center justify-content-lg-start add-Disease"
+                                                data-bs-toggle="collapse" data-bs-target="#Diseases"
+                                                aria-expanded="false" aria-controls="Diseases" text="Agregar"
+                                                tooltipText="Agregar una enfermedad">
+                                                <x-slot name="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
+                                                    </svg>
+                                                </x-slot>
+                                            </x-button-custom>
+                                        </div>
+                                        <div class="d-none animate__animated animate__fadeInUp btn-refresh">
+                                            <x-button-custom type="button"
+                                                class="btn-sec justify-content-center justify-content-lg-start"
+                                                text="Recargar" tooltipText="Recargar página."
+                                                onclick="location.reload();">
+                                                <x-slot name="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
+                                                    </svg>
+                                                </x-slot>
+                                            </x-button-custom>
                                         </div>
 
-                                        <div class="">
-                                            <button class="btn-sec fst-normal tooltip-container  btn-refresh d-none"
-                                                type="button" >
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                </svg>
-                                                Recargar
-                                                <span class="tooltip-text">Recargar página.</span>
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
 

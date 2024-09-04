@@ -127,8 +127,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
             Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
             // APNP 
-            Route::post('/Update_BloodType', [APNPController::class, 'Update_bloodType'])->name('Update_BloodType');
-            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+            Route::post('/Update_BloodType', [APNPController::class, 'Update_BloodType'])->name('Update_BloodType');
             Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
             Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
 

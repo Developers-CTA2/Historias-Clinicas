@@ -81,25 +81,26 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-red fst-normal tooltip-container p-1" type="button" data-bs-dismiss="modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16">
+                 
+                <x-button-custom type="button" class="btn-red justify-content-center justify-content-lg-start"
+                    text="Cancelar"  data-bs-dismiss="modal"  tooltipText="Cancelar acción.">
+                    <x-slot name="icon">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M3.47 3.47a.75.75 0 0 1 1.06 0L8 6.94l3.47-3.47a.75.75 0 1 1 1.06 1.06L9.06 8l3.47 3.47a.75.75 0 1 1-1.06 1.06L8 9.06l-3.47 3.47a.75.75 0 0 1-1.06-1.06L6.94 8L3.47 4.53a.75.75 0 0 1 0-1.06"
                             clip-rule="evenodd" />
                     </svg>
-                    Cancelar
-                    <span class="tooltip-text">Cancelar acción.</span>
-                </button>
-                {{-- <button type="button" class="btn btn-secondary" >Close</button> --}}
-                <button class="btn-blue-sec fst-normal tooltip-container p-1" type="button" id="saveDrugs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20">
+                    </x-slot>
+                </x-button-custom>
+                 <x-button-custom type="button" class="btn-blue-sec justify-content-center justify-content-lg-start"
+                    text="Guardar"  tooltipText="Guardar datos." id="saveDrugs">
+                    <x-slot name="icon" >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20">
                         <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
                     </svg>
-                    Guardar
-                    <span class="tooltip-text">Guardar datos.</span>
-                </button>
-                {{-- <button type="button" class="btn btn-primary">Understood</button> --}}
-            </div>
+                    </x-slot>
+                </x-button-custom>
+             </div>
         </div>
     </div>
 </div>

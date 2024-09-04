@@ -58,7 +58,6 @@ function Hospital() {
             OldDate: date,
             OldDescription: description,
         };
-
         ShowModalDataEdit(date, description);
         ShowModalData();
         ClicButtonSave(5, Ids, OldData); // 1 = Hospitalizacion
@@ -77,7 +76,6 @@ function Transfusiones() {
 
         ShowORHideAlert(1);
         ShowModalData("Agregar un registro de una ", "Transfusión");
-
         ClicButtonSave(2, Ids, ""); // 2 = Transfusion
     });
 
@@ -87,23 +85,19 @@ function Transfusiones() {
              text_Alert: ".Trans-Text",
              Show: ".icon-refresh-Trans",
          };
-
          ShowORHideAlert(1);
          ShowModalData("Editar un registro de ", "Transfusiones");
-
          var Id_reg = $(this).data("id_reg");
          var date = $(this).data("date");
          var description = $(this).data("description");
-
          let OldData = {
              Id: Id_reg,
              OldDate: date,
              OldDescription: description,
          };
-
          ShowModalDataEdit(date, description);
          ShowModalData();
-         ClicButtonSave(6, Ids, OldData); // 1 = Hospitalizacion
+         ClicButtonSave(6, Ids, OldData); // 6 = Transfusines
      });
 }
 /*
@@ -120,7 +114,7 @@ function Surgeries() {
         ShowORHideAlert(1);
         ShowModalData("Agregar un registro de una ", "Cirugía");
 
-        ClicButtonSave(3, Ids, ""); // 2 = Transfusion
+        ClicButtonSave(3, Ids, ""); // 3 = Cirugias
     });
 
     $($(".edit-Surgery")).on("click", function () {
@@ -145,7 +139,7 @@ function Surgeries() {
 
         ShowModalDataEdit(date, description);
         ShowModalData();
-        ClicButtonSave(7, Ids, OldData); // 1 = Hospitalizacion
+        ClicButtonSave(7, Ids, OldData);  
     });
 }
 
@@ -160,7 +154,7 @@ function Traumas() {
         ShowORHideAlert(1);
         ShowModalData("Agregar un registro de un ", "Traumatismo");
 
-        ClicButtonSave(4, Ids); // 2 = Transfusion
+        ClicButtonSave(4, Ids); 
     });
 
      $($(".edit-Trauma")).on("click", function () {
@@ -185,7 +179,7 @@ function Traumas() {
 
          ShowModalDataEdit(date, description);
          ShowModalData();
-         ClicButtonSave(8, Ids, OldData); // 1 = Hospitalizacion
+         ClicButtonSave(8, Ids, OldData); 
      });
 }
 
@@ -228,10 +222,7 @@ function ClicButtonSave(Type, Ids, OldData) {
         console.log(ValidateData);
 
         if (Object.keys(ValidateData).length !== 0) {
-            // Oculatar alerta
-            // if (!$(".Modal-Alert").hasClass("d-none")) {
-            //     $(".Modal-Alert").addClass("d-none");
-            // }
+           
             ShowORHideAlert(1);
             Confirm(
                 "¿Estás seguro de realizar la acción?",
@@ -326,12 +317,10 @@ function ShowInputsEdit(Ids, text) {
         // Alerta
         $(Alerta).removeClass("d-none").hide().fadeIn(400);
     }
-
     if ($(Show).hasClass("d-none")) {
         // Boton e icono
         $(Show).removeClass("d-none").hide().fadeIn(400);
     }
-
     $(text_Alert).html(IconWarning(text));
 }
 
@@ -369,7 +358,7 @@ async function Request(Type, Data, Ids) {
         );
         ClicRefresh(".btn-refresh", "");
         timerInterval = AlertaSweerAlert(
-            2500,
+            2000,
             "¡Éxito!",
             "Registro agregado con éxito",
             "success",
@@ -435,6 +424,5 @@ function SwitchRountes(Type) {
             break;
         }
     }
-
     return Ruta;
 }

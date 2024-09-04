@@ -27,8 +27,6 @@ function EventEditAPNP() {
         if (isChecked) {
             $(".alert-APNP").html(IconInfo("Ahora estás en modo de edición."));
             $(".APNP-data").removeClass("d-none").hide().fadeIn(400);
-            //$(".apnp-edit").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
-
             EventHemotipo();
             EventSchool();
             listenDrugs();
@@ -85,15 +83,13 @@ async function EventSchool() {
             );
         } else {
             Confirm(
-                "¿Estás seguro de editar el hemotipo?",
+                "¿Estás seguro de editar la escolaridad?",
                 "El nuevo dato será parte del expediente.",
                 "warning"
             ).then((isConfirmed) => {
                 if (isConfirmed) {
-                    RequestUpdate(null, New_school, 2); // 1 = Hemotipo
-                } else {
-                    console.log("nooooo  EDITAR");
-                }
+                    RequestUpdate(null, New_school, 2); // 2 = school
+                } 
             });
         }
     });
@@ -113,40 +109,46 @@ async function RequestUpdate(Hemotipo, school, Type) {
     };
     try {
         let response = "";
-        if (Type == 1) {// Update BloodType
+        if (Type == 1) {
+            // Update BloodType
             response = await axios.post(
-                "/patients/medical_record/Add_Disease",
+                "/patients/medical_record/Update_BloodType",
                 Data
             );
-        } else {// Update school
-              response = await axios.post(
-                  "/patients/medical_record/Update_School",
-                  Data
-              );
-        }  
+        } else {
+            // Update school
+            response = await axios.post(
+                "/patients/medical_record/Update_School",
+                Data
+            );
+        }
         ShowAlerts(Type);
         console.log(response);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
-        
+
         await ShowErrors(
             "¡Error!",
             "No fue posible la edición de los datos",
             "error",
             errors
         );
-        console.log(errors);
-        console.log(error);
+         console.log(error);
     }
 }
 function ShowAlerts(type) {
+    console.log("Mostrar icono");
     if (type == 1) {
         if ($(".apnp-refresh-homo").hasClass("d-none")) {
             $(".apnp-refresh-homo").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
         } // Mostrar inputs)
-    } else {
-        if ($(".apnp-refresh-esc").hasClass("d-none")) {
+    } else if (type == 2) {
+        if ($(".apnp-refresh-toxi").hasClass("d-none")) {
             $(".apnp-refresh-esc").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
+        }
+    } else {
+        if ($(".apnp-refresh-toxi").hasClass("d-none")) {
+            $(".apnp-refresh-toxi").removeClass("d-none").hide().fadeIn(400); // Mostrar inputs
         }
     }
 
@@ -159,14 +161,12 @@ function ClicRefresh() {
     $(".alert-APNP").html(
         IconWarning(" Cambio realizado da clic en <strong> Recargar </strong>.")
     );
-
-    
-
     $(".apnp-refresh").off("click");
     $(".apnp-refresh").on("click", function () {
         window.location.reload();
     });
 }
+
 ////////////////////////////  TOXICOMANIAS         //////////////////////////////////
 /*
     Funcion que muestra el formulario segun la opcion que de seleccione en el input
@@ -187,6 +187,7 @@ async function listenDrugs() {
 
     $("#saveDrugs").off("click");
     $("#saveDrugs").on("click", function () {
+       
         if ($("#new_toxic").val() == "" || $("#new_toxic").val() == null) {
             $(".alert-add-Drug").html(
                 IconWarning("No se ha detectado ningun cambio.")
@@ -194,8 +195,8 @@ async function listenDrugs() {
             $(".Add_drug").removeClass("d-none").hide().fadeIn(400);
         } else {
             let Data = ValidateDataAdictions($("#new_toxic").val());
-
-            if (Data != []) {
+            console.log(Data);
+            if (Data != undefined) {
                 Confirm(
                     "¿Estás seguro de agregar una nueva toxicomanía?",
                     "El nuevo dato será parte del expediente.",
@@ -230,7 +231,7 @@ function ListenInputsSmoking() {
         howDateSmoking: "",
     };
     // Desde cuando
-    $("#desdeCuandoFuma").on("change", function () {
+    $("#desdeCuandoFuma").on("keyup", function () {
         Data.howDateSmoking = $(this).val();
         const Result = calculateEPOC(Data);
         const { risk, html } = Result;
@@ -238,7 +239,7 @@ function ListenInputsSmoking() {
     });
 
     // Cantidad
-    $("#cantidadCigarros").on("change", function () {
+    $("#cantidadCigarros").on("keyup", function () {
         Data.numberOfCigarettes = $(this).val();
         const Result = calculateEPOC(Data);
         const { risk, html } = Result;
@@ -327,7 +328,7 @@ async function RequestAddiction(idPerson, Datos) {
     } catch (error) {
         console.log(error);
         const { data } = error.response;
-
+        ShowAlerts(3);
         console.log(data);
         $(".alert-AHF").html(
             '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
