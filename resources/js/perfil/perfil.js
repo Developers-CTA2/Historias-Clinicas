@@ -36,13 +36,24 @@ function clicChangePass() {
     Clic cancelar cambio de contraseña
 */
 function CancelOption() {
-    $("#cancel-pass").off("click");
-    $("#cancel-pass").on("click", function () {
-        $("#cont-change").fadeOut(300, function () {
-            $(this).addClass("d-none");
-            $("#Change-pass").removeClass("d-none");
-        });
-        ShowOrHide(3);
+    $(".cancel-pass").off("click");
+    $(".cancel-pass").on("click", function () {
+
+
+ $("#cont-change")
+     .addClass("animate__fadeOutUp")
+     .fadeOut(400, function () {
+         $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+         $("#Change-pass").removeClass("d-none");
+         ShowOrHide(3);
+     });
+
+
+        // $("#cont-change").fadeOut(1000, function () {
+        //     $(this).addClass("d-none");
+        //     $("#Change-pass").removeClass("d-none");
+        //     ShowOrHide(3);
+        // });
     });
 }
 /*
@@ -124,7 +135,7 @@ function ShowOrHide(Type) {
         $("#save").removeClass("d-none"); // Mostrar boton
     } else {
         if ($(".step1").hasClass("d-none")) {
-            $(".step1").removeClass("d-none").hide().fadeIn(400);
+            $(".step1").removeClass("d-none").hide().fadeIn(100);
         }
         //ocultar paso 2
         if (!$(".step2").hasClass("d-none")) {

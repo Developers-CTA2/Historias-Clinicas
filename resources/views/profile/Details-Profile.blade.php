@@ -210,6 +210,19 @@
                                             <li class="list-group-item">Al menos una letra mayúscula.</li>
                                             <li class="list-group-item">Al menos una letra mayúscula.</li>
                                         </div>
+                                        <div class="col-12 d-flex justify-content-center mt-2">
+                                            <x-button-custom type="button"
+                                                class="btn-red justify-content-center justify-content-lg-start cancel-pass"
+                                                text="Cancelar" tooltipText="Cancelar acción.">
+                                                <x-slot name="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 2048 2048">
+                                                        <path
+                                                            d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
+                                                    </svg>
+                                                </x-slot>
+                                            </x-button-custom>
+                                        </div>
                                     </div>
                                 </section>
                             </div>
@@ -237,6 +250,19 @@
                                         <li class="list-group-item">Protección de información sensible.</li>
                                         <li class="list-group-item">Prevención de accesos no autorizados.</li>
                                         <li class="list-group-item">Cumplimiento de normativas.</li>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center mt-2">
+                                        <x-button-custom type="button"
+                                            class="btn-red justify-content-center justify-content-lg-start cancel-pass"
+                                            text="Cancelar" tooltipText="Cancelar acción.">
+                                            <x-slot name="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 2048 2048">
+                                                    <path
+                                                        d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
+                                                </svg>
+                                            </x-slot>
+                                        </x-button-custom>
                                     </div>
 
 
@@ -277,51 +303,20 @@
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-center mt-2">
-                                        <div class="mx-2">
-                                            {{-- <button class="btn-red fst-normal tooltip-container p-1" id="cancel-pass">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                    viewBox="0 0 2048 2048">
-                                                    <path
-                                                        d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
-                                                </svg>
-                                                Cancelar
-                                                <span class="tooltip-text">Volver a la ventana anterior.</span>
-                                            </button> --}}
-                                            <x-button-custom type="button"
-                                                class="btn-red justify-content-center justify-content-lg-start"
-                                                id="cancel-pass" text="Cancelar" tooltipText="Cancelar acción.">
-                                                <x-slot name="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                        viewBox="0 0 2048 2048">
-                                                        <path
-                                                            d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
-                                                    </svg>
-                                                </x-slot>
-                                            </x-button-custom>
-                                        </div>
-                                        <div class="mx-2">
-                                            {{-- <button class="btn-blue-sec fst-normal tooltip-container p-1 d-none"
-                                                id="save">
+
+
+                                        <x-button-custom type="button"
+                                            class="btn-blue-sec justify-content-center justify-content-lg-start"
+                                            id="save" text="Guardar" tooltipText="Guardar cambios.">
+                                            <x-slot name="icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 2048 2048">
                                                     <path
                                                         d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
                                                 </svg>
-                                                Guardar
-                                                <span class="tooltip-text">Guardar cambios.</span>
-                                            </button> --}}
-                                            <x-button-custom type="button"
-                                                class="btn-blue-sec justify-content-center justify-content-lg-start"
-                                                id="save" text="Guardar" tooltipText="Guardar cambios.">
-                                                <x-slot name="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                        viewBox="0 0 2048 2048">
-                                                        <path
-                                                            d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
-                                                    </svg>
-                                                </x-slot>
-                                            </x-button-custom>
-                                        </div>
+                                            </x-slot>
+                                        </x-button-custom>
+
                                     </div>
 
                                 </section>
@@ -330,55 +325,20 @@
 
                     </div>
 
-
-
-                    <div class="">
-
-                        <div class="col-lg-5 col-md-5 col-sm-12 mt-2 step1">
-                            {{-- Alerta de los datos no han cambiado --}}
-                            <div id="Alerta_err" class="p-0 m-0 d-none">
-                                <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                                    role="alert">
-                                    <p class="p-2 mb-1"> Contraseña incorrecta.</p>
-                                    <button class="btn fst-italic animated-icon button-cancel rigth-0"
-                                        data-bs-dismiss="alert">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        {{-- Contenedor del lado derecho --}}
-                        <div class="col-lg-7 col-md-7 col-sm-12">
-                            <div class="form-group">
-
-
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
                     <div class="col-12 p-0 mt-2">
                         <div class="row mt-1">
                             <div class="d-flex justify-content-end">
                                 <div class="mx-2">
-                                    <a href="{{ route('users.users') }}" class="btn-red fst-normal tooltip-container p-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 1024 1024">
-                                            <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
-                                            <path
-                                                d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
-                                        </svg>
-                                        Atras
-                                        <span class="tooltip-text">Volver a la ventana anterior.</span>
-                                    </a>
+                                    <x-button-link-custom :route="route('home')" class="btn-red " text="Inicio"
+                                        tooltipText="Ir al inicio.">
+                                        <x-slot name="icon">
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path   d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z"/></svg>
+                                        </x-slot>
+                                    </x-button-link-custom>
+                                   
                                 </div>
                                 <div class="mx-2">
-                                    <button class="btn-blue-sec fst-normal tooltip-container p-1" id="Change-pass">
+                                    {{-- <button class="btn-blue-sec fst-normal tooltip-container p-1" >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 32 32">
                                             <path
@@ -387,7 +347,20 @@
                                         </svg>
                                         Contraseña
                                         <span class="tooltip-text">Cambiar contraseña.</span>
-                                    </button>
+                                    </button> --}}
+
+                                     <x-button-custom type="button"
+                                        class="btn-blue-sec justify-content-center justify-content-lg-start"
+                                       id="Change-pass"  text="Contraseña" tooltipText="Cambiar contraseña.">
+                                        <x-slot name="icon">
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 32 32">
+                                            <path
+                                                d="M21 2a8.998 8.998 0 0 0-8.612 11.612L2 24v6h6l10.388-10.388A9 9 0 1 0 21 2m0 16a7 7 0 0 1-2.032-.302l-1.147-.348l-.847.847l-3.181 3.181L12.414 20L11 21.414l1.379 1.379l-1.586 1.586L9.414 23L8 24.414l1.379 1.379L7.172 28H4v-3.172l9.802-9.802l.848-.847l-.348-1.147A7 7 0 1 1 21 18" />
+                                            <circle cx="22" cy="10" r="2" />
+                                        </svg>
+                                        </x-slot>
+                                    </x-button-custom>
                                 </div>
                             </div>
                         </div>
