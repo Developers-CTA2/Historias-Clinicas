@@ -8,6 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <p class="m-0 fst-italic">Ingresa los datos correspondientes</p>
                 <div>
                     <div class="p-0 m-0 Add_drug d-none animate__animated animate__fadeInUp">
                         <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"

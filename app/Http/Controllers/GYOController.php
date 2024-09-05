@@ -45,7 +45,7 @@ class GYOController extends Controller
                 });
             }
 
-            return response()->json(['title' => '¡Exito!', 'msg' => 'Datos actualizados con exitosamente.'], 200);
+            return response()->json(['title' => '¡Exito!', 'msg' => 'Datos actualizados exitosamente.'], 200);
 
         } catch (\Exception $e) {
 

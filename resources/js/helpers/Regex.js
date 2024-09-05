@@ -1,5 +1,5 @@
 /* Expresiones regulares para validar los datos */
-export const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,})$/;
+export const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,13})$/;
 export const regexLetters = /^[a-zA-ZáÁéÉíÍóÓúÚÑñ ]+$/;
 export const regexCode = /^[0-9]{7,9}$/;
 

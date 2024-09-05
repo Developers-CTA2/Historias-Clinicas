@@ -48,6 +48,7 @@ function EventEditAHF() {
                         .addClass("d-none")
                         .removeClass("animate__fadeOutUp");
                 });
+            $("#Diseases").collapse("hide");
         }
     });
 }
