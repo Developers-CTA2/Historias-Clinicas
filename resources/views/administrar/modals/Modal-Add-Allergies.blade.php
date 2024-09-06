@@ -24,7 +24,7 @@
                        </div>
                    </div>
                    {{-- Errores de laravel  --}}
-                   <div   class="errorAlert alert alert-danger alert-dismissible fade show pb-0" role="alert"
+                   <div class="errorAlert alert alert-danger alert-dismissible fade show pb-0" role="alert"
                        style="display: none;">
                        <strong>¡Ups! Algo salió mal.</strong>
                        <ul class="errorList"></ul>
@@ -44,13 +44,25 @@
                    </div>
                </div>
                <div class="modal-footer">
-                   <button type="button" class="btn-red py-1" data-bs-dismiss="modal">Cerrar</button>
-                   <button class="btn-blue-sec fst-normal py-1" type="button" id="Add_allergy">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                           <path fill="currentColor" d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
-                       </svg>
-                       Guardar
-                   </button>
+
+                   <x-button-custom class="btn-red" data-bs-dismiss="modal" text="Cancelar">
+                       <x-slot name="icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
+                               <path fill="currentColor"
+                                   d="M17.414 16L24 9.414L22.586 8L16 14.586L9.414 8L8 9.414L14.586 16L8 22.586L9.414 24L16 17.414L22.586 24L24 22.586z" />
+                           </svg>
+                       </x-slot>
+
+                   </x-button-custom>
+
+                   <x-button-custom class="btn-blue-sec" text="Guardar" id="Add_allergy">
+                       <x-slot name="icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20">
+                               <path fill="currentColor" d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                           </svg>
+                       </x-slot>
+                   </x-button-custom>
+
                </div>
            </div>
        </div>

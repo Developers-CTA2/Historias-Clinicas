@@ -1,7 +1,7 @@
 import { validarCampo, ocultarerr } from "../helpers/ValidateFuntions.js";
 import { regexCorreo, regexNumero, regexCode } from "../helpers/Regex.js";
 import { activeLoading, disableLoading } from "../loading-screen.js";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
+import { AlertaSweerAlert, AlertCancelConfirmation } from "../helpers/Alertas.js";
 import { getPerson } from '../helpers/request-get-person.js';
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
@@ -20,7 +20,18 @@ let isCalledDragAndDrop = false;
 
 $(document).ready(function () {
     ClicSearch();
+
+    $('#cancelForm').on('click', function(){
+        alertForCancelForm();
+    });
+
+    $
+
 });
+
+function alertForCancelForm(){
+    AlertCancelConfirmation('¿Estás seguro de cancelar el registro?', '¡No podrás deshacer esto!', '/users');
+}
 
 /* Upload file */
 function uploadFile(){
@@ -28,6 +39,8 @@ function uploadFile(){
 
     isCalledDragAndDrop = true;
 }
+
+
 
 /* Funcion para buscar el codigo ingresado */
 function ClicSearch() {

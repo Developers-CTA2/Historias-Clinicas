@@ -2,7 +2,7 @@ import { getPerson } from './helpers/request-get-person.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
 import { validateStepFormOne, validateStepFormFive } from './helpers/validateDataAddPatient.js';
 import { selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation } from './helpers';
+import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation, AlertConfirmationForm } from './helpers';
 import { templateErrorItem, templateErrorList } from './templates/addPatientsTemplate.js';
 
 
@@ -231,7 +231,6 @@ $(function () {
     // Auxiliars
     let prevCode = '';
 
-    btnNextStep.addClass('d-none');
 
     /* Alert */
     const alertCodePerson = $('#alertCodePerson');
@@ -249,15 +248,17 @@ $(function () {
 
     // Event for show button if the last tap is selected
     btnTabsPersonalData.on('click', function () {
-    
+
         // If the last tap is selected, the button is displayed
         if(btnTabsPersonalData.last().hasClass('active')){
-            btnNextStep.removeClass('d-none');
+            btnNextStep.removeClass('disabled-custom').attr('disabled', false);
             return;
         }
 
+
         // If the last tap is not selected, the button is hidden
-        btnNextStep.addClass('d-none');
+        btnNextStep.addClass('disabled-custom').attr('disabled', true);
+        
 
     })
 
@@ -358,18 +359,19 @@ $(function () {
 
     // Handle data person if code is worker, get data for worker and if code is student, get data for student
     const handlePersonData = ({ data }) => {
-        console.log(data, typePerson);
+        
         if (typePerson == 1) {
             const { codigo, nombramiento, nombre, fecha_nacimiento, sexo, ultimo_grado } = data.worker;
 
+            // Format for include inputs
             const adicionalData = formatToId(sexo, ultimo_grado, fecha_nacimiento);
+            // Set data person template
             setPersonData(codigo, nombre, nombramiento, adicionalData);
 
         } else {
             const { codigo, carrera, nombre } = data.student;
             setPersonData(codigo, nombre, carrera);
         }
-
 
     }
 
@@ -454,18 +456,61 @@ $(function () {
 
         // If the person is a worker
         if (patientData.gender) {
-            selectGender.val(patientData.gender).trigger('change').attr('disabled', true);
-            inputScholarship.val(patientData.scholarship).trigger('change').attr('disabled', true);
-            inputBirthDate.val(patientData.birthdate).attr('disabled', true);
+            selectGender.val(patientData.gender).trigger('change');
+            inputScholarship.val(patientData.scholarship).trigger('change');
+            inputBirthDate.val(patientData.birthdate);
+
+            disabledInputOtherData();
         }
 
         // Send data to inputs
-        inputCodePD.val(patientData.code).attr('disabled', true);
-        inputNamePD.val(patientData.name).attr('disabled', true);
-        inputCareerPD.val(patientData.career).attr('disabled', true);
+        inputCodePD.val(patientData.code);
+        inputNamePD.val(patientData.name);
+        inputCareerPD.val(patientData.career);
+
+        disabledInputPersonalData();
 
         // Show form for person data
         containerFatherForm.removeClass('d-none');
+    }
+
+    // Reset container for person data of the UDG
+    const resetContainerUdgPerson = () => { 
+        containerUdgPerson.addClass('d-none');    
+        containerDataPerson.addClass('d-none');
+        namePerson.text('-');
+        careerPerson.text('-');
+        prevCode = '';
+        inputCode.val('');
+    }
+
+
+    // Disabled inputs for personal data
+    const disabledInputPersonalData = (disabledVal = true) => {
+        inputCodePD.attr('disabled', true);
+        inputNamePD.val(patientData.name).attr('disabled', disabledVal);
+        inputCareerPD.val(patientData.career).attr('disabled', disabledVal);
+    }
+
+    // Disabled inputs for other data
+    const disabledInputOtherData = (disabledVal = true) => {
+        selectGender.attr('disabled', disabledVal);
+        inputScholarship.attr('disabled', disabledVal);
+        inputBirthDate.attr('disabled', disabledVal);
+    }
+
+    // Clear input for personal data, if the person is external o UDG
+    const clearInputPersonalData = () => {
+        inputCodePD.val('');
+        inputNamePD.val('');
+        inputCareerPD.val('');
+    }
+
+    // Clear input for other data, if the person is external o UDG
+    const clearInputOtherData = () => {
+        selectGender.val('').trigger('change');
+        inputScholarship.val('').trigger('change');
+        inputBirthDate.val('');
     }
 
     // Handle error for request person
@@ -491,6 +536,7 @@ $(function () {
         if (patientData.code !== '') {
 
             updateUIFormPersonData();
+            resetContainerUdgPerson();
 
             // Show form for personal data
             formSteps.first().removeClass('d-none');
@@ -521,9 +567,10 @@ $(function () {
         containerPersonSelect.addClass('d-none');
 
         // Reset alert and data
-        inputCodePD.val('').attr('disabled', true);
-        inputNamePD.val('').attr('disabled', false);
-        inputCareerPD.val('').attr('disabled', false);
+        disabledInputPersonalData(false);
+        clearInputPersonalData();
+        disabledInputOtherData(false);
+        clearInputOtherData();
 
         // Show form for personal data
         containerFatherForm.removeClass('d-none');
@@ -658,6 +705,8 @@ $(function () {
 
             // Management request for store patient
             managementRequestForStorePatient();
+            
+
 
         });
     }
@@ -671,7 +720,7 @@ $(function () {
         getAllDataForm();
 
         // Show alert for confirmation
-        confirmationAlertForStorePatient(managementRequestStore());
+        AlertConfirmationForm('¿Estás seguro de guardar los datos?','', managementRequestStore);
         
     }
 
@@ -687,22 +736,6 @@ $(function () {
         return true;
     }
 
-    // Alert for confirmation
-    const confirmationAlertForStorePatient = ( requestForStorePatient ) => {
-        Swal.fire({
-            icon: 'warning',
-            title: '¿Estás seguro de guardar los datos?',
-            confirmButtonText: 'Si, guardar',
-            showCancelButton: true,
-            cancelButtonText: 'Cancelar',
-            reverseButtons: true,
-        }).then((willConfirm) => {
-            if (willConfirm.isConfirmed) {
-                requestForStorePatient();
-            }
-        })
-
-    }
 
     // Request for save patient
     const managementRequestStore = () => {

@@ -68,7 +68,7 @@ export const AlertCancelConfirmation = (title, msg, url) => {
 
 export const AlertConfirmationForm = (title, msg, callback) => {
     Swal.fire({
-        icon: "success",
+        icon: "warning",
         title: title,
         text: msg,
         confirmButtonText: 'Si estoy seguro',

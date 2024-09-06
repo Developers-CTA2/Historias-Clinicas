@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Consulta;
 use App\Models\Persona;
 use App\Models\Folio;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class MedicalPrescriptionController extends Controller
 {
@@ -13,9 +16,10 @@ class MedicalPrescriptionController extends Controller
     // Generate a new medical prescription for a patient PDF
     public function generateMedicalPrescription($id_persona, $id_consulta){
         
-        $patient = Persona::select('id_persona','nombre','fecha_nacimiento', 'created_at')->findOrFail($id_persona);
-        $consultation = $patient->consulta()->select('tratamiento','id_folio')->findOrFail($id_consulta);
+        $patient = Persona::select('id_persona','nombre','fecha_nacimiento')->findOrFail($id_persona);
+        $consultation = $patient->consulta()->select('id_consulta','tratamiento','created_at','id_folio')->findOrFail($id_consulta);
 
+        // return response()->json($consultation);
     
         $doctor = User::with('roles')
             ->whereHas('roles', function($query){
@@ -24,29 +28,25 @@ class MedicalPrescriptionController extends Controller
             ->where('estado','Activo')
             ->select('id','name','cedula')
             ->first();
-
-
-        // Check if the patient has a folio
-        if($consultation->folio == null){
-
-            // Create a new folio for the patient
-            $folio = new Folio();
-            $folio->type = 'medical-prescription';
-            $folio->id_persona = $patient->id_persona;
-            $folio->save();
-
-            // return response()->json($folio);
-
-            // Assign the folio to the consultation
-            $consultation->id_folio = $folio->id;
-            $consultation->save();
             
-        }
+        // Check if the patient has a folio
+        if($consultation->id_folio == null){
 
+            DB::transaction(function () use ($consultation, $patient) {
+                // Create a new folio for the patient
+                $folio = new Folio();
+                $folio->type = 'medical-prescription';
+                $folio->id_persona = $patient->id_persona;
+                $folio->save();
+
+                $consultation->update(['id_folio' => $folio->id]);
+    
+            });            
+        
+        }
 
         $patient->age = Carbon::parse($patient->fecha_nacimiento)->age;
 
-                
         $pdf = PDF::loadView('patients.medical_prescription.format-cualtos', compact('patient', 'consultation','doctor'));
         return $pdf->download('prescripcion-medica'. $patient->id_person .'.pdf');
 

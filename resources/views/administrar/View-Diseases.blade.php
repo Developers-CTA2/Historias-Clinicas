@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Enfermedades')
+@section('title', 'Tipos de enfermedades')
 
 @section('viteConfig')
     @vite(['resources/sass/diseases.scss'])
