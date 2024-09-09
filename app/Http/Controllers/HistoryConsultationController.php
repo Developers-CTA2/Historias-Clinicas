@@ -14,6 +14,7 @@ class HistoryConsultationController extends Controller
     {
         $breadcrumbs = [
             ['name' => 'Pacientes', 'url' => route('patients.index')],
+            ['name' => 'Expediente', 'url' => route('admin.medical_record', $id_persona)],
             ['name' => 'Historial de consulta', '' => ''],
         ];
 

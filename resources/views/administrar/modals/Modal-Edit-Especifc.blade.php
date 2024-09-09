@@ -83,13 +83,20 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-red py-1" data-bs-dismiss="modal">Cerrar</button>
-                        <button class="btn-blue-sec fst-normal py-1" type="button" id="E_disease">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                                <path fill="currentColor" d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
-                            </svg>
-                            Guardar
-                        </button>
+
+                        <x-button-custom class="btn-red" data-bs-dismiss="modal" text="Cancelar">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32"><path fill="currentColor" d="M17.414 16L24 9.414L22.586 8L16 14.586L9.414 8L8 9.414L14.586 16L8 22.586L9.414 24L16 17.414L22.586 24L24 22.586z"/></svg>
+                            </x-slot>
+
+                        </x-button-custom>
+
+                        <x-button-custom class="btn-blue-sec" text="Guarar cambios" id="E_disease">
+                            <x-slot name="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M12.079 2.25c-4.794 0-8.734 3.663-9.118 8.333H2a.75.75 0 0 0-.528 1.283l1.68 1.666a.75.75 0 0 0 1.056 0l1.68-1.666a.75.75 0 0 0-.528-1.283h-.893c.38-3.831 3.638-6.833 7.612-6.833a7.66 7.66 0 0 1 6.537 3.643a.75.75 0 1 0 1.277-.786A9.16 9.16 0 0 0 12.08 2.25"/><path fill="currentColor" d="M20.841 10.467a.75.75 0 0 0-1.054 0L18.1 12.133a.75.75 0 0 0 .527 1.284h.899c-.381 3.83-3.651 6.833-7.644 6.833a7.7 7.7 0 0 1-6.565-3.644a.75.75 0 1 0-1.276.788a9.2 9.2 0 0 0 7.84 4.356c4.809 0 8.766-3.66 9.151-8.333H22a.75.75 0 0 0 .527-1.284z" opacity=".5"/></svg>
+                            </x-slot>
+                        </x-button-custom>
+
                     </div>
                 </div>
             </div>

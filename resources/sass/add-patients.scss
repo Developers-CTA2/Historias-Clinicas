@@ -234,3 +234,11 @@ background-color: rgba(19, 87, 78, 0.384);
 .badge-custom-success {
     background-color: #0AA760 ;
 }
+
+.disabled-custom{
+  background-color: #ececec !important;
+  color:  #777 !important;
+  border: 1px solid #666 !important;
+  cursor: not-allowed !important;
+
+}

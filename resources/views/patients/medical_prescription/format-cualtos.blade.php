@@ -8,82 +8,90 @@
     <title>Receta médica</title>
 
     <style>
-
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
+        
         @page {
-            margin: 0px; /* Quita los márgenes de todas las páginas */
+            margin: 10px;
+            /* Quita los márgenes de todas las páginas */
         }
 
         body {
             margin: 0px;
             padding: 0px;
-            font-family: 'Poppins','sans-serif';
+            font-family: 'poppins', sans-serif;
             width: 100%;
             letter-spacing: 0.7px;
-            background-image: url("{{ public_path('images/medical-prescription.png') }}");
-            background-repeat: no-repeat; 
-            background-size: 100% 50%;
+            box-sizing: border-box;
+
+        }
+
+        main {
+            margin-top: -10px;
+            padding: 0px 25px;
+            width: calc(100% - 50px);
+
+        
+            min-height: 300px;
+            /* background-color: aqua; */
+            margin-bottom: 10px;
         }
 
 
-        .container{
-            width: 100%;
-            height: 50%;
+        .relative {
             position: relative;
         }
 
-        .container .namePatient{
-            top: 22%;
-            left: 15%;
-            font-size: 1.1rem;
-
-        }
-
-        .absolute{
+        .absolute {
             position: absolute;
         }
 
-        .container .namePatient p{
-            text-transform: capitalize;
-        
+        .logo-bg {
+            position: absolute;
+            right: 0px;
+            top: 180px;
         }
 
+        .name-patient {
+            top: 80px;
+            left: 110px;
+        }
 
-        .container .dataDoctor{
-            top: 5%;
+        .date {
+            left: 82%;
+            top: -20px;
+        }
+
+        .age {
+            left: 82%;
+            top: 10px;
+        }
+
+        .folio {
+            left: 82%;
+            top: 45px;
+        }
+
+        .text-custom {
+            font-size: 1.1rem;
+            font-weight: 300;
+            /* color: #000; */
+        }
+
+        .text-normal {
+            font-size: 1.1rem;
+            font-weight: 300;
+            /* color: #000; */
+        }
+
+        .dataDoctor{
+            top: 0%;
             left: 18%;
             font-size: 1.1rem;
             text-align: center;
         }
 
-        .container .dataDoctor p {
+        .dataDoctor p, main p{
             margin: 0;
             padding: 0;
-
-        }
-
-        .container .dateConsultation{
-            left: 83%;
-            top: 2.5%;
-        }
-
-        .container .age{
-            left: 83%;
-            top: 9%;5
-        }
-
-        .container .folio{
-            left: 83%;
-            top: 16%;
-        }
-
-        .container .details{
-            top: 32%;
-            left: 4%;
-            width: 92%;
-            height: 52%;
         }
 
         .nameDoctor{
@@ -103,6 +111,9 @@
         }
 
 
+        
+
+
 
     </style>
 
@@ -111,44 +122,36 @@
 
 <body>
 
-    <div class="container">
+    <div class="relative">
+        <header class="relative">
+            <img src="{{ public_path('images/header-medical-prescription.png') }}" width="100%"
+                alt="Encabezado receta médica">
 
-        <div class="absolute dataDoctor">
-            <p class="nameDoctor fw-bold">{{$doctor->name}}</p>
-            <p class="fw-bold">MÉDICO CIRUJADO Y PARTERO</p>
-            <p class="text-sm">Universidad de Guadalajara</p>
-            <p class="text-sm">Cédula profesional: <span>{{$doctor->cedula}}</span> / Estatal> PEJ 2938347</p>
-        </div>
+            <div class="absolute dataDoctor">
+                <p class="nameDoctor fw-bold">{{ $doctor->name }}</p>
+                <p class="fw-bold">MÉDICO CIRUJADO Y PARTERO</p>
+                <p class="text-sm">Universidad de Guadalajara</p>
+                <p class="text-sm">Cédula profesional: <span>{{ $doctor->cedula ?? 'No tiene cédula' }}</span></p>
+            </div>
 
-        {{-- Nombre del paciente --}}
-        <div class="absolute namePatient">
-            <p>{{ $patient->nombre }}</p>
-        </div>
+            <p class="absolute text-custom name-patient">{{ $patient->nombre }}</p>
+            <p class="absolute text-custom date">{{ $consultation->created_at->format('d/m/Y') }}</p>
+            <p class="absolute text-custom age">{{ $patient->age ?? '0' }} años </p>
+            <p class="absolute text-custom folio">{{ $consultation->id_folio }} </p>
 
-    
-        {{-- Fecha de la consulta --}}
-        <div class="absolute dateConsultation">
-            <p>{{$patient->created_at->format('d/m/Y') }}</p>
-        </div>
+        </header>
 
-        {{-- Edad --}}
-        <div class="absolute age">
-            <p>{{$patient->age ?? '0' }} años </p>
-        </div>
+        <main>
+            <img class="logo-bg" src="{{ public_path('images/logo-leon.png') }}" alt="Logo León UDG" width="150px">
+            <p class="text-normal text-without-space">{!! $consultation->tratamiento !!}</p>
+        </main>
 
-        {{-- Folio --}}
-        <div class="absolute folio">
-            <p>{{$consultation->id_folio}}</p>
-        </div>
-        
-        
-        {{-- Detalles de la consulta --}}
-        <div class="absolute details">
-            {!! $consultation->tratamiento !!}
-        </div>
-
+        <footer>
+            <img src="{{ public_path('images/footer-medical-prescription.png') }}" alt="Logo León UDG" width="100%">
+        </footer>
     </div>
-    
+
+
 
 </body>
 

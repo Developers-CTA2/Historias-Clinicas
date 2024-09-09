@@ -15,7 +15,7 @@ export const requestGetConsultation = async(dataSend = {})=>{
                     offset : dataSend.page * dataSend.limit
                 }
             });
-            console.log(data);
+            
             resolve(data);
     
         }catch(error){

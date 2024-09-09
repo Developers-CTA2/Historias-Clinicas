@@ -105,13 +105,19 @@ class CitasController extends Controller
             ['name' => 'Agenda', 'url' => route('showAgenda')],
             ['name' => 'Citas', '' => ''],
         ];
+        
+        $fechaFormateada = Carbon::parse($fecha)->locale('es')->isoFormat('LL');    
+
+        // return response()->json([
+        //     'data' => $citas
+        // ]);
 
         return view('admin.citas', [
             'fecha' => $fecha,
             'citasDoctora' => $citasDoctora,
             'citasNutriologa' => $citasNutriologa,
             'citas' => $citas,
-        ], compact('breadcrumbs', 'fecha', 'citasDoctora', 'citasNutriologa', 'citas'));
+        ], compact('breadcrumbs', 'fechaFormateada', 'citasDoctora', 'citasNutriologa', 'citas'));
     }
 
     public function guardarCita(Request $request)
