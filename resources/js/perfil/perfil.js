@@ -12,10 +12,7 @@ import { validarCampo } from "../helpers/ValidateFuntions.js";
 
 import {
     IconInfo,
-    IconWarning,
-    ShowErrors,
     IconError,
-    ClicRefresh,
 } from "../templates/ExpedientTemplate.js";
 
 $(function () {

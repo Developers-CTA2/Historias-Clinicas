@@ -22,8 +22,8 @@
                     <div class="row col-12 mx-2 p-1">
                         <p class="text-center p-0">Detalles de mi cuenta</p>
 
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-group col-12 pt- d-flex justify-content-start2">
+                        <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                            <div class="form-group col-12 d-flex justify-content-start mt-sm-2">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -40,11 +40,11 @@
                             </div>
 
                             <div class="form-group col-12 mt-3">
-                                <div class="form-group col-12 pt- d-flex justify-content-start2">
+                                <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             viewBox="0 0 24 24">
-                                            <path fill="#059669"
+                                            <path fill="#0284c7"
                                                 d="m16.484 11.976l6.151-5.344v10.627zm-7.926.905l2.16 1.875c.339.288.781.462 1.264.462h.017h-.001h.014c.484 0 .926-.175 1.269-.465l-.003.002l2.16-1.875l6.566 5.639H1.995zM1.986 5.365h20.03l-9.621 8.356a.6.6 0 0 1-.38.132h-.014h.001h-.014a.6.6 0 0 1-.381-.133l.001.001zm-.621 1.266l6.15 5.344l-6.15 5.28zm21.6-2.441c-.24-.12-.522-.19-.821-.19H1.859a1.9 1.9 0 0 0-.835.197l.011-.005A1.86 1.86 0 0 0 0 5.855v12.172a1.86 1.86 0 0 0 1.858 1.858h20.283a1.86 1.86 0 0 0 1.858-1.858V5.855c0-.727-.419-1.357-1.029-1.66l-.011-.005z" />
                                         </svg>
                                     </div>
@@ -57,11 +57,11 @@
                             </div>
 
                             <div class="form-group col-12 mt-3">
-                                <div class="form-group col-12 pt- d-flex justify-content-start2">
+                                <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             viewBox="0 0 24 24">
-                                            <g fill="none" stroke="#e11d48" stroke-linecap="round"
+                                            <g fill="none" stroke="#0284c7" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="1.5" color="#e11d48">
                                                 <path
                                                     d="M11.53 22h-1.06c-3.992 0-5.989 0-7.23-1.172C2 19.657 2 17.771 2 14v-4c0-3.771 0-5.657 1.24-6.828C4.481 2 6.478 2 10.47 2h1.06c3.993 0 5.989 0 7.23 1.172C20 4.343 20 6.229 20 10v.5M7 7h8m-8 5h5" />
@@ -80,15 +80,12 @@
 
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="form-group col-12 mt-sm-2">
-                                <div class="form-group col-12 pt- d-flex justify-content-start2">
+                        <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                            <div class="form-group col-12">
+                                <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                            viewBox="0 0 256 256">
-                                            <path fill="#0284c7"
-                                                d="M213 174.26a12 12 0 0 0-16.76 2.74q-1.47 2.06-3.05 4a76 76 0 0 0-30-28.37a48 48 0 1 0-70.28.08a76.8 76.8 0 0 0-30.06 28.25a83.6 83.6 0 0 1-18.3-43.55a12 12 0 0 0 16-17.88l-20-20a12 12 0 0 0-17 0l-20 20a12 12 0 0 0 16.83 17.1a107.88 107.88 0 0 0 37.72 73.61a12.3 12.3 0 0 0 1.88 1.57a107.82 107.82 0 0 0 136.47-.26a13 13 0 0 0 1.28-1.06a107.7 107.7 0 0 0 18-19.46a12 12 0 0 0-2.73-16.77M128 96a24 24 0 1 1-24 24a24 24 0 0 1 24-24m0 116a83.5 83.5 0 0 1-46.94-14.37a52 52 0 0 1 93.88 0A84.07 84.07 0 0 1 128 212m124.49-75.51l-20 20a12 12 0 0 1-17 0l-20-20a12 12 0 0 1 16-17.88A84 84 0 0 0 59.74 79a12 12 0 1 1-19.48-14a108 108 0 0 1 195.4 54.4a12 12 0 0 1 16.83 17.1Z" />
-                                        </svg>
+                                                                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#0284c7"><path d="M8.5 18c1.813-1.954 5.167-2.046 7 0m-1.56-6c0 1.105-.871 2-1.947 2c-1.075 0-1.947-.895-1.947-2s.872-2 1.947-2s1.948.895 1.948 2"/><path d="M9.5 4.002c-2.644.01-4.059.102-4.975.97C3.5 5.943 3.5 7.506 3.5 10.632v4.737c0 3.126 0 4.69 1.025 5.66c1.025.972 2.675.972 5.975.972h3c3.3 0 4.95 0 5.975-.971c1.025-.972 1.025-2.535 1.025-5.66v-4.738c0-3.126 0-4.689-1.025-5.66c-.916-.868-2.33-.96-4.975-.97"/><path d="M9.772 3.632c.096-.415.144-.623.236-.792a1.64 1.64 0 0 1 1.083-.793C11.294 2 11.53 2 12 2s.706 0 .909.047a1.64 1.64 0 0 1 1.083.793c.092.17.14.377.236.792l.083.36c.17.735.255 1.103.127 1.386a1.03 1.03 0 0 1-.407.451C13.75 6 13.332 6 12.498 6h-.996c-.834 0-1.252 0-1.533-.17a1.03 1.03 0 0 1-.407-.452c-.128-.283-.043-.65.127-1.386z"/></g></svg>
+
                                     </div>
                                     <div class="ps-2">
                                         <p class="fw-bold mb-0">Código (UdG)</p>
@@ -100,17 +97,9 @@
 
 
                             <div class="form-group col-12 mt-3">
-                                <div class="form-group col-12 pt- d-flex justify-content-start2">
+                                <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                            viewBox="0 0 24 24">
-                                            <path fill="#059669"
-                                                d="M23 19a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 0-4h-2v-2h2a4 4 0 0 1 4 4M9 19a4 4 0 0 1 4-4h2v2h-2a2 2 0 0 0 0 4h2v2h-2a4 4 0 0 1-4-4" />
-                                            <path fill="#059669"
-                                                d="M14 18h4v2h-4zM9 5a3 3 0 1 0 3 3a3.01 3.01 0 0 0-3-3m0 4a1 1 0 1 1 1-1a1.003 1.003 0 0 1-1 1m-3.69 6A7 7 0 0 1 9 13.88a6 6 0 0 1 .778.064A5.97 5.97 0 0 1 13 13h.254A9.4 9.4 0 0 0 9 11.89c-2.03 0-6 1.07-6 3.58V17h4.349a6 6 0 0 1 1.188-2Z" />
-                                            <path fill="#059669"
-                                                d="M16 2h-4.18a2.988 2.988 0 0 0-5.64 0H2a2.006 2.006 0 0 0-2 2v14a2.006 2.006 0 0 0 2 2h5.141a3.6 3.6 0 0 1 0-2H2V4h14v9h2V4a2.006 2.006 0 0 0-2-2M9 3.25a.756.756 0 0 1-.75-.75a.75.75 0 0 1 1.5 0a.756.756 0 0 1-.75.75" />
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 18v-.65c0-.34.16-.66.41-.81C6.1 15.53 8.03 15 10 15c.03 0 .05 0 .08.01c.1-.7.3-1.37.59-1.98c-.22-.02-.44-.03-.67-.03c-2.42 0-4.68.67-6.61 1.82c-.88.52-1.39 1.5-1.39 2.53V20h9.26c-.42-.6-.75-1.28-.97-2zm6-6c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4m0-6c1.1 0 2 .9 2 2s-.9 2-2 2s-2-.9-2-2s.9-2 2-2m10.75 10c0-.22-.03-.42-.06-.63l1.14-1.01l-1-1.73l-1.45.49q-.48-.405-1.08-.63L18 11h-2l-.3 1.49q-.6.225-1.08.63l-1.45-.49l-1 1.73l1.14 1.01c-.03.21-.06.41-.06.63s.03.42.06.63l-1.14 1.01l1 1.73l1.45-.49q.48.405 1.08.63L16 21h2l.3-1.49q.6-.225 1.08-.63l1.45.49l1-1.73l-1.14-1.01c.03-.21.06-.41.06-.63M17 18c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2"/></svg>
                                     </div>
                                     <div class="ps-2">
                                         <p class="fw-bold mb-0">Tipo de usuario</p>
@@ -121,11 +110,11 @@
                             </div>
 
                             <div class="form-group col-12 mt-3">
-                                <div class="form-group col-12 pt- d-flex justify-content-start2">
+                                <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             viewBox="0 0 24 24">
-                                            <g fill="none" stroke="#e11d48" stroke-linecap="round"
+                                            <g fill="none" stroke="#0284c7" stroke-linecap="round"
                                                 stroke-linejoin="round" stroke-width="2">
                                                 <rect width="20" height="18" x="2" y="4" rx="4" />
                                                 <path d="M8 2v4m8-4v4M2 10h20" />

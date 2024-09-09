@@ -20,7 +20,7 @@
                     </div>
                 </div>
             @endrole
-            <div class="col-lg-6 col-md-6 col-sm-12 top-content">
+            <div class="col-lg-6 col-md-6 col-sm-12 top-content mb-2">
                 <div class="row form-group px-2">
 
                     <h5 class="aling-items-center">

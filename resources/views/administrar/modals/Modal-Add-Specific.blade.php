@@ -5,7 +5,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-blue">
-                        <h5 class="modal-title" id="staticBackdropLabel">Agregra</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Agregar enfermedad específica</h5>
                         <button type="button" class="btn-custom-close" data-bs-dismiss="modal" aria-label="Close"><svg
                                 xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                                 <path fill="#ffffff"
@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="row col-12 pt-1">
-                            <p class="text-center mb-0">Selecciona un tipo, despues ecribe el nombre.</p>
+                            <p class="text-center mb-0">Selecciona un tipo, después ecribe el nombre.</p>
                         </div>
 
                         <div class="row mt-0 pt-0">
