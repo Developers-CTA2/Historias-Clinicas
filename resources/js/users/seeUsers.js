@@ -1,12 +1,14 @@
 //import {grid} from './helpers/PersonalGridTable'
 import { Grid, html, h } from "gridjs";
-import { activeLoading, disableLoading } from "../loading-screen.js";
-import traducciones from "../helpers/translate-gridjs.js";
+
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import "gridjs/dist/theme/mermaid.css";
+
+import { activeLoading, disableLoading } from "../loading-screen.js";
 import { AlertaSweerAlert } from "../helpers/Alertas.js";
 
-import "gridjs/dist/theme/mermaid.css";
+import { className, translations } from "../helpers/gridJsConfiguration.js";
 
 $(function () {
     initialData();
@@ -148,7 +150,7 @@ async function initialData() {
             search: {
                 enabled: true,
                 placeholder: "Buscar...",
-                className: "form-control border-danger",
+                debounceTimeout : 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -172,18 +174,11 @@ async function initialData() {
                     return data.count;
                 },
             },
-
-            className: {
-                th: "thead-color text-black",
-                search: "d-flex justify-content-center justify-content-lg-end w-100",
-                table: 'shadow-none',
-                footer: 'mt-2',
-            
-            },
+            className: className,
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: false,
-            resizable: true,
-            language: traducciones,
+            resizable: false,
+            language: translations,
         }).render(document.getElementById("Tabla-Usuarios"));
     } catch (error) {
         console.log(error);

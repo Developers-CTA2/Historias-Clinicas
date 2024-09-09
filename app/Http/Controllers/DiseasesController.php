@@ -48,6 +48,8 @@ class DiseasesController extends Controller
             DB::transaction(function () use ($Name) {
                 $disease = new Tipos_enfermedades;
                 $disease->nombre = $Name;
+                $disease->created_by = auth()->user()->id;
+                $disease->updated_by = auth()->user()->id;
                 $disease->save();
             });
             return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamente.']);
@@ -69,13 +71,14 @@ class DiseasesController extends Controller
             $query->where('nombre', 'like', "%$search%");
         }
 
+        $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
             ->get();
 
         return response()->json([
             'results' => $diseases,
-            'count' => $diseases->count(),
+            'count' => $count,
         ]);
     }
 
@@ -114,6 +117,7 @@ class DiseasesController extends Controller
             DB::transaction(function () use ($Name, $Update) {
                 $Update->update([
                     'nombre' => $Name,
+                    'updated_by' => auth()->user()->id,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);

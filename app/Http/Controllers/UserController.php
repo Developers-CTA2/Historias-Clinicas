@@ -133,6 +133,7 @@ class UserController extends Controller
             });
         }
 
+        $total = $query->count();
         $users = $query
             ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
@@ -142,7 +143,7 @@ class UserController extends Controller
 
         return response()->json([
             'results' => $users,
-            'count' => $users->count(),
+            'count' => $total,
         ]);
     }
     /*

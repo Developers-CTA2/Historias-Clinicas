@@ -3,7 +3,7 @@
 @section('title', 'Agregar usuario')
 
 @section('viteConfig')
-    @vite(['resources/sass/users.scss', 'resources/sass/form-style.scss','resources/sass/drag-and-drop-file.scss'])
+    @vite(['resources/sass/users.scss', 'resources/sass/form-style.scss', 'resources/sass/drag-and-drop-file.scss'])
 @endsection
 
 
@@ -12,6 +12,7 @@
         <!-- Card para mostrar todos los datos  -->
         <div id="detalles-container"></div>
 
+        
         <div class="card">
             <div class="card-header text-center">
                 Agregar un usuario al sistema
@@ -19,7 +20,7 @@
             <div class="card-body">
                 <div class="row col-12">
                     <p class="text-center p-0">Escribe el código del usuario a agregar.</p>
-                    <div class="col-12 d-flex justify-content-center align-items-end p-0 gap-3  mt-0">
+                    <div class="col-12 d-flex justify-content-center p-0 gap-3  mt-0">
 
                         <div class="form-group">
                             <label for="code">Código </label>
@@ -29,7 +30,7 @@
                                 válido.</span>
                         </div>
                         <div class="mt-3">
-                            <x-button-custom class="btn-sec" id="Search" text="Buscar" tooltipText="Buscar código">
+                            <x-button-custom class="btn-sec mt-2" id="Search" text="Buscar" tooltipText="Buscar código">
                                 <x-slot name="icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 26 26">
@@ -104,9 +105,11 @@
                                 <div class="d-flex justify-content-end">
                                     <div class="mx-2">
 
-                                        <x-button-custom class="btn-red" text="Cancelar" id="cancelForm" tooltipText="Volver a la ventana anterior">
+                                        <x-button-custom class="btn-red" text="Cancelar" id="cancelForm"
+                                            tooltipText="Volver a la ventana anterior">
                                             <x-slot name="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                    viewBox="0 0 24 24">
                                                     <path fill="none" stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="1.5"
                                                         d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
@@ -114,12 +117,19 @@
                                             </x-slot>
                                         </x-button-custom>
 
-                                        
+
                                     </div>
                                     <div class="">
-                                        <x-button-custom class="btn-sec" text="Guardar" tooltipText="Guardar el usuario" id="save-user">
+                                        <x-button-custom class="btn-sec" text="Guardar" tooltipText="Guardar el usuario"
+                                            id="save-user">
                                             <x-slot name="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M17 20.75H7A2.75 2.75 0 0 1 4.25 18V6A2.75 2.75 0 0 1 7 3.25h7.5a.75.75 0 0 1 .53.22L19.53 8a.75.75 0 0 1 .22.53V18A2.75 2.75 0 0 1 17 20.75m-10-16A1.25 1.25 0 0 0 5.75 6v12A1.25 1.25 0 0 0 7 19.25h10A1.25 1.25 0 0 0 18.25 18V8.81l-4.06-4.06Z"/><path fill="currentColor" d="M16.75 20h-1.5v-6.25h-6.5V20h-1.5v-6.5a1.25 1.25 0 0 1 1.25-1.25h7a1.25 1.25 0 0 1 1.25 1.25ZM12.47 8.75H8.53a1.29 1.29 0 0 1-1.28-1.3V4h1.5v3.25h3.5V4h1.5v3.45a1.29 1.29 0 0 1-1.28 1.3"/></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                    viewBox="0 0 24 24">
+                                                    <path fill="currentColor"
+                                                        d="M17 20.75H7A2.75 2.75 0 0 1 4.25 18V6A2.75 2.75 0 0 1 7 3.25h7.5a.75.75 0 0 1 .53.22L19.53 8a.75.75 0 0 1 .22.53V18A2.75 2.75 0 0 1 17 20.75m-10-16A1.25 1.25 0 0 0 5.75 6v12A1.25 1.25 0 0 0 7 19.25h10A1.25 1.25 0 0 0 18.25 18V8.81l-4.06-4.06Z" />
+                                                    <path fill="currentColor"
+                                                        d="M16.75 20h-1.5v-6.25h-6.5V20h-1.5v-6.5a1.25 1.25 0 0 1 1.25-1.25h7a1.25 1.25 0 0 1 1.25 1.25ZM12.47 8.75H8.53a1.29 1.29 0 0 1-1.28-1.3V4h1.5v3.25h3.5V4h1.5v3.45a1.29 1.29 0 0 1-1.28 1.3" />
+                                                </svg>
                                             </x-slot>
                                         </x-button-custom>
                                     </div>
@@ -131,18 +141,19 @@
                     <div class="col-12 p-0 mt-2 buttons-cont animate__fadeOut">
                         <div class="row">
                             <div class="d-flex justify-content-end">
-                                <div class="mx-2">
-                                    <a href="{{ route('users.users') }}" class="btn-red fst-normal tooltip-container p-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 1024 1024">
-                                            <path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64" />
-                                            <path
-                                                d="m237.248 512l265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312z" />
+
+                                <x-button-link-custom class="btn-red" text="Cancelar"
+                                    tooltipText="Volver a la ventana de usuarios">
+                                    <x-slot name="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            viewBox="0 0 24 24">
+                                            <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="1.5"
+                                                d="M6.758 17.243L12.001 12m5.243-5.243L12 12m0 0L6.758 6.757M12.001 12l5.243 5.243" />
                                         </svg>
-                                        Atras
-                                        <span class="tooltip-text">Volver a la ventana anterior.</span>
-                                    </a>
-                                </div>
+                                    </x-slot>
+                                    </x-button-custom>
+
                             </div>
                         </div>
                     </div>

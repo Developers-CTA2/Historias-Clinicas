@@ -38,13 +38,15 @@ class SpecificDiseasesController extends Controller
                     $q->where('nombre', 'like', "%$search%");
                 });
         }
+        $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
+            ->orderBy('id_especifica_ahf', 'desc')
             ->get();
 
         return response()->json([
             'results' => $diseases,
-            'count' => $diseases->count(),
+            'count' => $count,
         ]);
     }
 
@@ -88,6 +90,7 @@ class SpecificDiseasesController extends Controller
                 $espe->update([
                     'nombre' => $Name,
                     'id_tipo_ahf' => $Id_Type,
+                    'updated_by' => auth()->user()->id,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
@@ -130,6 +133,8 @@ class SpecificDiseasesController extends Controller
                 $disease = new Enfermedad_especifica;
                 $disease->nombre = $Name;
                 $disease->id_tipo_ahf = $Id_type;
+                $disease->created_by = auth()->user()->id;
+                $disease->updated_by = auth()->user()->id;
                 $disease->save();
             });
             return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamnete.']);

@@ -32,7 +32,6 @@ let observer = new IntersectionObserver((entries, observer) => {
 });
 
 const requestHistoryReportFuncion = (limit, page) => {
-    console.log('Request', limit, page, idPersona);
     requestGetConsultation({ limit, page, idPersona })
         .then(data => {
 
@@ -78,8 +77,13 @@ $(function () {
 
     idPersona = $('#idPersona').val();
     totalConsultations = $('#totalConsultas').val();
+
+    if(totalConsultations > 0){
+        requestHistoryReportFuncion(limit, page);
+    }else{
+        $('#containerListConsultation').html(`<p class="fw-bold text-muted m-0"> No hay consultas registradas... </p>`)
+    }
     
-    requestHistoryReportFuncion(limit, page);
 
 })
     

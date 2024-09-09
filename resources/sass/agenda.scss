@@ -1,3 +1,5 @@
+@import 'variables.scss'; /* Importa las variables de estilo */
+
 /* Ajusta el contenedor del calendario */
 #calendar {
     width: 80%;
@@ -19,4 +21,34 @@
 /* Aumenta el tamaño de la fuente y el espaciado para los días */
 .fc-daygrid-day-number {
     font-size: 1.2em; 
+}
+
+.fc-daygrid-day{
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.fc-daygrid-day:hover {
+    background-color: #265f8031; /* Cambia el color de fondo en hover */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    transition: background-color 0.3s ease; /* Transición suave */
+    color: $white; /* Cambia el color del texto */
+}
+
+.fc-day-today{
+    background-color: rgb(19, 87, 78,0.2) !important; /* Cambia el color de fondo */
+    color: $white; /* Cambia el color del texto */
+}
+
+.fc-toolbar-title{
+    // Capitaliza el texto
+    text-transform: capitalize !important;
+    font-weight: 700;
+    font-size: 1.4rem !important;
+    color: $primary;
+}
+
+
+
+a{
+    text-decoration: none !important;  /* Elimina la subrayado del enlace */
 }

@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/add-diseases', [DiseasesController::class, 'Store_disease'])->name('add-diseases');
 
         // SPECIFIC
-        Route::get('/specific-diseases', [SpecificDiseasesController::class, 'specific_View'])->name('admin/specific-diseases');
+        Route::get('/specific-diseases', [SpecificDiseasesController::class, 'specific_View'])->name('admin.specific-diseases');
         Route::get('/obt-specific-diseases', [SpecificDiseasesController::class, 'showdiseases'])->name('obt-specific-diseases');
         Route::post('/edit-specific-diseases', [SpecificDiseasesController::class, 'Update_specific'])->name('edit-specific-diseases');
         Route::post('/add-specific-diseases', [SpecificDiseasesController::class, 'Store_specific'])->name('add-specific-diseases');

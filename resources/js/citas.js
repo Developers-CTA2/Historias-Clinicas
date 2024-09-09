@@ -3,40 +3,38 @@ import "sweetalert2/src/sweetalert2.scss";
 import { activeLoading, disableLoading } from "./loading-screen.js";
 
 
-document.getElementById('medico').addEventListener('click', function () {
-    mostrarTabla('doctora');
-});
-
-document.getElementById('nuticion').addEventListener('click', function () {
-    mostrarTabla('nutriologa');
-});
-
-function mostrarTabla(tipo) {
-    var tablaDoctora = document.getElementById('tablaDoctora');
-    var tablaNutriologa = document.getElementById('tablaNutriologa');
-
-    if (tipo === 'doctora') {
-        if (tablaDoctora) {
-            tablaDoctora.style.display = 'block';
-        }
-        if (tablaNutriologa) {
-            tablaNutriologa.style.display = 'none';
-        }
-    } else if (tipo === 'nutriologa') {
-        if (tablaNutriologa) {
-            tablaNutriologa.style.display = 'block';
-        }
-        if (tablaDoctora) {
-            tablaDoctora.style.display = 'none';
-        }
-    }
-}
+const startHour = 8; // Starting hour
+const endHour = 18; // Ending hour
 
 document.addEventListener("DOMContentLoaded", function () {
     const timeSelects = document.querySelectorAll('.hora-select');
-    const startHour = 8; // Starting hour
-    const endHour = 18; // Ending hour
+    const selectShowTypeTable = document.querySelector('#selectFilterTable');
+    const tableDoctora = document.querySelector('#tablaDoctora');
+    const tableNutriologa = document.querySelector('#tablaNutriologa');
+    const citasParaTexto = document.querySelector('#citasPara');
 
+    if (selectShowTypeTable) {
+        citasParaTexto.innerHTML = 'Doctora';
+
+        selectShowTypeTable.addEventListener('change', function () {
+            if (this.value === 'medico') {
+
+                tableDoctora.style.display = 'block';
+                tableNutriologa.style.display = 'none';
+                citasParaTexto.innerHTML = 'Doctora';
+
+            } else if (this.value === 'nuticion') {
+                console.log('nutriologa');
+                tableDoctora.style.display = 'none';
+                tableNutriologa.style.display = 'block';
+                citasParaTexto.innerHTML = 'Nutrióloga';
+            }
+        })
+    }
+    
+        
+
+    
     timeSelects.forEach(timeSelect => {
         if (timeSelect) {
             for (let hour = startHour; hour <= endHour; hour++) {
@@ -52,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Element with class 'hora-select' not found.");
         }
     });
+
+
 });
 
 
@@ -105,6 +105,7 @@ $(function () {
                 cancelButtonColor: "#B04759",
                 confirmButtonText: '<i class="fa-solid fa-save animated-icon px-1"></i> Guardar',
                 cancelButtonText: '<i class="fa-solid fa-times"></i> Cancelar',
+                reverseButtons: true,
             });
 
             if (response.isConfirmed) {
@@ -183,7 +184,8 @@ function cancelarCita(id) {
         confirmButtonColor: '#011d48',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cerrar'
+        cancelButtonText: 'Cerrar',
+        reverseButtons: true,
     }).then((result) => {
         if (result.isConfirmed) {
             activeLoading();
@@ -230,7 +232,8 @@ function eliminarCita(id) {
         confirmButtonColor: '#d33',
         cancelButtonColor: '#011d48',
         confirmButtonText: 'Eliminar',
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true,
     }).then((result) => {
         if (result.isConfirmed) {
             activeLoading();
@@ -313,7 +316,8 @@ $(document).on('submit', '.modificarCitaForm', async function (event) {
         confirmButtonColor: '#007F73',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sí, modificar',
-        cancelButtonText: 'Cancelar'
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true,
     }).then(async (result) => {
         if (result.isConfirmed) {
             const datos = {
