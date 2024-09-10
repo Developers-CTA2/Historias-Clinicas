@@ -36,7 +36,7 @@
                    <div class="row mt-0 pt-0">
                        <div class="col-12 px-3 ">
                            <div class="form-group pt-2">
-                               <label for="New_nombre">Nombre</label>
+                               <label for="New_nombre">Nombre <span class="red-color"> *</span></label>
                                <input type="text" class="form-control" id="New_nombre" name="New_nombre">
                                <span class="text-danger fw-normal" style=" display: none;">Nombre no válido.</span>
                            </div>
@@ -45,7 +45,7 @@
                </div>
                <div class="modal-footer">
 
-                   <x-button-custom class="btn-red" data-bs-dismiss="modal" text="Cancelar">
+                   <x-button-custom class="btn-red" data-bs-dismiss="modal" text="Cancelar"  tooltipText="Cancelar acción">
                        <x-slot name="icon">
                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
                                <path fill="currentColor"
@@ -55,7 +55,7 @@
 
                    </x-button-custom>
 
-                   <x-button-custom class="btn-blue-sec" text="Guardar" id="Add_addiction">
+                   <x-button-custom class="btn-blue-sec" text="Guardar" id="Add_addiction"  tooltipText="Guardar cambios">
                        <x-slot name="icon">
                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20">
                                <path fill="currentColor" d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
