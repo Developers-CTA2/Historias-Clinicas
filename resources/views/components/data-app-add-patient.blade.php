@@ -1,7 +1,7 @@
 {{-- Antecedentes patológicos --}}
 
 <div class="row p-3 form-step d-none animate__animated animate__fadeInUp bg-content-custom shadow-custom">
-    <div class="col-xl-7 col-xxl-6 col-sm-12">
+    <div class="col-xl-8 col-xxl-6 col-lg-12">
 
         <div class="d-flex justify-content-between my-1">
             <h5>Antecendentes patológicos</h5>
@@ -36,7 +36,7 @@
 
     </div> <!-- FIN contenedor 1  -->
     {{-- Contenedor 2 --}}
-    <div class="col-xl-5 col-xxl-6 col-sm-12 mt-xl-0 mt-4 mt-lg-3">
+    <div class="col-xl-4 col-xxl-6 col-lg-12 mt-xl-0 mt-4 mt-lg-3">
         <div class="d-flex my-1">
             <h5>Lista de Antecedentes patológicos</h5>
         </div>

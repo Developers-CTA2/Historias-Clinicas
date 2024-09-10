@@ -12,7 +12,7 @@
 
 /* Sidebar Component Styles */
 .sideBar-custom {
-    width: 280px;
+    width: 240px;
     height: 100vh;
     position: fixed;
     z-index: 50;
@@ -39,10 +39,10 @@
 
 /* Main Content */
 .container-custom {
-    margin-left: 300px;
+    margin-left: 260px;
     padding-top: 80px;
     padding-right: 10px;
-    width: calc(100% - 300px);
+    width: calc(100% - 260px);
     /* Ancho del contenedor, restando el espacio ocupado por el sidebar */
     min-height: 100vh;
     /* Altura mínima del contenedor para ocupar al menos el tamaño de la ventana del navegador */
@@ -432,7 +432,7 @@
 
 #navBar {
     padding: 0 20px;
-    width: calc(100% - 280px);
+    width: calc(100% - 240px);
     height: 70px;
     position: fixed;
     right: 0;
