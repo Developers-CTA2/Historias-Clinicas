@@ -1,17 +1,25 @@
 import { Grid, html, h } from "gridjs";
+import "gridjs/dist/theme/mermaid.css";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
 
-import {className, translations, validarCampo, showErrors,AlertaSweerAlert, regexLetters } from "../helpers";
-
+import {
+    ShowOrHideAlert,
+    className,
+    translations,
+    validarCampo,
+    TimeAlert,
+    regexLetters,
+} from "../helpers";
+import { showErrorsAlert, IconError } from "../templates";
 
 $(function () {
     initialData();
     AddNewAddiction();
+    closeModal();
 });
 
 async function initialData() {
@@ -57,7 +65,7 @@ async function initialData() {
             search: {
                 enabled: true,
                 placeholder: "Buscar...",
-                debounceTimeout : 1000,
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -98,13 +106,22 @@ async function initialData() {
     }
 }
 
+function closeModal() {
+    $(".cerrar-btn").off("click");
+    $(".cerrar-btn").click(function (e) {
+        // Ocultar mabas alertas
+        ShowOrHideAlert(1, ".Error_edit_addiction");
+        ShowOrHideAlert(1, ".Alerta_edit_addiction");
+    });
+}
+
 /* Funcion para cuando se le de clic al boton de editar toxicomania */
 $(document).on("click", ".edit-addicton", function () {
     const id = $(this).data("id");
     const name = $(this).data("name");
     $("#A_nombre").val(name);
     /* Clic al boton editar */
-    $("#E_addiction").off("click");
+    // $("#E_addiction").off("click");
     $("#E_addiction").click(function (e) {
         ValitadeData(id, name);
     });
@@ -120,12 +137,17 @@ function AddNewAddiction() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "") {
             if (V_name) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                ShowOrHideAlert(1, ".Alerta_addiction");
+
                 RequestAdd(name);
             }
         } else {
-            console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_addiction_text").html(
+                IconError(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_addiction");
         }
     });
 }
@@ -135,14 +157,20 @@ function ValitadeData(id, name) {
     var new_name = $("#A_nombre").val().trim();
     /* Verifcamos si hay cambios */
     if (new_name != name) {
-        $("#Alerta_err").fadeOut(250).addClass("d-none");
+        ShowOrHideAlert(1, ".Alerta_edit_addiction");
 
         let V_name = validarCampo(new_name, regexLetters, "#E_nombre");
         if (V_name) {
             Confirm(id, new_name);
         }
     } else {
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        // $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_edit_addiction_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_edit_addiction");
     }
 }
 
@@ -151,7 +179,7 @@ async function Confirm(id, new_name) {
     try {
         const result = await Swal.fire({
             title: "¿Estás seguro de editar los datos?",
-            text: "Asegurate que los datos sean correctos..",
+            text: "Asegurate que los datos sean correctos.",
             icon: "warning",
             showCancelButton: true,
             reverseButtons: true,
@@ -187,17 +215,17 @@ async function RequestEdit(id, name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".Error_edit_addiction", ".errorList");
         }
 
         console.log(error);
@@ -206,6 +234,7 @@ async function RequestEdit(id, name) {
 
 /* Funcion para llamar al controlador y agregar una nueva alergia */
 async function RequestAdd(name) {
+    activeLoading();
     const Data = {
         Name: name,
     };
@@ -218,22 +247,19 @@ async function RequestAdd(name) {
         let timerInterval;
         disableLoading();
 
-        if (status == 200) {
-            timerInterval = AlertaSweerAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else if (status == 202) {
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
-        } else {
-            showErrors(errors);
-        }
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         disableLoading();
-        console.log("Error");
-        console.log(error);
+        const { type, msg, errors } = error.response.data;
+
+        if (type == 1) {
+            let timerInterval;
+
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
+        } else {
+            console.log(errors);
+            showErrorsAlert(errors, ".Error_addiction", ".errorList");
+            console.log(error);
+        }
     }
 }

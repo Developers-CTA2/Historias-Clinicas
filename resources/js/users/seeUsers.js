@@ -6,9 +6,8 @@ import "sweetalert2/src/sweetalert2.scss";
 import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
 
-import { className, translations } from "../helpers/gridJsConfiguration.js";
+import { className, translations, TimeAlert } from "../helpers";
 
 $(function () {
     initialData();
@@ -119,12 +118,12 @@ async function initialData() {
                          </div>`
                             );
                         } else {
-                         statusHtml = html(
-                             `<div class="d-flex justify-content-center gap-2">
+                            statusHtml = html(
+                                `<div class="d-flex justify-content-center gap-2">
                             <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal px-3 py-2" type="button"> Detalles</a>
                             <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled px-3 py-2" type="button" disabled>Inhabilitar</button>
                          </div>`
-                         );
+                            );
                         }
 
                         return h(
@@ -150,7 +149,7 @@ async function initialData() {
             search: {
                 enabled: true,
                 placeholder: "Buscar...",
-                debounceTimeout : 1000,
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -232,7 +231,7 @@ async function RequestEdit(Id) {
         let timerInterval;
 
         if (status == 200) {
-            timerInterval = AlertaSweerAlert(
+            timerInterval = TimeAlert(
                 2500,
                 "¡Éxito!",
                 msg,
@@ -240,7 +239,7 @@ async function RequestEdit(Id) {
                 1
             );
         } else {
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         }
     } catch (error) {
         disableLoading();

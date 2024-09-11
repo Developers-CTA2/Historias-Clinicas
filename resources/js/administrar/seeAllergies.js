@@ -6,12 +6,21 @@ import "sweetalert2/src/sweetalert2.scss";
 import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
-import { className, translations, regexLetters, validarCampo, showErrors, AlertaSweerAlert } from "../helpers";
+import {
+    className,
+    translations,
+    ShowOrHideAlert,
+    regexLetters,
+    validarCampo,
+    TimeAlert,
+} from "../helpers";
 
+import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
 
 $(function () {
     initialData();
     AddNewAllergy();
+    closeModal();
 });
 
 async function initialData() {
@@ -112,12 +121,20 @@ $(document).on("click", ".edit-allergy", function () {
     const name = $(this).data("name");
     $("#A_nombre").val(name);
     /* Clic al boton */
-    $("#E_allergy").off("click");
+    // $("#E_allergy").off("click");
     $("#E_allergy").click(function (e) {
         ValitadeData(id, name);
     });
 });
 
+function closeModal() {
+    $(".cerrar-btn").off("click");
+    $(".cerrar-btn").click(function (e) {
+        // Ocultar mabas alertas
+        ShowOrHideAlert(1, ".Alerta_allergy");
+        ShowOrHideAlert(1, ".Error_edit_allergy");
+    });
+}
 /* Funcion para validar el dato cuando se agrega una neuva alergia al sistema */
 function AddNewAllergy() {
     $("#Add_allergy").off("click");
@@ -128,12 +145,19 @@ function AddNewAllergy() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "") {
             if (V_name) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                ShowOrHideAlert(1, ".Alerta_allergy");
+
                 RequestAdd(name);
             }
         } else {
             console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            //$("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_allergy_text").html(
+                IconError(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_allergy");
         }
     });
 }
@@ -143,14 +167,20 @@ function ValitadeData(id, name) {
     var new_name = $("#A_nombre").val().trim();
     /* Verifcamos si hay cambios */
     if (new_name != name) {
-        $("#Alerta_err").fadeOut(250).addClass("d-none");
-
+        //$("#Alerta_err").fadeOut(250).addClass("d-none");
+        ShowOrHideAlert(1, ".Alerta_edit_allergy");
         let V_name = validarCampo(new_name, regexLetters, "#E_nombre");
         if (V_name) {
             Confirm(id, new_name);
         }
     } else {
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_edit_allergy_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_edit_allergy");
+        //$("#Alerta_err").fadeIn(250).removeClass("d-none");
     }
 }
 
@@ -196,17 +226,17 @@ async function RequestEdit(id, name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 1);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".Error_edit_allergy", ".errorList");
         }
 
         console.log(error);
@@ -215,6 +245,7 @@ async function RequestEdit(id, name) {
 
 /* Funcion para llamar al controlador y agregar una nueva alergia */
 async function RequestAdd(name) {
+    activeLoading();
     const Data = {
         Name: name,
     };
@@ -223,21 +254,21 @@ async function RequestAdd(name) {
         const response = await axios.post("/admin/add-allergy", Data);
         console.log(response.data);
         const { data } = response;
+        disableLoading();
         const { status, msg, errors } = data;
         let timerInterval;
-        disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 1);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".errorAlert", ".errorList");
         }
 
         console.log(error);

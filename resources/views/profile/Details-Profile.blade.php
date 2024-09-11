@@ -84,8 +84,11 @@
                             <div class="form-group col-12">
                                 <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
-                                                                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="#0284c7"><path d="M8.5 18c1.813-1.954 5.167-2.046 7 0m-1.56-6c0 1.105-.871 2-1.947 2c-1.075 0-1.947-.895-1.947-2s.872-2 1.947-2s1.948.895 1.948 2"/><path d="M9.5 4.002c-2.644.01-4.059.102-4.975.97C3.5 5.943 3.5 7.506 3.5 10.632v4.737c0 3.126 0 4.69 1.025 5.66c1.025.972 2.675.972 5.975.972h3c3.3 0 4.95 0 5.975-.971c1.025-.972 1.025-2.535 1.025-5.66v-4.738c0-3.126 0-4.689-1.025-5.66c-.916-.868-2.33-.96-4.975-.97"/><path d="M9.772 3.632c.096-.415.144-.623.236-.792a1.64 1.64 0 0 1 1.083-.793C11.294 2 11.53 2 12 2s.706 0 .909.047a1.64 1.64 0 0 1 1.083.793c.092.17.14.377.236.792l.083.36c.17.735.255 1.103.127 1.386a1.03 1.03 0 0 1-.407.451C13.75 6 13.332 6 12.498 6h-.996c-.834 0-1.252 0-1.533-.17a1.03 1.03 0 0 1-.407-.452c-.128-.283-.043-.65.127-1.386z"/></g></svg>
-
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 256 256">
+                                            <path fill="#0284c7"
+                                                d="M213 174.26a12 12 0 0 0-16.76 2.74q-1.47 2.06-3.05 4a76 76 0 0 0-30-28.37a48 48 0 1 0-70.28.08a76.8 76.8 0 0 0-30.06 28.25a83.6 83.6 0 0 1-18.3-43.55a12 12 0 0 0 16-17.88l-20-20a12 12 0 0 0-17 0l-20 20a12 12 0 0 0 16.83 17.1a107.88 107.88 0 0 0 37.72 73.61a12.3 12.3 0 0 0 1.88 1.57a107.82 107.82 0 0 0 136.47-.26a13 13 0 0 0 1.28-1.06a107.7 107.7 0 0 0 18-19.46a12 12 0 0 0-2.73-16.77M128 96a24 24 0 1 1-24 24a24 24 0 0 1 24-24m0 116a83.5 83.5 0 0 1-46.94-14.37a52 52 0 0 1 93.88 0A84.07 84.07 0 0 1 128 212m124.49-75.51l-20 20a12 12 0 0 1-17 0l-20-20a12 12 0 0 1 16-17.88A84 84 0 0 0 59.74 79a12 12 0 1 1-19.48-14a108 108 0 0 1 195.4 54.4a12 12 0 0 1 16.83 17.1Z" />
+                                        </svg>
                                     </div>
                                     <div class="ps-2">
                                         <p class="fw-bold mb-0">Código (UdG)</p>
@@ -99,7 +102,15 @@
                             <div class="form-group col-12 mt-3">
                                 <div class="form-group col-12 d-flex justify-content-start">
                                     <div class="border rounded p-2 shadow">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="#0284c7" d="M4 18v-.65c0-.34.16-.66.41-.81C6.1 15.53 8.03 15 10 15c.03 0 .05 0 .08.01c.1-.7.3-1.37.59-1.98c-.22-.02-.44-.03-.67-.03c-2.42 0-4.68.67-6.61 1.82c-.88.52-1.39 1.5-1.39 2.53V20h9.26c-.42-.6-.75-1.28-.97-2zm6-6c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4m0-6c1.1 0 2 .9 2 2s-.9 2-2 2s-2-.9-2-2s.9-2 2-2m10.75 10c0-.22-.03-.42-.06-.63l1.14-1.01l-1-1.73l-1.45.49q-.48-.405-1.08-.63L18 11h-2l-.3 1.49q-.6.225-1.08.63l-1.45-.49l-1 1.73l1.14 1.01c-.03.21-.06.41-.06.63s.03.42.06.63l-1.14 1.01l1 1.73l1.45-.49q.48.405 1.08.63L16 21h2l.3-1.49q.6-.225 1.08-.63l1.45.49l1-1.73l-1.14-1.01c.03-.21.06-.41.06-.63M17 18c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 24 24">
+                                            <path fill="#0284c7"
+                                                d="M23 19a4 4 0 0 1-4 4h-2v-2h2a2 2 0 0 0 0-4h-2v-2h2a4 4 0 0 1 4 4M9 19a4 4 0 0 1 4-4h2v2h-2a2 2 0 0 0 0 4h2v2h-2a4 4 0 0 1-4-4" />
+                                            <path fill="#0284c7"
+                                                d="M14 18h4v2h-4zM9 5a3 3 0 1 0 3 3a3.01 3.01 0 0 0-3-3m0 4a1 1 0 1 1 1-1a1.003 1.003 0 0 1-1 1m-3.69 6A7 7 0 0 1 9 13.88a6 6 0 0 1 .778.064A5.97 5.97 0 0 1 13 13h.254A9.4 9.4 0 0 0 9 11.89c-2.03 0-6 1.07-6 3.58V17h4.349a6 6 0 0 1 1.188-2Z" />
+                                            <path fill="#0284c7"
+                                                d="M16 2h-4.18a2.988 2.988 0 0 0-5.64 0H2a2.006 2.006 0 0 0-2 2v14a2.006 2.006 0 0 0 2 2h5.141a3.6 3.6 0 0 1 0-2H2V4h14v9h2V4a2.006 2.006 0 0 0-2-2M9 3.25a.756.756 0 0 1-.75-.75a.75.75 0 0 1 1.5 0a.756.756 0 0 1-.75.75" />
+                                        </svg>
                                     </div>
                                     <div class="ps-2">
                                         <p class="fw-bold mb-0">Tipo de usuario</p>
@@ -151,19 +162,33 @@
                                     </h5>
 
                                     {{-- formulario --}}
-                                    <div class="form-group">
-                                        <p class="fs-6 text-muted"> Confirma que realmente eres <i>
-                                                {{ auth()->user()->name }},</i> escribe tu contraseña actual. </p>
+                                    <p class="fs-6 text-muted"> Confirma que realmente eres <i>
+                                            {{ auth()->user()->name }},</i> escribe tu contraseña actual. </p>
+
+                                    <div class="form-group col-10">
 
                                         {{-- Alerta de errores --}}
                                         <x-alert-manage containerClass="step1-Alert" textClass="step1-text">
                                         </x-alert-manage>
-                                        <label for="Pass">Contraseña</label>
+                                        <label for="Pass">Contraseña <span class="red-color">*</span> </label>
                                         <input class="form-control form-disabled" type="password" name="Pass"
-                                            id="Pass" maxlength="12">
+                                            id="Pass" maxlength="13">
                                         <span class="text-danger fw-normal" style=" display: none;">Contraseña no
                                             válida.</span>
-                                        <div class="d-flex justify-content-center mt-2">
+
+                                        <div class="d-flex justify-content-center mt-3 gap-2">
+                                            <x-button-custom type="button"
+                                                class="btn-red justify-content-center justify-content-lg-start cancel-pass"
+                                                text="Cancelar" tooltipText="Cancelar acción.">
+                                                <x-slot name="icon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                        viewBox="0 0 2048 2048">
+                                                        <path
+                                                            d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
+                                                    </svg>
+                                                </x-slot>
+                                            </x-button-custom>
+
                                             <x-button-custom type="button"
                                                 class="btn-sec justify-content-center justify-content-lg-start"
                                                 id="Verify-pass" text="Verificar" tooltipText="Verificar contraseña.">
@@ -176,14 +201,13 @@
                                                 </x-slot>
                                             </x-button-custom>
                                         </div>
-
                                     </div>
                                 </section>
 
                                 <section
                                     class="step2 d-none animate__animated animate__fadeInUp animate__backOutDown mt-2 cont-info">
                                     <div class="step2  mt-2 p-2">
-                                        <h5 class="mb-2 mt-1 aling-items-center">
+                                        <h5 class="mb-3 mt-1 aling-items-center">
                                             <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                     height="20" viewBox="0 0 48 48">
                                                     <circle cx="24" cy="24" r="21" fill="#2196F3" />
@@ -197,21 +221,9 @@
                                             <li class="list-group-item">Mínimo 4 carácteres y máximo 13.</li>
                                             <li class="list-group-item">Al menos una letra minúscula.</li>
                                             <li class="list-group-item">Al menos una letra mayúscula.</li>
-                                            <li class="list-group-item">Al menos una letra mayúscula.</li>
+                                            <li class="list-group-item">Al menos un carácter especial como @, #, $, %, &,+, o =.</li>
                                         </div>
-                                        <div class="col-12 d-flex justify-content-center mt-2">
-                                            <x-button-custom type="button"
-                                                class="btn-red justify-content-center justify-content-lg-start cancel-pass"
-                                                text="Cancelar" tooltipText="Cancelar acción.">
-                                                <x-slot name="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                        viewBox="0 0 2048 2048">
-                                                        <path
-                                                            d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
-                                                    </svg>
-                                                </x-slot>
-                                            </x-button-custom>
-                                        </div>
+
                                     </div>
                                 </section>
                             </div>
@@ -219,40 +231,16 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 mt-sm-3">
                                 {{-- Imagne del candado --}}
                                 <section class="step1 cont-info">
-                                    <h5 class="mb-2 mt-1 aling-items-center">
-                                        <span class="pe-2"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                height="20" viewBox="0 0 32 32">
-                                                <g fill="none">
-                                                    <path fill="#F9C23C"
-                                                        d="M3 13a3 3 0 0 1 3-3h2l1.5-1l1 1h7L19 9l1 1h2a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z" />
-                                                    <path fill="#433B6B"
-                                                        d="M15.5 19.5a2.5 2.5 0 1 0-3 0V23a1.5 1.5 0 0 0 3 0z" />
-                                                    <path fill="#D3D3D3"
-                                                        d="M14 1a6 6 0 0 0-6 6v3h2.5V7a3.5 3.5 0 1 1 7 0v3H20V7a6 6 0 0 0-6-6m16 8.5a4.5 4.5 0 0 1-3 4.244V22.5a1.5 1.5 0 0 1-3 0v-1.754c0-.2.078-.39.216-.52l.313-.31a.723.723 0 0 0 0-1.04a.71.71 0 0 1 0-1.03a.723.723 0 0 0 0-1.04l-.313-.31a.73.73 0 0 1-.216-.52v-2.232A4.502 4.502 0 0 1 25.5 5A4.5 4.5 0 0 1 30 9.5M25.5 8a1 1 0 1 0 0-2a1 1 0 0 0 0 2" />
-                                                </g>
-                                            </svg>
-                                        </span> Importancia de la seguridad de la cuenta
-                                    </h5>
 
-                                    <div class="list-group col-11">
-                                        <li class="list-group-item">Protección de los datos.</li>
-                                        <li class="list-group-item">Protección de información sensible.</li>
-                                        <li class="list-group-item">Prevención de accesos no autorizados.</li>
-                                        <li class="list-group-item">Cumplimiento de normativas.</li>
+
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <svg class="Shadown-Icon" xmlns="http://www.w3.org/2000/svg" width="150"
+                                            height="150" viewBox="0 0 32 32">
+                                            <path fill="#0284c7"
+                                                d="M16 16a7 7 0 1 0 0-14a7 7 0 0 0 0 14m-8.5 2A3.5 3.5 0 0 0 4 21.5v.5c0 2.393 1.523 4.417 3.685 5.793C9.859 29.177 12.802 30 16 30c2.718 0 5.25-.594 7.285-1.622v-5.067A5.78 5.78 0 0 1 20.735 18zm17.07 9.626v-5.06a4.5 4.5 0 1 1 3.215.248V23l1.474 1.474a.643.643 0 0 1 0 .91l-1.474 1.473l1.493 1.493a.643.643 0 0 1 .019.89l-2.344 2.55a.643.643 0 0 1-.928.02l-1.266-1.266a.64.64 0 0 1-.188-.454zm3.055-10.25a1.125 1.125 0 1 0-2.25 0a1.125 1.125 0 0 0 2.25 0" />
+                                        </svg>
                                     </div>
-                                    <div class="col-12 d-flex justify-content-center mt-2">
-                                        <x-button-custom type="button"
-                                            class="btn-red justify-content-center justify-content-lg-start cancel-pass"
-                                            text="Cancelar" tooltipText="Cancelar acción.">
-                                            <x-slot name="icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 2048 2048">
-                                                    <path
-                                                        d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
-                                                </svg>
-                                            </x-slot>
-                                        </x-button-custom>
-                                    </div>
+
 
 
                                 </section>
@@ -291,17 +279,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 d-flex justify-content-center mt-2">
-
+                                    <div class="col-12 d-flex justify-content-center mt-3 gap-2 ">
+                                        <x-button-custom type="button"
+                                            class="btn-red justify-content-center justify-content-lg-start cancel-pass"
+                                            text="Cancelar" tooltipText="Cancelar acción.">
+                                            <x-slot name="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 2048 2048">
+                                                    <path
+                                                        d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
+                                                </svg>
+                                            </x-slot>
+                                        </x-button-custom>
 
                                         <x-button-custom type="button"
                                             class="btn-blue-sec justify-content-center justify-content-lg-start"
                                             id="save" text="Guardar" tooltipText="Guardar cambios.">
                                             <x-slot name="icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 2048 2048">
+                                                    viewBox="0 0 32 32">
                                                     <path
-                                                        d="m1115 1024l690 691l-90 90l-691-690l-691 690l-90-90l690-691l-690-691l90-90l691 690l691-690l90 90z" />
+                                                        d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
                                                 </svg>
                                             </x-slot>
                                         </x-button-custom>
@@ -321,10 +319,14 @@
                                     <x-button-link-custom :route="route('home')" class="btn-red " text="Inicio"
                                         tooltipText="Ir al inicio.">
                                         <x-slot name="icon">
-                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path   d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z"/></svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M20 10a1 1 0 1 0-2 0zM6 10a1 1 0 0 0-2 0zm14.293 2.707a1 1 0 0 0 1.414-1.414zM12 3l.707-.707a1 1 0 0 0-1.414 0zm-9.707 8.293a1 1 0 1 0 1.414 1.414zM7 22h10v-2H7zm13-3v-9h-2v9zM6 19v-9H4v9zm15.707-7.707l-9-9l-1.414 1.414l9 9zm-10.414-9l-9 9l1.414 1.414l9-9zM17 22a3 3 0 0 0 3-3h-2a1 1 0 0 1-1 1zM7 20a1 1 0 0 1-1-1H4a3 3 0 0 0 3 3z" />
+                                            </svg>
                                         </x-slot>
                                     </x-button-link-custom>
-                                   
+
                                 </div>
                                 <div class="mx-2">
                                     {{-- <button class="btn-blue-sec fst-normal tooltip-container p-1" >
@@ -338,16 +340,16 @@
                                         <span class="tooltip-text">Cambiar contraseña.</span>
                                     </button> --}}
 
-                                     <x-button-custom type="button"
+                                    <x-button-custom type="button"
                                         class="btn-blue-sec justify-content-center justify-content-lg-start"
-                                       id="Change-pass"  text="Contraseña" tooltipText="Cambiar contraseña.">
+                                        id="Change-pass" text="Contraseña" tooltipText="Cambiar contraseña.">
                                         <x-slot name="icon">
-                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 32 32">
-                                            <path
-                                                d="M21 2a8.998 8.998 0 0 0-8.612 11.612L2 24v6h6l10.388-10.388A9 9 0 1 0 21 2m0 16a7 7 0 0 1-2.032-.302l-1.147-.348l-.847.847l-3.181 3.181L12.414 20L11 21.414l1.379 1.379l-1.586 1.586L9.414 23L8 24.414l1.379 1.379L7.172 28H4v-3.172l9.802-9.802l.848-.847l-.348-1.147A7 7 0 1 1 21 18" />
-                                            <circle cx="22" cy="10" r="2" />
-                                        </svg>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 32 32">
+                                                <path
+                                                    d="M21 2a8.998 8.998 0 0 0-8.612 11.612L2 24v6h6l10.388-10.388A9 9 0 1 0 21 2m0 16a7 7 0 0 1-2.032-.302l-1.147-.348l-.847.847l-3.181 3.181L12.414 20L11 21.414l1.379 1.379l-1.586 1.586L9.414 23L8 24.414l1.379 1.379L7.172 28H4v-3.172l9.802-9.802l.848-.847l-.348-1.147A7 7 0 1 1 21 18" />
+                                                <circle cx="22" cy="10" r="2" />
+                                            </svg>
                                         </x-slot>
                                     </x-button-custom>
                                 </div>

@@ -12,31 +12,22 @@
                        </svg></button>
                </div>
                <div class="modal-body">
-                   {{-- Alerta de los datos no han cambiado --}}
-                   <div id="Alerta_err" class="p-0 m-0 d-none">
-                       <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                           role="alert">
-                           <p class="p-2 mb-1"> <strong>Ooops! </strong> Parece que no se ha realizado ningun cambio.
-                           </p>
-                           <button class="btn fst-italic animated-icon button-cancel  rigth-0" data-bs-dismiss="alert">
-                               <i class="fa-solid fa-xmark"></i>
-                           </button>
-                       </div>
-                   </div>
-                   {{-- Errores de laravel  --}}
-                   <div class="errorAlert alert alert-danger alert-dismissible fade show pb-0" role="alert"
-                       style="display: none;">
-                       <strong>¡Ups! Algo salió mal.</strong>
-                       <ul class="errorList"></ul>
-                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-                   </div>
+
+                {{-- Alerta de edicion  --}}
+                <x-alert-manage containerClass="Alerta_allergy" textClass="Alerta_allergy_text">
+                </x-alert-manage>
+
+                {{-- Alerta para mostrar los errores que manda el controlador --}}
+                <x-alert-manage-errors contClass="Error_allergy" ListClass="errorList" />
+
+
                    <div class="row col-12 pt-1">
                        <p class="text-center mb-0">Ingresa los datos solicitados.</p>
                    </div>
                    <div class="row mt-0 pt-0">
                        <div class="col-12 px-3 ">
                            <div class="form-group pt-2">
-                               <label for="New_nombre">Nombre   <span class="red-color"> *</span></label>
+                               <label for="New_nombre">Nombre de la alergia <span class="red-color"> *</span></label>
                                <input type="text" class="form-control" id="New_nombre" name="New_nombre">
                                <span class="text-danger fw-normal" style=" display: none;">Nombre no válido.</span>
                            </div>

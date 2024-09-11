@@ -1,19 +1,19 @@
 import {
     IconInfo,
     IconWarning,
-    ShowErrors,
+    ShowErrorsSweet,
     IconError,
     Confirm,
     ClicRefresh,
-} from "../../templates/ExpedientTemplate.js";
+} from "../../templates";
 
 import {
     validarCampo,
     regexDescription,
     regexFecha,
-} from "../../helpers/index.js";
-import { AlertaSweerAlert } from "../../helpers/Alertas.js";
-
+    TimeAlert,
+} from "../../helpers";
+ 
 $(document).ready(function () {
     Hospital();
     Transfusiones();
@@ -357,7 +357,7 @@ async function Request(Type, Data, Ids) {
             " Cambio realizado da clic en <strong> Recargar </strong>."
         );
         ClicRefresh(".btn-refresh", "");
-        timerInterval = AlertaSweerAlert(
+        timerInterval = TimeAlert(
             2000,
             "¡Éxito!",
             "Registro agregado con éxito",
@@ -365,7 +365,7 @@ async function Request(Type, Data, Ids) {
             2
         );
     } catch (error) {
-        // ShowErrors;
+        // ShowErrorsSweet;
         const { data } = error.response;
         console.log(data);
 
@@ -375,7 +375,7 @@ async function Request(Type, Data, Ids) {
             " </strong> ¡Error! </strong> al realizar la peticion."
         );
 
-        await ShowErrors(
+        await ShowErrorsSweet(
             "¡Error!",
             "No fue posible la edición de los datos",
             "error",

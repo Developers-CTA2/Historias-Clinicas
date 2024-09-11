@@ -12,24 +12,14 @@
                        </svg></button>
                </div>
                <div class="modal-body">
-                   {{-- Alerta de los datos no han cambiado --}}
-                   <div id="Alerta_err" class="p-0 m-0 d-none">
-                       <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                           role="alert">
-                           <p class="p-2 mb-1"> <strong>Ooops! </strong> Parece que no se ha realizado ningun cambio.
-                           </p>
-                           <button class="btn fst-italic animated-icon button-cancel  rigth-0" data-bs-dismiss="alert">
-                               <i class="fa-solid fa-xmark"></i>
-                           </button>
-                       </div>
-                   </div>
-                   {{-- Errores de laravel  --}}
-                   <div class="alert alert-danger alert-dismissible fade show pb-0 errorAlert" role="alert"
-                       style="display: none;">
-                       <strong>¡Ups! Algo salió mal.</strong>
-                       <ul class="errorList"></ul>
-                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-                   </div>
+                  
+                    {{-- Alerta de edicion  --}}
+                   <x-alert-manage containerClass="Alerta_edit_addiction" textClass="Alerta_edit_addiction_text">
+                   </x-alert-manage>
+
+                   {{-- Alerta para mostrar los errores que manda el controlador --}}
+                   <x-alert-manage-errors contClass="Error_edit_addiction" ListClass="errorList" />
+
                    <div class="row col-12 pt-1">
                        <p class="text-center mb-0">Corrige los datos érroneos.</p>
                    </div>
@@ -45,7 +35,7 @@
                </div>
                <div class="modal-footer">
 
-                   <x-button-custom class="btn-red" data-bs-dismiss="modal" text="Cancelar"
+                   <x-button-custom class="btn-red cerrar-btn" data-bs-dismiss="modal" text="Cancelar"
                        tooltipText="Cancelar acción">
                        <x-slot name="icon">
                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">

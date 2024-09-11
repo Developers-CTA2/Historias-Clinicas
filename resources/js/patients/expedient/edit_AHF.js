@@ -2,9 +2,9 @@ import { validarCampo, regexNumero } from "../../helpers";
 import {
     IconInfo,
     IconWarning,
-    ShowErrors,
+    ShowErrorsSweet,
     //Confirm,
-} from "../../templates/ExpedientTemplate.js";
+} from "../../templates/AlertsTemplate.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
@@ -282,7 +282,7 @@ async function RequestUpdate(id_reg, Type, Id_ahf) {
     } catch (error) {
         const { type, msg, errors } = error.response.data;
         
-         await ShowErrors("¡Error!", msg, "error", errors);
+         await ShowErrorsSweet("¡Error!", msg, "error", errors);
 
          $(".alert-AHF").html(
              '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'

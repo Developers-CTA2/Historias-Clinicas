@@ -6,14 +6,12 @@ import { activeLoading, disableLoading } from "../loading-screen.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
-import { regexPassword } from "../helpers/Regex.js";
-import { validarCampo } from "../helpers/ValidateFuntions.js";
+ import { validarCampo, regexPassword, TimeAlert } from "../helpers";
 
 import {
     IconInfo,
     IconError,
-} from "../templates/ExpedientTemplate.js";
+} from "../templates";
 
 $(function () {
     clicChangePass();
@@ -222,7 +220,7 @@ async function RequesrChangePass(pass) {
         let timerInterval;
         // disableLoading();
         if (status == 200) {
-            timerInterval = AlertaSweerAlert(
+            timerInterval = TimeAlert(
                 2500,
                 "¡Éxito!",
                 msg,
@@ -230,7 +228,7 @@ async function RequesrChangePass(pass) {
                 1
             );
         } else {
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         }
     } catch (error) {
         disableLoading();

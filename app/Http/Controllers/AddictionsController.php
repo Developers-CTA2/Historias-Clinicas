@@ -127,7 +127,7 @@ class AddictionsController extends Controller
                 $Addiction->updated_by = auth()->user()->id;
                 $Addiction->save();
             });
-            return response()->json(['status' => 200, 'msg' => 'Exito, la alergia se agrego correctamente.']);
+            return response()->json(['status' => 200, 'msg' => 'Exito, la toxicomanía se agrego correctamente.']);
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
