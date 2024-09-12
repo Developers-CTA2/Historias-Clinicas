@@ -1,11 +1,11 @@
 import {
     IconInfo,
     IconWarning,
-    ShowErrors,
+    ShowErrorsSweet,
     IconError,
     Confirm,
     ClicRefresh,
-} from "../../templates/ExpedientTemplate.js";
+} from "../../templates";
 
 import { validarCampo, regexDescription } from "../../helpers";
 
@@ -360,7 +360,7 @@ async function Request(Type, Id_reg, Id, Description) {
             " </strong> ¡Error! </strong> al realizar la peticion."
         );
 
-        await ShowErrors(
+        await ShowErrorsSweet(
             "¡Error!",
             "No fue posible la edición de los datos",
             "error",

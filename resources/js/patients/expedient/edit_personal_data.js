@@ -1,3 +1,6 @@
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
 import { VerifyChanges, automaicScroll } from "../helpers/funcionValidate.js";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
 import {
@@ -9,14 +12,13 @@ import {
     regexCp,
     regexNumeroEntero,
 } from "../../helpers/Regex.js";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../../helpers/Alertas.js";
+import { TimeAlert } from "../../helpers/Alertas.js";
+
 import {
     IconInfo,
     IconWarning,
     HideAnimation,
-} from "../../templates/ExpedientTemplate.js";
+ } from "../../templates/AlertsTemplate.js";
 
 $(document).ready(function () {
     console.log("Editar datos personales");
@@ -62,9 +64,9 @@ function EventEditPersonal() {
             /* Cancelar edicion */
             $(".W-data").removeClass("text-secondary"); // quitar el gris
             // Ocultar
-              HideAnimation(".personal-data");
-              HideAnimation(".input-optional");
-              HideAnimation(".input-show");
+            HideAnimation(".personal-data");
+            HideAnimation(".input-optional");
+            HideAnimation(".input-show");
 
             console.log("Modo lectura");
         }
@@ -97,10 +99,9 @@ function clicCancelPD() {
         $("#Edit-personal").prop("checked", false);
         $(".W-data").removeClass("text-secondary"); // quitar el gris
         /* Cancelar edicion */
-          HideAnimation(".personal-data");
-          HideAnimation(".input-optional");
-          HideAnimation(".input-show");
-
+        HideAnimation(".personal-data");
+        HideAnimation(".input-optional");
+        HideAnimation(".input-show");
     });
 }
 /*
@@ -258,12 +259,12 @@ function validateObjets(opc, personal, direction) {
                 Confirm(personal, direction, opc);
                 console.log("Datos Correctos");
             } else {
-                     $(".P-data").html(
-                         IconInfo(
-                             "<strong>Error! </strong> algunos datos son erróneos."
-                         )
-                     );
-            
+                $(".P-data").html(
+                    IconInfo(
+                        "<strong>Error! </strong> algunos datos son erróneos."
+                    )
+                );
+
                 automaicScroll("#main-container");
             }
             break;
@@ -276,11 +277,11 @@ function validateObjets(opc, personal, direction) {
 
                 console.log("Datos Correctos");
             } else {
-                     $(".P-data").html(
-                         IconInfo(
-                             "<strong>Error! </strong> algunos datos son erróneos."
-                         )
-                     );
+                $(".P-data").html(
+                    IconInfo(
+                        "<strong>Error! </strong> algunos datos son erróneos."
+                    )
+                );
                 automaicScroll("#main-container");
             }
             break;
@@ -294,7 +295,6 @@ function validateObjets(opc, personal, direction) {
 
                 console.log("Datos Correctos");
             } else {
-                           
                 $(".P-data").html(
                     IconInfo(
                         "<strong>Error! </strong> algunos datos son erróneos."
@@ -459,7 +459,7 @@ async function RequestUpdate(Personal, Direction, Type) {
         const { status, msg } = data;
         let timerInterval;
 
-        timerInterval = AlertaSweerAlert(
+        timerInterval = TimeAlert(
             2500,
             "¡Éxito!",
             "Datos actualizados correctamente.",
@@ -467,7 +467,7 @@ async function RequestUpdate(Personal, Direction, Type) {
             1
         );
     } catch (error) {
-        timerInterval = AlertaSweerAlert(
+        timerInterval = TimeAlert(
             2500,
             "¡Error!",
             "Algo salio mal, intentalo más tarde",

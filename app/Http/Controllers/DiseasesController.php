@@ -87,11 +87,11 @@ class DiseasesController extends Controller
     {
         // Errores en español 
         $messages = [
-            'Id.required' => 'El campo Tipo de AHF es obligatorio.',
-            'Id.numeric' => 'El campo Tipo de AHF debe ser un número.',
-            'Id.exists' => 'El ID de tipo de AHF no existe en la base de datos.',
-            'Name.required' => 'El campo nombre es obligatorio.',
-            'Name.string' => 'El campo nombre debe ser una cadena.',
+            'Id.required' => 'El ID de la enfermedad es obligatorio.',
+            'Id.numeric' => 'El ID de la enfermedad debe ser un número.',
+            'Id.exists' => 'El ID de la enfermedad no existe en la base de datos.',
+            'Name.required' => 'El nombre de la enfermedad  es obligatorio.',
+            'Name.string' => 'El nombre de la enfermedad debe ser una cadena.',
         ];
         // Validar datos
         $validator = Validator::make($request->all(), [
@@ -110,7 +110,7 @@ class DiseasesController extends Controller
         $disease = Tipos_enfermedades::where('nombre', $Name)->first();
 
         if ($disease) {
-            return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
+            return response()->json(['type' => 1, 'msg' => 'El dato ya existe en la base de datos.'], 400);
         } else {
             $Update = Tipos_enfermedades::where('id_tipo_ahf', $Id)->first();
             

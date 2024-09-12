@@ -6,8 +6,21 @@ import "sweetalert2/src/sweetalert2.scss";
 import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
-import {className, translations, validarCampo, showErrors, AlertaSweerAlert, regexLetters, regexNumero } from "../helpers";
+import {
+    className,
+    translations,
+    validarCampo,
+    ShowOrHideAlert,
+    TimeAlert,
+    regexLetters,
+    regexNumero,
+} from "../helpers";
 
+import {
+    IconInfo,
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
 
 $(function () {
     initialData();
@@ -69,7 +82,7 @@ async function initialData() {
                 enabled: true,
                 placeholder: "Buscar...",
                 className: "form-control ",
-                debounceTimeout : 1000,
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -124,15 +137,25 @@ function AddNewDisease() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "" && type != "") {
             if (V_name && V_type) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                ShowOrHideAlert(1, ".Alerta_specific");
+                // $("#Alerta_add").fadeOut(250).addClass("d-none"); /// Ocultar
                 RequestAdd(name, type);
             }
         } else {
+            // Mostrar
             console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_specific_text").html(
+                IconInfo(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_specific");
+            // $(".Alerta_specific").fadeIn(250).removeClass("d-none");
         }
     });
 }
+
+
 
 /* Funcion para cuando se le de clic al boton de editar enfermedad */
 $(document).on("click", ".edit-disease", function () {
@@ -156,7 +179,7 @@ $(document).on("click", ".edit-disease", function () {
 });
 
 function ClicSaveChanges(Id_Type, n_type, n_esp, Id_esp) {
-    $("#E_disease").off("click");
+    // $("#E_disease").off("click");
     $("#E_disease").click(function (e) {
         ValitadeData(Id_Type, n_type, n_esp, Id_esp);
     });
@@ -186,9 +209,17 @@ function ValitadeData(Id_Type, n_type, n_esp, Id_esp) {
     /* Verificamos que si haya cambios */
     if ((Id_Type == Name_Type || Name_Type == 0) && n_esp == Name_e) {
         console.log("No hay cambios");
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_edit_specific_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_edit_specific");
+        // $("#Alerta_err").fadeIn(250).removeClass("d-none");
     } else {
-        $("#Alerta_err").fadeOut(250).addClass("d-none");
+        ShowOrHideAlert(1, ".Alerta_edit_specific");
+
+        //$("#Alerta_err").fadeOut(250).addClass("d-none");
 
         if (V_esp && V_tipo) {
             if (Name_Type == 0) {
@@ -222,7 +253,9 @@ async function Confirm(Id_Type, Id_esp, Name_e) {
         console.error(error);
     }
 }
-
+/*
+    Funcion para hacer la peticion al controlador y editar una enfermedad especifica
+*/
 async function RequestEdit(Id_Tipo, Id_Esp, Name) {
     const Data = {
         Tipo: Id_Tipo,
@@ -242,23 +275,20 @@ async function RequestEdit(Id_Tipo, Id_Esp, Name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
-        if (type == 1) {
-            let timerInterval;
-
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
-        } else {
-            console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
-        }
+        console.log(errors);
+        showErrorsAlert(errors, ".Error_edit_Specific", ".errorList");
 
         console.log(error);
     }
 }
 
+/*
+    Funcion que hace la petion ala controlador para agregar un nuevo registro de una efermedad especifica
+*/
 async function RequestAdd(name, type) {
     const Data = {
         Type: type,
@@ -273,20 +303,13 @@ async function RequestAdd(name, type) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
-
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
-        if (type == 1) {
-            let timerInterval;
-
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
-        } else {
-            console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
-        }
-
         console.log(error);
+
+        console.log(errors);
+        showErrorsAlert(errors, ".Error_Specific", ".errorList");
     }
 }

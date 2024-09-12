@@ -14,7 +14,7 @@ export * from './validateConsultation';
 
 export * from './formatDate';
 export * from './Regex'
-export * from './Alertas';
+export * from "./Alertas";
 
 export * from './configQuillJs';
 

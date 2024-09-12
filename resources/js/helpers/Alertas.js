@@ -5,7 +5,7 @@ import { messageWarningConsultation, messageErrorConsultation } from '../templat
 
 
 /* Alerta que desaparece después de un intervalo de tiempo */
-export function AlertaSweerAlert(Time, Title, msg, icono, type) {
+export function TimeAlert(Time, Title, msg, icono, type) {
     let timerInterval;
     Swal.fire({
         title: Title,

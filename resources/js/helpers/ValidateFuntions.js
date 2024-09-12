@@ -22,20 +22,19 @@ export function ocultarerr(campo) {
     $(campo).removeClass("border border-danger"); // Elimina la clase border-danger del campo
 }
 
-
-/* Funcion que muestra los errores que manda el controlador*/
-export function showErrors(errors, campoAlerta, campoLista) {
-    if (errors) {
-        const errorList = $(campoLista);
-      
-            errorList.empty(); // Limpiar la lista de errores existente
-            $.each(errors, function (key, value) {
-                $.each(value, function (index, errorMessage) {
-                    errorList.append($("<li>").text(errorMessage));
-                });
-            });
-            // Mostrar la alerta de error
-            $(campoAlerta).show();
-        
-    } 
+/*
+    Funcion para mostrar u ocultar la alerta de error ene l modal
+*/
+export function ShowOrHideAlert(Type, campo) {
+    if (Type == 1) {
+        // Ocultar alerta
+        if (!$(campo).hasClass("d-none")) {
+            $(campo).addClass("d-none");
+        }
+    } else {
+        //mostrar alerta
+        if ($(campo).hasClass("d-none")) {
+            $(campo).removeClass("d-none").hide().fadeIn(400);
+        }
+    }
 }
