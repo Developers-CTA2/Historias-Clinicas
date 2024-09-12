@@ -1,10 +1,7 @@
-import { getPerson } from './helpers/request-get-person.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
-import { validateStepFormOne, validateStepFormFive } from './helpers/validateDataAddPatient.js';
-import { selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation, AlertConfirmationForm } from './helpers';
+import {calculateNumGestas, selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
+import { getPerson, requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation, AlertConfirmationForm, validateStepFormOne, validateStepFormFive } from './helpers';
 import { templateErrorItem, templateErrorList } from './templates/addPatientsTemplate.js';
-
 
 
 const patientData = {
@@ -57,9 +54,9 @@ const patientData = {
 }
 
 let steps = 0;
-let activeSendButton = false;
 let typePerson = null;
 let templateErrors = '';
+let loadingCalculateNumGestas = false;
 
 
 $(function () {
@@ -218,7 +215,7 @@ $(function () {
         theme: 'bootstrap-5',
         selectionCssClass: "select2--base",
         dropdownCssClass: "select2--base",
-        width: '100%',
+        width: '90%',
     })
 
     selectAllergies.select2({
@@ -238,6 +235,8 @@ $(function () {
     // Templates
     const namePerson = $('#namePerson');
     const careerPerson = $('#careerPerson');
+
+    
 
 
     // Event listeners
@@ -516,8 +515,8 @@ $(function () {
     // Handle error for request person
     const handleError = (error) => {
         const { message, status } = error;
-        console.log(error);
-        showAlertError(message.error.data.message, status == 404 || message.error.status == 400 ? 'alert-info' : 'alert-danger');
+        let messageForAlert = message.error.data?.message || 'Ha sucedido un error al obtener los datos de la persona, por favor intenta de nuevo.';
+        showAlertError(messageForAlert , status == 404 || message.error.status == 400 ? 'alert-info' : 'alert-danger');
         namePerson.text('-');
         careerPerson.text('-');
     };
@@ -630,7 +629,7 @@ $(function () {
             // Get data for first step, personal data form
             // Elements of DOM
             const elements = getDataFirstStep();
-            // Values of form
+            // Values of formp
             getDataFirstStepValues();
 
             // Validate form, personal data
@@ -678,7 +677,7 @@ $(function () {
     });
 
 
-    // Event listeners for select sex
+    // Event listeners for select 
     selectGender.off('change');
     selectGender.on('change', function () {
         // Save data
@@ -690,6 +689,12 @@ $(function () {
         } else {
             // If this val is equal to 2, the form is displayed for step 5
             stepCicles.last().html(iconCompleted).removeClass('blocked');
+            // Load calculateNumGestas
+            if(!loadingCalculateNumGestas){
+                calculateNumGestas({inputNumPartos : inputPartos, inputNumCesareas : inputCesareas , inputNumAbortos : inputAbortos }, inputGestas);
+                loadingCalculateNumGestas = true;
+            }
+            
         }
     });
 
@@ -705,11 +710,10 @@ $(function () {
 
             // Management request for store patient
             managementRequestForStorePatient();
-            
-
-
         });
     }
+
+    
 
     const managementRequestForStorePatient = () => {
 

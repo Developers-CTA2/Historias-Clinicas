@@ -5,6 +5,8 @@ export * from './request-get-all-diseases';
 export * from './request-save-consultation';
 export * from './request-get-consultations';
 export * from './request-get-nutrition-consultations';
+export * from './request-get-person.js';
+export * from './request-get-data-statistics.js';
 
 // Validations
 export * from './validateDataAddPatient';

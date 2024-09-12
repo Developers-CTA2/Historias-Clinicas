@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get('/get-data-statistics', [HomeController::class, 'getDataStatistics'])->name('get-data-statistics');  
+
     // ///////      USUARIOS 
     // Route::get('/users', function () {
     //     return view('admin.View-Users');

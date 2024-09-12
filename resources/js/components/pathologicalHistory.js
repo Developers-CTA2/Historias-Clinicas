@@ -51,7 +51,7 @@ export const pathologicalHistory = (params ) => {
 
         if(data.title == undefined) return;
 
-        const {title, type,value, reason } = data;
+        const {title, date,value, reason } = data;
         let id = Math.random().toString(36).substr(2, 9);
 
         listPathologicalHistory.push({
@@ -59,7 +59,9 @@ export const pathologicalHistory = (params ) => {
             id : id
         });
 
-        accordionListPathologicalHistory.append(templateAddLiistAccordionPathologicalHistory(id,title, value, reason));        
+        let valueDate = date ?? value ;
+
+        accordionListPathologicalHistory.append(templateAddLiistAccordionPathologicalHistory(id,title, valueDate, reason));        
         deletePathologicalHistoryItem();
       }
 
@@ -82,6 +84,7 @@ export const pathologicalHistory = (params ) => {
                     type : 'enfermedad',
                     value: textValueDisease,
                     idReferenceTable : idValueDisease,
+                    date : null,
                     reason: 'N/A'
                 }
 
@@ -102,6 +105,7 @@ export const pathologicalHistory = (params ) => {
                     type : 'alergia',
                     value: textValueAllergies,
                     idReferenceTable : idValueAllergies,
+                    date : null,
                     reason: description
                 }
 
@@ -115,15 +119,15 @@ export const pathologicalHistory = (params ) => {
 
                 const date = inputHospitalizations.val();
                 const reason = descriptionHospitalizationsReason.val();
-                console.log(date, reason);
 
                 if(!validateFormDateAndReason(date, reason, inputHospitalizations, descriptionHospitalizationsReason)) return {}
 
                 const data = {
                     title : 'Hospitalización',
                     type : 'hospitalizacion',
-                    value:formatDateForHumans(date),
+                    value: date,
                     idReferenceTable : null,
+                    date : formatDateForHumans(date),
                     reason: reason
                 }
 
@@ -145,7 +149,8 @@ export const pathologicalHistory = (params ) => {
                     title : 'Cirugia',
                     type : 'cirugia',
                     idReferenceTable : null,
-                    value:formatDateForHumans(date),
+                    value:date,
+                    date : formatDateForHumans(date),
                     reason: reason
                 }
 
@@ -167,7 +172,8 @@ export const pathologicalHistory = (params ) => {
                     title : 'Transfusión',
                     type : 'transfusion',
                     idReferenceTable : null,
-                    value:formatDateForHumans(date),
+                    value:date,
+                    date : formatDateForHumans(date),
                     reason: reason
                 }
 
@@ -190,7 +196,8 @@ export const pathologicalHistory = (params ) => {
                         title : 'Traumatismo',
                         type : 'traumatismo',
                         idReferenceTable : null,
-                        value:formatDateForHumans(date),
+                        value: date,
+                        date : formatDateForHumans(date),
                         reason: reason
                     }
 
@@ -206,7 +213,6 @@ export const pathologicalHistory = (params ) => {
 
         }
 
-        return {};
 
       }
 

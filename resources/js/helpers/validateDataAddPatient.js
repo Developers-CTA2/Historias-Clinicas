@@ -494,7 +494,6 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     const {
         menarca,
         fum,
-        numGestas,
         numPartos,
         numCesareas,
         numAbortos,
@@ -512,7 +511,6 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
     const {
         inputMenarca,
         inputFum,
-        inputGestas,
         inputPartos,
         inputCesareas,
         inputAbortos,
@@ -532,7 +530,6 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
 
     applyValidation.menarca = false;
     applyValidation.fum = false;
-    applyValidation.numGestas = false;
     applyValidation.numPartos = false;
     applyValidation.numCesareas = false;
     applyValidation.numAbortos = false;
@@ -598,51 +595,18 @@ export const validateStepFormFive = (dataValidate, elementsForm) => {
         validateForm = false;
     }
 
-    // if (numGestas === '') {
-    //     inputGestas.addClass('is-invalid border-danger');
-    //     inputGestas.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-    //     validateForm = false;
-    //     applyValidation.numGestas = true;
-    // }
-
-    if( numGestas !== '' && !regexNumlenght2.test(numGestas)){
-        inputGestas.addClass('is-invalid border-danger');
-        inputGestas.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
-        validateForm = false;
-    }
-
-    // if (numPartos !== '') {
-    //     inputPartos.addClass('is-invalid border-danger');
-    //     inputPartos.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-    //     validateForm = false;
-    //     applyValidation.numPartos = true;
-    // }
-
+    
     if(numPartos !== '' && !regexNumlenght2.test(numPartos)){
         inputPartos.addClass('is-invalid border-danger');
         inputPartos.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
 
-    // if (numCesareas === '') {
-    //     inputCesareas.addClass('is-invalid border-danger');
-    //     inputCesareas.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-    //     validateForm = false;
-    //     applyValidation.numCesareas = true;
-    // }
-
     if(numCesareas !== '' && !regexNumlenght2.test(numCesareas)){
         inputCesareas.addClass('is-invalid border-danger');
         inputCesareas.parent('div').parent('div').find('span').last().text('Solo se permiten números enteros').removeClass('d-none');
         validateForm = false;
     }
-
-    // if (numAbortos === '') {
-    //     inputAbortos.addClass('is-invalid border-danger');
-    //     inputAbortos.parent('div').parent('div').find('span').last().text('El campo es requerido, por favor llénalo').removeClass('d-none');     
-    //     validateForm = false;
-    //     applyValidation.numAbortos = true;
-    // }
 
     if(numAbortos !== '' && !regexNumlenght2.test(numAbortos) ){
         inputAbortos.addClass('is-invalid border-danger');

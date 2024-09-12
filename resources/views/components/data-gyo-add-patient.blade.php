@@ -207,7 +207,7 @@
             </svg>
         </x-slot>
         <x-slot name="input">
-            <input class="form-control" type="number" name="numGestas" id="numGestas" placeholder="0">
+            <input class="form-control" disabled="true" type="number" id="numGestas" placeholder="0">
         </x-slot>
     </x-form-group>
 
