@@ -41,7 +41,10 @@
     cursor: pointer;
 }
 
+.Shadown-Icon{
+     filter:drop-shadow(1px 1px 3px #888)
 
+}
 /* ocultar el contenedor de l aimportancia de la seguridad en moviles */ 
 @media (min-width: 481px) and (max-width: 767px) {
  .cont-info{

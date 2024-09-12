@@ -11,7 +11,7 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { activeLoading, disableLoading } from "./loading-screen.js";
-import { AlertaSweerAlert } from "./helpers/Alertas.js";
+import { TimeAlert } from "./helpers/Alertas.js";
 
 $(document).ready(function () {
     disableLoading();
@@ -218,7 +218,7 @@ async function requestChangePass(password) {
             console.log("Aqui");
             $("#saveUser").hide();
 
-             timerInterval = AlertaSweerAlert(4000, "¡Éxito!", msg, "success", 1);
+             timerInterval = TimeAlert(4000, "¡Éxito!", msg, "success", 1);
         } else if (status == 202) {
             $("#alertMessage2").addClass("alert-danger").removeClass("d-none");
             $(".texto").text(msg);
@@ -263,7 +263,7 @@ async function RequestACodeVerify(code) {
         }
     } catch (error) {
         disableLoading;
-        timerInterval = AlertaSweerAlert(
+        timerInterval = TimeAlert(
             3000,
             "¡Error!",
             "Algo salio mal, intentalo otra vez.",

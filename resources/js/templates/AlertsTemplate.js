@@ -30,11 +30,6 @@ export const IconError = (Text) => {
 
 
 
- $(".alert-AHF").html(
-     '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
- );
-
-
 /* Funcion para confimar que los datos seran editados  */
 export async function Confirm(Title, Text, Icon) {
     const result = await Swal.fire({
@@ -53,8 +48,29 @@ export async function Confirm(Title, Text, Icon) {
 }
 
 
-/* Mostrar los erroes del controlador en una alerta */
-export async function ShowErrors(Title, Text, Icon, errors) {
+
+/* Funcion para recargar la pagina y ver los cambios refeljados ya en la vista */
+export function ClicRefresh(btn, icon) {
+    $(icon).removeClass("d-none");
+    $(btn).off("click");
+    $(btn).on("click", function () {
+         window.location.reload();
+    });
+}
+
+
+
+export function HideAnimation(campo) {
+    $(campo)
+        .addClass("animate__fadeOutUp")
+        .fadeOut(400, function () {
+            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+        });
+}
+
+
+/* Mostrar los erroes del controlador desde un sweetAlert */
+export async function ShowErrorsSweet(Title, Text, Icon, errors) {
     let errorList = '';
     if (errors && typeof errors === 'object') {
         errorList = '<ul>';
@@ -76,21 +92,21 @@ export async function ShowErrors(Title, Text, Icon, errors) {
 }
 
 
-/* Funcion para recargar la pagina y ver los cambios refeljados ya en la vista */
-export function ClicRefresh(btn, icon) {
-    $(icon).removeClass("d-none");
-    $(btn).off("click");
-    $(btn).on("click", function () {
-         window.location.reload();
-    });
-}
 
+/* Funcion que muestra los errores que manda el controlador desde una alerta de bootstrap*/
+export function showErrorsAlert(errors, campoAlerta, campoLista) {
+    if (errors) {
+        const errorList = $(campoLista);
 
+        errorList.empty(); 
 
-export function HideAnimation(campo) {
-    $(campo)
-        .addClass("animate__fadeOutUp")
-        .fadeOut(400, function () {
-            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+        $.each(errors, function (key, value) {
+            if (Array.isArray(value)) {
+                $.each(value, function (index, errorMessage) {
+                    errorList.append($("<li>").text(errorMessage));
+                });
+            }
         });
+        $(campoAlerta).show();
+    }
 }

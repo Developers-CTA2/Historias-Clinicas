@@ -6,9 +6,20 @@ import "sweetalert2/src/sweetalert2.scss";
 import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
+ 
+import {
+    className,
+    translations,
+    validarCampo,
+    regexLetters,
+    ShowOrHideAlert,
+    TimeAlert,
+} from "../helpers";
 
-import { className, translations, validarCampo, showErrors,regexLetters } from "../helpers";
+import {
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
 
 
 $(function () {
@@ -113,12 +124,14 @@ $(document).on("click", ".edit-disease", function () {
     const name = $(this).data("name");
     $("#E_nombre").val(name);
     /* Clic al boton */
-    $("#E_disease").off("click");
+   // $("#E_disease").off("click");
     $("#E_disease").click(function (e) {
         ValitadeData(id, name);
     });
 });
-
+/*
+    Funcion para el evento de clic al boton de agregar una nueva enfermedad 
+*/
 function AddNewDisease() {
     $("#Add_disease").off("click");
     $("#Add_disease").click(function (e) {
@@ -128,12 +141,18 @@ function AddNewDisease() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "") {
             if (V_name) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                  ShowOrHideAlert(1, ".Alerta_disease");
+               // $("#Alerta_add").fadeOut(250).addClass("d-none");
                 RequestAdd(name);
             }
         } else {
-            console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_disease_text").html(
+                IconError(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_disease");
+             
         }
     });
 }
@@ -150,7 +169,13 @@ function ValitadeData(id, name) {
             Confirm(id, new_name);
         }
     } else {
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+         $(".Alerta_edit_disease_text").html(
+             IconError(
+                 "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+             )
+         );
+         ShowOrHideAlert(2, ".Alerta_edit_disease");
+       // $("#Alerta_err").fadeIn(250).removeClass("d-none");
     }
 }
 
@@ -196,24 +221,27 @@ async function RequestEdit(id, name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 1);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".Error_edit_disease", ".errorList");
         }
 
         console.log(error);
     }
 }
-
+/*
+    Funcion para hacer la peticion al controlador para agregar un nuevo registro al sistema
+*/
 async function RequestAdd(name) {
+    activeLoading();
     const Data = {
         Name: name,
     };
@@ -223,20 +251,21 @@ async function RequestAdd(name) {
         console.log(response.data);
         const { data } = response;
         const { status, msg, errors } = data;
-        let timerInterval;
         disableLoading();
+        let timerInterval;
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
+         disableLoading();
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".Error_disease", ".errorList");
         }
 
         console.log(error);

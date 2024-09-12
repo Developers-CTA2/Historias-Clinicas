@@ -1,5 +1,9 @@
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
 import { VerifyChanges, automaicScroll } from "../helpers/funcionValidate.js";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
+import { TimeAlert } from "../../helpers/Alertas.js";
 import {
     RegexPositiveNumer,
     regexAnio,
@@ -7,16 +11,14 @@ import {
     regexFecha,
     regexDescription,
 } from "../../helpers/Regex.js";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../../helpers/Alertas.js";
+
 import {
     IconInfo,
     HideAnimation,
     IconWarning,
     ShowErrors,
     IconError,
-} from "../../templates/ExpedientTemplate.js";
+} from "../../templates/AlertsTemplate.js";
 
 $(document).ready(function () {
     console.log("Editar datos GYO");
@@ -30,7 +32,6 @@ function EventEditGyo() {
     $("#Edit-Gyo").on("change", function () {
         const isChecked = $("#Edit-Gyo").is(":checked");
         if (isChecked) {
-
             ShowORHideAlert(2);
             $(".Gyo-Text").html(IconInfo("Ahora estás en modo de edición."));
             let OldData = ObtainOldData();
@@ -305,7 +306,7 @@ async function RequestUpdate(Datos) {
         const { data } = response;
         const { title, msg } = data;
 
-        timerInterval = AlertaSweerAlert(2500, title, msg, "success", 1);
+        timerInterval = TimeAlert(2500, title, msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
