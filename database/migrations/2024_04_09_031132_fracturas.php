@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('fracturas', function (Blueprint $table) {
             $table->foreignId('id_persona')->constrained('personas', 'id_persona');
-            $table->string('fecha')->nullable();
+            $table->date('fecha')->nullable();
             $table->string('detalles')->nullable();
             $table->timestamps();
         });

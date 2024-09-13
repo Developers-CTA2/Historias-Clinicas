@@ -112,6 +112,14 @@ export const templateModalErrorPersonalData = (itemsErrors) => {
     return template
 }
 
+export const templateDescriptionSeparate = (description = []) => {
+    return description.map(item => {
+        let itemArray = item.split(':');
+        return `<p class="mb-0 s">${itemArray[0]} : <span class="fw-bold text-muted">${itemArray[1]}</span></p>`
+    }).join('');
+    
+}
+
 const messageError = (message) => {
     console.log(message);
     return `<div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -121,5 +129,7 @@ const messageError = (message) => {
             </div>
         </div>`
 }
+
+
 
 

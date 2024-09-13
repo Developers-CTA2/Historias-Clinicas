@@ -1,5 +1,5 @@
 import { calculateEPOC, manageDrugAddictions } from '../helpers';
-import { templateAddListAccordionDrugAddiction } from '../templates';
+import { templateAddListAccordionDrugAddiction, templateDescriptionSeparate } from '../templates';
 
 // Data for the list of drug addictions
 let dataDrugAddiction = [];
@@ -140,20 +140,30 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
     const addedListDrugAddiction = (data)=>{
     
         let response = manageDrugAddictions(convertFormat(data));
-
+        
         const { id, descriptionUI } = response;
         const { textDrugAddiction } = data;
+        
+        let descriptionSeparated = splitDescription(descriptionUI);
 
         // Add the data to the list
         dataDrugAddiction.push(response);
+
+        let descriptionHTML = templateDescriptionSeparate(descriptionSeparated);
         
         // Add the data to the UI
-        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(id ,textDrugAddiction, descriptionUI));
+        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(id ,textDrugAddiction, descriptionHTML));
 
         // Clear the form
         clearForm();
         // Delete the drug addiction
         deleteDrugAddiction();
+    }
+
+    const splitDescription = (description)=>{
+        let descriptionArray = description.split('|').map(item => item.trim());
+    
+        return descriptionArray
     }
 
     // Convert the format of the data to send backend
@@ -211,10 +221,13 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
         let response = null;
         
         response = calculateEPOC({numberOfCigarettes, howDateSmoking});
+
+        console.log(response);
+
         if(response.html != ""){
             // Add the data to the UI
             $('#riegoEPOC').html(response.html);
-            riskEPOCGlobal = response.text;
+            riskEPOCGlobal = response.risk;
         }
         
     }

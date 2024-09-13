@@ -12,5 +12,13 @@ class ConsultaHasEnfermedad extends Model
     protected $fillable = [
         'id_enfermedad'    
     ];
+
+    public function enfermedad(){
+        return $this->belongsTo(Enfermedad_especifica::class, 'id_enfermedad');   
+    }
+
+    public function consulta(){
+        return $this->belongsTo(Consulta::class, 'id_consulta');   
+    }
     
 }

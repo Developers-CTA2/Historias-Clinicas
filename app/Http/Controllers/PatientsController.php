@@ -260,6 +260,10 @@ class PatientsController extends Controller
                 $diseases[] = [
                     'id_enfermedad' => $item['idReferenceTable']
                 ];
+
+                // Eliminar enfermedades familiares que se repiten en personales
+                $diseases = array_unique($diseases, SORT_REGULAR);
+
             }
 
             if ($item['type'] == 'alergia') {
@@ -339,7 +343,7 @@ class PatientsController extends Controller
             'ciclos' => $gyo['cicloRegular'] ? 'Regular' : 'Irregular',
             'ivs' => $gyo['inicioVidaSexual'],
             'parejas_s' => 2,
-            'gestas' => $gyo['numGestas'] + $gyo['numPartos'] + $gyo['numAbortos'] + $gyo['numCesareas'],
+            'gestas' => $gyo['numPartos'] + $gyo['numAbortos'] + $gyo['numCesareas'],
             'partos' => $gyo['numPartos'],
             'abortos' => $gyo['numAbortos'],
             'cesareas' => $gyo['numCesareas'],
