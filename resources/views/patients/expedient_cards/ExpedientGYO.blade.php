@@ -146,7 +146,9 @@
                             <div class="row">
                                 <div class="form-group col-6 pt-2">
                                     <p class="fw-bold mb-0">Inicio de vida sexual:</p>
-                                    <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div>
+                                      <div class="mt-0 Old-Data"> <span id="inicio">{{ $gyo->ivs ?? '--' }}</span> años
+                                </div>
+                                    {{-- <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div> --}}
 
                                     <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
                                         <label for="new_inicio">Inicio de vida sexual: <span class="red-color">
@@ -208,18 +210,18 @@
 
                         <li class="list-group-item pt-0">
                             <div class="row">
-                                <div class="form-group col-6 pt-2">
-                                    <p class="fw-bold mb-0">Gestas:</p>
-                                    <div class="mt-0 Old-Data" id="gestas"> {{ $gyo->gestas ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_gestas">Gestas: <span class="red-color">
+                                 <div class="form-group col-6 pt-2">
+                                    <p class="fw-bold mb-0">abortos:</p>
+                                    <div class="mt-0 Old-Data" id="abortos"> {{ $gyo->abortos ?? '--' }}</div>
+                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_abortos">Abortos: <span class="red-color">
                                                 *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_gestas"
-                                            id="new_gestas" value="{{ $gyo->gestas }}">
+                                        <input class="form-control form-disabled" type="number" name="new_abortos"
+                                            id="new_abortos" value="{{ $gyo->abortos }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Dato no
                                             válido.</span>
                                     </div>
+
                                 </div>
 
                                 <div class="form-group col-6 pt-2 div-cedula">
@@ -252,19 +254,21 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-6 pt-2 div-cedula">
-                                    <p class="fw-bold mb-0">abortos:</p>
-                                    <div class="mt-0 Old-Data" id="abortos"> {{ $gyo->abortos ?? '--' }}</div>
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_abortos">Abortos: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_abortos"
-                                            id="new_abortos" value="{{ $gyo->abortos }}">
+                               
+
+                                <div class="form-group col-6 pt-2">
+                                    <p class="fw-bold mb-0">Gestas:</p>
+                                    <div class="mt-0 Old-Data" id="gestas"> {{ $gyo->gestas ?? '--' }} </div>
+
+                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_gestas">Gestas: </label>
+                                        <input class="form-control form-disabled" disabled type="number" name="new_gestas"
+                                            id="new_gestas" value="{{ $gyo->gestas }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Dato no
                                             válido.</span>
                                     </div>
-
                                 </div>
+
                             </div>
                         </li>
                     </ul>

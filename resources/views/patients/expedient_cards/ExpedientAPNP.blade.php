@@ -236,7 +236,7 @@
 
 
 
-                    <h5 class="m-0 d-flex justify-content-start mt-3">
+                    {{-- <h5 class="m-0 d-flex justify-content-start mt-3">
                         <span class="pe-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 24 24">
@@ -246,7 +246,6 @@
                             </svg>
                         </span>
                         Escolaridad
-                        {{-- Icono de warning --}}
                         <div class="ms-3 apnp-refresh-esc d-none animate__animated animate__fadeInUp">
                             <x-icon-warning />
                         </div>
@@ -293,8 +292,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                {{-- Boton de guardar cambios  --}}
-                                <div class="d-flex justify-content-center mt-2">
+                                 <div class="d-flex justify-content-center mt-2">
                                     <x-button-custom type="button"
                                         class="btn-sec justify-content-center justify-content-lg-start"
                                         id="save-School" text="Guardar" tooltipText="Guardar cambios.">
@@ -308,7 +306,7 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
+                    </ul> --}}
 
 
                 </div>

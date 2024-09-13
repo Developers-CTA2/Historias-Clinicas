@@ -9,11 +9,22 @@ import {
 
 import { validarCampo, regexDescription } from "../../helpers";
 
+const ValuesAllergy = {
+    select: {
+        old: "",
+        new: "",
+    },
+    description: {
+        old: "",
+        new: "",
+    },
+};
+
 $(document).ready(function () {
     Select2Diseases();
     ListenEventDiseases();
     ListenEventAllergies();
-    console.log("dffddfd")
+    console.log("dffddfd");
 });
 
 /*
@@ -37,6 +48,7 @@ function ListenEventDiseases() {
     ClicEdit(Ids);
     ClicDeleteData(3, "#Delete-Disease");
 }
+
 /*
     Funcion para escuchar los eventos en el caso de estar editando un registro de una alergia
 */
@@ -55,7 +67,6 @@ function ListenEventAllergies() {
         $(".Old_allergy").text("Selecciona una enfermedad");
         $("#Allergies_APP").collapse("show");
         ClicButtonSave(4, "", Ids, "", ""); // 4 = Allergy-store
-        
     });
 
     ClicEditAllergy(Ids);
@@ -124,6 +135,7 @@ function ClicEdit(Ids) {
             if (!$(Alerta).hasClass("d-none")) {
                 $(Alerta).addClass("d-none").hide().fadeOut(400);
             }
+            console.log("Old " + Id_ahf + "New " + $(select).val());
             if (Id_ahf == $(select).val()) {
                 // Todo igual regresar cambios
                 $(".Old_disease")
@@ -135,20 +147,29 @@ function ClicEdit(Ids) {
                     $(Alerta).removeClass("d-none").hide().fadeIn(400);
                 }
             } else {
+                if (!$(Alerta).hasClass("d-none")) {
+                    $(Alerta).addClass("d-none");
+                }
                 ClicButtonSave(2, Id_reg, Ids, "", ""); // 2 = Disease-edit
             }
         });
         /* Dio clic sin hacer ningun cambio*/
         $(btn).off("click");
         $(btn).on("click", function () {
-            $(text_Alert).html(IconInfo(" No se realizó  ningun cambio."));
-            if ($(Alerta).hasClass("d-none")) {
-                $(Alerta).removeClass("d-none").hide().fadeIn(400);
+            if ($(select).val() == null) {
+                $(text_Alert).html(IconInfo(" No se realizó  ningun cambio."));
+                if ($(Alerta).hasClass("d-none")) {
+                    $(Alerta).removeClass("d-none").hide().fadeIn(400);
+                }
+            } else {
+                if (!$(Alerta).hasClass("d-none")) {
+                    $(Alerta).addClass("d-none");
+                }
             }
         });
     });
 }
-/*  Funcion que mustra los datos en el Collapse cuando se va a editar una alergia */ 
+/*  Funcion que mustra los datos en el Collapse cuando se va a editar una alergia */
 function ClicEditAllergy(Ids) {
     $(".Edit-Allergy").off("click");
     $(".Edit-Allergy").on("click", function () {
@@ -156,6 +177,7 @@ function ClicEditAllergy(Ids) {
         var id_alergia = $(this).data("id_alergia");
         var name = $(this).data("name");
         var TextDescription = $(this).data("description").trim();
+
         // Mostrar los datos anteriores
         $(".Old_allergy").text(name);
         $(".Type-accion").text("Modificar alergia");
@@ -173,14 +195,18 @@ function ClicEditAllergy(Ids) {
 function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
     const { btn, select, Alerta, text_Alert, description } = Id_options;
     listenSelect2();
+    console.log(select);
+
+    ListenSelctAllergy(select);
+
     //$(".Save-changes").off("click");
     $(btn).on("click", function () {
-        console.log()
+        console.log();
         if (Type <= 3) {
             console.log(select, text_Alert, Alerta);
             // Diseases
             let opc = ClicValidateData(select, text_Alert, Alerta);
-            console.log(opc)
+            console.log(opc);
             if (opc != 0) {
                 Confirm(
                     "¿Estás seguro de realizar la acción?",
@@ -193,14 +219,21 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                 });
             }
         } else {
-        
-                console.log(btn, select, Alerta, text_Alert, description, Type);
+            // console.log(btn, select, Alerta, text_Alert, description, Type);
+
+            ValuesAllergy.select.old = Id_Old_alergia;
+            ValuesAllergy.description.old = textdescr;
+
             let opc;
             let V_description;
+            ValuesAllergy.description.new = $("#Description").val().trim();
+
             let textDescription = $("#Description").val().trim();
 
+            console.log("old " + Id_Old_alergia);
+
             if (Type == 4) {
-                // Agregra un alerrgia Validar ambos dattos
+                // Agregra un alergia Validar ambos datos
                 opc = ClicValidateData(select, text_Alert, Alerta);
                 V_description = validarCampo(
                     textDescription,
@@ -209,9 +242,18 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                 );
             } else {
                 // Editar un registro existente
-                let newId = ListenSelctAllergy(Id_Old_alergia, select);
-                if (newId === newId && textdescr === textDescription) { 
-                    console.log("NO ")
+
+                //console.log("NEW " + NewAllergyId + "  Old " + Id_Old_alergia);
+
+                
+
+                if (
+                    (ValuesAllergy.select.new == "" ||
+                        ValuesAllergy.select.old == ValuesAllergy.select.new) &&
+                    ValuesAllergy.description.old ==
+                        ValuesAllergy.description.new
+                ) {
+                    console.log("NO ");
                     $(text_Alert).html(
                         IconInfo("No se realizó  ningun cambio.")
                     );
@@ -220,12 +262,13 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                     }
                     opc = 0;
                 } else {
+                    console.log("Correcto")
                     V_description = validarCampo(
                         textDescription,
                         regexDescription,
                         description
                     );
-                    opc = newId;
+                    opc = ValuesAllergy.select.new == "" ?  ValuesAllergy.select.old : ValuesAllergy.select.new;
                 }
             }
 
@@ -244,18 +287,11 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
     });
 }
 
-function ListenSelctAllergy(Id_Data, select) {
-    let value = Id_Data;
+function ListenSelctAllergy(select) {
+    $(select).off("change");
     $(select).on("change", function () {
-        // //mostrar en tiempo real el dato
-        if (Id_Data == $(select).val()) {
-            value = Id_Data;
-        } else {
-            value = $(select).val();
-        }
+        ValuesAllergy.select.new = $(this).val();
     });
-
-    return value;
 }
 /*
     Validar que haya algo en el select al dar clic al guardar
@@ -348,6 +384,7 @@ async function Request(Type, Id_reg, Id, Description) {
         );
 
         ClicRefresh(".btn-refresh", btn);
+        $("#btn-refresh-page").removeClass("d-none");
     } catch (error) {
         // ShowErrors;
         console.log(error);
