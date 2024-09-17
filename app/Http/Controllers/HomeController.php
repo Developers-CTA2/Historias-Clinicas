@@ -66,6 +66,21 @@ class HomeController extends Controller
                 
             });
 
+            $countStudentAndAdministrative = $countStudentAndAdministrative->groupBy('persona.codigo')->flatMap(function ($item, $key) {
+                if( strlen($key) == 9){
+                    $key = 'Estudiante';
+                }else if(strlen($key) == 7){
+                    $key = 'Trabajador';
+                }else{
+                    $key = 'Otros';
+                }
+
+                return [
+                    'tipo' => $key,
+                    'count' => $item->count()
+                ];
+            });
+
             return response()->json([
                 'countMenAndWomen' => $countMenAndWomen,
                 'consultationDisease' => $consultationDiseaseData,

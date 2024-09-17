@@ -9,6 +9,8 @@ export const dragAndDropFile = () => {
     $('#upload-image').on('change', function () {
         const file = $(this)[0].files[0];
 
+        console.log(file);
+
         let size = file.size / 1024 / 1024;
 
         updateFileIU(file.name, size.toFixed(3));
@@ -32,6 +34,7 @@ export const dragAndDropFile = () => {
         const file = e.originalEvent.dataTransfer.files[0];
 
         let size = file.size / 1024 / 1024;
+        console.log(file);
 
         updateFileIU(file.name, size.toFixed(3));
     })

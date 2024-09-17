@@ -147,3 +147,13 @@ export const AlertErrorWithHTML = (title, msg) => {
         confirmButtonColor: '#047857'
     });
 }
+
+export const AlertInfo = (title, msg) => {
+    Swal.fire({
+        icon: "info",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#047857'
+    });
+}
