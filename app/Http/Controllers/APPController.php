@@ -131,6 +131,8 @@ class APPController extends Controller
             return response()->json(['status' => 404, 'error' => 'Error al actualizar los datos']);
         }
     }
+
+
     //// ALERGIAS 
     /*
     Funcion para agregar una nueva enfermedad desde la vista del Expediente
@@ -272,7 +274,9 @@ class APPController extends Controller
         }
     }
 
-
+    /*
+    Funcion para hacer un update a un registro de una hospitalizacion
+*/
     public function Update_Hospital(Request $request)
     {
 
@@ -362,7 +366,9 @@ class APPController extends Controller
         }
     }
 
-
+    /*
+    Funcion para hacer un update en un registro de una transfusion 
+*/
 
     public function Update_Transfusion(Request $request)
     {
@@ -453,6 +459,9 @@ class APPController extends Controller
         }
     }
 
+    /*
+        Funcion para hacer un update en un regostro de una cirugia 
+    */
     public function Update_Surgery(Request $request)
     {
 
@@ -496,13 +505,15 @@ class APPController extends Controller
             return response()->json(['status' => 404, 'error' => 'Error al actualizar los datos']);
         }
     }
-    
 
+    /*
+    Funcion para agregar un nuevo registro de un traumatismo desde la ventana de expediente
+*/
     public function Add_Trauma(Request $request)
     {
 
         try {
-            
+
             $messages = [
                 'Id_person.required' => 'El ID de la persona es requerido.',
                 'Id_person.numeric' => 'El ID de la persona debe ser un número.',
@@ -541,7 +552,9 @@ class APPController extends Controller
         }
     }
 
-
+    /*
+    Funcion para hacer un update en un registro de un traumatismo 
+*/
     public function Update_Trauma(Request $request)
     {
 

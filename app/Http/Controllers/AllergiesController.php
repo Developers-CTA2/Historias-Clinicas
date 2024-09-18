@@ -20,7 +20,9 @@ class AllergiesController extends Controller
         return view('administrar.View-Allergies', ['Allergies' => $Allergies],  compact('breadcrumbs'));
     }
 
-
+    /*
+    Funcion para mostrar las alergias en la tabla de grid JS
+*/
     public function showAllergies(Request $request)
     {
         $offset = $request->input('offset', 0);
@@ -43,7 +45,9 @@ class AllergiesController extends Controller
         ]);
     }
 
-
+    /*
+    Funcion para hacer un update en un registro de la tabla de alergias 
+*/
     public function Update_allergies(Request $request)
     {
         // Errores en español 
@@ -68,7 +72,7 @@ class AllergiesController extends Controller
         $Id =  intval($request['Id']);
         $Name = $request['Name'];
         // Verificamos que no se duplique el nombre
-         $Allergy = Alergia::where('nombre', $Name)->first();
+        $Allergy = Alergia::where('nombre', $Name)->first();
 
         if ($Allergy) {
             return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
@@ -86,7 +90,9 @@ class AllergiesController extends Controller
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
 
-
+    /*
+    Funcion para hacer agregar un  nuevo registro de en la tabla de alergias
+*/
     public function Store_allergy(Request $request)
     {
         // Errores en español 
@@ -108,7 +114,6 @@ class AllergiesController extends Controller
 
         if ($Allergy) {
             return response()->json(['type' => 1, 'msg' => 'La alergia ya esta resgistrada en el sistema.'], 400);
-
         } else {
             DB::transaction(function () use ($Name) {
                 $Allergy = new Alergia();

@@ -368,22 +368,7 @@
                                                         </x-slot>
                                                     </x-button-custom>
                                                 </div>
-
-                                                {{-- <div
-                                                    class="icon-refresh-Hospital d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div> --}}
+ 
                                             </div>
                                         </div>
 
@@ -414,7 +399,7 @@
                                                 </g>
                                             </svg>
                                         </span> Transfusiones
-                                        {{-- Icono para mostrar una edicion  --}}
+                                        {{-- Icono para mostrar edicion  --}}
                                         <div class="ms-3 icon-refresh-Trans d-none animate__animated animate__fadeInUp">
                                             <x-icon-warning />
                                         </div>
@@ -483,22 +468,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                {{-- <div class="icon-refresh-Trans d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div> --}}
+                                                </div>                                              
                                             </div>
                                         </div>
                                     </div>
@@ -588,23 +558,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                {{-- <div
-                                                    class="icon-refresh-Surgery d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div> --}}
+                                                </div>                                            
                                             </div>
                                         </div>
                                     </div>
@@ -653,10 +607,7 @@
                                                         <div>
                                                             {{ Carbon::parse($traumaticos->fecha)->locale('es')->isoFormat('LL') }}
                                                         </div>
-
-
                                                         <div class="d-flex gap-1">
-
                                                             <x-button-custom type="button"
                                                                 class="btn-blue-sec justify-content-center edit-Trauma"
                                                                 padding="px-1 py-1" :onlyIcon="true"
@@ -695,23 +646,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                {{-- <div
-                                                    class="icon-refresh-Trauma d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div> --}}
+                                                </div>                                          
                                             </div>
                                         </div>
                                     </div>
@@ -728,7 +663,6 @@
         </div>
         {{-- Modal para agregar o editar  --}}
         @include('patients.expedient_cards.modals_expedient.modal_Edit_APP')
-
 
     </div>
 

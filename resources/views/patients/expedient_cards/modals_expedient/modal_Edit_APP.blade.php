@@ -3,9 +3,13 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Agregar dato al expediente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header bg-blue">
+                <h5 class="modal-title" id="staticBackdropLabel">Modificar expediente</h5>
+                <button type="button" class="btn-custom-close" data-bs-dismiss="modal" aria-label="Close"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                        <path fill="#ffffff"
+                            d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" />
+                    </svg></button>
             </div>
             <div class="modal-body">
                 <div>
@@ -58,9 +62,8 @@
 
 
                 {{-- <button type="button" class="btn btn-secondary" >Close</button> --}}
-                <x-button-custom type="button"
-                    class="btn-blue-sec justify-content-center justify-content-lg-start" text="Guardar"
-                    tooltipText="Guardar cambios." id="saveAPP">
+                <x-button-custom type="button" class="btn-blue-sec justify-content-center justify-content-lg-start"
+                    text="Guardar" tooltipText="Guardar cambios." id="saveAPP">
                     <x-slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20">
                             <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />

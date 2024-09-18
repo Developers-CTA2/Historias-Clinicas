@@ -13,7 +13,7 @@ use  Carbon\Carbon;
 class APNPController extends Controller
 {
     /*
-        Funcion para hacer el update en la escolaridad de algun registro  
+        Funcion para hacer el update en la escolaridad de algun registro   SIN USO
     */
     public function Update_School(Request $request)
     {
@@ -57,7 +57,7 @@ class APNPController extends Controller
     }
 
     /*
-    Función para hecer un update en el tipo de sangre de algun registros
+    Función para hecer un update en el tipo de sangre de algun registro
     */
     public function Update_bloodType(Request $request)
     {
@@ -97,7 +97,6 @@ class APNPController extends Controller
             return response()->json(['status' => 404, 'msg' => 'Error al actualizar los datos']);
         }
     }
-
 
 
     /*

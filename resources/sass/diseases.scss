@@ -19,26 +19,7 @@
     color: #06285c;
 }
 
-/* Header de color azul de las cards */ 
-.card .card-header {
-    color: white;
-    background-color: $primary;
-    position: relative;
-}
 
-.bg-blue {
-    background-color: $primary;
-    color: white;
-}
-/*  Boton de cerrar de color rojo del modal */ 
-.btn-custom-close{
-    position: absolute;
-    border-radius: 5px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    right: 2px;
-}
 
 /* Asterisco de color rojo que indica campo obligatorio */
 .red-color{

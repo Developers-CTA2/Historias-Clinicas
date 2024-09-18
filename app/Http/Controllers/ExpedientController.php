@@ -25,7 +25,7 @@ class ExpedientController extends Controller
     use ImcTrait;
 
     /* 
-        Funcion que obtiene todos los datos del paciente seleccionado, ademas mande el breadcrumb
+        Funcion que obtiene todos los datos del paciente seleccionado, ademas manda el breadcrumb
     */
     public function Patient_details($id)
     {
@@ -79,15 +79,11 @@ class ExpedientController extends Controller
 
         // Medidas corporales 
         $Nutri = Nutricional::with(['medidas'])->where('id_persona', $id)->latest()->first();
-
         $consul = Consulta::with(['signos_vitales'])->where('id_persona', $id)->latest()->first();
 
-        $Medidas = $this->Measures($Nutri, $consul);
-     //return response()->json($Medidas);
+        $Medidas = $this->Measures($Nutri, $consul);  // Evaluar cual es más reciente
+        //return response()->json($Medidas);
         return view('patients.expediente', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
-
-      
-
 
     }
 

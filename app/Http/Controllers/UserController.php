@@ -22,19 +22,11 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    // Breadcrumb para la vista de agregar usuario 
-    public function breadCrumbAdd()
-    {
-        $breadcrumbs = [
-            ['name' => 'Usuarios', 'url' => route("users.users")],
-            ['name' => 'Agregar usuario', '' => ''],
 
-        ];
 
-        return view('user.Add-User', compact('breadcrumbs'));
-    }
-
-    // Breadcrumb para la vista de ver usuarios 
+    /*
+        Funcion que retorna la vista de usuarios y el breadcrumb 
+   */
     public function breadCrumb()
     {
         $breadcrumbs = [
@@ -42,12 +34,11 @@ class UserController extends Controller
 
         ];
 
-
-
         return view('user.View-Users', compact('breadcrumbs'));
     }
 
-    // Funcion para ver los detalles del usuario selecciondo 
+
+    /* Funcion para ver los detalles del usuario selecciondo */
     public function userDetails($id)
     {
         $usuario = User::find($id);
@@ -71,28 +62,41 @@ class UserController extends Controller
         return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count', 'created_at'));
     }
 
+    /*
+    Funcion que retorna la vista de agregar un usuario yel breadcrumb
+ */
+    public function breadCrumbAdd()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', 'url' => route("users.users")],
+            ['name' => 'Agregar usuario', '' => ''],
+
+        ];
+
+        return view('user.Add-User', compact('breadcrumbs'));
+    }
+
+    /*
+    Funcion para agregar un nuevo registro a la tabla de usuarios 
+*/
     public function store(StoreUserRequest $request)
     {
 
         $validated = $request->validated();
-        
-        
-        //$user = User::where('id', $Id)->first();
 
         $users = User::where('user_name', $request->only('code'))->first();
         if ($users) {
-            return response()->json(['title'=> 'Oops..!', 'msg' => 'El usuario ya existe en el sistema.'],409);
+            return response()->json(['title' => 'Oops..!', 'msg' => 'El usuario ya existe en el sistema.'], 409);
         } else {
 
             // Store the file securely 
             $filename = $request->file('file')->store('cartas-compromiso');
 
-             DB::transaction(
+            DB::transaction(
                 function () use ($request, $filename) {
-
                     // Obtiene el rol
                     $role = Role::findOrFail($request->userType); //Buscar si el rol existe
-                    
+
                     // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
                     User::create([
                         'user_name' => $request->code,
@@ -101,12 +105,10 @@ class UserController extends Controller
                         'cedula' => $request->cedula,
                         'file' => $filename,
                         'estado' => 'Activo',
-                        'password' => bcrypt(env('DEFAULT_PASSWORD', 'Cu@ltos2024')),
+                        'password' => bcrypt($_ENV['DEFAULT_PASS']),
                     ])->syncRoles($role);
-                    
-                    
                     // Envío de correo electrónico
-                   // Mail::to($mail)->send(new RegistroMail($username));
+                    // Mail::to($mail)->send(new RegistroMail($username));
                 }
             );
             return response()->json(['status' => 200, 'title' => '¡Éxito!', 'msg' => 'El usuario fue agregado al sistema.']);
@@ -180,8 +182,6 @@ class UserController extends Controller
         // Error en algun dato
         if ($validator->fails()) {
             return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
-
-            // return response()->json(['status' => 202, 'errors' => $validator->errors()]);
         }
 
         $Id = $request['Id'];
