@@ -18,12 +18,11 @@ class ConsultaFactory extends Factory
     {
 
         $persons = Persona::select('id_persona')->get();
-        $id = auth()->user()->id;
+        $id = 3;
 
 
         return [
             'id_persona' => $this->faker->randomElement($persons)->id_persona,
-            'fecha' => $this->faker->date(),
             'turno' => $this->faker->randomElement(['matutino','vespertino','nocturno']),
             'motivo_consulta' => $this->faker->text(),  
             'auxiliares_dx_tx_previo' => $this->faker->text(),

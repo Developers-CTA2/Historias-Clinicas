@@ -5,6 +5,7 @@
 @import "variables";
 // Estilos de los botones y de los tooltips 
 @import "Buttons";
+@import "form-style";
 
 .cont-principal{
     background-color: $bg-light;
@@ -20,156 +21,57 @@
     font-weight: 500;
 }
 
-.rounded-icon{
-    padding: 5px;
-    border-radius: 50%;
-}
 
-.icon-blue{
-background-color: #06285c36;    
+.skeleton-charts {
+    background-color: aqua;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-}
+    .skeleton-bar {
+        height: 80%;
+        width: 100%;
+        background-color: white;
+        display: grid;
+        place-content: center;
 
-.icon-blue svg{
-    fill: $primary;
-}
+        .icon-chart{
+            width: 100px;
+            height: 100px;
+            color: #c5c5c5;
+            animation: skeleton 1s infinite alternate;
+        }
 
-.icon-green{
-background-color: rgba(19, 87, 78, 0.384);    
-
-}
-
-.icon-green svg{
-    fill: rgb(19, 87, 78);
-}
-
-
-
-
-
-
-
-
-/*
-    Sombra de la card 
-*/
-.card {
-    -webkit-box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
-    -moz-box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
-    box-shadow: -4px 11px 26px -16px rgba(115, 115, 115, 1);
-}
-/*
-    Icono de la card 
-*/
-.icon-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    //padding-bottom: 5px;
-}
-
-/*
-    Circulo donde esta el icono
-*/
-.rounded-icon {
-    // Tamaño del ciculo 
-    width: 2.5rem; 
-    height: 2.5rem;
-    border-radius: 50%; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
-}
-
-/*
-    Cuando se coloca el cursor encima 
-*/
-.rounded-icon:hover , .rounded-icon:focus{
-    transform: scale(1.1); /* Aumenta de tamaño */
-    cursor: pointer;
-}
-
-/* Tamaño del icono */
-.rounded-icon i {
-    font-size: 1.2rem;
-}
-.gb-card1 {
-   /* Color de fondo del círculo con transparencia */
-      background-color: rgb(7, 102, 173, 0.25);
-    
-    i {
-        color: rgba(7, 102, 173)
-    }
-}
-
-.gb-card2 {
-     background-color: rgb(175, 68, 68, 0.25);
-    
-    i {
-        color: rgb(175, 68, 68)
-    }
-    
-}
-
-
-.gb-card3 {
-     /* Color de fondo del círculo con transparencia */
-    background-color: rgba(126, 215, 193, 0.25);
-    
-    i {
-        color: rgb(126, 215, 193)
-    }
+        
    
-}
+    }
 
-.gb-card4 {
-    /* Color de fondo del círculo con transparencia */
-      background-color: rgba(231, 192, 51, 0.25);
-    
-    i {
-        color: rgb(231, 192, 51)
-    }
-}
-.gb-card5 {
-    background-color: rgb(142, 122, 181,0.25);
-    
-    i {
-        color: rgb(142, 122, 181)
-    }
-     
-}
-.gb-card6 {
-    /* Color de fondo del círculo con transparencia */
-     background-color: rgba(182, 97, 129, 0.25);
-    
-    i {
-        color: rgb(182, 97, 129)
-    }
-}
-.gb-card7 {
-    /* Color de fondo del círculo con transparencia */
-     background-color: rgb(240, 141, 95, 0.25);
-    
-    i {
-        color: rgb(240, 141, 95)
-    }
-  
-}
+    .skeleton-footer {
+        height: 20%;
+        width: 100%;
+        background-color: white;
+        display: grid;
+        place-content: center;
 
-.gb-card8 {
-   /* Color de fondo del círculo con transparencia */
-    background-color: rgb(79, 111, 82, 0.25);
-    
-    i {
-        color: rgb(79, 111, 82);
+        p {
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 700;
+            color: #616161;
+            margin: 0;
+        }
     }
 }
 
-
-
-.details-icon i{
-    font-size: 4.0rem;
-    color: rgba(0, 0, 0, 0.644);
-    //color: #186D95;
+/* Animación para las barras */
+@keyframes skeleton {
+    0% {
+        color: #c5c5c5;
+    }
+    100% {
+        color: #e0e0e0;
+    }
 }
+
