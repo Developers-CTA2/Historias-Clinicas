@@ -8,7 +8,7 @@ use App\Mail\ResetearMail;
 
 use App\Models\User;
 use App\Models\Administrativo;
-
+use App\Models\Persona;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -41,6 +41,8 @@ class UserController extends Controller
             ['name' => 'Usuarios', '' => ''],
 
         ];
+
+
 
         return view('user.View-Users', compact('breadcrumbs'));
     }
@@ -79,7 +81,7 @@ class UserController extends Controller
 
         $users = User::where('user_name', $request->only('code'))->first();
         if ($users) {
-            return response()->json(['status' => 202, 'msg' => '¡Error! El usuario ya existe en el sistema.']);
+            return response()->json(['title'=> 'Oops..!', 'msg' => 'El usuario ya existe en el sistema.'],409);
         } else {
 
             // Store the file securely 
@@ -107,9 +109,9 @@ class UserController extends Controller
                    // Mail::to($mail)->send(new RegistroMail($username));
                 }
             );
-            return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
+            return response()->json(['status' => 200, 'title' => '¡Éxito!', 'msg' => 'El usuario fue agregado al sistema.']);
         }
-        return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
+        return response()->json(['resultado' => 400, 'title' => 'Oops..!', 'msg' => '¡Error! Hubo un error al registrar un nuevo usuario al sistema.']);
     }
 
 
