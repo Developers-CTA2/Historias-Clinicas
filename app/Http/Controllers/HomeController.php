@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Consulta;
 use App\Models\ConsultaHasEnfermedad;
-
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -26,18 +27,43 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        Carbon::setLocale('es');
+
         $breadcrumbs = [
             ['name' => 'Home', '' => ''],
 
         ];
 
-        return view('home', compact('breadcrumbs'));
+        $months = [];
+
+        // Get months 
+        for ($month = 1; $month <= 12; $month++) {
+            $months[] = [
+                'id' => $month,
+                'month' => ucfirst(Carbon::create()->month($month)->translatedFormat('F'))
+            ];
+
+        }
+        
+        $months = collect($months);
+
+        // Get years of today and last year
+        $currentYear = Carbon::now()->year;
+        $years = range($currentYear, $currentYear - 1);
+
+        // return response()->json($years);
+
+        return view('home', compact('breadcrumbs','months', 'years'));
     }
 
     public function getDataStatistics()
     {
 
         try {
+            // DB::enableQueryLog();
+
+
 
             $consultationDisease = Consulta::with('consulta_has_enfermedad:id_especifica_ahf,nombre')
                 ->select('id_consulta', 'id_persona')
@@ -49,46 +75,59 @@ class HomeController extends Controller
                 ->groupBy('persona.sexo')->map(function ($item, $key) {
                     return ['sexo' => $key, 'count' => $item->count()];
                 })->values();
-                
+
 
             $countStudentAndAdministrative = Consulta::with(['persona' => function ($query) {
-                return $query->whereNotNull('codigo')->select('id_persona','codigo');
+                return $query->whereNotNull('codigo')->select('id_persona', 'codigo');
             }])
                 ->select('id_consulta', 'id_persona')
-                ->get();
-
-            $consultationDiseaseData = $consultationDisease->flatMap(function ($item) {
-                $query = $item->consulta_has_enfermedad->groupBy('nombre')->map(function ($item, $key) {
-                    return ['enfermedad' => $key, 'count' => $item->count()];
+                ->get()
+                ->groupBy('persona.codigo')->map(function ($item, $key) {
+                    return ['codigo' => $key, 'count' => $item->count()];
                 })->values();
 
-                return $query;
-                
-            });
 
-            $countStudentAndAdministrative = $countStudentAndAdministrative->groupBy('persona.codigo')->flatMap(function ($item, $key) {
-                if( strlen($key) == 9){
-                    $key = 'Estudiante';
-                }else if(strlen($key) == 7){
-                    $key = 'Trabajador';
-                }else{
-                    $key = 'Otros';
+            $countStudentAndAdministrativeData = $countStudentAndAdministrative->map(function ($item) {
+                $group = '';
+                if (strlen($item['codigo']) == 7) {
+                    $group = 'Trabajador UDG';
+                } else if (strlen($item['codigo']) == 9) {
+                    $group = 'Estudiante';
+                } else {
+                    $group = 'Externo';
                 }
 
                 return [
-                    'tipo' => $key,
-                    'count' => $item->count()
+                    'group' => $group,
+                    'count' => $item['count']
                 ];
-            });
+            })->groupBy('group')->map(function ($item, $key) {
+                return ['group' => $key, 'count' => $item->sum('count')];
+            })->values();
+
+
+            $consultationDiseaseData = $consultationDisease->flatMap(function ($item) {
+                return $item->consulta_has_enfermedad;
+            })->groupBy('nombre')->map(function ($item, $key) {
+                return ['nombre' => $key, 'count' => $item->count()];
+            })->values();
+
+
+
+
+
+            // $query = DB::getQueryLog();
+
+            // return response()->json([$query]);
 
             return response()->json([
                 'countMenAndWomen' => $countMenAndWomen,
                 'consultationDisease' => $consultationDiseaseData,
-                'countStudentAndAdministrative' => $countStudentAndAdministrative
+                'countStudentAndAdministrative' => $countStudentAndAdministrativeData,
+                'id_auth' => auth()->user()->id,
             ], 200);
-
         } catch (\Exception $e) {
-            return response()->json(['title' => 'Oops...', 'msg' => 'Ha sucedido un error inesperado al obtener los datos para las gráficas', 'error' => $e->getMessage()], 500);
+            return response()->json(['title' => 'Oops...!', 'msg' => 'Lo sentimos, ocurrió un error inesperado. Intenta nuevamente más tarde.', 'error' => $e->getMessage()], 500);
         }
     }
 }

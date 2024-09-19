@@ -9,9 +9,13 @@ class ConsultaHasEnfermedad extends Model
 {
     use HasFactory;
 
+    protected $table = 'consulta_has_enfermedades';
+    public $timestamps = false;
+
     protected $fillable = [
         'id_enfermedad'    
     ];
+
 
     public function enfermedad(){
         return $this->belongsTo(Enfermedad_especifica::class, 'id_enfermedad');   
