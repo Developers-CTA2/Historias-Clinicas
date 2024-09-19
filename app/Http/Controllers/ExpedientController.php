@@ -146,7 +146,7 @@ class ExpedientController extends Controller
         );
 
         if (empty($Nutri) && empty($consul)) { //Ninguna 
-            return view('patients.expediente', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
+           // return view('patients.expediente', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
         } else {
             if (!empty($Nutri) && !empty($consul)) {  // Ambas verificar cual es mas reciente 
                 if ($Nutri->created_at > $consul->created_at) {  // nutricion mas reciente Todo de nutricion

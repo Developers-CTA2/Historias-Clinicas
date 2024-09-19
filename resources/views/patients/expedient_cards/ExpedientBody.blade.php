@@ -79,19 +79,33 @@
             <div class="col-12 mt-3">
                 <div class="row ms-1">
                     <h5 class="m-0 mt-1 aling-items-center mb-2">
-                        <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><circle cx="256" cy="56" r="56" fill="#06285c"/><path fill="#06285c" d="M437 128H75a27 27 0 0 0 0 54h101.88c6.91 0 15 3.09 19.58 15c5.35 13.83 2.73 40.54-.57 61.23l-4.32 24.45a.42.42 0 0 1-.12.35l-34.6 196.81A27.43 27.43 0 0 0 179 511.58a27.06 27.06 0 0 0 31.42-22.29l23.91-136.8S242 320 256 320c14.23 0 21.74 32.49 21.74 32.49l23.91 136.92a27.24 27.24 0 1 0 53.62-9.6L320.66 283a.45.45 0 0 0-.11-.35l-4.33-24.45c-3.3-20.69-5.92-47.4-.57-61.23c4.56-11.88 12.91-15 19.28-15H437a27 27 0 0 0 0-54Z"/></svg>
+                        <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 512 512">
+                                <circle cx="256" cy="56" r="56" fill="#06285c" />
+                                <path fill="#06285c"
+                                    d="M437 128H75a27 27 0 0 0 0 54h101.88c6.91 0 15 3.09 19.58 15c5.35 13.83 2.73 40.54-.57 61.23l-4.32 24.45a.42.42 0 0 1-.12.35l-34.6 196.81A27.43 27.43 0 0 0 179 511.58a27.06 27.06 0 0 0 31.42-22.29l23.91-136.8S242 320 256 320c14.23 0 21.74 32.49 21.74 32.49l23.91 136.92a27.24 27.24 0 1 0 53.62-9.6L320.66 283a.45.45 0 0 0-.11-.35l-4.33-24.45c-3.3-20.69-5.92-47.4-.57-61.23c4.56-11.88 12.91-15 19.28-15H437a27 27 0 0 0 0-54Z" />
+                            </svg>
                         </span> Índice de masa corporal (IMC)
                     </h5>
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-center align-items-center pt-0">
                             <div class="row d-flex flex-column">
                                 <div class="col-12 h-avatar-imc d-flex justify-content-center">
-                                    <img src="{{ asset('/images/' . $Medidas['Imc']['url']) }}"
-                                        alt="Medidor indice de masa corporal">
+                                    @if (!empty($Medidas['Imc']))
+                                        <img src="{{ asset('/images/' . $Medidas['Imc']['url']) }}"
+                                            alt="Medidor indice de masa corporal">
+                                    @else
+                                       {{-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4.01l.01-.011M9 3H4v3m0 5v2m16-2v2M15 3h5v3M9 21H4v-3m11 3h5v-3"/></svg> --}}
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="#999999" d="M5 3h13a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm0 1a2 2 0 0 0-2 2v11.586l4.293-4.293l2.5 2.5l5-5L20 16V6a2 2 0 0 0-2-2H5Zm4.793 13.207l-2.5-2.5L3 19a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-1.586l-5.207-5.207l-5 5ZM7.5 6a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm0 1a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3Z"/></svg>
+                                       @endif
                                 </div>
                                 <div class="col-12 text-center">
                                     <hr class="my-1">
-                                    <h5>{{ $Medidas['Imc']['titleImc'] }}</h5>
+                                    @if (!empty($Medidas['Imc']))
+                                        <h5>{{ $Medidas['Imc']['titleImc'] }}</h5>
+                                    @else
+                                        <h5>Sin IMC</h5>
+                                    @endif
                                 </div>
                             </div>
                         </li>

@@ -14,11 +14,34 @@ import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
     Script para la gestion de los usuarios, donde de puede hacer un update de los datos
 */
 $(document).ready(function () {
+    // const selectType = $("#user-type");
     console.log("Users");
+
     //EditUser
+    listenSelect();
     ClicEditUser();
-     closeModal();
+    closeModal();
 });
+
+function listenSelect() {
+    console.log("select");
+    $("#user-type").on("change", function () {
+        const userType = $(this).val();
+        console.log(userType);
+        
+        if (userType === "1") { // Doctor Obliga cedula
+         console.log("Quitar disabled");
+    
+            $("#m-cedula").prop("disabled", false); // Habilitar el campo
+        } else {
+            console.log("Agregar disabled");
+           
+            $("#m-cedula").prop("disabled", true); // Deshabilitar el campo
+        }
+    });
+}
+
+
 /* Funcio para el evento de clic el boton de editar */
 function ClicEditUser() {
     $("#EditUser").off("click");
@@ -28,15 +51,13 @@ function ClicEditUser() {
     });
 }
 
-
 function closeModal() {
     $(".cerrar-btn").off("click");
     $(".cerrar-btn").click(function (e) {
         // Ocultar mabas alertas
         ShowOrHideAlert(1, ".Alerta_user");
-     });
+    });
 }
-
 
 /* Funcion para confimar que los datos seran editados  */
 async function Confirm(datos) {
@@ -75,9 +96,16 @@ function ValidateData() {
     console.log(cedula);
 
     let V_cedula = true;
-    if (cedula !== "") {
-        V_cedula = validarCampo(cedula, regexNumero, "#m-cedula");
-    } else {
+    if (type == 1) {  // es admin 
+       if (type == 1) {
+           if (cedula !== "") { // validar celula si tiene dato
+               V_cedula = validarCampo(cedula, regexNumero, "#m-cedula");
+           } else {  // forzar el faldse
+               V_cedula = validarCampo("", regexNumero, "#m-cedula");
+           }
+       }
+     } else {
+        
         V_cedula = true;
         ocultarerr("#m-cedula");
     }
@@ -122,7 +150,7 @@ function ValidateData() {
         ShowOrHideAlert(2, ".Alerta_user");
         //$("#Alerta_err").fadeIn(250).removeClass("d-none");
     } else {
-        if ((V_cedula && V_email && V_type && V_status)) {
+        if (V_cedula && V_email && V_type && V_status) {
             ShowOrHideAlert(1, ".Alerta_user");
             window.id = $("#detalles-container").data("id");
 
