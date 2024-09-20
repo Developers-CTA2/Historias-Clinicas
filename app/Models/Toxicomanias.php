@@ -12,10 +12,9 @@ class Toxicomanias extends Model
     protected $table = 'toxicomanias';
     protected $primaryKey = 'id';
     public $incrementing = true;
-    public $timestamps = false;
 
     protected $fillable = [
-        'nombre', 
+        'nombre',
         'created_by',
         'updated_by',
     ];

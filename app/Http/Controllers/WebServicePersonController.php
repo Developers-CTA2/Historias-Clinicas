@@ -12,50 +12,73 @@ class WebServicePersonController extends Controller
     //
 
 
-    public function index(){
+    public function index()
+    {
         return view('patients.form');
     }
 
     public function getPersonWebService($code, $type)
     {
 
-        $validated = Validator::make(['code' => $code, 'type' => $type], [
-            'code' => 'required|string',
-            'type' => 'required|numeric|in:1,2',
-        ]);
-
         try {
+            $validated = Validator::make(
+                ['code' => $code, 'type' => $type],
+                [
+                    'code' => 'required|numeric|digits_between:7,9',
+                    'type' => 'required|numeric|in:1,2',
+                ],
+                [
+                    'code.required' => 'El código es requerido',
+                    'code.string' => 'El código debe ser numérico',
+                    'code.min' => 'El código debe tener entre 7 y 9 dígitos',
+                    'type.required' => 'El tipo de persona es requerido',
+                    'type.numeric' => 'El tipo de persona debe ser numérico',
+                    'type.in' => 'El tipo de persona no es válido',
+                ]
+            );
 
-            if($validated->fails()){
-                return response()->json(['title' => 'Error', 'message' => 'Ha sucedido un error inesperado al obtener el registro', 'error' => $validated->errors()], 500);
+
+
+            $responseWithErrors = [
+                'title' => 'Oops...!',
+                'msg' => 'Lo sentimos, ocurrió un error inesperado. Intenta nuevamente más tarde.',
+                'error' => [],
+
+            ];
+
+            if ($validated->fails()) {
+                return response()->json(['title' => 'Oops...!', 'msg' => 'Lo sentimos, ocurrió un error inesperado.', 'error' => $validated->errors()], 400);
             }
 
-            // type 1 = Trabajadores, type 2 = Alumnos
 
-            $urlLogin = env('API_URL','') . env('ENDPOIN_API_LOGIN','');
-            
+
+            // throw new \Exception('Error en la validación');
+
+            $urlLogin = env('API_URL', '') . env('ENDPOIN_API_LOGIN', '');
+
             $urlGetPerson = $type == 1 ? env('ENDPOIN_API_WORKER') : env('ENDPOIN_API_STUDENT');
-            $urlGetPerson = env('API_URL','') . $urlGetPerson;
+            $urlGetPerson = env('API_URL', '') . $urlGetPerson;
 
-            $urlLogout = env('API_URL','') . env('ENDPOIN_API_LOGOUT','');
+            $urlLogout = env('API_URL', '') . env('ENDPOIN_API_LOGOUT', '');
 
             $headers = [
                 'Content-Type: application/json',
             ];
 
             $dataLogin = [
-                'email' => env('API_USER',''),
-                'password' => env('API_PASSWORD',''),
+                'email' => env('API_USER', ''),
+                'password' => env('API_PASSWORD', ''),
             ];
 
             $response = $this->requestWebService($urlLogin, $headers, $dataLogin, 'POST');
 
-            if($response['status'] != 200){
-                return response()->json(['title' => 'Error', 'message' => 'Ha sucedido un error inesperado al obtener el token de acceso', 'error' => $response], 500);
+            if ($response['status'] != 200) {
+                $responseWithErrors['error'] = $response;
+                return response()->json($responseWithErrors, 500);
             }
 
             $token = $response['data']->token;
-            
+
             $headers = [
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $token,
@@ -63,8 +86,15 @@ class WebServicePersonController extends Controller
 
             $response = $this->requestWebService($urlGetPerson . $code, $headers, []);
 
-            if($response['status'] != 200){
-                return response()->json(['title' => 'Error', 'message' => 'Ha sucedido un error inesperado al obtener el registro', 'error' => $response], 500);
+            if ($response['status'] != 200) {
+
+                if ($response['data']->message == 'El código de trabajador no es válido o no existe') {
+                    $responseWithErrors['msg'] = 'El código de trabajador no existe';
+                    return response()->json($responseWithErrors, 404);
+                }
+
+                $responseWithErrors['error'] = $response;
+                return response()->json($responseWithErrors, 500);
             }
 
             $dataPerson = $response['data'];
@@ -72,21 +102,24 @@ class WebServicePersonController extends Controller
             // Logout from API
             $responseLogout = $this->requestWebService($urlLogout, $headers, []);
 
-            if($responseLogout['status'] != 200){
-                return response()->json(['title' => 'Error', 'message' => 'Ha sucedido un error inesperado al cerrar la sesión', 'error' => $responseLogout], 500);
+            if ($responseLogout['status'] != 200) {
+                $responseWithErrors['error'] = $responseLogout;
+
+
+
+                return response()->json($responseWithErrors, 500);
             }
 
-            return response()->json(['title' => 'Éxito', 'message' => 'Persona encontrada', 'data' => $dataPerson], 200);
-
-            
+            return response()->json(['title' => 'Éxito', 'msg' => 'Persona encontrada', 'data' => $dataPerson, 'type' => $type], 200);
         } catch (\Exception $e) {
             $type = gettype($e);
-            return response()->json(['message' => 'Ha sucedido un error inesperado al obtener el registro', 'error' => $e], 500);
+            $responseWithErrors['error'] = $e;
+            return response()->json($responseWithErrors, 500);
         }
     }
 
 
-    
+
 
     private function requestWebService($url, $headers, $data, $method = 'GET')
     {

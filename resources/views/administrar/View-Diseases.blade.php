@@ -1,35 +1,38 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Enfermedades')
+@section('title', 'Tipos de enfermedades')
 
 @section('viteConfig')
-    @vite(['resources/sass/Forms-Styles.scss', 'resources/sass/diseases.scss'])
+    @vite(['resources/sass/diseases.scss'])
 @endsection
 
 @section('content')
     <div class="container">
         <!--Boton de agregar paciente -->
-        <div class="col-12 mb-2 d-flex justify-content-end gap-2">
-            <div>
-                <a href="" class="btn-sec fst-normal tooltip-container p-1" type="button" data-bs-toggle="modal"
-                    data-bs-target="#Add-diseasse">
+        <div class="col-12 mb-2 d-flex justify-content-end gap-3">
+
+            <x-button-link-custom :route="route('admin.specific-diseases')" class="btn-blue-sec" text="Enf. Específicas"
+                tooltipText="Lista de enfermedades específicas">
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M8 6h12M4 6.01l.01-.011M4 12.01l.01-.011M4 18.01l.01-.011M8 12h12M8 18h12" />
+                    </svg>
+                </x-slot>
+            </x-button-link-custom>
+
+            <x-button-custom class="btn-sec" text="Agregar" tooltipText="Agregar nueva clasificación de enfermedad"
+                data-bs-toggle="modal" data-bs-target="#Add-diseasse">
+                <x-slot name="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                         <path d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
                     </svg>
-                    Agregar
-                    <span class="tooltip-text">Agregar un tipo de enfermedad.</span>
-                </a>
-            </div>
-            <div>
-                <a href="{{ route('admin/specific-diseases') }}" class="btn-blue-sec fst-normal tooltip-container p-1"
-                    type="button">
-                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                        <path  d="M7 1L5.6 2.5L13 10l-7.4 7.5L7 19l9-9z" />
-                    </svg> --}}
-                    Específicas
-                    <span class="tooltip-text">Ver enf. específicas.</span>
-                </a>
-            </div>
+                </x-slot>
+            </x-button-custom>
+
+            
+
         </div>
 
         <!-- Tabla para mostrar los datos  -->

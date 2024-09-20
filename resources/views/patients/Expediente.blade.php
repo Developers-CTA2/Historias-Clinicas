@@ -7,11 +7,11 @@
     @role('Administrador')
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
-        {{-- <script src="{{ asset('js/select2.min.js') }}"></script> --}}
     @endrole
 @endsection
 
 @section('content')
+    <x-button-up-screen />
 
     <div class="container">
         <div class="mb-3 mx-0">
@@ -20,12 +20,19 @@
         {{-- Datos personales  --}}
         <div class="mb-3">
             @include('patients.expedient_cards.PersonalData')
-        
-            {{-- Antecedentes heredofamiliares --}}
+
+          
         </div>
-        <div class="mb-3">
-            @include('patients.expedient_cards.ExpedientAHF')
-        </div>
+        <div class="row d-flex">
+            <div class="mb-3 col-lg-6 col-md-6 col-sm-6">
+                  {{-- Medidas corporales--}}
+                @include('patients.expedient_cards.ExpedientBody')
+            </div>
+            <div class="mb-3 col-lg-6 col-md-6 col-sm-6">
+                {{-- Antecedentes heredofamiliares --}}
+                @include('patients.expedient_cards.ExpedientAHF')
+            </div>
+         </div>
         {{-- Personales No patologicos aqui esta el margin --}}
         <div class="mb-3">
             @include('patients.expedient_cards.ExpedientAPNP')
@@ -42,11 +49,13 @@
         @endif
     </div>
 
-
+            
+    @vite('resources/js/patients/expedient/buttonUp.js', )
+    {{-- Opciones del administrador  --}}
     @role('Administrador')
         @section('scripts')
             <script src="{{ asset('js/select2.min.js') }}"></script>
-            @vite(['resources/js/patients/expedient/edit_personal_data.js', 'resources/js/patients/expedient/edit_AHF.js'])
+            @vite(['resources/js/patients/expedient/edit_personal_data.js', 'resources/js/patients/expedient/edit_AHF.js', 'resources/js/patients/expedient/edit_APNP.js', 'resources/js/patients/expedient/edit_Gyo.js'])
         @endsection
     @endrole
 

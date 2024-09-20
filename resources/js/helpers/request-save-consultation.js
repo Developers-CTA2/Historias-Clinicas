@@ -5,8 +5,6 @@ export const requestPostConsultation = async(dataSend = {}, id_person = 0)=>{
 
     activeLoading();
 
-    console.log(dataSend,id_person);
-
     return new Promise( async(resolve, reject)=>{
         try{
             const { data } = await axios.post(`/patients/consultation/${id_person}/save`, dataSend);

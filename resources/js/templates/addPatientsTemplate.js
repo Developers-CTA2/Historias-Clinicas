@@ -73,7 +73,7 @@ export const templateAddPathologicalHistory = (title, inputDate) => {
     `
 }
 
-export const templateAddLiistAccordionPathologicalHistory = (id,title, inputDate, description) => {
+export const templateAddLiistAccordionPathologicalHistory = (id, title, inputDate, description) => {
     return `<div class="accordion-item" data-id=${id}>
     <h2 class="accordion-header d-flex align-items-center justify-content-center">
       <button class="accordion-button collapsed d-block" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${id}" aria-expanded="true"  aria-controls="collapse${id}">
@@ -94,12 +94,42 @@ export const templateAddLiistAccordionPathologicalHistory = (id,title, inputDate
 }
 
 
-export const  templateErrorItem = (itemError ) => {
+export const templateErrorItem = (itemError) => {
     return `<li class="list-group-item bg-danger-subtle">${itemError}</li>`
 }
 
 export const templateErrorList = (itemsErrors) => {
     return `<ol class="list-group list-group-numbered text-start">${itemsErrors}</ol>`
 }
+
+
+export const templateModalErrorPersonalData = (itemsErrors) => {
+
+    let template = !itemsErrors.validatePersonalData.validate ? messageError(itemsErrors.validatePersonalData.message) : '';
+    template += !itemsErrors.validateDomicileData.validate ? messageError(itemsErrors.validateDomicileData.message) : '';
+    template += !itemsErrors.validateEmergencyData.validate ? messageError(itemsErrors.validateEmergencyData.message) : '';
+
+    return template
+}
+
+export const templateDescriptionSeparate = (description = []) => {
+    return description.map(item => {
+        let itemArray = item.split(':');
+        return `<p class="mb-0 s">${itemArray[0]} : <span class="fw-bold text-muted">${itemArray[1]}</span></p>`
+    }).join('');
+    
+}
+
+const messageError = (message) => {
+    console.log(message);
+    return `<div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#dc2626" d="M240 176h32v176h-32zm0 208h32v32h-32z"/><path fill="#dc2626" d="M274.014 16h-36.028L16 445.174V496h480v-50.826ZM464 464H48v-11.041L256 50.826l208 402.133Z"/></svg>
+            <div class="ms-2">
+                ${ message }
+            </div>
+        </div>`
+}
+
+
 
 

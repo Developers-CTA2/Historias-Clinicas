@@ -1,18 +1,25 @@
-//import {grid} from './helpers/PersonalGridTable'
 import { Grid, html, h } from "gridjs";
-import { activeLoading, disableLoading } from "../loading-screen.js";
-import traducciones from "../helpers/translate-gridjs.js";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import "gridjs/dist/theme/mermaid.css";
 
-import { validarCampo, showErrors } from "../helpers/ValidateFuntions.js";
-import { regexLetters } from "../helpers/Regex.js";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
+import { activeLoading, disableLoading } from "../loading-screen.js";
+
+import {
+    ShowOrHideAlert,
+    className,
+    translations,
+    validarCampo,
+    TimeAlert,
+    regexLetters,
+} from "../helpers";
+import { showErrorsAlert, IconError } from "../templates";
 
 $(function () {
     initialData();
     AddNewAddiction();
+    closeModal();
 });
 
 async function initialData() {
@@ -35,14 +42,13 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-sec fst-normal tooltip-container py-1 px-2 edit-addicton" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-addiction">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            <button class="btn-blue-sec fst-normal py-2 px-3 edit-addicton" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-addiction">
+                                <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
                                         </svg>
                                 Editar
-                                <span class="tooltip-text">Editar datos.</span></button>
                              </div>`
                         ),
                 },
@@ -59,7 +65,7 @@ async function initialData() {
             search: {
                 enabled: true,
                 placeholder: "Buscar...",
-                className: "form-control ",
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -83,10 +89,7 @@ async function initialData() {
                 },
             },
 
-            className: {
-                th: "thead-color text-black",
-                search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
-            },
+            className: className,
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: {
                 enabled: true,
@@ -94,7 +97,7 @@ async function initialData() {
                 initialColumn: 0,
             },
             resizable: true,
-            language: traducciones,
+            language: translations,
         }).render(document.getElementById("Tabla-Addictions"));
     } catch (error) {
         console.log(error);
@@ -103,13 +106,22 @@ async function initialData() {
     }
 }
 
+function closeModal() {
+    $(".cerrar-btn").off("click");
+    $(".cerrar-btn").click(function (e) {
+        // Ocultar mabas alertas
+        ShowOrHideAlert(1, ".Error_edit_addiction");
+        ShowOrHideAlert(1, ".Alerta_edit_addiction");
+    });
+}
+
 /* Funcion para cuando se le de clic al boton de editar toxicomania */
 $(document).on("click", ".edit-addicton", function () {
     const id = $(this).data("id");
     const name = $(this).data("name");
     $("#A_nombre").val(name);
     /* Clic al boton editar */
-    $("#E_addiction").off("click");
+    // $("#E_addiction").off("click");
     $("#E_addiction").click(function (e) {
         ValitadeData(id, name);
     });
@@ -125,12 +137,17 @@ function AddNewAddiction() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "") {
             if (V_name) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                ShowOrHideAlert(1, ".Alerta_addiction");
+
                 RequestAdd(name);
             }
         } else {
-            console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_addiction_text").html(
+                IconError(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_addiction");
         }
     });
 }
@@ -140,14 +157,20 @@ function ValitadeData(id, name) {
     var new_name = $("#A_nombre").val().trim();
     /* Verifcamos si hay cambios */
     if (new_name != name) {
-        $("#Alerta_err").fadeOut(250).addClass("d-none");
+        ShowOrHideAlert(1, ".Alerta_edit_addiction");
 
         let V_name = validarCampo(new_name, regexLetters, "#E_nombre");
         if (V_name) {
             Confirm(id, new_name);
         }
     } else {
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        // $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_edit_addiction_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_edit_addiction");
     }
 }
 
@@ -156,7 +179,7 @@ async function Confirm(id, new_name) {
     try {
         const result = await Swal.fire({
             title: "¿Estás seguro de editar los datos?",
-            text: "Asegurate que los datos sean correctos..",
+            text: "Asegurate que los datos sean correctos.",
             icon: "warning",
             showCancelButton: true,
             reverseButtons: true,
@@ -167,7 +190,7 @@ async function Confirm(id, new_name) {
         }).then((result) => {
             if (result.isConfirmed) {
                 RequestEdit(id, new_name);
-             }
+            }
         });
     } catch (error) {
         // Manejo de errores
@@ -192,17 +215,17 @@ async function RequestEdit(id, name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".Error_edit_addiction", ".errorList");
         }
 
         console.log(error);
@@ -211,6 +234,7 @@ async function RequestEdit(id, name) {
 
 /* Funcion para llamar al controlador y agregar una nueva alergia */
 async function RequestAdd(name) {
+    activeLoading();
     const Data = {
         Name: name,
     };
@@ -223,22 +247,19 @@ async function RequestAdd(name) {
         let timerInterval;
         disableLoading();
 
-        if (status == 200) {
-            timerInterval = AlertaSweerAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else if (status == 202) {
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
-        } else {
-            showErrors(errors);
-        }
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         disableLoading();
-        console.log("Error");
-        console.log(error);
+        const { type, msg, errors } = error.response.data;
+
+        if (type == 1) {
+            let timerInterval;
+
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
+        } else {
+            console.log(errors);
+            showErrorsAlert(errors, ".Error_addiction", ".errorList");
+            console.log(error);
+        }
     }
 }

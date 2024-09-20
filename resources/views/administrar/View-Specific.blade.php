@@ -3,21 +3,36 @@
 @section('title', 'Enfermedades')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/diseases.scss'])
+    @vite(['resources/sass/diseases.scss'])
 @endsection
 
 @section('content')
     <div class="container">
         <!--Boton de agregar paciente -->
-        <div class="col-12 mb-2 d-flex justify-content-end">
-            <a class="btn-sec fst-normal tooltip-container p-1" type="button" data-bs-toggle="modal"
+        <div class="col-12 mb-2 d-flex justify-content-end gap-3">
+
+            <x-button-link-custom :route="route('admin.diseases')" class="btn-blue-sec" text="Tipos de enfermedades"
+                tooltipText="Lista de la clasificación de enfermedades">
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M8 6h12M4 6.01l.01-.011M4 12.01l.01-.011M4 18.01l.01-.011M8 12h12M8 18h12" />
+                    </svg>
+                </x-slot>
+            </x-button-link-custom>
+
+            <x-button-custom class="btn-sec" text="Agregar" tooltipText="Agregar nueva enfermedad" data-bs-toggle="modal"
                 data-bs-target="#Add-specific">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
-                </svg>
-                Agregar
-                <span class="tooltip-text">Agregar una enf. específica.</span>
-            </a>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z" />
+                    </svg>
+                </x-slot>
+            </x-button-custom>
+
+
+
         </div>
 
 

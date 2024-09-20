@@ -1,0 +1,27 @@
+<div class="row line-progress-step d-flex justify-content-between">
+
+    <x-form-step-item :active="true">
+        <p class="m-0 d-none d-sm-block">Datos <br />Personales</p>
+    </x-form-step-item>
+    
+    <x-form-step-item :active="false">
+        <p class="m-0 d-none d-sm-block tooltip-container">Antecedentes <br />heredo-familiares
+         <span class="tooltip-text">Hola</span>
+         </p>
+    </x-form-step-item>
+
+    <x-form-step-item :active="false">
+        <p class="m-0 d-none d-sm-block">Antecendentes <br />no patológicos</p>
+    </x-form-step-item>
+
+    <x-form-step-item :active="false">
+        <p class="m-0 d-none d-sm-block">Antecedentes <br />patológicos</p>
+    </x-form-step-item>
+
+    <x-form-step-item :active="false">
+        <p class="m-0 d-none d-sm-block">Ginecología <br />Obstetricia</p>
+    </x-form-step-item>
+
+
+
+</div>

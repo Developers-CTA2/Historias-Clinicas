@@ -1,5 +1,6 @@
-@props(['labelFor','titleLabel','required','message'])
-<div class="d-flex justity-content-between mb-1">
-    <label for="{{$labelFor}}" class="pb-1 flex-grow-1">{{$titleLabel}} @if($required)<span class="required-point">*</span>@endif</label>
-    <x-tooltip message="{{$message}}" />
+<div class="d-flex justity-content-between">
+    <label for="{{$labelFor}}" class="flex-grow-1"> @if($required)<span class="required-point me-1">*</span>@endif{{$titleLabel}}</label>
+    @if($haveTooltip)
+        <x-tooltip message="{{$message}}" />
+    @endif
 </div>

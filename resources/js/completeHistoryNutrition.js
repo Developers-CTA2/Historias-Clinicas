@@ -1,10 +1,19 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import axios from 'axios';
 import { activeLoading, disableLoading } from "./loading-screen.js";
+import { AlertCancelConfirmation } from "./helpers";
 
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("nutricionalForm");
+    const form = document.getElementById("historialNutricionForm");
+    const btnCancelConsultation = document.getElementById("cancelConsultation");
+    const idPerson = document.getElementsByName('id_persona')[0].value;
+    
+    // console.log(idPerson[0].value);
+
+
+    btnCancelConsultation.addEventListener('click',function(){
+        AlertCancelConfirmation('¿Estás seguro?','Perderás toda la información que has ingresado.',`/patients/medical_record/${idPerson}`)
+    });
 
     if (form) {
         form.addEventListener("submit", async function(event) {
@@ -12,18 +21,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const formData = new FormData(form);
             const id_persona = formData.get("id_persona");
-            const vasos_agua = formData.get("vasos_agua");
-            const motivo_consulta = formData.get("motivo_consulta");
-            const toma_medicamentos = formData.get("toma_medicamentos");
-            const diagnostico = formData.get("diagnostico");
-            const peso_actual = formData.get("peso_actual");
-            const peso_habitual = formData.get("peso_habitual");
-            const estatura = formData.get("estatura");
-            const circunferencia_cintura = formData.get("circunferencia_cintura");
-            const circunferencia_cadera = formData.get("circunferencia_cadera");
+            const comidas_al_dia = formData.get("comidas_al_dia");
+            const qien_prepara_comida = formData.get("qien_prepara_comida");
+            const apetito = formData.get("apetito");
+            const alimentos_no_preferidos = formData.get("alimentos_no_preferidos");
+            const suplementos = formData.get("suplementos");
+            const grasas_consumidas = formData.get("grasas_consumidas");
+            const actividad = formData.get("actividad");
+            const tipo_ejercicio = formData.get("tipo_ejercicio");
+            const frecuencia_ejercicio = formData.get("frecuencia_ejercicio");
+            const duracion_ejercicio = formData.get("duracion_ejercicio");
 
-            // Verificar si todos los campos requeridos están completos
-            if (!id_persona || !vasos_agua || !motivo_consulta || !toma_medicamentos || !peso_actual || !peso_habitual || !estatura || !circunferencia_cintura || !circunferencia_cadera) {
+            if (!id_persona || !comidas_al_dia || !qien_prepara_comida || !apetito || !actividad || !tipo_ejercicio || !frecuencia_ejercicio || !duracion_ejercicio) {
                 Swal.fire({
                     title: "¡Error!",
                     text: "Por favor, complete todos los campos requeridos.",
@@ -33,30 +42,32 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             const response = await Swal.fire({
-                title: "¿Estás seguro de registrar la consulta nutricional?",
+                title: "¿Estás seguro de registrar el historial de nutrición?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#007F73",
                 cancelButtonColor: "#B04759",
                 confirmButtonText: '<i class="fa-solid fa-save animated-icon px-1"></i> Guardar',
                 cancelButtonText: '<i class="fa-solid fa-times"></i> Cancelar',
+                reverseButtons: true,
             });
 
             if (response.isConfirmed) {
                 try {
                     activeLoading();  // Muestra el loading
 
-                    const { data } = await axios.post(form.action, {
+                    const  {data}  = await axios.post(form.action, {
                         id_persona,
-                        vasos_agua,
-                        motivo_consulta,
-                        toma_medicamentos,
-                        diagnostico,
-                        peso_actual,
-                        peso_habitual,
-                        estatura,
-                        circunferencia_cintura,
-                        circunferencia_cadera,
+                        comidas_al_dia,
+                        qien_prepara_comida,
+                        apetito,
+                        alimentos_no_preferidos,
+                        suplementos,
+                        grasas_consumidas,
+                        actividad,
+                        tipo_ejercicio,
+                        frecuencia_ejercicio,
+                        duracion_ejercicio,
                     });
 
                     if (data.status === 'success') {
@@ -64,8 +75,9 @@ document.addEventListener("DOMContentLoaded", function() {
                             title: "¡Éxito!",
                             text: data.message,
                             icon: "success",
-                        }).then(() => {
+                    }).then(() => {
                             form.reset();  // Opcional: Limpiar el formulario
+                            location.href = `/patients/nutrition/${data.idPersona}/consultation/new`;  // Redireccionar a la lista de pacientes
                         });
                     } else {
                         Swal.fire({
@@ -75,9 +87,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         });
                     }
                 } catch (error) {
+                    console.error(error);
                     Swal.fire({
                         title: "¡Error!",
-                        text: "Ocurrió un error al intentar registrar la consulta nutricional.",
+                        text: "Ocurrió un error al intentar registrar el historial de nutrición.",
                         icon: "error",
                     });
                 } finally {

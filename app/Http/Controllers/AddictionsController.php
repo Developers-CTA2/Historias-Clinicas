@@ -36,13 +36,14 @@ class AddictionsController extends Controller
             $query->where('nombre', 'like', "%$search%");
         }
 
+        $count = $query->count();
         $Addictions = $query->offset($offset)
             ->limit($limit)
             ->get();
 
         return response()->json([
             'results' => $Addictions,
-            'count' => $Addictions->count(),
+            'count' => $count,
         ]);
     }
 
@@ -82,6 +83,7 @@ class AddictionsController extends Controller
             DB::transaction(function () use ($Name, $Update) {
                 $Update->update([
                     'nombre' => $Name,
+                    'updated_by' => auth()->user()->id,
                 ]);
             });
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
@@ -121,9 +123,11 @@ class AddictionsController extends Controller
             DB::transaction(function () use ($Name) {
                 $Addiction = new Toxicomanias();
                 $Addiction->nombre = $Name;
+                $Addiction->created_by = auth()->user()->id;
+                $Addiction->updated_by = auth()->user()->id;
                 $Addiction->save();
             });
-            return response()->json(['status' => 200, 'msg' => 'Exito, la alergia se agrego correctamente.']);
+            return response()->json(['status' => 200, 'msg' => 'Exito, la toxicomanía se agrego correctamente.']);
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }

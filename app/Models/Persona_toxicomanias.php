@@ -10,7 +10,10 @@ class Persona_toxicomanias extends Model
     use HasFactory;
 
     protected $table = 'personas_toxicomanias';
-
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    public $timestamps = false;
+    
     protected $fillable = [
         'observacion',
         'desde_cuando',

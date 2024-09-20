@@ -1,28 +1,58 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import { activeLoading, disableLoading } from "../loading-screen.js";
+import { validarCampo, ocultarerr } from "../helpers/ValidateFuntions.js";
 import {
-    validarCampo,
-    ocultarerr,
-    showErrors,
-} from "../helpers/ValidateFuntions.js";
-import { regexCorreo, regexNumero } from "../helpers/Regex.js";
+    regexCorreo,
+    regexNumero,
+    TimeAlert,
+    regexCedula,
+    ShowOrHideAlert,
+} from "../helpers";
+import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
 
 /*
     Script para la gestion de los usuarios, donde de puede hacer un update de los datos
 */
 $(document).ready(function () {
     console.log("Users");
-    //EditUser
+    listenSelect();
     ClicEditUser();
+    closeModal();
 });
-/* Funcio para el evento de clic el boton de editar */
+
+function listenSelect() {
+    console.log("select");
+    $("#user-type").on("change", function () {
+        const userType = $(this).val();
+        console.log(userType);
+        
+        if (userType === "1") { // Doctor Obliga cedula
+         console.log("Quitar disabled");
+    
+            $("#m-cedula").prop("disabled", false); // Habilitar el campo
+        } else {
+            console.log("Agregar disabled");
+           
+            $("#m-cedula").prop("disabled", true); // Deshabilitar el campo
+        }
+    });
+}
+
+
+/* Funcion para el evento de clic el boton de editar */
 function ClicEditUser() {
     $("#EditUser").off("click");
     $("#EditUser").click(function (e) {
         ValidateData();
-        //Confirm();
+    });
+}
+
+function closeModal() {
+    $(".cerrar-btn").off("click");
+    $(".cerrar-btn").click(function (e) {
+        // Ocultar ambas alertas
+        ShowOrHideAlert(1, ".Alerta_user");
     });
 }
 
@@ -59,12 +89,20 @@ function ValidateData() {
 
     let V_email = validarCampo(email, regexCorreo, "#m-email");
     let V_type = validarCampo(type, regexNumero, "#user-type");
-    let v_status = validarCampo(status, regexNumero, "#m-estado");
+    let V_status = validarCampo(status, regexNumero, "#m-estado");
     console.log(cedula);
+
     let V_cedula = true;
-    if (cedula !== "") {
-        V_cedula = validarCampo(cedula, regexNumero, "#m-cedula");
+    if (type == 1) {  // es admin 
+       if (type == 1) {
+           if (cedula !== "") { // validar cedula 
+               V_cedula = validarCampo(cedula, regexCedula, "#m-cedula");
+           } else {  // forzar el false
+               V_cedula = validarCampo("", regexCedula, "#m-cedula");
+           }
+       }
     } else {
+        // No tiene cedula 
         V_cedula = true;
         ocultarerr("#m-cedula");
     }
@@ -100,11 +138,17 @@ function ValidateData() {
         status == old_status &&
         type == old_rol
     ) {
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        // $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_user_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_user");
+        //$("#Alerta_err").fadeIn(250).removeClass("d-none");
     } else {
-        if ((V_cedula, V_email, V_type, v_status)) {
-            $("#Alerta_err").fadeOut(250).addClass("d-none");
-
+        if (V_cedula && V_email && V_type && V_status) {
+            ShowOrHideAlert(1, ".Alerta_user");
             window.id = $("#detalles-container").data("id");
 
             const datos = {
@@ -129,20 +173,19 @@ async function RequestEdit(Data) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
         if (type == 1) {
             let timerInterval;
 
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 1);
         } else {
             console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
+            showErrorsAlert(errors, ".errorAlert", ".errorList");
         }
 
         console.log(error);
     }
 }
-

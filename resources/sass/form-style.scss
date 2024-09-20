@@ -11,11 +11,6 @@
 @import "bootstrap/scss/bootstrap";
 @import "@fortawesome/fontawesome-free/css/all.css";
 
-.cont-principal {
-    padding: 10px 10px;
-    background-color: white;
-    border-radius: 10px;
-}
 
 /* Header de color azul de las cards */ 
 .card .card-header {
@@ -45,4 +40,16 @@
 .Cont-edit:hover{
     cursor: pointer;
 }
+
+.Shadown-Icon{
+     filter:drop-shadow(1px 1px 3px #888)
+
+}
+/* ocultar el contenedor de l aimportancia de la seguridad en moviles */ 
+@media (min-width: 481px) and (max-width: 767px) {
+ .cont-info{
+    display: none;
+ }
+}
+
 

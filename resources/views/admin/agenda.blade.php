@@ -7,10 +7,10 @@
 
 
 @section('content')
-<div id="calendar"></div>
+    <div id="calendar" class="mt-4"></div>
 
 @endsection
 
 @section('scripts')
-@vite(['resources/js/loading-screen.js', 'resources/js/SideBar.js', 'resources/js/agenda.js'])
+    @vite('resources/js/agenda.js')
 @endsection

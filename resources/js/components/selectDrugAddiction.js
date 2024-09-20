@@ -1,13 +1,17 @@
-import { templateAddListAccordionDrugAddiction } from '../templates';
+import { calculateEPOC, manageDrugAddictions } from '../helpers';
+import { templateAddListAccordionDrugAddiction, templateDescriptionSeparate } from '../templates';
 
+// Data for the list of drug addictions
 let dataDrugAddiction = [];
 
 
+// Variables for the EPOC calculation
 let riskEPOCGlobal = '';
 
 
 export const selectDynamicDrugAddiction = ( parameters )=>{
 
+    // Get the parameters
     const { selectDrugAddiction, 
             inputNumberOfCigarettes, 
             inputHowDateSmoking, 
@@ -20,31 +24,38 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
          } = parameters;
 
         
-    
-
+        //  Select the drug addiction option, tabaquism or other drugs
     selectDrugAddiction.on('change', function(){
+        // Get the value of the select
         let value = $(this).val();
 
+        // Enable the button
         btnAddDrugAddiction.attr('disabled', false);
 
+        // If the value is tabaquism
         if(value == '1'){
+            // Show the container for tabaquism
             contaienerOptionSmoking.removeClass('d-none');
             containerOptionOthers.addClass('d-none');
         }else{
+            // Show the container for other drugs
             contaienerOptionSmoking.addClass('d-none');
             containerOptionOthers.removeClass('d-none');    
         }
     });
 
 
+    // Add the drug addiction to the list
     btnAddDrugAddiction.on('click',function(){
         const data = getDataForm();
+        console.log(data);
         validateForm(data) ? addedListDrugAddiction(data) : null;
     });
 
+    // Get the data from the form
     const getDataForm = ()=>{
         let data = {
-            textDrugAddiction: selectDrugAddiction.find('option:selected').text(),
+            textDrugAddiction: selectDrugAddiction.find('option:selected').text().trim(),
             valueDrugAddiction: selectDrugAddiction.val(),
             valueNumberOfCigarettes: inputNumberOfCigarettes.val(),
             valueHowDateSmoking: inputHowDateSmoking.val(),
@@ -56,6 +67,7 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
     }
 
 
+    // Validate the form
     const validateForm  = (data)=>{
         const { valueDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs } = data;
         let validate = true;
@@ -124,49 +136,62 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
     }
 
+    // Add the drug addiction to the list
     const addedListDrugAddiction = (data)=>{
-
-        const { valueDrugAddiction, textDrugAddiction, valueNumberOfCigarettes, valueHowDateSmoking, valueHowOtherDrugs, valueDescriptionOtherDrugs } = data;
-        let idValue = Math.random().toString(36).substr(2, 9);
-        let description = '';
+    
+        let response = manageDrugAddictions(convertFormat(data));
         
-        if(valueDrugAddiction == '1' ){
+        const { id, descriptionUI } = response;
+        const { textDrugAddiction } = data;
         
-            dataDrugAddiction.push({
-                id: idValue,
-                idReferenceTable: valueDrugAddiction,
-                input1 : valueHowDateSmoking,
-                input2 : `${valueNumberOfCigarettes},riesgoEPOC,${riskEPOCGlobal.text}`
-            });
-            description = `Cantidad de cigarrillos por día: ${valueNumberOfCigarettes}  |  Años de fumador: ${valueHowDateSmoking} años  |  Riesgo EPOC: ${riskEPOCGlobal.text}`;
-        }else{
-            dataDrugAddiction.push({
-                id: idValue,
-                idReferenceTable: valueDrugAddiction,
-                input1 : valueHowOtherDrugs,
-                input2 : valueDescriptionOtherDrugs
-            });
-            description = `Frecuencia de consumo: ${valueHowOtherDrugs} años  |   Descripción: ${valueDescriptionOtherDrugs}`;  
-        }
+        let descriptionSeparated = splitDescription(descriptionUI);
 
-        // ulListDrugAddiction.append(templateAddListDrugAddiction(idValue ,textDrugAddiction));
-        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(idValue ,textDrugAddiction, description));
+        // Add the data to the list
+        dataDrugAddiction.push(response);
 
+        let descriptionHTML = templateDescriptionSeparate(descriptionSeparated);
+        
+        // Add the data to the UI
+        accordionListDrugAddiction.append(templateAddListAccordionDrugAddiction(id ,textDrugAddiction, descriptionHTML));
+
+        // Clear the form
         clearForm();
+        // Delete the drug addiction
         deleteDrugAddiction();
     }
 
+    const splitDescription = (description)=>{
+        let descriptionArray = description.split('|').map(item => item.trim());
+    
+        return descriptionArray
+    }
+
+    // Convert the format of the data to send backend
+    const convertFormat = (data)=>{
+        return {
+            optionDrugAddiction : data.valueDrugAddiction,
+            valueNumberOfCigarettes : data.valueNumberOfCigarettes,
+            valueHowDateSmoking : data.valueHowDateSmoking,
+            valueHowOtherDrugs : data.valueHowOtherDrugs,
+            valueDescriptionOtherDrugs : data.valueDescriptionOtherDrugs,
+            riskEPOCGlobal : riskEPOCGlobal
+        }
+    }
+
+    // Delete the drug addiction
     const deleteDrugAddiction = ()=>{
         
         $('.deleteDrugAddiction').off('click');
         $('.deleteDrugAddiction').on('click', function(){
             let id = $(this).parent().data('id');
+            // Delete the data from the list
             dataDrugAddiction = dataDrugAddiction.filter(drugAddiction => drugAddiction.id != id)
             $(this).parent().remove();
         });
         
     }
 
+    // Clear the form
     const clearForm = ()=>{
         selectDrugAddiction.val('');
         inputNumberOfCigarettes.val('');
@@ -181,40 +206,34 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
 
     // Calculate EPOC
     inputNumberOfCigarettes.on('keyup', function(){
-        calculateEPOC();
+        getCalculateEPOC();
     });
 
     inputHowDateSmoking.on('keyup', function(){
-        calculateEPOC();
+        getCalculateEPOC();
     })
 
 
-    const calculateEPOC = ()=>{
+    // Get the calculate EPOC
+    const getCalculateEPOC = ()=>{
         let numberOfCigarettes = inputNumberOfCigarettes.val();
         let howDateSmoking = inputHowDateSmoking.val();
-        let result = 0;
+        let response = null;
+        
+        response = calculateEPOC({numberOfCigarettes, howDateSmoking});
 
-        console.log('numberOfCigarettes', numberOfCigarettes, 'howDateSmoking', howDateSmoking);
-        if(numberOfCigarettes != '' && howDateSmoking != ''){
-            result = (numberOfCigarettes * howDateSmoking) / 20;
-            riskEPOCGlobal = riskEPOC(result);
-            
-            $('#riegoEPOC').html(riskEPOCGlobal.html);
-            
+        console.log(response);
+
+        if(response.html != ""){
+            // Add the data to the UI
+            $('#riegoEPOC').html(response.html);
+            riskEPOCGlobal = response.risk;
         }
+        
     }
 
-
-    const riskEPOC = (result)=>{
-        if(result < 10) return {text :'Nulo', html: '<span class="badge-custom badge-custom-success">Nulo</span>'};
-        if(result >= 10 && result <= 20) return {text : 'Moderado' , html: '<span class="badge-custom badge-custom-moderade">Moderado</span>'};
-        if(result > 20 && result < 41) return {text : 'Intenso' , html: '<span class="badge-custom badge-custom-warning">Intenso</span>'};
-        if(result > 40) return {text : 'Alto' , html: '<span class="badge-custom badge-custom-danger">Alto</span>'};
-
-        return 'Sin dato';
-    }
 
 }
 
-
+// Export the list of drug addictions data
 export const getListDrugAddiction = () => { return dataDrugAddiction; }

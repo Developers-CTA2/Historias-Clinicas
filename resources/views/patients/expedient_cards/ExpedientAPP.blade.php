@@ -4,6 +4,16 @@
     </div>
     <div class="card-body">
         <div class="row col-12">
+            @role('Administrador')
+                <div class="d-flex justify-content-end">
+                    <div class="toggle tooltip-container">
+                        <input type="checkbox" id="Edit-APP">
+                        <label for="Edit-APP" class="label-check"></label>
+                        <span class="tooltip-text">Habilitar edición.</span>
+                    </div>
+                </div>
+                {{-- @include('patients.expedient_cards.modals_expedient.modal_add_toxic') --}}
+            @endrole
             {{-- Contenedor de las enfermedades --}}
             <div class="col-lg-6 col-md-6 col-sm-12">
 
@@ -42,26 +52,6 @@
                                     @foreach ($enfermedades as $enfermedad)
                                         <li class="list-group-item d-flex justify-content-between">
                                             {{ $enfermedad->enfermedad_especifica->nombre }}
-
-                                            <div class="d-flex gap-1">
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
-                                            </div>
                                         </li>
                                     @endforeach
                                 @endif
@@ -112,27 +102,6 @@
                                             <div class="text-muted px-1">
                                                 {{ $alergia->especificar }}
                                             </div>
-                                            <div class="d-flex gap-1">
-
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
-                                            </div>
                                         </li>
                                     @endforeach
                                 @endif
@@ -179,29 +148,8 @@
                                             <div>
                                                 {{ $hospital->detalles }}
                                             </div>
-                                            <div class="">
-                                                {{ $hospital->fecha }}
-                                            </div>
-                                            <div class="d-flex gap-1">
-
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
+                                            <div class="text-muted ">
+                                                {{ Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }}
                                             </div>
                                         </li>
                                     @endforeach
@@ -222,8 +170,7 @@
                             <span class="pe-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                     viewBox="0 0 14 14">
-                                    <g fill="none" stroke="#0284c7" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                    <g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round">
                                         <path
                                             d="M1.5 7.838V3.5a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v4.338a3 3 0 0 1-2.051 2.846L9.5 11v.5a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V11l-.949-.316A3 3 0 0 1 1.5 7.838" />
                                         <path
@@ -251,29 +198,9 @@
                                             <div class="">
                                                 {{ $transfucion->detalles }}
                                             </div>
-                                            <div class="">
-                                                {{ $transfucion->fecha }}
-                                            </div>
-                                            <div class="d-flex gap-1">
+                                            <div class="text-muted ">
+                                                {{ Carbon::parse($transfucion->fecha)->locale('es')->isoFormat('LL') }}
 
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
                                             </div>
                                         </li>
                                     @endforeach
@@ -316,31 +243,12 @@
                                 @else
                                     @foreach ($quirurgicos as $quirurgico)
                                         <li class="list-group-item d-flex justify-content-between">
-                                          <div>
-                                              {{ $quirurgico->detalles }}
-                                          </div>
-                                          <div> 
-                                              {{ $quirurgico->fecha }}
-                                          </div>
+                                            <div>
+                                                {{ $quirurgico->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon::parse($quirurgico->fecha)->locale('es')->isoFormat('LL') }}
 
-                                            <div class="d-flex gap-1">
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
                                             </div>
                                         </li>
                                     @endforeach
@@ -352,7 +260,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="col-lg-6 col-md-6 col-sm-12" id="Cont_APP">
 
                 <div class="form-group">
                     <div class="row">
@@ -381,31 +289,11 @@
                                 @else
                                     @foreach ($traumatismos as $traumaticos)
                                         <li class="list-group-item d-flex justify-content-between">
-                                          <div>
-                                              {{ $traumaticos->detalles }}
-                                          </div>
-                                          <div> 
-                                              {{ $traumaticos->fecha }}
-                                          </div>
-
-                                            <div class="d-flex gap-1">
-                                                <button class="btn-red fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Eliminar enfermedad.</span>
-                                                </button>
-
-                                                <button class="btn-blue-sec fst-normal tooltip-container">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 32 32">
-                                                        <path
-                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                    </svg>
-                                                    <span class="tooltip-text">Editar registro.</span>
-                                                </button>
+                                            <div>
+                                                {{ $traumaticos->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon::parse($traumaticos->fecha)->locale('es')->isoFormat('LL') }}
                                             </div>
                                         </li>
                                     @endforeach

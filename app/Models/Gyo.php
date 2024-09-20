@@ -10,8 +10,12 @@ class Gyo extends Model
     use HasFactory;
 
     protected $table = 'gyo';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+
 
     protected $fillable = [
+        'id_persona',
         'menarca',
         'fecha_um',
         's_gestacion',

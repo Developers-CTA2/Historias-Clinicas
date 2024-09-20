@@ -30,14 +30,10 @@
 }
 
 
-
-
-
-
 .container-list-custom{
     background-color: $bg-color-opacity;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     max-width: 500px;
     min-height: 65px;
@@ -84,7 +80,7 @@
 }
 
 .h-custom-metodo{
-    height: 275px !important;
+    height: 100px !important;
     resize: none;
 }
 
@@ -237,4 +233,12 @@ background-color: rgba(19, 87, 78, 0.384);
 
 .badge-custom-success {
     background-color: #0AA760 ;
+}
+
+.disabled-custom{
+  background-color: #ececec !important;
+  color:  #777 !important;
+  border: 1px solid #666 !important;
+  cursor: not-allowed !important;
+
 }

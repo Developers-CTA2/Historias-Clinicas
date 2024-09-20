@@ -32,53 +32,58 @@ let observer = new IntersectionObserver((entries, observer) => {
 });
 
 const requestHistoryReportFuncion = (limit, page) => {
-    console.log('Request', limit, page, idPersona);
     requestGetConsultation({ limit, page, idPersona })
         .then(data => {
 
-            
-            // Si no hay datos, detener el observer
-            if (data.length === 0 ) {
-                
-                if (lastElement) observer.unobserve(lastElement[0]);
-                return;
-            }
-
-            // Si ya se ha realizado una petición, detener el observer del último elemento
-            if (lastElement) {
-                observer.unobserve(lastElement[0]);
-            }
-
-
-            // Agregar los datos al template
-            $('#containerListConsultation').append(historyConsultationTemplate(data));
-            lastElement = $('#containerListConsultation').children().last();
-            
-            observer.observe(lastElement[0]);
-            showConsultation += data.length;
+            manageObserver(data);
 
         })
         .catch(error => {
             console.log(error);
             $('#containerListConsultation').html(`<p class="text-center text-danger"> Error al cargar los datos del historial...! </p>`)
             AlertErrorHistoryConsultation('Error', 'Ha ocurrido un error al cargar los datos del historial...!');
-            // Swal.fire({
-            //     title: 'Error',
-            //     text: 'Ha ocurrido un error al cargar los datos del historial...!',
-            //     icon: 'error',
-            //     confirmButtonText: 'Aceptar',
-            //     confirmButtonColor: '#047857'
-            // })
         })
 }
+
+const manageObserver = (data) => {
+     // Si no hay datos, detener el observer
+     if (data.length === 0 ) {
+                
+        if (lastElement) observer.unobserve(lastElement[0]);
+        return;
+    }
+
+    // Si ya se ha realizado una petición, detener el observer del último elemento
+    if (lastElement) {
+        observer.unobserve(lastElement[0]);
+    }
+
+    updateUI(data);
+    
+    observer.observe(lastElement[0]);
+    showConsultation += data.length;
+}
+
+const updateUI = (data) => {
+    // Agregar los datos al template
+    $('#containerListConsultation').append(historyConsultationTemplate(data));
+    lastElement = $('#containerListConsultation').children().last();
+}
+
+
 
 
 $(function () {
 
     idPersona = $('#idPersona').val();
     totalConsultations = $('#totalConsultas').val();
+
+    if(totalConsultations > 0){
+        requestHistoryReportFuncion(limit, page);
+    }else{
+        $('#containerListConsultation').html(`<p class="fw-bold text-muted m-0"> No hay consultas registradas... </p>`)
+    }
     
-    requestHistoryReportFuncion(limit, page);
 
 })
     

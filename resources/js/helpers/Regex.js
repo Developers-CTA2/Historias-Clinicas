@@ -1,5 +1,5 @@
 /* Expresiones regulares para validar los datos */
-export const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,})$/;
+export const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,13})$/;
 export const regexLetters = /^[a-zA-ZáÁéÉíÍóÓúÚÑñ ]+$/;
 export const regexCode = /^[0-9]{7,9}$/;
 
@@ -11,9 +11,9 @@ export const regexTelefono = /^[0-9]{10}$/;
 export const regexNumbersAndLetters = /^[a-zA-Z0-9]+$/;
 export const regexIntNumero = /^[\w\s\-.,#\/]+$/;
 
-
+export const regexCedula = /^[0-9]{7,8}$/;
 export const regexNss = /^[0-9]{11}$/;
-export const regexDescription = /^[a-zA-Z0-9\s.,;:?!'"\-()@#&]+$/;
+export const regexDescription = /^[a-zA-ZáÁéÉíÍóÓúÚÑñ0-9\s.,;:?!'"\-()@#&]+$/;
 
 export const regexNumeroEntero = /^\d+$/;
 export const regexNumlenght2 = /^[0-9]{1,2}$/;
@@ -29,4 +29,5 @@ export const regexPorcentaje = /^(100|[1-9][0-9]?|0)$/;
 export const regexGlucosa = /^(?:[1-9][0-9]?|[1-3][0-9]{2}|400)$/;
 
 
+export const RegexPositiveNumer = /^[0-9]\d*$/;
 

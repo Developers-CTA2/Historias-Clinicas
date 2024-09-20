@@ -6,6 +6,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new Calendar(calendarEl, {
+        locale: 'es',
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'today',
+        },
+        buttonText :{
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+        },
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         dateClick: function(info) {

@@ -1,7 +1,9 @@
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
+
 import { VerifyChanges, automaicScroll } from "../helpers/funcionValidate.js";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
 import {
-    regexNumero,
     regexLetters,
     regexFecha,
     regexTelefono,
@@ -10,16 +12,19 @@ import {
     regexCp,
     regexNumeroEntero,
 } from "../../helpers/Regex.js";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../../helpers/Alertas.js";
-import { IconInfo } from "../../templates/ExpedientTemplate.js";
+import { TimeAlert } from "../../helpers/Alertas.js";
+
+import {
+    IconInfo,
+    IconWarning,
+    HideAnimation,
+} from "../../templates/AlertsTemplate.js";
 
 $(document).ready(function () {
     console.log("Editar datos personales");
     EventEditPersonal();
     InitiliazeSelect();
-    F;
+    EventEditAPP();
 });
 
 /* Funcion para inicializar el select2 de estados */
@@ -39,7 +44,7 @@ function EventEditPersonal() {
     $("#Edit-personal").on("change", function () {
         const isChecked = $("#Edit-personal").is(":checked");
         if (isChecked) {
-            $(".text-alert").html(IconInfo("Ahora estás en modo de edición."));
+            $(".P-data").html(IconInfo("Ahora estás en modo de edición."));
             $(".personal-data").removeClass("d-none").hide().fadeIn(400);
             $(".top-content").css("margin-top", "0", "!important");
             console.log($("#code").text());
@@ -47,6 +52,7 @@ function EventEditPersonal() {
             /* No pertenece a la UDG */
             let old = ObtainOldPersonalData();
             let oldDirection = ObtainOldDirectionData();
+            console.log($("#code").text().trim());
             if ($("#code").text().trim() == "--") {
                 ShowInputs(0, old, oldDirection);
             } else {
@@ -57,7 +63,11 @@ function EventEditPersonal() {
         } else {
             /* Cancelar edicion */
             $(".W-data").removeClass("text-secondary"); // quitar el gris
-            CoverContents();
+            // Ocultar
+            HideAnimation(".personal-data");
+            HideAnimation(".input-optional");
+            HideAnimation(".input-show");
+
             console.log("Modo lectura");
         }
     });
@@ -68,7 +78,7 @@ function EventEditPersonal() {
     input-optional y input-show
 */
 function ShowInputs(Type, Personal, Direction) {
-  //  console.log(Personal);
+    //  console.log(Personal);
     if (Type == 1) {
         $(".input-show").removeClass("d-none").hide().fadeIn(400);
     } else {
@@ -80,26 +90,6 @@ function ShowInputs(Type, Personal, Direction) {
     EventSave(Personal, Direction);
 }
 
-/* Funcion para ocultar los conetenedores em caso de cancelar la edicion */
-function CoverContents() {
-    $(".personal-data")
-        .addClass("animate__fadeOutUp")
-        .fadeOut(400, function () {
-            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
-        });
-
-    $(".input-optional")
-        .addClass("animate__fadeOutUp")
-        .fadeOut(400, function () {
-            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
-        });
-
-    $(".input-show")
-        .addClass("animate__fadeOutUp")
-        .fadeOut(400, function () {
-            $(this).addClass("d-none").removeClass("animate__fadeOutUp");
-        });
-}
 /* 
     Funcion de cancelar edicion que ocultará todos los inputs de edicion
 */
@@ -109,7 +99,9 @@ function clicCancelPD() {
         $("#Edit-personal").prop("checked", false);
         $(".W-data").removeClass("text-secondary"); // quitar el gris
         /* Cancelar edicion */
-        CoverContents();
+        HideAnimation(".personal-data");
+        HideAnimation(".input-optional");
+        HideAnimation(".input-show");
     });
 }
 /*
@@ -134,11 +126,14 @@ function EventSave(Personal, Direction) {
         console.log(newDirection);
         console.log(Direction);
 
-       // let edicion = 0;
+        // let edicion = 0;
         // No hay ningun cambio
         if (personal && direction) {
-            $(".text-alert").html(
-                '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m14.839 5.668l-12.66 21.93c-.51.89.13 2.01 1.16 2.01h25.32c1.03 0 1.67-1.11 1.16-2.01l-12.66-21.93c-.52-.89-1.8-.89-2.32 0"/><path fill="#000" d="M14.599 21.498a1.4 1.4 0 1 0 2.8-.01v-9.16c0-.77-.62-1.4-1.4-1.4c-.77 0-1.4.62-1.4 1.4zm2.8 3.98a1.4 1.4 0 1 1-2.8 0a1.4 1.4 0 0 1 2.8 0"/></g></svg> <strong>Ooops! </strong> parece que no haz realizado ningun cambio.'
+            console.log("nO HAY CAMBIOSSS");
+            $(".P-data").html(
+                IconWarning(
+                    " <strong>Ooops! </strong> parece que no haz realizado ningun cambio."
+                )
             );
             automaicScroll("#main-container");
         } else if (personal && !direction) {
@@ -159,12 +154,6 @@ function EventSave(Personal, Direction) {
 
             //edicion = 3;
         }
-
-        console.log(newData);
-        console.log(Personal);
-
-        console.log(newDirection);
-        console.log(Direction);
     });
 }
 
@@ -270,9 +259,12 @@ function validateObjets(opc, personal, direction) {
                 Confirm(personal, direction, opc);
                 console.log("Datos Correctos");
             } else {
-                $(".text-alert").html(
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong>Error! </strong> Error, algunos datos son erróneos.'
+                $(".P-data").html(
+                    IconInfo(
+                        "<strong>Error! </strong> algunos datos son erróneos."
+                    )
                 );
+
                 automaicScroll("#main-container");
             }
             break;
@@ -285,8 +277,10 @@ function validateObjets(opc, personal, direction) {
 
                 console.log("Datos Correctos");
             } else {
-                $(".text-alert").html(
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong>Error! </strong> Error, algunos datos son erróneos.'
+                $(".P-data").html(
+                    IconInfo(
+                        "<strong>Error! </strong> algunos datos son erróneos."
+                    )
                 );
                 automaicScroll("#main-container");
             }
@@ -301,8 +295,10 @@ function validateObjets(opc, personal, direction) {
 
                 console.log("Datos Correctos");
             } else {
-                $(".text-alert").html(
-                    '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong>Error! </strong> Error, algunos datos son erróneos.'
+                $(".P-data").html(
+                    IconInfo(
+                        "<strong>Error! </strong> algunos datos son erróneos."
+                    )
                 );
                 automaicScroll("#main-container");
             }
@@ -380,7 +376,11 @@ function ValidateDirectionData(direction) {
         regexLetters,
         "#new_country"
     );
-    let V_state = validarCampo(direction.state, regexNumeroEntero, "#new_state");
+    let V_state = validarCampo(
+        direction.state,
+        regexNumeroEntero,
+        "#new_state"
+    );
     let V_city = validarCampo(direction.city, regexLetters, "#new_city");
     let V_colony = validarCampo(direction.colony, regexLetters, "#new_colony");
     let V_cp = validarCampo(direction.cp, regexCp, "#new_cp");
@@ -451,7 +451,7 @@ async function RequestUpdate(Personal, Direction, Type) {
     let timerInterval;
     try {
         const response = await axios.post(
-            "/patients/expediente/Update_Personal_Data",
+            "/patients/medical_record/Update_Personal_Data",
             Data
         );
         console.log(response.data);
@@ -459,9 +459,15 @@ async function RequestUpdate(Personal, Direction, Type) {
         const { status, msg } = data;
         let timerInterval;
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(
+            2500,
+            "¡Éxito!",
+            "Datos actualizados correctamente.",
+            "success",
+            1
+        );
     } catch (error) {
-        timerInterval = AlertaSweerAlert(
+        timerInterval = TimeAlert(
             2500,
             "¡Error!",
             "Algo salio mal, intentalo más tarde",
@@ -470,4 +476,29 @@ async function RequestUpdate(Personal, Direction, Type) {
         );
         console.log(error);
     }
+}
+
+/*
+    HABILITAR LA EDICION DE APP
+    Funcion para el switch de editar datos, donde si se activa miostrará todos los inputs para editar los datos
+*/
+function EventEditAPP() {
+    $("#Edit-APP").on("change", function () {
+        const isChecked = $("#Edit-APP").is(":checked");
+        if (isChecked) {
+            var path = window.location.pathname;
+            var segments = path.split("/");
+            var id = segments[segments.length - 1];
+            window.location.href = "/patients/medical_record/APP/" + id;
+        } else {
+            /* Cancelar edicion */
+            $(".APP-data")
+                .addClass("animate__fadeOutUp")
+                .fadeOut(400, function () {
+                    $(this)
+                        .addClass("d-none")
+                        .removeClass("animate__fadeOutUp");
+                });
+        }
+    });
 }

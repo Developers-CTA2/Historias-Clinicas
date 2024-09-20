@@ -1,14 +1,26 @@
 //import {grid} from './helpers/PersonalGridTable'
 import { Grid, html, h } from "gridjs";
-import { activeLoading, disableLoading } from "../loading-screen.js";
-import traducciones from "../helpers/translate-gridjs.js";
+
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
 import "gridjs/dist/theme/mermaid.css";
 
-import { validarCampo, showErrors } from "../helpers/ValidateFuntions.js";
-import { regexLetters, regexNumero } from "../helpers/Regex.js";
+import { activeLoading, disableLoading } from "../loading-screen.js";
+import {
+    className,
+    translations,
+    validarCampo,
+    ShowOrHideAlert,
+    TimeAlert,
+    regexLetters,
+    regexNumero,
+} from "../helpers";
+
+import {
+    IconInfo,
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
 
 $(function () {
     initialData();
@@ -46,14 +58,13 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-sec fst-normal tooltip-container py-1 px-2 edit-disease" data-type="${row.cells[0].data}" data-n_type="${row.cells[3].data}" data-n_esp="${row.cells[2].data}" data-esp="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Details-diseasse">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            <button class="btn-blue-sec fst-normal py-2 px-3 edit-disease" data-type="${row.cells[0].data}" data-n_type="${row.cells[3].data}" data-n_esp="${row.cells[2].data}" data-esp="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Details-diseasse">
+                                <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
                                         </svg>
                                 Editar
-                                <span class="tooltip-text">Editar datos.</span></button>
                              </div>`
                         ),
                 },
@@ -71,6 +82,7 @@ async function initialData() {
                 enabled: true,
                 placeholder: "Buscar...",
                 className: "form-control ",
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -96,10 +108,7 @@ async function initialData() {
                 },
             },
 
-            className: {
-                th: "thead-color text-black",
-                search: "d-flex justify-content-center justify-content-lg-end w-100 py-2",
-            },
+            className: className,
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: {
                 enabled: true,
@@ -107,7 +116,7 @@ async function initialData() {
                 initialColumn: 0,
             },
             resizable: true,
-            language: traducciones,
+            language: translations,
         }).render(document.getElementById("Tabla-Especific-Diseases"));
     } catch (error) {
         console.log(error);
@@ -128,15 +137,25 @@ function AddNewDisease() {
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "" && type != "") {
             if (V_name && V_type) {
-                $("#Alerta_add").fadeOut(250).addClass("d-none");
+                ShowOrHideAlert(1, ".Alerta_specific");
+                // $("#Alerta_add").fadeOut(250).addClass("d-none"); /// Ocultar
                 RequestAdd(name, type);
             }
         } else {
+            // Mostrar
             console.log("fdfdfdfd");
-            $("#Alerta_add").fadeIn(250).removeClass("d-none");
+            $(".Alerta_specific_text").html(
+                IconInfo(
+                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                )
+            );
+            ShowOrHideAlert(2, ".Alerta_specific");
+            // $(".Alerta_specific").fadeIn(250).removeClass("d-none");
         }
     });
 }
+
+
 
 /* Funcion para cuando se le de clic al boton de editar enfermedad */
 $(document).on("click", ".edit-disease", function () {
@@ -160,7 +179,7 @@ $(document).on("click", ".edit-disease", function () {
 });
 
 function ClicSaveChanges(Id_Type, n_type, n_esp, Id_esp) {
-    $("#E_disease").off("click");
+    // $("#E_disease").off("click");
     $("#E_disease").click(function (e) {
         ValitadeData(Id_Type, n_type, n_esp, Id_esp);
     });
@@ -190,9 +209,17 @@ function ValitadeData(Id_Type, n_type, n_esp, Id_esp) {
     /* Verificamos que si haya cambios */
     if ((Id_Type == Name_Type || Name_Type == 0) && n_esp == Name_e) {
         console.log("No hay cambios");
-        $("#Alerta_err").fadeIn(250).removeClass("d-none");
+        $(".Alerta_edit_specific_text").html(
+            IconError(
+                "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+            )
+        );
+        ShowOrHideAlert(2, ".Alerta_edit_specific");
+        // $("#Alerta_err").fadeIn(250).removeClass("d-none");
     } else {
-        $("#Alerta_err").fadeOut(250).addClass("d-none");
+        ShowOrHideAlert(1, ".Alerta_edit_specific");
+
+        //$("#Alerta_err").fadeOut(250).addClass("d-none");
 
         if (V_esp && V_tipo) {
             if (Name_Type == 0) {
@@ -226,7 +253,9 @@ async function Confirm(Id_Type, Id_esp, Name_e) {
         console.error(error);
     }
 }
-
+/*
+    Funcion para hacer la peticion al controlador y editar una enfermedad especifica
+*/
 async function RequestEdit(Id_Tipo, Id_Esp, Name) {
     const Data = {
         Tipo: Id_Tipo,
@@ -246,23 +275,20 @@ async function RequestEdit(Id_Tipo, Id_Esp, Name) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
-        if (type == 1) {
-            let timerInterval;
-
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
-        } else {
-            console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
-        }
+        console.log(errors);
+        showErrorsAlert(errors, ".Error_edit_Specific", ".errorList");
 
         console.log(error);
     }
 }
 
+/*
+    Funcion que hace la petion ala controlador para agregar un nuevo registro de una efermedad especifica
+*/
 async function RequestAdd(name, type) {
     const Data = {
         Type: type,
@@ -277,20 +303,13 @@ async function RequestAdd(name, type) {
         let timerInterval;
         disableLoading();
 
-        timerInterval = AlertaSweerAlert(2500, "¡Éxito!", msg, "success", 1);
-
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         const { type, msg, errors } = error.response.data;
 
-        if (type == 1) {
-            let timerInterval;
-
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 1);
-        } else {
-            console.log(errors);
-            showErrors(errors, ".errorAlert", ".errorList");
-        }
-
         console.log(error);
+
+        console.log(errors);
+        showErrorsAlert(errors, ".Error_Specific", ".errorList");
     }
 }

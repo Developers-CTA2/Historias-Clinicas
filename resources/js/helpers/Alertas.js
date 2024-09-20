@@ -5,7 +5,7 @@ import { messageWarningConsultation, messageErrorConsultation } from '../templat
 
 
 /* Alerta que desaparece después de un intervalo de tiempo */
-export function AlertaSweerAlert(Time, Title, msg, icono, type) {
+export function TimeAlert(Time, Title, msg, icono, type) {
     let timerInterval;
     Swal.fire({
         title: Title,
@@ -36,15 +36,53 @@ export function AlertaSweerAlert(Time, Title, msg, icono, type) {
     return timerInterval;
 }
 
-export const AlertSweetSuccess = (title, msg) => {
+export const AlertSweetSuccess = (title, msg, url = '/patients') => {
     Swal.fire({
         icon: "success",
         title: title,
         text: msg,
-        confirmButtonText : 'Aceptar',
+        confirmButtonText: 'Aceptar',
     }).then(() => {
-        window.location.href = "/patients";
+        window.location.href = url;
     });
+};
+
+
+export const AlertCancelConfirmation = (title, msg, url) => {
+    Swal.fire({
+        icon: "warning",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Si estoy seguro',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#afafaf',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = url;
+        }
+    });
+}
+
+export const AlertConfirmationForm = (title, msg, callback) => {
+    Swal.fire({
+        icon: "warning",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Si estoy seguro',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+    }).then((willConfirm) => {
+        if (willConfirm.isConfirmed) {
+            callback();
+        }
+    })
+
 };
 
 
@@ -54,15 +92,15 @@ export const AlertForWarningConsultation = (data) => {
         Swal.fire({
             icon: "success",
             title: 'Precaución',
-            html : messageWarningConsultation(data),
-            confirmButtonText : 'Si estoy seguro',
-            showCancelButton : true,
-            cancelButtonText : 'Cancelar',
+            html: messageWarningConsultation(data),
+            confirmButtonText: 'Si estoy seguro',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
         }).then((confirme) => {
-            if(confirme.isConfirmed){
+            if (confirme.isConfirmed) {
                 resolve(true);
             }
-            else{
+            else {
                 reject(false);
             }
         })
@@ -74,8 +112,8 @@ export const AlertErrorConsultation = (title, data) => {
     Swal.fire({
         icon: "error",
         title: title,
-        html : messageErrorConsultation(data),
-        confirmButtonText : 'Corregir',
+        html: messageErrorConsultation(data),
+        confirmButtonText: 'Corregir',
     });
 
 }
@@ -90,12 +128,12 @@ export const AlertErrorHistoryConsultation = (title, msg) => {
     });
 }
 
-export const AlertError = (title, msg) => {
+export const AlertError = (title, msg, btnText = 'Aceptar') => {
     Swal.fire({
         icon: "error",
         title: title,
         text: msg,
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: btnText,
         confirmButtonColor: '#047857'
     });
 }
@@ -106,6 +144,16 @@ export const AlertErrorWithHTML = (title, msg) => {
         title: title,
         html: msg,
         confirmButtonText: 'Cerrar',
+        confirmButtonColor: '#047857'
+    });
+}
+
+export const AlertInfo = (title, msg) => {
+    Swal.fire({
+        icon: "info",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Aceptar',
         confirmButtonColor: '#047857'
     });
 }

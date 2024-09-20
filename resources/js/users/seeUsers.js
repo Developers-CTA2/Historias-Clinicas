@@ -1,12 +1,13 @@
 //import {grid} from './helpers/PersonalGridTable'
 import { Grid, html, h } from "gridjs";
-import { activeLoading, disableLoading } from "../loading-screen.js";
-import traducciones from "../helpers/translate-gridjs.js";
+
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
-import { AlertaSweerAlert } from "../helpers/Alertas.js";
-
 import "gridjs/dist/theme/mermaid.css";
+
+import { activeLoading, disableLoading } from "../loading-screen.js";
+
+import { className, translations, TimeAlert } from "../helpers";
 
 $(function () {
     initialData();
@@ -112,17 +113,17 @@ async function initialData() {
                         if (status === "Activo") {
                             statusHtml = html(
                                 `<div class="d-flex justify-content-center gap-2">
-                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
-                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal tooltip-container inhabilitar-button" type="button">Inhabilitar<span class="tooltip-text">Quitar acceso</span>  </button>
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal px-3 py-2" type="button"> Detalles</a>
+                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal  inhabilitar-button px-3 py-2" type="button">Inhabilitar</button>
                          </div>`
                             );
                         } else {
-                         statusHtml = html(
-                             `<div class="d-flex justify-content-center gap-2">
-                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal tooltip-container" type="button"> Detalles <span class="tooltip-text">Ver detalles del usuario</span></a>
-                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled" type="button" disabled>Inhabilitar</button>
+                            statusHtml = html(
+                                `<div class="d-flex justify-content-center gap-2">
+                            <a href="/users/user-details/${row.cells[0].data}" class="btn-blue fst-normal px-3 py-2" type="button"> Detalles</a>
+                            <button data-id="${row.cells[0].data}" class="btn-red fst-normal inhabilitar-button disabled px-3 py-2" type="button" disabled>Inhabilitar</button>
                          </div>`
-                         );
+                            );
                         }
 
                         return h(
@@ -148,7 +149,7 @@ async function initialData() {
             search: {
                 enabled: true,
                 placeholder: "Buscar...",
-                className: "form-control border-danger",
+                debounceTimeout: 1000,
                 server: {
                     url: (prev, keyword) => `${prev}&search=${keyword}`,
                 },
@@ -172,15 +173,11 @@ async function initialData() {
                     return data.count;
                 },
             },
-
-            className: {
-                th: "thead-color text-black",
-                search: "d-flex justify-content-center justify-content-lg-end w-100",
-            },
+            className: className,
             autoWidth: true, /// Se ajusta cada columna de un tamaño automatico
             sort: false,
-            resizable: true,
-            language: traducciones,
+            resizable: false,
+            language: translations,
         }).render(document.getElementById("Tabla-Usuarios"));
     } catch (error) {
         console.log(error);
@@ -234,7 +231,7 @@ async function RequestEdit(Id) {
         let timerInterval;
 
         if (status == 200) {
-            timerInterval = AlertaSweerAlert(
+            timerInterval = TimeAlert(
                 2500,
                 "¡Éxito!",
                 msg,
@@ -242,7 +239,7 @@ async function RequestEdit(Id) {
                 1
             );
         } else {
-            timerInterval = AlertaSweerAlert(2500, "¡Error!", msg, "error", 0);
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         }
     } catch (error) {
         disableLoading();

@@ -1,61 +1,62 @@
 import Quill from 'quill';
 import Tagify from '@yaireo/tagify'
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import "quill/dist/quill.snow.css";
 import '@yaireo/tagify/dist/tagify.css'
+import "sweetalert2/src/sweetalert2.scss";
 
-import { 
-    vitalSigns, options, 
-    getAllSpecificDiseases, 
-    AlertErrorConsultation, 
-    validateQuill,DomPurify, 
-    requestPostConsultation } from '../helpers';
+import {
+    vitalSigns, options,
+    getAllSpecificDiseases,
+    AlertErrorConsultation,
+    validateQuill, DomPurify,
+    requestPostConsultation,
+    AlertConfirmationForm,
+    AlertCancelConfirmation,
+    AlertSweetSuccess,
+    AlertError
+} from '../helpers';
 import { templateArrayDiseases } from '../templates'
+import { btnUpScreenFunction } from '../components';
+
 
 let diagnosticLabels = [];
 let dataDiseases = [];
 
-
+// Configurar Tagify que permite agregar etiquetas de enfermedades
 const configTagify = () => {
 
-
     getAllSpecificDiseases().then(data => {
-        
+
         const input = document.querySelector('#enfermedades'),
-            
-        // init Tagify script on the above inputs
+
+            // init Tagify script on the above inputs
             tagify = new Tagify(input, {
                 enforceWhitelist: true,
                 delimiters: null,
                 whitelist: templateArrayDiseases(data),
                 callbacks: {
-                    add: function(e){
-                        diagnosticLabels.push({id : e.detail.data.id});                        
+                    add: function (e) {
+                        diagnosticLabels.push({ id: e.detail.data.id });
                     },
-                    remove: function(e){
+                    remove: function (e) {
                         diagnosticLabels = diagnosticLabels.filter(disease => disease.id !== e.detail.data.id);
-                    }
+                    },
                 },
 
             });
     });
 
-    
-
-    
-
 };
-
-
-
 
 $(function () {
 
     configTagify();
 
-    
 
     // Buttons
     const btnSaveConsultation = $('#saveConsultation');
+    const btnCancelConsultation = $('#cancelConsultation');
 
     // Inputs
     const inputFrecuenciaCardiaca = $('#fcIpm');
@@ -79,43 +80,85 @@ $(function () {
     const treatmentQuill = new Quill('#treatmentEditor', options('Escribe el tratamiento'));
     const observationsQuill = new Quill('#observationsEditor', options('Escribe las observaciones'));
 
+    // Active button for up screen
+    btnUpScreenFunction();
+
+    // Button for cancel consultation
+    btnCancelConsultation.on('click', function(){
+        AlertCancelConfirmation('¿Estás seguro de cancelar la consulta?', 'La información no se guardará', '/patients')
+    });
+
+    // Button for save consultation
     btnSaveConsultation.on('click', function () {
-        
-    })
+        managementDataForRequest($(this).data('id'));
+    });
 
 
-    btnSaveConsultation.on('click', function () {
+    const managementDataForRequest = (idPatient) => {
+        // Get all data from form
+        const { dataVitalSigns, inputsDom, dataQuill, listDiseases } = getAllDataForm();
 
-        const dataVitalSigns = getDataVitalSigns();
-        const inputsDom = getInputsDom();
-        const dataQuill = getDataQuill();
-        const listDiseases = getDiagnosticLabels();
+        // Validate form data
+        if (!validateData(dataVitalSigns, inputsDom, dataQuill)) return;
 
+        // Request for store consultation
+        AlertConfirmationForm(
+            '¿Estás seguro de guardar la consulta?', 
+            'La información se guardará en el historial del paciente', 
+            ()=> managementRequestForStoreConsultation(dataVitalSigns, dataQuill, listDiseases, idPatient)
+        );
+
+    }
+
+
+    // Get all data from form
+    const getAllDataForm = () => {
+        return {
+            dataVitalSigns: getDataVitalSigns(),
+            inputsDom: getInputsDom(),
+            dataQuill: getDataQuill(),
+            listDiseases: getDiagnosticLabels()
+        }
+    }
+
+    // Validate form data
+    const validateData = (dataVitalSigns, inputsDom, dataQuill) => {
+
+        const validateForm = true;
+
+        // Validate vital signs
         if (!vitalSigns(dataVitalSigns, inputsDom)) {
-            return;
+            AlertError('Error..!', 'Existen campos sin llenar, por favor revisa la información antes de guardar la consulta');
+            validateForm = false;
         }
 
-        const {listWarnings, validate } = validateQuill(dataQuill);
-        if(!validate){
+        // Validate textAreas of quill
+        const { listWarnings, validate } = validateQuill(dataQuill);
+        if (!validate) {
             AlertErrorConsultation('Error..!', listWarnings);
-            return;
+            validateForm = false;
         }
 
 
+        return validateForm;
+    }
 
-        const id_person = $(this).data('id');
-        requestPostConsultation({...dataVitalSigns,...dataQuill, diagnosticLabels : listDiseases}, id_person)
-                .then(data=>{
-                    console.log(data);
-                }).catch(error=>{
-                    console.log(error);
-                })
+    // Request for store consultation
+    const managementRequestForStoreConsultation = (dataVitalSigns, dataQuill, diagnosticLabels, idPatient) => {
+        requestPostConsultation({ ...dataVitalSigns, ...dataQuill, diagnosticLabels }, idPatient)
+            .then(data => {
+                const { title, message, idConsultation } = data;
+                console.log(data);
+                AlertSweetSuccess(title, message, `/patients/consultation/${idPatient}/history/${idConsultation}/details`);
+            }).catch(error => {
+                console.log(error);
+                const { title, message } = error;
+                AlertError(title, message);
+            });
+    }
 
 
-    })
 
-
-    
 
 
     const getDataVitalSigns = () => {

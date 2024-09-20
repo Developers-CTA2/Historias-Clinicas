@@ -2,38 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\RegistroMail;
-use App\Mail\ResetearMail;
-
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Models\Administrativo;
-
-use Illuminate\Support\Facades\DB;
+use App\Models\Consulta;
+ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Contracts\Mail\Mailable;
+ 
 use Illuminate\Support\Facades\Validator;
 use  Carbon\Carbon;
 
-
 class UserController extends Controller
 {
-    // Breadcrumb para la vista de agregar usuario 
-    public function breadCrumbAdd()
-    {
-        $breadcrumbs = [
-            ['name' => 'Usuarios', 'url' => route("users.users")],
-            ['name' => 'Agregar usuario', '' => ''],
 
-        ];
 
-        return view('user.Add-User', compact('breadcrumbs'));
-    }
-
-    // Breadcrumb para la vista de ver usuarios 
+    /*
+        Funcion que retorna la vista de usuarios y el breadcrumb 
+   */
     public function breadCrumb()
     {
         $breadcrumbs = [
@@ -44,7 +30,8 @@ class UserController extends Controller
         return view('user.View-Users', compact('breadcrumbs'));
     }
 
-    // Funcion para ver los detalles del usuario selecciondo 
+
+    /* Funcion para ver los detalles del usuario selecciondo */
     public function userDetails($id)
     {
         $usuario = User::find($id);
@@ -62,59 +49,64 @@ class UserController extends Controller
 
         ];
         $roleName = $usuario->roles->first()->name; // Consulta el tipo de rol del usuario
-        $count = 0;
+        $count = Consulta::where('created_by', $id)->count();
         $created_at = Carbon::parse($usuario->created_at)->locale('es')->isoFormat('LL');
 
         return view('user.User-Details', compact('usuario', 'roleName', 'breadcrumbs', 'count', 'created_at'));
     }
 
-    public function store(Request $request)
+    /*
+    Funcion que retorna la vista de agregar un usuario y el breadcrumb
+ */
+    public function breadCrumbAdd()
+    {
+        $breadcrumbs = [
+            ['name' => 'Usuarios', 'url' => route("users.users")],
+            ['name' => 'Agregar usuario', '' => ''],
+
+        ];
+
+        return view('user.Add-User', compact('breadcrumbs'));
+    }
+
+    /*
+    Funcion para agregar un nuevo registro a la tabla de usuarios 
+*/
+    public function store(StoreUserRequest $request)
     {
 
-        $data = $request->validate([
-            'name' => 'required|string',
-            'code' => 'required|numeric|digits_between:7,9',
-            'email' => 'required|email',
-            'cedula' => 'nullable|numeric',
-            'userType' => 'required|numeric|in:1,2,3',
-        ]);
+        $validated = $request->validated();
 
-        $code = $data['code'];
-        $name = $data['name'];
-        $email = $data['email'];
-        $cedula = $data['cedula'];
-        $type = $data['userType'];
-
-        //$user = User::where('id', $Id)->first();
-
-        $users = User::where('user_name', $code)->first();
+        $users = User::where('user_name', $request->only('code'))->first();
         if ($users) {
-            return response()->json(['status' => 202, 'msg' => '¡Error! El usuario ya existe en el sistema.']);
+            return response()->json(['title' => 'Oops..!', 'msg' => 'El usuario ya existe en el sistema.'], 409);
         } else {
 
-            DB::transaction(
-                function () use ($code, $name, $email, $cedula, $users, $type) {
-                    // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
-                    $user = new User;
-                    $user->user_name = $code;
-                    $user->name = $name;
-                    $user->email = $email;
-                    $user->cedula = $cedula;
-                    $user->estado = "Activo";
-                    $user->password = bcrypt('Cu@ltos2024');
-                    $user->save(); // Guarda el usuario en la base de datos
+            // Store the file securely 
+            $filename = $request->file('file')->store('cartas-compromiso');
 
-                    $role = Role::find($type); //Buscar si el rol existe
-                    if ($role) {
-                        $user->syncRoles($role);  // Asignarle su rol 
-                    }
+            DB::transaction(
+                function () use ($request, $filename) {
+                    // Obtiene el rol
+                    $role = Role::findOrFail($request->userType); //Buscar si el rol existe
+
+                    // Si el usuario no existe, crea un nuevo usuario con contraseña por defecto
+                    User::create([
+                        'user_name' => $request->code,
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'cedula' => $request->cedula,
+                        'file' => $filename,
+                        'estado' => 'Activo',
+                        'password' => bcrypt($_ENV['DEFAULT_PASS']),
+                    ])->syncRoles($role);
                     // Envío de correo electrónico
-                   // Mail::to($mail)->send(new RegistroMail($username));
+                    // Mail::to($mail)->send(new RegistroMail($username));
                 }
             );
-                    return response()->json(['status' => 200, 'msg' => '¡Éxito! el usuario fue agregado al sistema.']);
+            return response()->json(['status' => 200, 'title' => '¡Éxito!', 'msg' => 'El usuario fue agregado al sistema.']);
         }
-        return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
+        return response()->json(['resultado' => 400, 'title' => 'Oops..!', 'msg' => '¡Error! Hubo un error al registrar un nuevo usuario al sistema.']);
     }
 
 
@@ -127,10 +119,10 @@ class UserController extends Controller
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
 
-        $query = User::query();
+        $query = User::query()->where('user_name', '!=', '010101')->orderby('estado');
 
         if (!empty($search)) {
-           
+
             $query->where(function ($q) use ($search) {
                 $q->where('users.name', 'like', "%$search%")
                     ->orWhere('users.user_name', 'like', "%$search%")
@@ -138,6 +130,7 @@ class UserController extends Controller
             });
         }
 
+        $total = $query->count()-1;
         $users = $query
             ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
@@ -147,9 +140,11 @@ class UserController extends Controller
 
         return response()->json([
             'results' => $users,
-            'count' => $users->count(),
+            'count' => $total,
         ]);
     }
+
+
     /*
      Funcion para actualizar los datos de un usuario
     */
@@ -182,8 +177,6 @@ class UserController extends Controller
         // Error en algun dato
         if ($validator->fails()) {
             return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
-
-           // return response()->json(['status' => 202, 'errors' => $validator->errors()]);
         }
 
         $Id = $request['Id'];
@@ -213,12 +206,13 @@ class UserController extends Controller
             return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
         } else {
             return response()->json(['type' => 1, 'msg' => 'El usuario ya existe en la base de datos.'], 400);
-
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
- 
     }
 
+    /*
+        Funcion para eliminar el acceso al sistema a un usuario en especifico
+    */
     public function Desactive(Request $request)
     {
         $data = $request->validate([
@@ -241,189 +235,6 @@ class UserController extends Controller
             return response()->json(['status' => 200, 'msg' => 'Se elimino el acceso al sistema.']);
         } else {
             return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /* Funcion para buscar el nombre del usuario segun el codigo que se escribio */
-    public function CheckUsers(Request $request)
-    {
-        $data = $request->validate([
-            'code' => 'required',
-        ]);
-
-        $username = $data['code'];
-
-        if (!preg_match('/^[0-9]{7,10}$/', $username)) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-        }
-
-        $administrativo = Administrativo::on('sistema_personal')->where('codigo', $username)->first();
-        if (!$administrativo) {
-            // Si el código no está enlazado a ningún trabajador
-            return response()->json(['status' => 202, 'msg' => '¡Error!, el código agregado no está enlazado a ningún trabajador.']);
-        } else {
-            $user = User::where('user_name', $username)->first();
-
-            if ($user) {
-                // Si ya existe un usuario con el código ingresado
-                return response()->json(['status' => 202, 'msg' => '¡Error!, Ya existe un usuario con el código ingresado.']);
-            } else {
-                $nombre = $administrativo->nombre;
-                // Si el código existe y no hay usuario asociado
-                return response()->json(['status' => 200, 'msg' => $nombre, 'code' => $username]);
-            }
-        }
-    }
-
-    /*
-        Funcion para verificar que la contraseña que se ingreso coincide con la que se ingreso
-    */
-    public function verifyPass(Request $request)
-    {
-        $data = $request->validate([
-            'pass' => 'required',
-        ]);
-
-        $contrasenaIngresada = $data['pass'];
-
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,})$/', $contrasenaIngresada)) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-        }
-
-        // Verificamos si la contraseña coincidde 
-        if (Hash::check($contrasenaIngresada, auth()->user()->password)) {
-            return response()->json(['status' => 200, 'msg' => 'correcto']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'La contraseña  no coincide con la contraseña actual.']);
-        }
-    }
-
-    /*
-        Funcion para cambiar la contraseña de la sesion
-    */
-    public function ChangePassword(Request $request)
-    {
-        $data = $request->validate([
-            'Password' => 'required',
-
-        ]);
-
-        $pass = $data['Password'];
-
-        // Validamos que tengan la estructura
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,})$/', $pass)) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-        } else {
-            DB::transaction(
-                function () use ($pass) {
-                    $usuario = User::find(auth()->user()->id);
-                    $usuario->password = Hash::make($pass);
-                    $usuario->save();
-                }
-            );
-            return response()->json(['status' => 200, 'msg' => '¡Éxito! Se cambio la contraseña con exito, espera a que la página se recarge. ']);
-        }
-        return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
-    }
-
-
-
-
-
-
-    /*
-        Funcion para resetear la contraseña de un usuario.
-    */
-    public function resetPassword(Request $request)
-    {
-        $data = $request->validate([
-            'Name' => 'required',
-        ]);
-
-        $username = $data['Name'];
-
-        $administrativo = Administrativo::where('codigo', $data['Name'])->first();
-        $mail = $administrativo->correo;
-
-        if (!preg_match('/^[0-9]{7,10}$/', $username)) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-        }
-        // Busca al usuario por el nombre de usuario
-        $user = User::where('user_name', $username)->first();
-        if ($user) {
-            DB::transaction(
-                function () use ($user) {
-                    // Genera una nueva contraseña
-                    $newPassword = bcrypt('Cu@ltos2024');
-                    $user->password = $newPassword;
-                    $user->save();
-                }
-            );
-            Mail::to($mail)->send(new ResetearMail($username));
-            return response()->json(['status' => 200, 'msg' => '¡Éxito! Se reseteo la contraseña con éxito.']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => '¡Error! No hay ningun usuario con el código' . $username . "."]);
-        }
-        return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
-    }
-
-    public function delete(Request $request)
-    {
-
-        if (Auth::check()) {
-            // Obtén el nombre de usuario de la solicitud AJAX
-            $username = $request->input('Codigo');
-
-            if (!preg_match('/^[0-9]{7,10}$/', $username)) {
-                return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
-            }
-
-            // Busca al usuario por el nombre de usuario
-            $user = User::where('user_name', $username)->first();
-
-            if ($user) {
-                DB::transaction(function () use ($user) {
-                    $user->delete();
-                });
-
-                return response()->json(['status' => 200, 'msg' => '¡Éxito! El usuario fue borrado del sistema.'], 200, [], JSON_NUMERIC_CHECK);
-            } else {
-                return response()->json(['status' => 404, 'msg' => '¡Error! No hay ningún usuario con el código. ' . $username . '.']);
-            }
-
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al realizar la petición.']);
         }
     }
 }

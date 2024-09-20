@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Nutricional extends Model
 {
@@ -12,7 +13,6 @@ class Nutricional extends Model
     protected $table = 'nutricional';
     protected $primaryKey = 'id_nutricional';
     public $incrementing = true;
-    public $timestamps = false;
 
     protected $fillable = [
         'id_persona',
@@ -36,4 +36,10 @@ class Nutricional extends Model
     {
         return $this->belongsTo(Medidas::class, 'id_medida', 'id_medida');
     }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    
 }
