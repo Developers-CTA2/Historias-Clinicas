@@ -18,7 +18,6 @@ use App\Http\Controllers\HistoryConsultationController;
 use App\Http\Controllers\ExpedientController;
 use App\Http\Controllers\MedicalPrescriptionController;
 use App\Http\Controllers\NutritionHistoryController;
-use App\Http\Controllers\newConsultationNutritionController;
 use App\Http\Controllers\AHFController;
 use App\Http\Controllers\APNPController;
 use App\Http\Controllers\APPController;
@@ -50,14 +49,14 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::prefix('home')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/get-data-statistics', [HomeController::class, 'getDataStatistics'])->name('get-data-statistics');
+        Route::get('/data-statistics-diseases/{month}/{year}', [HomeController::class, 'getDataStatisticsDiseases'])->name('data-statistics-diseases');
+        Route::get('/data-statistics-sex/{month}/{year}', [HomeController::class, 'getDataStatisticsSex'])->name('data-statistics-sex');
+        Route::get('/data-statistics-type-person/{month}/{year}', [HomeController::class, 'getDataStatisticsTypePerson'])->name('data-statistics-typeperson');
 
-    Route::get('/get-data-statistics', [HomeController::class, 'getDataStatistics'])->name('get-data-statistics');  
-
-    // ///////      USUARIOS 
-    // Route::get('/users', function () {
-    //     return view('admin.View-Users');
-    // })->name('users');
+    });
 
 
     /*        USERS        */

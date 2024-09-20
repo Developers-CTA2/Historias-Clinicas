@@ -1,6 +1,7 @@
 import Chart from 'chart.js/auto';
 import { Colors, layouts, Legend, plugins } from 'chart.js';
 import { AlertError, getDataStatistics } from '../helpers';
+import { filtersHome } from '../components';
 
 
 const options = {
@@ -22,13 +23,14 @@ let chartBarTypePerson = null;
 
 $(function () {
 
-    const bntUpdate = document.getElementById('btnUpdate');
     const canvasLineCharDiseases = document.getElementById('lineCharDiseases');
     const canvasBarCharSex = document.getElementById('barCharSex');
     const canvasBarCharTypePerson = document.getElementById('barCharTypePerson');
 
     // Containers skeleton
     const skeletonContainers = document.querySelectorAll('.skeleton-charts');
+
+    
 
 
     const manageData = (data) => {
@@ -43,6 +45,9 @@ $(function () {
         createChartLine(consultationDisease);
         createChartBar(countMenAndWomen);
         createChartBarTypePerson(countStudentAndAdministrative);
+
+        // Filters
+        filtersHome({chartBarSex, chartBarTypePerson, chartLine});
     }
 
     const manageError = (error) => {
@@ -158,6 +163,8 @@ $(function () {
             }
         })
     }
+
+
 
 
 

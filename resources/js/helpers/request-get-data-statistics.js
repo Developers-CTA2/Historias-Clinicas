@@ -7,7 +7,7 @@ export const getDataStatistics = async()=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const resp = await axios.get(`/get-data-statistics`);
+            const resp = await axios.get(`/home/get-data-statistics`);
             console.log(resp);
             const {status} = resp;
             if(status == 200) {

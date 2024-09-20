@@ -47,7 +47,7 @@
 
             <div class="col-lg-6 col-12">
 
-                <x-filter-home idYear="yearDiseaseChart" idMonth="monthDiseaseChart" :months="$months" :years="$years" class="mt-2" />
+                <x-filter-home idYear="yearSexChart" idMonth="monthSexChart" :months="$months" :years="$years" class="mt-2" />
 
                 <x-card-custom>
                     <x-slot name="title">Consultas clasificadas por sexo</x-slot>
