@@ -90,10 +90,10 @@
                                              *</span></label>
                                      @if ($roleName == 'Administrador')
                                          <input class="form-control form-disabled" type="text" name="m-cedula"
-                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="10" >
+                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="8" >
                                      @else
                                       <input class="form-control form-disabled" type="text" name="m-cedula"
-                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="10"  disabled="disabled">
+                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="8"  disabled="disabled">
                                      @endif
                                      <span class="text-danger fw-normal" style=" display: none;">Cédula no
                                          válido.</span>

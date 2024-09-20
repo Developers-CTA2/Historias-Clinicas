@@ -9,7 +9,7 @@
                 </svg>
             </span>
         </div>
-        <div class="text-center">
+        <div class="text-center ">
             {!! $slot !!}
         </div>
     </div>

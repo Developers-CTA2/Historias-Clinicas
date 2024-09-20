@@ -64,7 +64,7 @@ function ListenEventAllergies() {
     };
 
     $($(".add-Allergy")).on("click", function () {
-        $(".Old_allergy").text("Selecciona una enfermedad");
+        $(".Old_allergy").text("Selecciona una alergia");
         $("#Allergies_APP").collapse("show");
         ClicButtonSave(4, "", Ids, "", ""); // 4 = Allergy-store
     });

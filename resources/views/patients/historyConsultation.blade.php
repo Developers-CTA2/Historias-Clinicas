@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-12 col-lg-6 col-xxl-4">
-                <h4 class="fw-bold">Hisotial de consultas</h4>
+                <h4 class="fw-bold">Historial de consultas</h4>
             </div>
             <div class="col-12 col-lg-6 col-xxl-8 d-flex justify-content-start justify-content-lg-end mt-3 mt-lg-0">
                 <x-button-link-custom :route="route('admin.medical_record',['id'=>$idPersona])" class="btn-blue-sec" text="Expediente" tooltipText="Navegar al expediente médico" >

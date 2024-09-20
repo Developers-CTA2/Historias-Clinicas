@@ -121,7 +121,7 @@
                                                     <x-button-custom data-bs-toggle="collapse"
                                                         data-bs-target="#Diseases_APP" aria-expanded="false"
                                                         aria-controls="Diseases_APP" type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Disease"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Disease"
                                                         text="Agregar" tooltipText="Agregar una enfermedad">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -241,7 +241,7 @@
                                                     <x-button-custom type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#Allergies_APP" aria-expanded="false"
                                                         aria-controls="Allergies_APP"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Allergy"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Allergy"
                                                         text="Agregar" tooltipText="Agregar una alergia">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -356,7 +356,7 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Hospital"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Hospital"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
                                                         tooltipText="Agregar una hospitalización">
                                                         <x-slot name="icon">
@@ -457,9 +457,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Trans"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Trans"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una transfusión.">
+                                                        tooltipText="Agregar una transfusión">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">
@@ -547,9 +547,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Surgery"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Surgery"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una cirugías">
+                                                        tooltipText="Agregar una cirugía">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">
@@ -635,9 +635,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Trauma"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Trauma"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una traumatismo.">
+                                                        tooltipText="Agregar una traumatismo">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">

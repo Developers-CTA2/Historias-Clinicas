@@ -6,6 +6,7 @@ import {
     regexCorreo,
     regexNumero,
     TimeAlert,
+    regexCedula,
     ShowOrHideAlert,
 } from "../helpers";
 import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
@@ -14,10 +15,7 @@ import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
     Script para la gestion de los usuarios, donde de puede hacer un update de los datos
 */
 $(document).ready(function () {
-    // const selectType = $("#user-type");
     console.log("Users");
-
-    //EditUser
     listenSelect();
     ClicEditUser();
     closeModal();
@@ -42,19 +40,18 @@ function listenSelect() {
 }
 
 
-/* Funcio para el evento de clic el boton de editar */
+/* Funcion para el evento de clic el boton de editar */
 function ClicEditUser() {
     $("#EditUser").off("click");
     $("#EditUser").click(function (e) {
         ValidateData();
-        //Confirm();
     });
 }
 
 function closeModal() {
     $(".cerrar-btn").off("click");
     $(".cerrar-btn").click(function (e) {
-        // Ocultar mabas alertas
+        // Ocultar ambas alertas
         ShowOrHideAlert(1, ".Alerta_user");
     });
 }
@@ -98,14 +95,14 @@ function ValidateData() {
     let V_cedula = true;
     if (type == 1) {  // es admin 
        if (type == 1) {
-           if (cedula !== "") { // validar celula si tiene dato
-               V_cedula = validarCampo(cedula, regexNumero, "#m-cedula");
-           } else {  // forzar el faldse
-               V_cedula = validarCampo("", regexNumero, "#m-cedula");
+           if (cedula !== "") { // validar cedula 
+               V_cedula = validarCampo(cedula, regexCedula, "#m-cedula");
+           } else {  // forzar el false
+               V_cedula = validarCampo("", regexCedula, "#m-cedula");
            }
        }
-     } else {
-        
+    } else {
+        // No tiene cedula 
         V_cedula = true;
         ocultarerr("#m-cedula");
     }

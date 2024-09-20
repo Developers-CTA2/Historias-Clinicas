@@ -244,12 +244,12 @@ function ClicValidateData(Type, OldData) {
     let description = $("#text_Description").val().trim();
     let Date = $("#New-Data").val();
     var id_person;
-    if (description == "" || Date == "") {
+    if (description == "" && Date == "") {
         // Error en los datos
         console.log($("#New-Data").val());
 
         $(".Modal-Alert-Text").html(
-            IconInfo("Parece que hay errores en los datos.")
+            IconWarning("<strong> ¡Error! </strong> no se ha agregado ningún dato.")
         );
         ShowORHideAlert(2);
 
@@ -260,8 +260,9 @@ function ClicValidateData(Type, OldData) {
             "#text_Description"
         );
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
+   
     } else {
-        // Oculatar alerta
+        // Ocultar alerta
         ShowORHideAlert(1);
 
         let V_desc = validarCampo(
@@ -269,6 +270,7 @@ function ClicValidateData(Type, OldData) {
             regexDescription,
             "#text_Description"
         );
+        
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
 
         if (Type >= 5) {

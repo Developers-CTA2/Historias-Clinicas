@@ -5,7 +5,9 @@
     </x-form-step-item>
     
     <x-form-step-item :active="false">
-        <p class="m-0 d-none d-sm-block">Antecedentes <br />hedofamiliares</p>
+        <p class="m-0 d-none d-sm-block tooltip-container">Antecedentes <br />heredo-familiares
+         <span class="tooltip-text">Hola</span>
+         </p>
     </x-form-step-item>
 
     <x-form-step-item :active="false">

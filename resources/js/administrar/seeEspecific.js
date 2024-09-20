@@ -58,7 +58,7 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-sec fst-normal py-2 px-3 edit-disease" data-type="${row.cells[0].data}" data-n_type="${row.cells[3].data}" data-n_esp="${row.cells[2].data}" data-esp="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Details-diseasse">
+                            <button class="btn-blue-sec fst-normal py-2 px-3 edit-disease" data-type="${row.cells[0].data}" data-n_type="${row.cells[3].data}" data-n_esp="${row.cells[2].data}" data-esp="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Details-diseasse">
                                 <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <path

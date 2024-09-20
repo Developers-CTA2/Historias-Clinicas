@@ -151,7 +151,7 @@
 
                                         <div class="AHF-data d-none ">
                                             <x-button-custom type="button"
-                                                class="btn-blue-sec justify-content-center justify-content-lg-start add-Disease"
+                                                class="btn-sec  justify-content-center justify-content-lg-start add-Disease"
                                                 data-bs-toggle="collapse" data-bs-target="#Diseases"
                                                 aria-expanded="false" aria-controls="Diseases" text="Agregar"
                                                 tooltipText="Agregar una enfermedad">
