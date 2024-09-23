@@ -81,14 +81,14 @@
                                                         <x-button-custom type="button"
                                                             class="btn-red justify-content-center justify-content-lg-start Del-AHF"
                                                             padding="px-1 py-1" :onlyIcon="true"
-                                                            data-ahf="{{ $enfermedad->id }}"                             
-                                                              tooltipText="Eliminar enfermedad" >
+                                                            data-ahf="{{ $enfermedad->id }}"
+                                                            tooltipText="Eliminar enfermedad">
                                                             <x-slot name="icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 24 24">
-                                                                <path
-                                                                    d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
-                                                            </svg>
+                                                                    height="20" viewBox="0 0 24 24">
+                                                                    <path
+                                                                        d="M7 21q-.825 0-1.412-.587T5 19V6q-.425 0-.712-.288T4 5t.288-.712T5 4h4q0-.425.288-.712T10 3h4q.425 0 .713.288T15 4h4q.425 0 .713.288T20 5t-.288.713T19 6v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zm-7 11q.425 0 .713-.288T11 16V9q0-.425-.288-.712T10 8t-.712.288T9 9v7q0 .425.288.713T10 17m4 0q.425 0 .713-.288T15 16V9q0-.425-.288-.712T14 8t-.712.288T13 9v7q0 .425.288.713T14 17M7 6v13z" />
+                                                                </svg>
                                                             </x-slot>
                                                         </x-button-custom>
 
@@ -127,7 +127,7 @@
                                                             data-name="{{ $enfermedad->especificar_ahf->nombre }}"
                                                             data-bs-toggle="collapse" data-bs-target="#Diseases"
                                                             aria-expanded="false" aria-controls="Diseases"
-                                                              tooltipText="Editar registro" >
+                                                            tooltipText="Editar registro">
                                                             <x-slot name="icon">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                     height="20" viewBox="0 0 32 32">
@@ -145,45 +145,44 @@
 
 
                             </div>
-                            <div class="col-12 mt-3">
-                                <div class="row">
-                                    <div class="d-flex justify-content-center gap-3">
+                            @role('Administrador')
+                                <div class="col-12 mt-3">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-center gap-3">
 
-                                        <div class="AHF-data d-none ">
-                                            <x-button-custom type="button"
-                                                class="btn-sec  justify-content-center justify-content-lg-start add-Disease"
-                                                data-bs-toggle="collapse" data-bs-target="#Diseases"
-                                                aria-expanded="false" aria-controls="Diseases" text="Agregar"
-                                                tooltipText="Agregar una enfermedad">
-                                                <x-slot name="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
-                                                    </svg>
-                                                </x-slot>
-                                            </x-button-custom>
+                                            <div class="AHF-data d-none ">
+                                                <x-button-custom type="button"
+                                                    class="btn-sec  justify-content-center justify-content-lg-start add-Disease"
+                                                    data-bs-toggle="collapse" data-bs-target="#Diseases"
+                                                    aria-expanded="false" aria-controls="Diseases" text="Agregar"
+                                                    tooltipText="Agregar una enfermedad">
+                                                    <x-slot name="icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" viewBox="0 0 24 24">
+                                                            <path
+                                                                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z" />
+                                                        </svg>
+                                                    </x-slot>
+                                                </x-button-custom>
+                                            </div>
+                                            <div class="d-none animate__animated animate__fadeInUp btn-refresh">
+                                                <x-button-custom type="button"
+                                                    class="btn-sec justify-content-center justify-content-lg-start"
+                                                    text="Recargar" tooltipText="Recargar página."
+                                                    onclick="location.reload();">
+                                                    <x-slot name="icon">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" viewBox="0 0 20 20">
+                                                            <path
+                                                                d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
+                                                        </svg>
+                                                    </x-slot>
+                                                </x-button-custom>
+                                            </div>
                                         </div>
-                                        <div class="d-none animate__animated animate__fadeInUp btn-refresh">
-                                            <x-button-custom type="button"
-                                                class="btn-sec justify-content-center justify-content-lg-start"
-                                                text="Recargar" tooltipText="Recargar página."
-                                                onclick="location.reload();">
-                                                <x-slot name="icon">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                        height="20" viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                    </svg>
-                                                </x-slot>
-                                            </x-button-custom>
-                                        </div>
-
                                     </div>
                                 </div>
-
-                            </div>
-
+                            @endrole
                         </div>
                     </div>
                 </div>

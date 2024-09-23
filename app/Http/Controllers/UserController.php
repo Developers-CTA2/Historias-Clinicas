@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Models\Administrativo;
 use App\Models\Consulta;
- use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
- 
+
 use Illuminate\Support\Facades\Validator;
 use  Carbon\Carbon;
 
@@ -130,7 +131,7 @@ class UserController extends Controller
             });
         }
 
-        $total = $query->count()-1;
+        $total = $query->count() - 1;  // Restamos el usuario de CTA
         $users = $query
             ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
             ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
@@ -148,66 +149,32 @@ class UserController extends Controller
     /*
      Funcion para actualizar los datos de un usuario
     */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
-        // Errores en español 
-        $messages = [
-            'Id.required' => 'El campo ID es obligatorio.',
-            'Id.numeric' => 'El campo ID debe ser un número.',
-            'Id.exists' => 'El usuario no existe en la base de datos.',
-            'Email.required' => 'El campo Email es obligatorio.',
-            'Email.email' => 'El campo Email debe ser una dirección de correo válida.',
-            'Type.required' => 'El campo Tipo es obligatorio.',
-            'Type.numeric' => 'El campo Tipo debe ser un número.',
-            'Type.in' => 'El campo Tipo de usuario no es válido.',
-            'Status.required' => 'El campo Estado es obligatorio.',
-            'Status.numeric' => 'El campo Estado debe ser un número.',
-            'Status.in' => 'El campo Estado no es válido.',
-            'Cedula.numeric' => 'El campo Cedula debe ser un número válido.',
-        ];
-        // Validar datos
-        $validator = Validator::make($request->all(), [
-            'Id' => 'required|numeric|exists:users,id',
-            'Email' => 'required|email',
-            'Type' => 'required|numeric|in:1,2,3',
-            'Status' => 'required|numeric|in:1,2',
-            'Cedula' => 'nullable|numeric',
-        ], $messages);
+        $validate = $request->validated();
 
-        // Error en algun dato
-        if ($validator->fails()) {
-            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
-        }
-
-        $Id = $request['Id'];
-        $Email = $request['Email'];
-        $Tipo = intval($request['Type']);
-        $Status = $request['Status'];
-        $Cedula = $request['Cedula'];
-
-        if ($Status == 1) {
+        $Status =  ""; // FORMATO DEL DATO
+        if ($validate['estado'] == 1) {
             $Status = "Activo";
         } else {
             $Status = "Inactivo";
-        }
-        $user = User::where('id', $Id)->first();
+        }   
 
-        if ($user) {
-            DB::transaction(function () use ($Email, $Tipo, $Status, $Cedula, $user) {
+        $user = User::where('id', $validate['id'])->first();
+        try {
+            DB::transaction(function () use ($validate, $user, $Status) {
                 $user->update([
-                    'email' => $Email,
+                    'email' => $validate['email'],
                     'estado' => $Status,
-                    'cedula' => $Cedula,
+                    'cedula' => $validate['cedula'],
                     'updated_at' => now(),
                 ]);
-                $user->syncRoles([$Tipo]);
+                $user->syncRoles(intval($validate['userType']));
             });
-
-            return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
-        } else {
-            return response()->json(['type' => 1, 'msg' => 'El usuario ya existe en la base de datos.'], 400);
+            return response()->json(['status' => 200, 'msg' => 'Datos del usuario actualzados correctamente.']);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 500, 'msg' => 'Error, algo salio mal, intentalo más tarde.', 'error' => $e->getMessage()]);
         }
-        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
 
     /*
@@ -234,7 +201,7 @@ class UserController extends Controller
 
             return response()->json(['status' => 200, 'msg' => 'Se elimino el acceso al sistema.']);
         } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal intentalo más tarde.']);
         }
     }
 }
