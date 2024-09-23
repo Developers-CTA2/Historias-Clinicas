@@ -3,4 +3,4 @@ export * from './selectDrugAddiction';
 export * from './pathologicalHistory';
 export * from './buttonUpScreen';
 export * from './calculateNumGestas';
-export * from './filtersHome';
+export { filtersHome } from './filtersHome';

@@ -9,16 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
-    <!-- Cargar archivos que se usarán en todas las vistas -->
-    
-    <script src="{{ asset('js/helpers/generalFuntions.js') }}" defer></script>
-
+    @vite('resources/sass/main.scss')
+    {{-- <link rel="stylesheet" href="{{asset('css/animate.min.css')}}"> --}}
     <!-- Cargar archivos específicos de cada vista -->
     @yield('viteConfig')
 
     <!-- Cargar scripts que utilizan jQuery y Bootstrap -->
-    @vite(['resources/sass/sideBar.scss',  'resources/js/modal.js', 'resources/sass/loadingScreen.scss', 'resources/js/app.js', 'resources/js/SideBar.js','resources/sass/main.scss'])
-    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
 
 </head>
 
@@ -50,6 +46,8 @@
 
 
     <script src="{{ asset('js/jquery.min.js') }}"></script> <!-- jQuery -->
+    @vite(['resources/js/app.js','resources/js/SideBar.js'])
+
     @yield('scripts')
 </body>
 

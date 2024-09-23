@@ -24,7 +24,7 @@
                 <x-filter-home idYear="yearDiseaseChart" idMonth="monthDiseaseChart" :months="$months" :years="$years" class="col-lg-8" />
 
                 <x-card-custom>
-                    <x-slot name="title">Consultas realizadas por enfermedades</x-slot>
+                    <x-slot name="title">Consultas clasificacdas por enfermedades</x-slot>
                     <div class="container position-relative">
                         <canvas id="lineCharDiseases" style="width: 100%;"></canvas>
 
@@ -76,7 +76,7 @@
                 <x-filter-home idYear="yearTypePersonChart" idMonth="monthTypePersonChart" :months="$months" :years="$years" class="mt-2" />
 
                 <x-card-custom>
-                    <x-slot name="title">Consultas clasificadas tipo de persona</x-slot>
+                    <x-slot name="title">Consultas clasificadas por tipo de persona</x-slot>
 
                     <div class="container position-relative">
                         <canvas id="barCharTypePerson" style="width: 100%;"></canvas>
@@ -113,5 +113,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/home/home.js'])
+    @vite('resources/js/home/home.js')
 @endsection
