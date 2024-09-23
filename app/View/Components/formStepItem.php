@@ -13,10 +13,14 @@ class formStepItem extends Component
      */
 
      public $active;
+     public $haveTooltip;
+     public $tooltipText;
 
-    public function __construct(bool $active = false)
+    public function __construct(bool $active = false, bool $haveTooltip = false, string $tooltipText = '')
     {
         $this->active = $active;
+        $this->haveTooltip = $haveTooltip;
+        $this->tooltipText = $tooltipText;
     }
 
     /**
