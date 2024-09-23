@@ -32,7 +32,6 @@ function EventEditGyo() {
     $("#Edit-Gyo").on("change", function () {
         const isChecked = $("#Edit-Gyo").is(":checked");
         if (isChecked) {
-           
             $(".Gyo-Text").html(IconInfo("Ahora estás en modo de edición."));
             let OldData = ObtainOldData();
             ShowORHideAlert(2, OldData);
@@ -43,7 +42,7 @@ function EventEditGyo() {
             /* Cancelar edicion */
 
             ShowORHideAlert(1, "");
-         }
+        }
     });
     ClicCancelGyo();
 }
@@ -89,30 +88,30 @@ function ClicCancelGyo() {
 }
 
 function listenGestas() {
+    $("#new_partos").on("keyup", function () {
+        let partos = parseInt($(this).val().trim());
 
-     $("#new_partos").on("keyup", function () {
-         let partos = parseInt($("#new_partos").val().trim());
-         let cesareas = parseInt($("#new_cesareas").val().trim());
-         let abortos = parseInt($("#new_abortos").val().trim());
-         let gestas = partos + cesareas + abortos;
-         $("#new_gestas").val(gestas);
-     });
-    
-     $("#new_cesareas").on("keyup", function () {
-         let partos = parseInt($("#new_partos").val().trim());
-         let cesareas = parseInt($("#new_cesareas").val().trim());
-         let abortos = parseInt($("#new_abortos").val().trim());
-         let gestas = partos + cesareas + abortos;
-         $("#new_gestas").val(gestas);
-     });
-    
-     $("#new_abortos").on("keyup", function () {
-         let partos = parseInt($("#new_partos").val().trim());
-         let cesareas = parseInt($("#new_cesareas").val().trim());
-         let abortos = parseInt($("#new_abortos").val().trim());
-         let gestas = partos + cesareas + abortos;
-         $("#new_gestas").val(gestas);
-     });
+        let cesareas = parseInt($("#new_cesareas").val().trim());
+        let abortos = parseInt($("#new_abortos").val().trim());
+        let gestas = partos + cesareas + abortos;
+        $("#new_gestas").val(gestas);
+    });
+
+    $("#new_cesareas").on("keyup", function () {
+        let partos = parseInt($("#new_partos").val().trim());
+        let cesareas = parseInt($(this).val().trim());
+        let abortos = parseInt($("#new_abortos").val().trim());
+        let gestas = partos + cesareas + abortos;
+        $("#new_gestas").val(gestas);
+    });
+
+    $("#new_abortos").on("keyup", function () {
+        let partos = parseInt($("#new_partos").val().trim());
+        let cesareas = parseInt($("#new_cesareas").val().trim());
+        let abortos = parseInt($(this).val().trim());
+        let gestas = partos + cesareas + abortos;
+        $("#new_gestas").val(gestas);
+    });
 }
 /*
     Funcion para el evento de guardar cambios, donde elvaluará si hay cambios en los datos 

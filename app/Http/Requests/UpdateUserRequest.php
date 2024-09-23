@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email',
             'cedula' => 'nullable|numeric|digits_between:7,8',
             'userType' => 'required|numeric|in:1,2,3',
-            'estado' => 'nullable|string',
+            'estado' => 'required|string',
         ];
     }
 
@@ -43,9 +43,9 @@ class UpdateUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'id.required' => 'El Id es requerido',
-            'id.numeric' => 'El Id debe ser un número',
-            'id.exists' => 'El Id No pertenece a ningún usuario',
+            'id.required' => 'El Id del usuario es requerido',
+            'id.numeric' => 'El Id del usuario debe ser un número',
+            'id.exists' => 'El Id no pertenece a ningún usuario',
             'email.required' => 'El correo es requerido',
             'email.email' => 'El correo debe ser válido',
             'cedula.numeric' => 'La cédula debe ser numérica',
@@ -53,7 +53,7 @@ class UpdateUserRequest extends FormRequest
             'userType.required' => 'El tipo de usuario es requerido',
             'userType.numeric' => 'El tipo de usuario debe ser numérico',
             'userType.in' => 'El tipo de usuario no es válido, por favor seleccione uno de la lista',
-            'estado.required' => 'El estado del usuario es reqierido',
+            'estado.required' => 'El estado del usuario es requerido',
         ];
     }
 }

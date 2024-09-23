@@ -26,19 +26,19 @@ function listenSelect() {
     $("#user-type").on("change", function () {
         const userType = $(this).val();
         console.log(userType);
-        
-        if (userType === "1") { // Doctor Obliga cedula
-         console.log("Quitar disabled");
-    
+
+        if (userType === "1") {
+            // Doctor Obliga cedula
+            console.log("Quitar disabled");
+
             $("#m-cedula").prop("disabled", false); // Habilitar el campo
         } else {
             console.log("Agregar disabled");
-           
+
             $("#m-cedula").prop("disabled", true); // Deshabilitar el campo
         }
     });
 }
-
 
 /* Funcion para el evento de clic el boton de editar */
 function ClicEditUser() {
@@ -93,16 +93,19 @@ function ValidateData() {
     console.log(cedula);
 
     let V_cedula = true;
-    if (type == 1) {  // es admin 
-       if (type == 1) {
-           if (cedula !== "") { // validar cedula 
-               V_cedula = validarCampo(cedula, regexCedula, "#m-cedula");
-           } else {  // forzar el false
-               V_cedula = validarCampo("", regexCedula, "#m-cedula");
-           }
-       }
+    if (type == 1) {
+        // es admin
+        if (type == 1) {
+            if (cedula !== "") {
+                // validar cedula
+                V_cedula = validarCampo(cedula, regexCedula, "#m-cedula");
+            } else {
+                // forzar el false
+                V_cedula = validarCampo("", regexCedula, "#m-cedula");
+            }
+        }
     } else {
-        // No tiene cedula 
+        // No tiene cedula
         V_cedula = true;
         ocultarerr("#m-cedula");
     }
@@ -152,11 +155,11 @@ function ValidateData() {
             window.id = $("#detalles-container").data("id");
 
             const datos = {
-                Id: id,
-                Cedula: cedula,
-                Email: email,
-                Status: status,
-                Type: type,
+                id: id,
+                cedula: cedula,
+                email: email,
+                estado: status,
+                userType: type,
             };
             Confirm(datos);
         }
@@ -165,27 +168,26 @@ function ValidateData() {
 
 /* Peticion al controlador para cambiar la contraseña */
 async function RequestEdit(Data) {
+    console.log(Data);
     try {
         const response = await axios.post("/users/edit-user", Data);
         console.log(response.data);
-        const { data } = response;
-        const { status, msg } = data;
+        //const { data } = response;
+        const { status, msg } = response.data;
+        console.log(response);
         let timerInterval;
         disableLoading();
 
-        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
-    } catch (error) {
-        const { type, msg, errors } = error.response.data;
-
-        if (type == 1) {
-            let timerInterval;
-
-            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 1);
+        if (status == 200) {
+            timerInterval  = TimeAlert(2200, "¡Éxito!", msg, "success", 1);
         } else {
-            console.log(errors);
-            showErrorsAlert(errors, ".errorAlert", ".errorList");
+            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 2);
         }
 
-        console.log(error);
-    }
+    } catch (error) {
+        const { msg, errors, status } = error.response.data;
+
+        console.log(errors);
+        showErrorsAlert(errors, ".errorAlert", ".errorList");
+    }       
 }
