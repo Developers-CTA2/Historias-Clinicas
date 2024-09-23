@@ -61,15 +61,16 @@ class PatientsController extends Controller
 
         // Mapear los datos para incluir la fecha de la última consulta
         $formattedData = $data->map(function ($paciente) {
-            $fecha = optional($paciente->consulta->last())->fecha ?? 'Sin consulta';
-            $fecha2 = optional($paciente->nutricional->last())->fecha ?? 'Sin consulta';
+            $fecha = optional($paciente->consulta->last())->created_at ?? 'Sin consulta';
+            $fecha2 = optional($paciente->nutricional->last())->created_at ?? 'Sin consulta';
             if ($fecha != 'Sin consulta') {
-                $consulta = Carbon::parse($fecha)->locale('es')->isoFormat('LL');
+                $consulta =
+                Carbon::parse($fecha)->locale('es')->isoFormat('D [de] MMM [de] YYYY');
             } else {
                 $consulta = 'Sin consulta';
             }
             if ($fecha2 != 'Sin consulta') {
-                $nutricional = Carbon::parse($fecha2)->locale('es')->isoFormat('LL');
+                $nutricional = Carbon::parse($fecha2)->locale('es')->isoFormat('D [de] MMM [de] YYYY');
             } else {
                 $nutricional = 'Sin consulta';
             }

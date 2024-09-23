@@ -15,16 +15,6 @@
              <div class="modal-body">
 
 
-                 {{-- <div id="Alerta_err" class="p-0 m-0 d-none">
-                            <div class="alert alert-danger alert-dismissible fade show d-flex justify-content-between p-0 m-0"
-                                role="alert">
-                                <p class="p-2 mb-1"> <strong>Ooops! </strong> Parece que no se ha realizado ningun cambio.
-                                </p>
-                                <button class="btn fst-italic animated-icon button-cancel  rigth-0" data-bs-dismiss="alert">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                        </div> --}}
 
                  {{-- Alerta de edicion  --}}
                  <x-alert-manage containerClass="Alerta_user" textClass="Alerta_user_text">
@@ -53,13 +43,25 @@
                                      <span class="text-danger fw-normal" style=" display: none;">Correo no
                                          válido.</span>
                                  </div>
+
                                  <div class="form-group col-12">
-                                     <label for="m-cedula">Cédula profesional </label>
-                                     <input class="form-control form-disabled" type="text" name="m-cedula"
-                                         id="m-cedula" value="{{ $usuario->cedula ?? '' }}" maxlength="8">
-                                     <span class="text-danger fw-normal" style=" display: none;">Cedula no
+                                     @php
+                                         $StatusActivo = $usuario->estado == 'Activo' ? 'selected' : '';
+                                         $StatusInactivo = $usuario->estado == 'Inactivo' ? 'selected' : '';
+                                     @endphp
+
+
+                                     <label for="m-estado">Estado <span class="red-color"> *</span></label>
+                                     <select class="form-control" id="m-estado" name="m-estado">
+                                         <option value="1" {{ $StatusActivo }}>Activo</option>
+                                         <option value="2" {{ $StatusInactivo }}>Inactivo</option>
+                                     </select>
+
+                                     <span class="text-danger fw-normal" style=" display: none;">Estado no
                                          válido.</span>
                                  </div>
+
+
                              </div>
                          </div>
                      </div> <!-- FIN contenedor 1  -->
@@ -83,36 +85,52 @@
                                      <span class="text-danger fw-normal" style=" display: none;">Rol no
                                          válido.</span>
                                  </div>
-                                 <div class="form-group col-12">
-                                      @php
-                                         $StatusActivo = $usuario->estado == 'Activo' ? 'selected' : '';
-                                         $StatusInactivo = $usuario->estado == 'Inactivo' ? 'selected' : '';
-                                     @endphp
-
-
-                                     <label for="m-estado">Estado <span class="red-color"> *</span></label>
-                                     <select class="form-control" id="m-estado" name="m-estado">
-                                         <option value="1" {{ $StatusActivo }}>Activo</option>
-                                         <option value="2" {{ $StatusInactivo }}>Inactivo</option>
-                                     </select>
-
-                                     <span class="text-danger fw-normal" style=" display: none;">Estado no
+                                 <div class="form-group col-12 div-cedula">
+                                     <label for="m-cedula">Cédula profesional <span class="red-color div-ced">
+                                             *</span></label>
+                                     @if ($roleName == 'Administrador')
+                                         <input class="form-control form-disabled" type="text" name="m-cedula"
+                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="8" >
+                                     @else
+                                      <input class="form-control form-disabled" type="text" name="m-cedula"
+                                             id="m-cedula" value="{{ $usuario->cedula }}" maxlength="8"  disabled="disabled">
+                                     @endif
+                                     <span class="text-danger fw-normal" style=" display: none;">Cédula no
                                          válido.</span>
                                  </div>
+
+                                 {{-- <div class="form-group col-12 div-cedula">
+                                     <label for="Usercedula">Cédula profesional <span
+                                             class="red-color div-ced">*</span></label>
+                                     @if ($roleName == 'Administrador')
+                                         <input class="form-control form-disabled mb-2" type="text" name="Usercedula"
+                                             id="Usercedula" maxlength="10">
+                                     @else
+                                         <input class="form-control form-disabled mb-2" type="text" name="Usercedula"
+                                             id="Usercedula" maxlength="10" disabled="disabled">
+                                     @endif
+                                     <span class="text-danger fw-normal" style="display: none;">Cédula no válido.</span>
+                                 </div> --}}
+
+
+
+
+
+
+
 
                              </div>
                          </div>
                      </div>
 
-                     {{-- <div class="col-12 mt-3">
-                                <x-drag-and-drop-file />
-                            </div> --}}
+
 
                  </div>
              </div>
              <div class="modal-footer">
 
-                 <x-button-custom class="btn-red cerrar-btn" data-bs-dismiss="modal" text="Cerrar" tooltipText="Cancelar acción">
+                 <x-button-custom class="btn-red cerrar-btn" data-bs-dismiss="modal" text="Cerrar"
+                     tooltipText="Cancelar acción">
                      <x-slot name="icon">
                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                              <path fill="currentColor"
@@ -121,8 +139,7 @@
                      </x-slot>
                  </x-button-custom>
 
-                 <x-button-custom class="btn-blue-sec" text="Guardar" id="EditUser"
-                     tooltipText="Guardar cambios">
+                 <x-button-custom class="btn-blue-sec" text="Guardar" id="EditUser" tooltipText="Guardar cambios">
                      <x-slot name="icon">
                          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                              <path fill="none" stroke="currentColor" stroke-linecap="round"

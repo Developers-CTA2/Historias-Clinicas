@@ -3,20 +3,20 @@ import "sweetalert2/src/sweetalert2.scss";
 
 import { VerifyChanges, automaicScroll } from "../helpers/funcionValidate.js";
 import { validarCampo } from "../../helpers/ValidateFuntions.js";
-import { TimeAlert } from "../../helpers/Alertas.js";
 import {
     RegexPositiveNumer,
     regexAnio,
     regexLetters,
     regexFecha,
     regexDescription,
-} from "../../helpers/Regex.js";
+    TimeAlert,
+} from "../../helpers";
 
 import {
     IconInfo,
     HideAnimation,
     IconWarning,
-    ShowErrors,
+    ShowErrorsSweet,
     IconError,
 } from "../../templates/AlertsTemplate.js";
 
@@ -32,7 +32,7 @@ function EventEditGyo() {
     $("#Edit-Gyo").on("change", function () {
         const isChecked = $("#Edit-Gyo").is(":checked");
         if (isChecked) {
-            ShowORHideAlert(2);
+           
             $(".Gyo-Text").html(IconInfo("Ahora estás en modo de edición."));
             let OldData = ObtainOldData();
             ShowORHideAlert(2, OldData);
@@ -43,8 +43,7 @@ function EventEditGyo() {
             /* Cancelar edicion */
 
             ShowORHideAlert(1, "");
-            console.log("Modo lectura");
-        }
+         }
     });
     ClicCancelGyo();
 }
@@ -72,6 +71,7 @@ function ShowORHideAlert(Type, OldData) {
         if ($(".input-Gyo").hasClass("d-none")) {
             $(".input-Gyo").removeClass("d-none").hide().fadeIn(400);
         }
+        listenGestas();
         ClicSaveGyo(OldData);
     }
 }
@@ -88,6 +88,32 @@ function ClicCancelGyo() {
     });
 }
 
+function listenGestas() {
+
+     $("#new_partos").on("keyup", function () {
+         let partos = parseInt($("#new_partos").val().trim());
+         let cesareas = parseInt($("#new_cesareas").val().trim());
+         let abortos = parseInt($("#new_abortos").val().trim());
+         let gestas = partos + cesareas + abortos;
+         $("#new_gestas").val(gestas);
+     });
+    
+     $("#new_cesareas").on("keyup", function () {
+         let partos = parseInt($("#new_partos").val().trim());
+         let cesareas = parseInt($("#new_cesareas").val().trim());
+         let abortos = parseInt($("#new_abortos").val().trim());
+         let gestas = partos + cesareas + abortos;
+         $("#new_gestas").val(gestas);
+     });
+    
+     $("#new_abortos").on("keyup", function () {
+         let partos = parseInt($("#new_partos").val().trim());
+         let cesareas = parseInt($("#new_cesareas").val().trim());
+         let abortos = parseInt($("#new_abortos").val().trim());
+         let gestas = partos + cesareas + abortos;
+         $("#new_gestas").val(gestas);
+     });
+}
 /*
     Funcion para el evento de guardar cambios, donde elvaluará si hay cambios en los datos 
 */
@@ -317,7 +343,7 @@ async function RequestUpdate(Datos) {
             )
         );
 
-        await ShowErrors(
+        await ShowErrorsSweet(
             "¡Error!",
             "No fue posible la edición de los datos",
             "error",

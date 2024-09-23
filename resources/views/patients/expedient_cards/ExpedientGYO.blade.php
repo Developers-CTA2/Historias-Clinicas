@@ -146,7 +146,9 @@
                             <div class="row">
                                 <div class="form-group col-6 pt-2">
                                     <p class="fw-bold mb-0">Inicio de vida sexual:</p>
-                                    <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div>
+                                      <div class="mt-0 Old-Data"> <span id="inicio">{{ $gyo->ivs ?? '--' }}</span> años
+                                </div>
+                                    {{-- <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div> --}}
 
                                     <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
                                         <label for="new_inicio">Inicio de vida sexual: <span class="red-color">
@@ -208,18 +210,18 @@
 
                         <li class="list-group-item pt-0">
                             <div class="row">
-                                <div class="form-group col-6 pt-2">
-                                    <p class="fw-bold mb-0">Gestas:</p>
-                                    <div class="mt-0 Old-Data" id="gestas"> {{ $gyo->gestas ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_gestas">Gestas: <span class="red-color">
+                                 <div class="form-group col-6 pt-2">
+                                    <p class="fw-bold mb-0">abortos:</p>
+                                    <div class="mt-0 Old-Data" id="abortos"> {{ $gyo->abortos ?? '--' }}</div>
+                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_abortos">Abortos: <span class="red-color">
                                                 *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_gestas"
-                                            id="new_gestas" value="{{ $gyo->gestas }}">
+                                        <input class="form-control form-disabled" type="number" name="new_abortos"
+                                            id="new_abortos" value="{{ $gyo->abortos }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Dato no
                                             válido.</span>
                                     </div>
+
                                 </div>
 
                                 <div class="form-group col-6 pt-2 div-cedula">
@@ -252,19 +254,21 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-6 pt-2 div-cedula">
-                                    <p class="fw-bold mb-0">abortos:</p>
-                                    <div class="mt-0 Old-Data" id="abortos"> {{ $gyo->abortos ?? '--' }}</div>
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_abortos">Abortos: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_abortos"
-                                            id="new_abortos" value="{{ $gyo->abortos }}">
+                               
+
+                                <div class="form-group col-6 pt-2">
+                                    <p class="fw-bold mb-0">Gestas:</p>
+                                    <div class="mt-0 Old-Data" id="gestas"> {{ $gyo->gestas ?? '--' }} </div>
+
+                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_gestas">Gestas: </label>
+                                        <input class="form-control form-disabled" disabled type="number" name="new_gestas"
+                                            id="new_gestas" value="{{ $gyo->gestas }}">
                                         <span class="text-danger fw-normal" style=" display: none;">Dato no
                                             válido.</span>
                                     </div>
-
                                 </div>
+
                             </div>
                         </li>
                     </ul>
@@ -342,12 +346,13 @@
 
                             <x-button-custom type="button"
                                 class="btn-blue-sec justify-content-center justify-content-lg-start" text="Guardar"
-                                id="Save_Gyo" tooltipText="Guardar cambios.">
+                                id="Save_Gyo" tooltipText="Guardar cambios">
                                 <x-slot name="icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                        viewBox="0 0 20 20">
-                                        <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
-                                    </svg>
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                 stroke-width="1.5"
+                                 d="M16.25 21v-4.765a1.59 1.59 0 0 0-1.594-1.588H9.344a1.59 1.59 0 0 0-1.594 1.588V21m8.5-17.715v2.362a1.59 1.59 0 0 1-1.594 1.588H9.344A1.59 1.59 0 0 1 7.75 5.647V3m8.5.285A3.2 3.2 0 0 0 14.93 3H7.75m8.5.285c.344.156.661.374.934.645l2.382 2.375A3.17 3.17 0 0 1 20.5 8.55v9.272A3.18 3.18 0 0 1 17.313 21H6.688A3.18 3.18 0 0 1 3.5 17.823V6.176A3.18 3.18 0 0 1 6.688 3H7.75" />
+                         </svg>
                                 </x-slot>
                             </x-button-custom>
                         </div>

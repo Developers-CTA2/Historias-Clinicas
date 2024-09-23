@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class GYOController extends Controller
 {
     /*
-    Funcion para editar una enfermedad del paciente desde la vista del expediente
+    Funcion para editar una el expediente GYO del paciente desde la vista del expediente
 */
     public function Update_Gyo(GyoRequest $request)
     {

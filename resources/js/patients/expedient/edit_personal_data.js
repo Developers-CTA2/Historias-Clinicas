@@ -18,7 +18,7 @@ import {
     IconInfo,
     IconWarning,
     HideAnimation,
- } from "../../templates/AlertsTemplate.js";
+} from "../../templates/AlertsTemplate.js";
 
 $(document).ready(function () {
     console.log("Editar datos personales");

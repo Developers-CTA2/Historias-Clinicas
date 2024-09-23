@@ -136,7 +136,7 @@
                         <div class="row">
                             <div class="d-flex justify-content-center">
                                 <x-button-custom type="button"
-                                    class="btn-blue-sec justify-content-center justify-content-lg-start  APNP-data d-none animate__animated animate__fadeInUp"
+                                    class="btn-sec justify-content-center justify-content-lg-start  APNP-data d-none animate__animated animate__fadeInUp"
                                     data-bs-toggle="modal" data-bs-target="#add-toxic" text="Agregar"
                                     tooltipText="Agregar nueva toxicomanía.">
                                     <x-slot name="icon">
@@ -183,16 +183,21 @@
                                     {{ $hemotipo->id_hemotipo }}
                                 </div>
                                 <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
-                                    <a class="btn-blue-sec fst-normal tooltip-container" data-bs-toggle="collapse"
+
+                                    <x-button-custom type="button"
+                                        class="btn-blue-sec justify-content-center justify-content-lg-start" data-bs-toggle="collapse"
                                         href="#Edit-Hemotipo" role="button" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 32 32">
-                                            <path
-                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                        </svg>
-                                        <span class="tooltip-text">Editar hemotipo.</span>
-                                    </a>
+                                        aria-controls="collapseExample"
+                                        padding="px-1 py-1" :onlyIcon="true" 
+                                        tooltipText="Editar registro">
+                                        <x-slot name="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 32 32">
+                                                <path
+                                                    d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                            </svg>
+                                        </x-slot>
+                                    </x-button-custom>
                                 </div>
                             </div>
 
@@ -215,14 +220,15 @@
                                 {{-- Boton de guardar cambios  --}}
                                 <div class="d-flex justify-content-center mt-2">
 
-
                                     <x-button-custom type="button"
-                                        class="btn-sec justify-content-center justify-content-lg-start"
+                                        class="btn-blue-sec justify-content-center justify-content-lg-start"
                                         id="save-Hemotipo" text="Guardar" tooltipText="Guardar cambios.">
                                         <x-slot name="icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 20 20">
-                                                <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                                viewBox="0 0 24 24">
+                                                <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M16.25 21v-4.765a1.59 1.59 0 0 0-1.594-1.588H9.344a1.59 1.59 0 0 0-1.594 1.588V21m8.5-17.715v2.362a1.59 1.59 0 0 1-1.594 1.588H9.344A1.59 1.59 0 0 1 7.75 5.647V3m8.5.285A3.2 3.2 0 0 0 14.93 3H7.75m8.5.285c.344.156.661.374.934.645l2.382 2.375A3.17 3.17 0 0 1 20.5 8.55v9.272A3.18 3.18 0 0 1 17.313 21H6.688A3.18 3.18 0 0 1 3.5 17.823V6.176A3.18 3.18 0 0 1 6.688 3H7.75" />
                                             </svg>
                                         </x-slot>
                                     </x-button-custom>
@@ -236,7 +242,7 @@
 
 
 
-                    <h5 class="m-0 d-flex justify-content-start mt-3">
+                    {{-- <h5 class="m-0 d-flex justify-content-start mt-3">
                         <span class="pe-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                 viewBox="0 0 24 24">
@@ -246,7 +252,6 @@
                             </svg>
                         </span>
                         Escolaridad
-                        {{-- Icono de warning --}}
                         <div class="ms-3 apnp-refresh-esc d-none animate__animated animate__fadeInUp">
                             <x-icon-warning />
                         </div>
@@ -293,8 +298,7 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                {{-- Boton de guardar cambios  --}}
-                                <div class="d-flex justify-content-center mt-2">
+                                 <div class="d-flex justify-content-center mt-2">
                                     <x-button-custom type="button"
                                         class="btn-sec justify-content-center justify-content-lg-start"
                                         id="save-School" text="Guardar" tooltipText="Guardar cambios.">
@@ -308,12 +312,10 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
-
-
+                    </ul> --}}
                 </div>
             </div>
-          
+
 
             <div class="col-12 mt-3 ">
                 <div class="row">

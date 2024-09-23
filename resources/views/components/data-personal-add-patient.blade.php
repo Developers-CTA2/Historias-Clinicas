@@ -303,7 +303,7 @@
                         </x-slot>
 
                         <x-slot name="input">
-                            <input class="form-control" maxlength="5" type="text" id="colonia"
+                            <input class="form-control" type="text" id="colonia"
                                 name="colonia">
                         </x-slot>
 

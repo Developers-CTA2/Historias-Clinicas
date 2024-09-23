@@ -40,12 +40,12 @@ Auth::routes();
 
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {
-        return redirect()->route('login');    
+        return redirect()->route('login');
     });
 });
 
 
-
+/*  Debe haber iniciado sesion  */ 
 Route::middleware('auth')->group(function () {
 
     // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -60,24 +60,26 @@ Route::middleware('auth')->group(function () {
 
 
     /*        USERS        */
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UserController::class, 'breadCrumb'])->name('users.users');
-        Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('users.obt-usuarios');
-        Route::post('/desactive-user', [UserController::class, 'Desactive'])->name('users.desactive-user');
-        Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('users.add-user');
-        Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
-        Route::post('/End-Point-Persons', [EndPointPersonsController::class, 'getUser'])->name('End-Point-Persons');
-        Route::post('/edit-user', [UserController::class, 'Update'])->name('users.edit-user');
-        Route::post('/new-user', [UserController::class, 'store'])->name('new-user');
 
-        // Download PDF
-        Route::get('/carta-compromiso/{id_user}/download', [FileUserController::class, 'getUserFile'])->name('users.file');
+    /*  Solo el admnistrador  */
+    Route::middleware('UserType:Administrador')->group(function () {
+        Route::prefix('users')->group(function () {
+            Route::get('/', [UserController::class, 'breadCrumb'])->name('users.users');
+            Route::get('/obt-usuarios', [UserController::class, 'showUser'])->name('users.obt-usuarios');
+            Route::post('/desactive-user', [UserController::class, 'Desactive'])->name('users.desactive-user');
+            Route::get('/add-user', [UserController::class, 'breadCrumbAdd'])->name('users.add-user');
+            Route::get('/user-details/{id}', [UserController::class, 'userDetails'])->name('users.user-details');
+            Route::post('/End-Point-Persons', [EndPointPersonsController::class, 'getUser'])->name('End-Point-Persons');
+            Route::post('/edit-user', [UserController::class, 'Update'])->name('users.edit-user');
+            Route::post('/new-user', [UserController::class, 'store'])->name('new-user');
 
-        // Download PDF
-        Route::get('/download-template', [FileUserController::class, 'downloadTemplate'])->name('users.download-template');
-    
+            // Download PDF
+            Route::get('/carta-compromiso/{id_user}/download', [FileUserController::class, 'getUserFile'])->name('users.file');
+
+            // Download PDF
+            Route::get('/download-template', [FileUserController::class, 'downloadTemplate'])->name('users.download-template');
+        });
     });
-
 
     /*  ADMINISTRACION  */
     Route::prefix('admin')->group(function () {
@@ -112,7 +114,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [ProfileController::class, 'changePass'])->name('change-password');
     });
 
-
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientsController::class, 'index'])->name('patients.index');
         Route::get('/obt-pacientes', [PatientsController::class, 'show'])->name('obt-pacientes');
@@ -146,15 +147,15 @@ Route::middleware('auth')->group(function () {
             Route::post('/Update_Surgery', [APPController::class, 'Update_Surgery'])->name('Update_Surgery');
             Route::post('/Add_Trauma', [APPController::class, 'Add_Trauma'])->name('Add_Trauma');
             Route::post('/Update_Trauma', [APPController::class, 'Update_Trauma'])->name('Update_Trauma');
-          
+
             Route::post('/Update_Gyo', [GYOController::class, 'Update_Gyo'])->name('Update_Gyo');
 
+            /* Solo el admnistrador  */ 
+            Route::middleware('UserType:Administrador')->group(function () {
+                Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
+            });
 
-            // Route::post('/add_ahf_Data', [ExpedientController::class, 'add_Ahf_Data'])->name('add_Ahf_Data');
-            // Route::post('/Update_APNP', [ExpedientController::class, 'Update_APNP'])->name('Update_APNP');
-            Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
         });
-
 
         Route::prefix('/consultation/{id_persona}')->group(function () {
             Route::get('/new', [ConsultationController::class, 'create'])->name('consultation.new');
@@ -172,7 +173,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('/nutrition/{id_persona}')->group(function () {
-            Route::prefix('/complete/nutrition-history')->group(function(){
+            Route::prefix('/complete/nutrition-history')->group(function () {
                 Route::get('/', [NutritionHistoryController::class, 'create'])->name('nutrition.complete.nutrition-history');
                 Route::post('/save', [PatientsController::class, 'nutritionStore'])->name('complete.nutrition.history.store');
             });
@@ -180,8 +181,8 @@ Route::middleware('auth')->group(function () {
                 Route::get('/new', [NutritionConsultationController::class, 'create'])->name('nutrition.consultation.create');
                 Route::post('/save', [NutritionConsultationController::class, 'store'])->name('nutrition.consultation.store');
             });
-            
-            Route::prefix('/history')->group(function(){
+
+            Route::prefix('/history')->group(function () {
                 Route::get('/', [NutritionHistoryController::class, 'show'])->name('nutrition.consultation.history');
                 Route::prefix('/{id_consulta}')->group(function () {
                     Route::get('/details', [NutritionHistoryController::class, 'details'])->name('nutrition.consultation.history.details');

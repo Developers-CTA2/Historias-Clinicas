@@ -29,7 +29,7 @@ function EventEditAPNP() {
             $(".alert-APNP").html(IconInfo("Ahora estás en modo de edición."));
             $(".APNP-data").removeClass("d-none").hide().fadeIn(400);
             EventHemotipo();
-            EventSchool();
+           // EventSchool();
             listenDrugs();
         } else {
             /* Cancelar edicion */
@@ -72,7 +72,7 @@ async function EventHemotipo() {
 }
 /*
     Funcion para editar el dato de la escolaridad 
-*/
+
 async function EventSchool() {
     $("#save-School").off("click");
     $("#save-School").on("click", function () {
@@ -94,7 +94,7 @@ async function EventSchool() {
             });
         }
     });
-}
+}*/
 /*
     Funcion que hace la consulta al controlador para la edicion o eliminacion del registro
 */

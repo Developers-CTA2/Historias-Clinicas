@@ -11,6 +11,13 @@
 @section('content')
 
     <div class="container">
+        <button id="btn-refresh-page"
+            class="btnRestart  p-2 tooltip-container d-none animate__animated animate__fadeInUp"
+            onclick="location.reload();">
+           <svg class="me-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="#ffffff" d="M19.295 12a.704.704 0 0 1 .705.709v3.204a.704.704 0 0 1-.7.709a.704.704 0 0 1-.7-.709v-1.125C16.779 17.844 13.399 20 9.757 20c-4.41 0-8.106-2.721-9.709-6.915a.71.71 0 0 1 .4-.917c.36-.141.766.04.906.405c1.4 3.662 4.588 6.01 8.403 6.01c3.371 0 6.52-2.182 7.987-5.154l-1.471.01a.704.704 0 0 1-.705-.704a.705.705 0 0 1 .695-.714zm-9.05-12c4.408 0 8.105 2.721 9.708 6.915a.71.71 0 0 1-.4.917a.697.697 0 0 1-.906-.405c-1.4-3.662-4.588-6.01-8.403-6.01c-3.371 0-6.52 2.182-7.987 5.154l1.471-.01a.704.704 0 0 1 .705.704a.705.705 0 0 1-.695.714L.705 8A.704.704 0 0 1 0 7.291V4.087c0-.392.313-.709.7-.709s.7.317.7.709v1.125C3.221 2.156 6.601 0 10.243 0"/></svg> Recargar
+            <span class="tooltip-text">Recargar la página</span>
+        </button>
+
         <div class="mb-3 mx-0">
             <div class="card">
                 <div class="card-header text-center bg-blue">
@@ -114,7 +121,7 @@
                                                     <x-button-custom data-bs-toggle="collapse"
                                                         data-bs-target="#Diseases_APP" aria-expanded="false"
                                                         aria-controls="Diseases_APP" type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Disease"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Disease"
                                                         text="Agregar" tooltipText="Agregar una enfermedad">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -126,7 +133,7 @@
                                                     </x-button-custom>
 
                                                 </div>
-                                                <div
+                                                {{-- <div
                                                     class="icon-refresh-Diseases d-none animate__animated animate__fadeInUp">
                                                     <x-button-custom type="button"
                                                         class="btn-sec justify-content-center justify-content-lg-start"
@@ -140,7 +147,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +241,7 @@
                                                     <x-button-custom type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#Allergies_APP" aria-expanded="false"
                                                         aria-controls="Allergies_APP"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Allergy"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Allergy"
                                                         text="Agregar" tooltipText="Agregar una alergia">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
@@ -246,7 +253,7 @@
                                                     </x-button-custom>
                                                 </div>
 
-                                                <div
+                                                {{-- <div
                                                     class="icon-refresh-Allergy d-none animate__animated animate__fadeInUp">
                                                     <x-button-custom type="button"
                                                         class="btn-sec justify-content-center justify-content-lg-start"
@@ -260,7 +267,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
 
@@ -315,7 +322,7 @@
                                                             {{ $hospital->detalles }}
                                                         </div>
                                                         <div class="">
-                                                            {{-- {{ Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }} --}}
+                                                            {{ Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }}
                                                         </div>
 
                                                         <div class="d-flex">
@@ -349,7 +356,7 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Hospital"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Hospital"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
                                                         tooltipText="Agregar una hospitalización">
                                                         <x-slot name="icon">
@@ -361,22 +368,7 @@
                                                         </x-slot>
                                                     </x-button-custom>
                                                 </div>
-
-                                                <div
-                                                    class="icon-refresh-Hospital d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div>
+ 
                                             </div>
                                         </div>
 
@@ -407,7 +399,7 @@
                                                 </g>
                                             </svg>
                                         </span> Transfusiones
-                                        {{-- Icono para mostrar una edicion  --}}
+                                        {{-- Icono para mostrar edicion  --}}
                                         <div class="ms-3 icon-refresh-Trans d-none animate__animated animate__fadeInUp">
                                             <x-icon-warning />
                                         </div>
@@ -432,27 +424,26 @@
                                                             {{ $transfucion->detalles }}
                                                         </div>
                                                         <div class="">
-                                                            {{-- {{ Carbon::parse( $transfucion->fecha)->locale('es')->isoFormat('LL') }} --}}
+                                                            {{ Carbon::parse($transfucion->fecha)->locale('es')->isoFormat('LL') }}
                                                         </div>
                                                         <div class="d-flex">
-                                                                                                              
-                                                                <x-button-custom type="button"
-                                                                    class="btn-blue-sec justify-content-center edit-trans"
-                                                                    padding="px-1 py-1" :onlyIcon="true"
-                                                                    data-id_reg="{{ $transfucion->id }}"
-                                                                    data-date="{{ $transfucion->fecha }}"
-                                                                    data-description="{{ $transfucion->detalles }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#add-APP"
-                                                                    tooltipText="Editar registro">
-                                                                    <x-slot name="icon">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20" height="20"
-                                                                            viewBox="0 0 32 32">
-                                                                            <path
-                                                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                                        </svg>
-                                                                    </x-slot>
-                                                                </x-button-custom>                                
+
+                                                            <x-button-custom type="button"
+                                                                class="btn-blue-sec justify-content-center edit-trans"
+                                                                padding="px-1 py-1" :onlyIcon="true"
+                                                                data-id_reg="{{ $transfucion->id }}"
+                                                                data-date="{{ $transfucion->fecha }}"
+                                                                data-description="{{ $transfucion->detalles }}"
+                                                                data-bs-toggle="modal" data-bs-target="#add-APP"
+                                                                tooltipText="Editar registro">
+                                                                <x-slot name="icon">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                        height="20" viewBox="0 0 32 32">
+                                                                        <path
+                                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                                    </svg>
+                                                                </x-slot>
+                                                            </x-button-custom>
                                                         </div>
                                                     </li>
                                                 @endforeach
@@ -466,9 +457,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Trans"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Trans"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una transfusión.">
+                                                        tooltipText="Agregar una transfusión">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">
@@ -477,22 +468,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                <div class="icon-refresh-Trans d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div>
+                                                </div>                                              
                                             </div>
                                         </div>
                                     </div>
@@ -540,26 +516,25 @@
                                                             {{ $quirurgico->detalles }}
                                                         </div>
                                                         <div>
-                                                            {{ Carbon::parse( $quirurgico->fecha)->locale('es')->isoFormat('LL')  }}
-                                                        </div>                                              
+                                                            {{ Carbon::parse($quirurgico->fecha)->locale('es')->isoFormat('LL') }}
+                                                        </div>
                                                         <div class="d-flex gap-1">
-                                                              <x-button-custom type="button"
-                                                                    class="btn-blue-sec justify-content-center edit-Surgery"
-                                                                    padding="px-1 py-1" :onlyIcon="true"
-                                                                    data-id_reg="{{ $quirurgico->id }}"
-                                                                    data-date="{{ $quirurgico->fecha }}"
-                                                                    data-description="{{ $quirurgico->detalles }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#add-APP"
-                                                                    tooltipText="Editar registro">
-                                                                    <x-slot name="icon">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20" height="20"
-                                                                            viewBox="0 0 32 32">
-                                                                            <path
-                                                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                                        </svg>
-                                                                    </x-slot>
-                                                                </x-button-custom>                                                             
+                                                            <x-button-custom type="button"
+                                                                class="btn-blue-sec justify-content-center edit-Surgery"
+                                                                padding="px-1 py-1" :onlyIcon="true"
+                                                                data-id_reg="{{ $quirurgico->id }}"
+                                                                data-date="{{ $quirurgico->fecha }}"
+                                                                data-description="{{ $quirurgico->detalles }}"
+                                                                data-bs-toggle="modal" data-bs-target="#add-APP"
+                                                                tooltipText="Editar registro">
+                                                                <x-slot name="icon">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                        height="20" viewBox="0 0 32 32">
+                                                                        <path
+                                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                                    </svg>
+                                                                </x-slot>
+                                                            </x-button-custom>
                                                         </div>
                                                     </li>
                                                 @endforeach
@@ -572,9 +547,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Surgery"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Surgery"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una cirugías">
+                                                        tooltipText="Agregar una cirugía">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">
@@ -583,23 +558,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                <div
-                                                    class="icon-refresh-Surgery d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div>
+                                                </div>                                            
                                             </div>
                                         </div>
                                     </div>
@@ -646,29 +605,25 @@
                                                             {{ $traumaticos->detalles }}
                                                         </div>
                                                         <div>
-                                                            {{   Carbon::parse( $traumaticos->fecha)->locale('es')->isoFormat('LL') }}
+                                                            {{ Carbon::parse($traumaticos->fecha)->locale('es')->isoFormat('LL') }}
                                                         </div>
-
-                                                      
                                                         <div class="d-flex gap-1">
-                                                   
-                                                              <x-button-custom type="button"
-                                                                    class="btn-blue-sec justify-content-center edit-Trauma"
-                                                                    padding="px-1 py-1" :onlyIcon="true"
-                                                                    data-id_reg="{{ $traumaticos->id }}"
-                                                                    data-date="{{ $traumaticos->fecha }}"
-                                                                    data-description="{{ $traumaticos->detalles }}"
-                                                                    data-bs-toggle="modal" data-bs-target="#add-APP"
-                                                                    tooltipText="Editar registro">
-                                                                    <x-slot name="icon">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="20" height="20"
-                                                                            viewBox="0 0 32 32">
-                                                                            <path
-                                                                                d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                                                        </svg>
-                                                                    </x-slot>
-                                                                </x-button-custom>   
+                                                            <x-button-custom type="button"
+                                                                class="btn-blue-sec justify-content-center edit-Trauma"
+                                                                padding="px-1 py-1" :onlyIcon="true"
+                                                                data-id_reg="{{ $traumaticos->id }}"
+                                                                data-date="{{ $traumaticos->fecha }}"
+                                                                data-description="{{ $traumaticos->detalles }}"
+                                                                data-bs-toggle="modal" data-bs-target="#add-APP"
+                                                                tooltipText="Editar registro">
+                                                                <x-slot name="icon">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                                        height="20" viewBox="0 0 32 32">
+                                                                        <path
+                                                                            d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
+                                                                    </svg>
+                                                                </x-slot>
+                                                            </x-button-custom>
                                                         </div>
                                                     </li>
                                                 @endforeach
@@ -680,9 +635,9 @@
                                             <div class="d-flex justify-content-center gap-3">
                                                 <div class=" ">
                                                     <x-button-custom type="button"
-                                                        class="btn-blue-sec justify-content-center justify-content-lg-start add-Trauma"
+                                                        class="btn-sec justify-content-center justify-content-lg-start add-Trauma"
                                                         data-bs-toggle="modal" data-bs-target="#add-APP" text="Agregar"
-                                                        tooltipText="Agregar una traumatismo.">
+                                                        tooltipText="Agregar una traumatismo">
                                                         <x-slot name="icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="20"
                                                                 height="20" viewBox="0 0 24 24">
@@ -691,23 +646,7 @@
                                                             </svg>
                                                         </x-slot>
                                                     </x-button-custom>
-                                                </div>
-
-                                                <div
-                                                    class="icon-refresh-Trauma d-none animate__animated animate__fadeInUp">
-                                                    <x-button-custom type="button"
-                                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                                        text="Recargar" tooltipText="Recargar página."
-                                                        onclick="location.reload();">
-                                                        <x-slot name="icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                                height="20" viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3m4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54zM10 20l-4-4l4-4zm0-12V0l4 4z" />
-                                                            </svg>
-                                                        </x-slot>
-                                                    </x-button-custom>
-                                                </div>
+                                                </div>                                          
                                             </div>
                                         </div>
                                     </div>
@@ -724,7 +663,6 @@
         </div>
         {{-- Modal para agregar o editar  --}}
         @include('patients.expedient_cards.modals_expedient.modal_Edit_APP')
-
 
     </div>
 

@@ -9,6 +9,7 @@
 
 @section('content')
     <div class="container">
+        
         <div class="row">
             <!-- Tabla para mostrar los datos  -->
             <div class="col-12 p-3"> <!-- Ajusta el tamaño de la tabla para dispositivos grandes -->

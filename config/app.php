@@ -18,6 +18,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'default_pass' => env('DEFAULT_PASS'), // Contraseña por defecto que esta en el .env
 
     /*
     |--------------------------------------------------------------------------

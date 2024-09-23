@@ -7,12 +7,12 @@
 /* Tooltipo sin opacidad */
 .tooltip-text2 {
     background-color: #dfdfdf;
-     z-index: 500 !important;
+    z-index: 500 !important;
 }
 
 .tooltip-text {
     background-color: #dfdfdfc5;
-     z-index: 210  !important;
+    z-index: 210 !important;
 }
 
 .tooltip-text,
@@ -24,7 +24,7 @@
     border-radius: 6px;
     padding: 5px;
     position: absolute;
-   
+
     top: 115%; /* Posiciona el tooltip bajo del elemento */
     left: 50%;
     transform: translateX(-50%);
@@ -61,8 +61,6 @@
 .btn-blue-sec {
     border: 1.5px solid $green-sec;
 }
-
-
 
 /* Cuando el boton se muestra pero esta inhabilitado */
 .disabled {
@@ -152,7 +150,7 @@
     color: $white !important;
 }
 
-.btnUpScreen{
+.btnUpScreen {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -161,4 +159,39 @@
     border: none;
     border-radius: 5px;
     rotate: 90deg;
+}
+
+.btnRestart {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    z-index: 1000;
+    //background-color: $button-secondary;
+    border: none;
+    border-radius: 5px;
+    background-color: $button-secondary;
+    color: white;
+}
+
+/* Header de color azul de las cards */ 
+.card .card-header {
+    color: white;
+    background-color: $primary;
+    position: relative;
+}
+
+.bg-blue {
+    background-color: $primary;
+    color: white;
+}
+
+
+/*  Boton de cerrar de color rojo del modal */ 
+.btn-custom-close{
+    position: absolute;
+    border-radius: 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    right: 2px;
 }

@@ -11,9 +11,8 @@
     
 </style>
     <div class="container">
-        <div class="col-12 mb-2 d-flex justify-content-end gap-3">
-
-            <x-button-link-custom :route="route('users.download-template')" class="btn-red" text="Formato" tooltipText="Descargar la carta compromiso">
+         <div class="col-12 mb-2 d-flex justify-content-end gap-3">
+             <x-button-link-custom :route="route('users.download-template')" class="btn-red" text="Formato" tooltipText="Descargar la carta compromiso">
                 <x-slot name="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16.004V17a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-1M12 4.5v11m3.5-3.5L12 15.5L8.5 12"/></svg>
                 </x-slot>

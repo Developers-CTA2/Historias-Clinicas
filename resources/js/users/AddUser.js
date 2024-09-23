@@ -3,7 +3,7 @@ import "sweetalert2/src/sweetalert2.scss";
 
 import {
     validarCampo,
-    regexCorreo, regexNumero, regexCode,
+    regexCorreo, regexCedula, regexCode,
     AlertCancelConfirmation, AlertConfirmationForm,
     getPerson, requestSaveUser, dragAndDropFile,
     AlertSweetSuccess,
@@ -180,7 +180,7 @@ $(document).ready(function () {
             validateForm = false;
         }
 
-        if (dataForm.userType === '1' && !regexNumero.test(dataForm.cedula)) {
+        if (dataForm.userType === '1' && !regexCedula.test(dataForm.cedula)) {
 
             // cedula.next().text('La cédula debe de constar de 10 dígitos').removeClass('d-none');;
             cedula.next().text('La cédula no es válida').removeClass('d-none');
@@ -189,9 +189,17 @@ $(document).ready(function () {
             validateForm = false;
         }
 
-        if (dataForm.userType === '1' && regexNumero.test(dataForm.cedula) && dataForm.cedula.length !== 10) {
-            cedula.next().text('La cédula debe de constar de 10 dígitos').removeClass('d-none');
-            cedula.addClass('is-invalid border-danger');
+        if (
+            dataForm.userType === "1" &&
+            regexCedula.test(dataForm.cedula) &&
+            dataForm.cedula.length < 7 &&
+            dataForm.cedula.length > 8
+        ) {
+            cedula
+                .next()
+                .text("La cédula debe de constar de 7 a 8 dígitos")
+                .removeClass("d-none");
+            cedula.addClass("is-invalid border-danger");
             validateForm = false;
         }
 

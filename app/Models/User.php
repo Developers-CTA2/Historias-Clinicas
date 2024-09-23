@@ -26,6 +26,7 @@ class User extends Authenticatable
         'password',
         'email',
         'cedula',
-        'file'
+        'file',
+        'super_user'
     ];
 }

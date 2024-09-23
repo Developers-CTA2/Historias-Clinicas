@@ -24,7 +24,7 @@
 
                         {{-- Card de datos de la consulta --}}
                         <x-card-custom>
-                            <x-slot name="title">Datos generares</x-slot>
+                            <x-slot name="title">Datos generales</x-slot>
 
                             <div class="row">
                                 <div class="col-12 col-lg-6">

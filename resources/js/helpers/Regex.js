@@ -11,7 +11,7 @@ export const regexTelefono = /^[0-9]{10}$/;
 export const regexNumbersAndLetters = /^[a-zA-Z0-9]+$/;
 export const regexIntNumero = /^[\w\s\-.,#\/]+$/;
 
-
+export const regexCedula = /^[0-9]{7,8}$/;
 export const regexNss = /^[0-9]{11}$/;
 export const regexDescription = /^[a-zA-ZáÁéÉíÍóÓúÚÑñ0-9\s.,;:?!'"\-()@#&]+$/;
 

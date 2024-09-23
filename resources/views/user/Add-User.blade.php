@@ -98,9 +98,9 @@
                             </div>
 
                             <div class="form-group mt-3 d-none div-cedula">
-                                <label for="Usercedula">Cedula <span class="red-color"> *</span></label>
+                                <label for="Usercedula" >Cedula <span class="red-color"> *</span></label>
                                 <input class="form-control form-disabled mb-2" type="text" name="Usercedula"
-                                    id="Usercedula">
+                                    id="Usercedula"  maxlength="8">
                                 <span class="text-danger fw-normal d-none"></span>
 
                             </div>

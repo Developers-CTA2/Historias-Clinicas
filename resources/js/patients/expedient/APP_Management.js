@@ -13,7 +13,7 @@ import {
     regexFecha,
     TimeAlert,
 } from "../../helpers";
- 
+
 $(document).ready(function () {
     Hospital();
     Transfusiones();
@@ -79,26 +79,26 @@ function Transfusiones() {
         ClicButtonSave(2, Ids, ""); // 2 = Transfusion
     });
 
-     $($(".edit-trans")).on("click", function () {
-         let Ids = {
-             Alerta: ".Trans",
-             text_Alert: ".Trans-Text",
-             Show: ".icon-refresh-Trans",
-         };
-         ShowORHideAlert(1);
-         ShowModalData("Editar un registro de ", "Transfusiones");
-         var Id_reg = $(this).data("id_reg");
-         var date = $(this).data("date");
-         var description = $(this).data("description");
-         let OldData = {
-             Id: Id_reg,
-             OldDate: date,
-             OldDescription: description,
-         };
-         ShowModalDataEdit(date, description);
-         ShowModalData();
-         ClicButtonSave(6, Ids, OldData); // 6 = Transfusines
-     });
+    $($(".edit-trans")).on("click", function () {
+        let Ids = {
+            Alerta: ".Trans",
+            text_Alert: ".Trans-Text",
+            Show: ".icon-refresh-Trans",
+        };
+        ShowORHideAlert(1);
+        ShowModalData("Editar un registro de ", "Transfusiones");
+        var Id_reg = $(this).data("id_reg");
+        var date = $(this).data("date");
+        var description = $(this).data("description");
+        let OldData = {
+            Id: Id_reg,
+            OldDate: date,
+            OldDescription: description,
+        };
+        ShowModalDataEdit(date, description);
+        ShowModalData();
+        ClicButtonSave(6, Ids, OldData); // 6 = Transfusines
+    });
 }
 /*
 Funcion para gestionar los eventos del apartado de cirigias 
@@ -118,19 +118,19 @@ function Surgeries() {
     });
 
     $($(".edit-Surgery")).on("click", function () {
-         let Ids = {
-             Alerta: ".Surgery",
-             text_Alert: ".Surgery-Text",
-             Show: ".icon-refresh-Surgery",
-         };
-       
+        let Ids = {
+            Alerta: ".Surgery",
+            text_Alert: ".Surgery-Text",
+            Show: ".icon-refresh-Surgery",
+        };
+
         ShowORHideAlert(1);
         ShowModalData("Editar un registro de ", "Cirugía");
 
         var Id_reg = $(this).data("id_reg");
         var date = $(this).data("date");
         var description = $(this).data("description");
- 
+
         let OldData = {
             Id: Id_reg,
             OldDate: date,
@@ -139,7 +139,7 @@ function Surgeries() {
 
         ShowModalDataEdit(date, description);
         ShowModalData();
-        ClicButtonSave(7, Ids, OldData);  
+        ClicButtonSave(7, Ids, OldData);
     });
 }
 
@@ -154,33 +154,33 @@ function Traumas() {
         ShowORHideAlert(1);
         ShowModalData("Agregar un registro de un ", "Traumatismo");
 
-        ClicButtonSave(4, Ids); 
+        ClicButtonSave(4, Ids);
     });
 
-     $($(".edit-Trauma")).on("click", function () {
-         let Ids = {
-             Alerta: ".Trauma",
-             text_Alert: ".Trauma-Text",
-             Show: ".icon-refresh-Trauma",
-         };
+    $($(".edit-Trauma")).on("click", function () {
+        let Ids = {
+            Alerta: ".Trauma",
+            text_Alert: ".Trauma-Text",
+            Show: ".icon-refresh-Trauma",
+        };
 
-         ShowORHideAlert(1);
-         ShowModalData("Editar un registro de ", "Traumatismo");
+        ShowORHideAlert(1);
+        ShowModalData("Editar un registro de ", "Traumatismo");
 
-         var Id_reg = $(this).data("id_reg");
-         var date = $(this).data("date");
-         var description = $(this).data("description");
+        var Id_reg = $(this).data("id_reg");
+        var date = $(this).data("date");
+        var description = $(this).data("description");
 
-         let OldData = {
-             Id: Id_reg,
-             OldDate: date,
-             OldDescription: description,
-         };
+        let OldData = {
+            Id: Id_reg,
+            OldDate: date,
+            OldDescription: description,
+        };
 
-         ShowModalDataEdit(date, description);
-         ShowModalData();
-         ClicButtonSave(8, Ids, OldData); 
-     });
+        ShowModalDataEdit(date, description);
+        ShowModalData();
+        ClicButtonSave(8, Ids, OldData);
+    });
 }
 
 function ShowORHideAlert(Type) {
@@ -222,7 +222,6 @@ function ClicButtonSave(Type, Ids, OldData) {
         console.log(ValidateData);
 
         if (Object.keys(ValidateData).length !== 0) {
-           
             ShowORHideAlert(1);
             Confirm(
                 "¿Estás seguro de realizar la acción?",
@@ -245,12 +244,12 @@ function ClicValidateData(Type, OldData) {
     let description = $("#text_Description").val().trim();
     let Date = $("#New-Data").val();
     var id_person;
-    if (description == "" || Date == "") {
+    if (description == "" && Date == "") {
         // Error en los datos
         console.log($("#New-Data").val());
 
         $(".Modal-Alert-Text").html(
-            IconInfo("Parece que hay errores en los datos.")
+            IconWarning("<strong> ¡Error! </strong> no se ha agregado ningún dato.")
         );
         ShowORHideAlert(2);
 
@@ -261,8 +260,9 @@ function ClicValidateData(Type, OldData) {
             "#text_Description"
         );
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
+   
     } else {
-        // Oculatar alerta
+        // Ocultar alerta
         ShowORHideAlert(1);
 
         let V_desc = validarCampo(
@@ -270,6 +270,7 @@ function ClicValidateData(Type, OldData) {
             regexDescription,
             "#text_Description"
         );
+        
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
 
         if (Type >= 5) {
@@ -277,7 +278,7 @@ function ClicValidateData(Type, OldData) {
             const { OldDate, OldDescription, Id } = OldData;
 
             if (Date == OldDate && description === OldDescription) {
-                console.log("Edicion")
+                console.log("Edicion");
                 $(".Modal-Alert-Text").html(
                     IconInfo(
                         "<strong> ¡Error! </strong> no se ha realizado ningún cambio."
@@ -352,11 +353,18 @@ async function Request(Type, Data, Ids) {
         $("#add-APP").modal("hide");
         $("#text_Description").val("");
         $("#New-Data").val("");
+
         ShowInputsEdit(
             Ids,
             " Cambio realizado da clic en <strong> Recargar </strong>."
         );
         ClicRefresh(".btn-refresh", "");
+
+        //if ($("#btn-refresh-page").hasClass("d-none")) {
+            $("#btn-refresh-page").removeClass("d-none");
+     //   }
+        
+
         timerInterval = TimeAlert(
             2000,
             "¡Éxito!",
