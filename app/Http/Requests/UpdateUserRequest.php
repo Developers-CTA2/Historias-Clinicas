@@ -4,19 +4,20 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if($this->user()->hasRole('Administrador')){
+        if ($this->user()->hasRole('Administrador')) {
             return true;
         }
 
         return false;
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,12 +27,11 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'code' => 'required|numeric|digits_between:7,9',
+            'id' => 'required|numeric|exists:users,id',
             'email' => 'required|email',
             'cedula' => 'nullable|numeric|digits_between:7,8',
             'userType' => 'required|numeric|in:1,2,3',
-            'file' => 'required|mimes:pdf|max:2048',
+            'estado' => 'nullable|string',
         ];
     }
 
@@ -43,10 +43,9 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre es requerido',
-            'code.required' => 'El código es requerido',
-            'code.numeric' => 'El código debe ser numérico',
-            'code.digits_between' => 'El código debe tener entre 7 y 9 dígitos',
+            'id.required' => 'El Id es requerido',
+            'id.numeric' => 'El Id debe ser un número',
+            'id.exists' => 'El Id No pertenece a ningún usuario',
             'email.required' => 'El correo es requerido',
             'email.email' => 'El correo debe ser válido',
             'cedula.numeric' => 'La cédula debe ser numérica',
@@ -54,9 +53,7 @@ class StoreUserRequest extends FormRequest
             'userType.required' => 'El tipo de usuario es requerido',
             'userType.numeric' => 'El tipo de usuario debe ser numérico',
             'userType.in' => 'El tipo de usuario no es válido, por favor seleccione uno de la lista',
-            'file.required' => 'El archivo es requerido',
-            'file.mimes' => 'El archivo debe ser un PDF',
-            'file.max' => 'El archivo debe pesar menos de 2MB',
+            'estado.required' => 'El estado del usuario es reqierido',
         ];
     }
 }
