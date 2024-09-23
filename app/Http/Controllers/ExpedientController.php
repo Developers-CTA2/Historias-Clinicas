@@ -81,6 +81,8 @@ class ExpedientController extends Controller
         $Nutri = Nutricional::with(['medidas'])->where('id_persona', $id)->latest()->first();
         $consul = Consulta::with(['signos_vitales'])->where('id_persona', $id)->latest()->first();
 
+        // return response()->json([$Nutri, $consul]);
+
         $Medidas = $this->Measures($Nutri, $consul);  // Evaluar cual es más reciente
         //return response()->json($Medidas);
         return view('patients.expediente', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
@@ -164,15 +166,16 @@ class ExpedientController extends Controller
                 }
             } else {
                 if (!empty($Nutri)) {
-                    $Medidas['Peso'] = $Nutri->medidas->peso_actual;
+                    $Medidas['Peso'] = $Nutri->medidas->peso_actual ;
                     $Medidas['Estatura'] = $Nutri->medidas->estatura ;
                     $Medidas['Imc'] = $this->calculateIMC($Medidas['Peso'], $Nutri->medidas->estatura);
                     $Medidas['Cintura'] = $Nutri->medidas->circunferencia_cintura;
                     $Medidas['Cadera'] = $Nutri->medidas->circunferencia_cadera;
                 } else {
-                    $Medidas['Peso'] = $consul->signos_vitales->peso;
-                    $Medidas['Estatura'] = $consul->signos_vitales->talla ;
-                    $Medidas['Imc'] = $this->calculateIMC($Medidas['Peso'] , $consul->signos_vitales->talla);
+                    $Medidas['Peso'] = $consul->signos_vitales->peso ?? 0;
+                    $talla = $consul->signos_vitales->talla ?? 0;
+                    $Medidas['Estatura'] = $talla; 
+                    $Medidas['Imc'] = $this->calculateIMC($Medidas['Peso'] , $talla);
                 }
             }
         }
