@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consulta;
 use App\Models\Persona;
 use App\Models\Folio;
 use Barryvdh\DomPDF\Facade\Pdf;

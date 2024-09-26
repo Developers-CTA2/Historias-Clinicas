@@ -1,8 +1,7 @@
-import {svgEyeShow, svgEyeHidden } from './templates';
+import {svgEyeShow, svgEyeHidden } from './templates/authTemplate';
 
 $(function(){
 
-    console.log('Hola')
     const btnShowHidePassword = $('#showHidePassword')
 
     btnShowHidePassword.on('click',function(){
@@ -20,9 +19,6 @@ $(function(){
             $(this).prev().attr('type','text');
             btnShowHidePassword.html(svgEyeHidden);
         }
-
-        
-
 
 
     });

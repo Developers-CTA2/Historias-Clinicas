@@ -1,19 +1,14 @@
 import { activeLoading, disableLoading } from "../loading-screen.js";
 
-export const requestGetNutritionConsultation = async(dataSend = {})=>{
+
+export const requestGetCita = async(id)=>{
 
     activeLoading();
-
     return new Promise( async(resolve, reject)=>{
         try{
             
-            const { data } = await axios.get(`/patients/nutrition/${dataSend.idPersona}/history/get-consultation`,{
-                params : {
-                    limit : dataSend.limit,
-                    offset : dataSend.page * dataSend.limit
-                }
-            });
-            console.log(data);
+            const { data } = await axios.get(`/citas/get-citas/${id}`);
+            
             resolve(data);
     
         }catch(error){

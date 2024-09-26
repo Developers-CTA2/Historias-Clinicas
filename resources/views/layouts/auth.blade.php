@@ -10,16 +10,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- login style -->
-    {{-- <link rel="stylesheet" href="{{ asset('css/login.css') }}"> --}}
-
+    
     <!-- Scripts -->
-    @vite(['resources/js/app.js','resources/sass/login.scss'])
-    <script src="{{asset('js/jquery.min.js')}}"></script>
+    @vite(['resources/js/app.js', 'resources/sass/login.scss'])
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+
+    
 </head>
 
 <body>
@@ -29,6 +25,7 @@
         </main>
     </div>
 
+    <script src="{{asset('js/jquery.min.js')}}"></script>
     @yield('scripts')
 </body>
 
