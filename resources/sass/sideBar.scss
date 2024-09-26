@@ -1,13 +1,5 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
-
 // Variables
 @import "variables";
-
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
-
 
 
 /* Sidebar Component Styles */
@@ -468,9 +460,9 @@
 }
 
 .avatar-container {
-    background-image: url('/public/images/avatar-c.jpg');
-    background-size: cover;
-    background-position: center;
+    // background-image: url('/public/images/avatar-c.jpg');
+    // background-size: cover;
+    // background-position: center;
     width: 40px;
     height: 40px;
     border-radius: 50%;

@@ -1,3 +1,5 @@
+import { disableLoading } from "./loading-screen";
+
 $(function(){
 
     const hamburger = $('#bt-hamburger');
@@ -66,5 +68,7 @@ $(function(){
         $(this).siblings().find('ul').find('li').removeClass('active');
     });
 
+
+    disableLoading();
 
 });

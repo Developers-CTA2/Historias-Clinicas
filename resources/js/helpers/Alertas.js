@@ -1,7 +1,7 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
-import { messageWarningConsultation, messageErrorConsultation } from '../templates';
+import { messageWarningConsultation, messageErrorConsultation } from '../templates/consultationTemplate';
 
 
 /* Alerta que desaparece después de un intervalo de tiempo */

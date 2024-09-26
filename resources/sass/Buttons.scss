@@ -48,6 +48,14 @@
     border: 1.5px solid $red;
 }
 
+.btn-primary {
+    background-color: $primary;
+    color: $bg-light;
+    border: none;
+    border-radius: 5px;
+    // padding: 0.5rem 1rem;
+}
+
 /* Estilo base para el botón */
 .btn-blue {
     border: 1.5px solid $primary;

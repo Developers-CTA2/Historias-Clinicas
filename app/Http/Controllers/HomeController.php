@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Consulta;
-use App\Models\ConsultaHasEnfermedad;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+
 
 class HomeController extends Controller
 {
@@ -31,7 +29,7 @@ class HomeController extends Controller
         Carbon::setLocale('es');
 
         $breadcrumbs = [
-            ['name' => 'Home', '' => ''],
+            ['name' => 'Inicio', '' => ''],
 
         ];
 
@@ -51,7 +49,6 @@ class HomeController extends Controller
         $currentYear = Carbon::now()->year;
         $years = range($currentYear, $currentYear - 1);
 
-        // return response()->json($years);
 
         return view('home', compact('breadcrumbs', 'months', 'years'));
     }
