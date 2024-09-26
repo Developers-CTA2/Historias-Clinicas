@@ -108,6 +108,16 @@ export const AlertForWarningConsultation = (data) => {
 
 }
 
+// Exist errors of loading data
+export const AlertErrorLoadingData = (title, msg) => {
+    Swal.fire({
+        icon: "error",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Aceptar',
+    });
+}
+
 export const AlertErrorConsultation = (title, data) => {
     Swal.fire({
         icon: "error",

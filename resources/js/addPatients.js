@@ -1,7 +1,6 @@
-import { disableLoading } from './loading-screen.js';
 import { iconCompleted, iconBlocked } from './templates/iconsTemplate.js'
 import {calculateNumGestas, selectDynamicSpecificDisease, getListDiseases, selectDynamicDrugAddiction, getListDrugAddiction, pathologicalHistory, getListPathologicalHistory } from './components';
-import { getPerson, requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation, AlertConfirmationForm, validateStepFormOne, validateStepFormFive } from './helpers';
+import {validateStepFormOne, validateStepFormFive, getPerson, requestSavePatient, AlertSweetSuccess, AlertError, AlertErrorWithHTML, AlertCancelConfirmation, AlertConfirmationForm } from './helpers'
 import { templateErrorItem, templateErrorList } from './templates/addPatientsTemplate.js';
 
 

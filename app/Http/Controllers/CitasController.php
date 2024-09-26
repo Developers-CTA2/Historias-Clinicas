@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCitaRequest;
 use App\Mail\ConsultaMail;
 use App\Mail\EditarConsultaMail;
 use Carbon\Carbon;
@@ -105,8 +106,8 @@ class CitasController extends Controller
             ['name' => 'Agenda', 'url' => route('showAgenda')],
             ['name' => 'Citas', '' => ''],
         ];
-        
-        $fechaFormateada = Carbon::parse($fecha)->locale('es')->isoFormat('LL');    
+
+        $fechaFormateada = Carbon::parse($fecha)->locale('es')->isoFormat('LL');
 
         // return response()->json([
         //     'data' => $citas
@@ -120,21 +121,79 @@ class CitasController extends Controller
         ], compact('breadcrumbs', 'fechaFormateada', 'citasDoctora', 'citasNutriologa', 'citas'));
     }
 
-    public function guardarCita(Request $request)
+
+    // Get Citas for a specific date and professional type
+    public function getCitas(Request $request)
     {
+
+        try {
+
+            $fecha = $request->input('fecha', Carbon::now()->format('Y-m-d'));
+            $tipo_profesional = $request->input('tipo', 1);
+            $search = $request->input('search', '');
+
+
+            $tipo_profesionalDB = $tipo_profesional == 1 ? 'Doctora' : 'Nutrióloga';
+            
+
+            $citas = Citas::where('fecha', $fecha)
+                ->where('tipo_profesional', $tipo_profesionalDB)
+                ->orderBy('hora', 'asc');
+
+            $count  = $citas->count();
+
+            if (!empty($search)) {
+                $citas->where(function ($query) use ($search) {
+                    $query->where('nombre', 'like', '%' . $search . '%')
+                        ->orWhere('telefono', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('motivo', 'like', '%' . $search . '%');
+                });
+            }
+
+            $citas = $citas->get();
+
+            if($citas->isEmpty()){
+                return response()->json(['data' => [],'count' => 0]);
+            }
+                
+            return response()->json(['data' => $citas ,'count' => $count]);
+
+        } catch (\Exception $e) {
+            Log::error('Error al obtener las citas: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al obtener las citas'], 500);
+        }
+    }
+
+    public function getCitasPersona($id){
+
+        try{
+
+            $cita = Citas::findOrfail($id);
+            $cita->hora = Carbon::parse($cita->hora)->format('H:i');
+            return response()->json($cita);
+
+
+        }catch(\Exception $e){
+            Log::error('Error al obtener las citas de la persona: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al obtener la cita seleccionada de la persona'], 500);
+        }
+
+
+    }
+
+    public function guardarCita(StoreCitaRequest $request)
+    {
+
         try {
             // Validar los datos recibidos
-            $request->validate([
-                'nombre' => 'required|string|max:255',
-                'telefono' => 'required|string|size:10',
-                'email' => 'nullable|email|max:255',
-                'tipo_profesional' => 'required|in:Doctora,Nutrióloga',
-                'fecha' => 'required|date',
-                'hora' => 'required|date_format:H:i',
-                'motivo' => 'required|string|max:255',
-            ]);
+
+            $request->validated();
 
             // Verificar si existe una cita activa (no cancelada) en la misma fecha, hora y tipo de profesional
+
+            // throw new \Exception('Error al guardar la cita');
+
             $citaActivaExistente = Citas::where('fecha', $request->fecha)
                 ->where('hora', $request->hora)
                 ->where('tipo_profesional', $request->tipo_profesional)
@@ -147,56 +206,56 @@ class CitasController extends Controller
 
             // Crear nueva cita
             $cita = Citas::create([
-                'nombre' => $request->input('nombre'),
-                'telefono' => $request->input('telefono'),
-                'email' => $request->input('email'),
-                'tipo_profesional' => $request->input('tipo_profesional'),
-                'fecha' => $request->input('fecha'),
-                'hora' => $request->input('hora'),
-                'motivo' => $request->input('motivo'),
+                'nombre' => $request->nombre,
+                'telefono' => $request->telefono,
+                'email' => $request->correo,
+                'tipo_profesional' => $request->tipo_profesional,
+                'fecha' => $request->fecha,
+                'hora' => $request->hora,
+                'motivo' => $request->motivo,
                 'estado' => 'Pendiente',
             ]);
 
             // Envío de correo electrónico
             if ($cita->email) {
-                Mail::to($cita->email)->send(new ConsultaMail($cita));
+                // Mail::to($cita->email)->send(new ConsultaMail($cita));
             }
 
-            return response()->json(['status' => 'success', 'message' => 'Cita guardada correctamente.'], 200);
+            return response()->json(['title' => 'Éxito...', 'message' => 'Cita guardada correctamente.'], 200);
         } catch (\Exception $e) {
             Log::error('Error al guardar la cita: ' . $e->getMessage());
-            return response()->json(['status' => 'error', 'message' => 'Error al guardar la cita. Por favor, inténtalo de nuevo.'], 500);
+            return response()->json(['title' => 'Oops..!', 'message' => 'Error al guardar la cita. Por favor, inténtalo de nuevo.'], 500);
         }
     }
 
     public function validarHora($fecha, $hora)
-{
-    try {
-        // Verificar si existe una cita activa (no cancelada) en la misma fecha y hora
-        $existeActiva = Citas::where('fecha', $fecha)
-            ->where('hora', $hora)
-            ->where('estado', '<>', 'Cancelada')
-            ->exists();
+    {
+        try {
+            // Verificar si existe una cita activa (no cancelada) en la misma fecha y hora
+            $existeActiva = Citas::where('fecha', $fecha)
+                ->where('hora', $hora)
+                ->where('estado', '<>', 'Cancelada')
+                ->exists();
 
-        // Verificar si existe una cita cancelada en la misma fecha y hora
-        $existeCancelada = Citas::where('fecha', $fecha)
-            ->where('hora', $hora)
-            ->where('estado', 'Cancelada')
-            ->exists();
+            // Verificar si existe una cita cancelada en la misma fecha y hora
+            $existeCancelada = Citas::where('fecha', $fecha)
+                ->where('hora', $hora)
+                ->where('estado', 'Cancelada')
+                ->exists();
 
-        // Determinar si se puede reservar la hora o no
-        $puedeReservar = !$existeActiva || $existeCancelada;
+            // Determinar si se puede reservar la hora o no
+            $puedeReservar = !$existeActiva || $existeCancelada;
 
-        return response()->json([
-            'existe' => $existeActiva,
-            'existeCancelada' => $existeCancelada,
-            'puedeReservar' => $puedeReservar,
-        ]);
-    } catch (\Exception $e) {
-        Log::error('Error al validar la hora: ' . $e->getMessage());
-        return response()->json(['error' => 'Error al validar la hora'], 500);
+            return response()->json([
+                'existe' => $existeActiva,
+                'existeCancelada' => $existeCancelada,
+                'puedeReservar' => $puedeReservar,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Error al validar la hora: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al validar la hora'], 500);
+        }
     }
-}
 
 
     public function actualizar(Request $request, $id)
@@ -211,7 +270,7 @@ class CitasController extends Controller
                 'fecha' => 'required|date',
                 'hora' => 'required',
                 'motivo' => 'required|string|max:255',
-                'estado' => 'required', 
+                'estado' => 'required',
             ]);
 
             // Buscar la cita por su ID
@@ -282,7 +341,7 @@ class CitasController extends Controller
             return response()->json(['status' => 'error', 'message' => 'Error al cancelar la cita. Por favor, inténtalo de nuevo.'], 500);
         }
     }
-    
+
     public function eliminar($id)
     {
         try {

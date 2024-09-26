@@ -242,14 +242,21 @@ Route::get('/citas', function () {
     return view('admin.citas');
 })->name('showCitas');
 
-Route::get('/citas', [CitasController::class, 'mostrarCitas'])->name('showCitas');
+Route::prefix('/citas')->group(function(){
+    Route::get('/', [CitasController::class, 'mostrarCitas'])->name('citas.index');
+    Route::get('/get-citas', [CitasController::class, 'getCitas'])->name('citas.get');
+    Route::get('/get-citas/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
+    // Edit cita
+    Route::put('/{id}/update', [CitasController::class, 'actualizar'])->name('editCita');
+});
+
 Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
 Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHora']);
 
 
 Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
 
-Route::put('/citas/{id}', [CitasController::class, 'actualizar'])->name('actualizarCita');
+
 Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
 
 Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');

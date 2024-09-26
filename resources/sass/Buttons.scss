@@ -49,12 +49,21 @@
 }
 
 .btn-primary {
-    background-color: $primary;
-    color: $bg-light;
+    background-color: $primary !important;
+    color: $bg-light !important;
     border: none;
     border-radius: 5px;
-    // padding: 0.5rem 1rem;
 }
+
+.nav-pills .nav-link{
+    color: $primary;
+}
+
+.nav-pills .nav-link.active{
+    background-color: $primary;
+    color: $bg-light;    
+}
+
 
 /* Estilo base para el botón */
 .btn-blue {
