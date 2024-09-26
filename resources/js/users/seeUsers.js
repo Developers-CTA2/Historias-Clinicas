@@ -6,7 +6,7 @@ import "sweetalert2/src/sweetalert2.scss";
 import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
-
+import { ShowErrorsSweet } from "../templates/AlertsTemplate.js";
 import { className, translations, TimeAlert } from "../helpers";
 
 $(function () {
@@ -231,19 +231,34 @@ async function RequestEdit(Id) {
         let timerInterval;
 
         if (status == 200) {
-            timerInterval = TimeAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
+            timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
         } else {
             timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
         }
     } catch (error) {
-        disableLoading();
-        console.log("Error");
+        // disableLoading();
+        // console.log("Error");
+        // console.log(error);
+
+        //const { status } = error.response;
+        const { errors } = error.response.data;
+        const { status } = error.response;
         console.log(error);
+        console.log(status);
+
+        if (status == 400) {
+            let timerInterval;
+            console.log(errors);
+            // listdo de errores
+            await ShowErrorsSweet(
+                "¡Error!",
+                "No fue posible realizar la acción debido a los siguientes errores:",
+                "error",
+                errors
+            );         
+        } else {
+               console.log(errors);
+            timerInterval = TimeAlert(2500, "¡Error!", "Algo falló al realizar la petición, intentalo más tarde.", "error", 2);
+        }
     }
 }

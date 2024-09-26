@@ -179,15 +179,14 @@ async function RequestEdit(Data) {
         disableLoading();
 
         if (status == 200) {
-            timerInterval  = TimeAlert(2200, "¡Éxito!", msg, "success", 1);
+            timerInterval = TimeAlert(2200, "¡Éxito!", msg, "success", 1);
         } else {
             timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 2);
         }
-
     } catch (error) {
-        const { msg, errors, status } = error.response.data;
-
+        const { errors } = error.response.data;
+        console.log(error);
         console.log(errors);
         showErrorsAlert(errors, ".errorAlert", ".errorList");
-    }       
+    }
 }

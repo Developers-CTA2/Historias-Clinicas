@@ -69,6 +69,8 @@ class DiseasesController extends Controller
         if ($validator->fails()) {
             return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
         }
+
+        
         $Name = $request['Name'];
 
         $diseases = Tipos_enfermedades::where('nombre', $Name)->first();

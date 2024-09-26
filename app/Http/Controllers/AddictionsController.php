@@ -118,7 +118,7 @@ class AddictionsController extends Controller
         $Addiction = Toxicomanias::where('nombre', $Name)->first();
 
         if ($Addiction) {
-            return response()->json(['type' => 1, 'msg' => 'La toxicomanía ya esta resgistrada en el sistema.'], 400);
+            return response()->json(['type' => 1, 'msg' => 'La toxicomanía ya esta registrada en el sistema.'], 400);
         } else {
             DB::transaction(function () use ($Name) {
                 $Addiction = new Toxicomanias();

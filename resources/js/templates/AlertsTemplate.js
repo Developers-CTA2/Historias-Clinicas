@@ -73,10 +73,12 @@ export function HideAnimation(campo) {
 export async function ShowErrorsSweet(Title, Text, Icon, errors) {
     let errorList = '';
     if (errors && typeof errors === 'object') {
-        errorList = '<ul>';
+        errorList = '<ul class="text-start">';
         for (const key in errors) {
             if (errors.hasOwnProperty(key)) {
-                errorList += `<li>${errors[key].join('<br>')}</li>`;
+                errorList += `<li>${errors[key].join(
+                    "<br>"
+                )}</li>`;
             }
         }
         errorList += '</ul>';
@@ -84,7 +86,7 @@ export async function ShowErrorsSweet(Title, Text, Icon, errors) {
 
     await Swal.fire({
         title: Title,
-        html: `<p>${Text}</p>${errorList}`,
+        html: `<p> <small>${Text}</small></p>${errorList}`,
         // icon: Icon,
         confirmButtonColor: "#d33",
         confirmButtonText: "Aceptar",
@@ -95,6 +97,7 @@ export async function ShowErrorsSweet(Title, Text, Icon, errors) {
 
 /* Funcion que muestra los errores que manda el controlador desde una alerta de bootstrap*/
 export function showErrorsAlert(errors, campoAlerta, campoLista) {
+    console.log("Alerta")
     if (errors) {
         const errorList = $(campoLista);
 

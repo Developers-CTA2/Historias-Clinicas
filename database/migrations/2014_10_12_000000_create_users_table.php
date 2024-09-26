@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('super_user')->default(0);
             $table->string('email');
             $table->string('user_name')->unique();
-            //$table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('estado', 15);
             $table->string('cedula', 10)->nullable();
