@@ -31,10 +31,6 @@ export const  vitalSigns = (data, inputsDom)=>{
         inputGlucosa,
         inputTalla, listVitalSigns } = inputsDom;
 
-        console.log(presionArterial);
-
-
-
         listVitalSigns.each(function(){
             $(this).children('input').removeClass('is-invalid border-danger');
             $(this).children('span').addClass('d-none').text('');

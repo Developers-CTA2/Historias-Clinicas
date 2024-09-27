@@ -48,6 +48,23 @@
     border: 1.5px solid $red;
 }
 
+.btn-primary {
+    background-color: $primary !important;
+    color: $bg-light !important;
+    border: none;
+    border-radius: 5px;
+}
+
+.nav-pills .nav-link{
+    color: $primary;
+}
+
+.nav-pills .nav-link.active{
+    background-color: $primary;
+    color: $bg-light;    
+}
+
+
 /* Estilo base para el botón */
 .btn-blue {
     border: 1.5px solid $primary;

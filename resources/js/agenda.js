@@ -2,9 +2,10 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
 
+$(function(){
+    var calendarEl = document.getElementById('calendar');
+    
     var calendar = new Calendar(calendarEl, {
         locale: 'es',
         headerToolbar: {
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         start: cita.fecha,
                         color: colorPorTipoProfesional[cita.tipo_profesional], // Color gris por defecto si no se encuentra
                     }));
-
+    
                     successCallback(eventosCitas);
                 })
                 .catch(error => {
@@ -63,6 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         }
     });
-
+    
     calendar.render();
+
+
 });
+
+
+

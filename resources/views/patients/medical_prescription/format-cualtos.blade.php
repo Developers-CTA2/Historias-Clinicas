@@ -10,7 +10,7 @@
     <style>
         
         @page {
-            margin: 10px;
+            /* margin: 10px; */
             /* Quita los márgenes de todas las páginas */
         }
 
@@ -47,27 +47,27 @@
         .logo-bg {
             position: absolute;
             right: 0px;
-            top: 180px;
+            top: 30%;
         }
 
         .name-patient {
-            top: 80px;
+            top: 70px;
             left: 110px;
         }
 
         .date {
             left: 82%;
-            top: -20px;
+            top: -25px;
         }
 
         .age {
             left: 82%;
-            top: 10px;
+            top: 5px;
         }
 
         .folio {
             left: 82%;
-            top: 45px;
+            top: 38px;
         }
 
         .text-custom {
@@ -83,7 +83,7 @@
         }
 
         .dataDoctor{
-            top: 0%;
+            top: -20px;
             left: 18%;
             font-size: 1.1rem;
             text-align: center;
@@ -110,6 +110,13 @@
             font-size: 0.9rem;
         }
 
+        footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+
 
         
 
@@ -129,7 +136,7 @@
 
             <div class="absolute dataDoctor">
                 <p class="nameDoctor fw-bold">{{ $doctor->name }}</p>
-                <p class="fw-bold">MÉDICO CIRUJADO Y PARTERO</p>
+                <p class="fw-bold">MÉDICO CIRUJANO Y PARTERO</p>
                 <p class="text-sm">Universidad de Guadalajara</p>
                 <p class="text-sm">Cédula profesional: <span>{{ $doctor->cedula ?? 'No tiene cédula' }}</span></p>
             </div>
@@ -142,7 +149,7 @@
         </header>
 
         <main>
-            <img class="logo-bg" src="{{ public_path('images/logo-leon.png') }}" alt="Logo León UDG" width="150px">
+            <img class="logo-bg" src="{{ public_path('images/logo-leon.png') }}" alt="Logo León UDG" width="250px">
             <p class="text-normal text-without-space">{!! $consultation->tratamiento !!}</p>
         </main>
 

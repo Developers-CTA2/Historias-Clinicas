@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consulta;
 use App\Models\Persona;
 use App\Models\Folio;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -46,9 +45,10 @@ class MedicalPrescriptionController extends Controller
         }
 
         $patient->age = Carbon::parse($patient->fecha_nacimiento)->age;
+        $folio = $consultation->id_folio;
 
         $pdf = PDF::loadView('patients.medical_prescription.format-cualtos', compact('patient', 'consultation','doctor'));
-        return $pdf->download('prescripcion-medica'. $patient->id_person .'.pdf');
+        return $pdf->download('folio-'.$folio.'.pdf');
 
     }
 

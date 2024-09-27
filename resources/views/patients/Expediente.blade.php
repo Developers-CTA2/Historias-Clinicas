@@ -3,7 +3,7 @@
 @section('title', 'Expediente')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/expedient.scss'])
+    @vite('resources/sass/expedient.scss')
     @role('Administrador')
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">

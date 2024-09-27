@@ -58,9 +58,7 @@ export const manageDrugAddictions = (parameters) => {
 
 export const calculateEPOC = (parameters) => {
     const { numberOfCigarettes, howDateSmoking } = parameters;
-    // let numberOfCigarettes = inputNumberOfCigarettes.val();
-    // let howDateSmoking = inputHowDateSmoking.val();
-
+    
     let result = {
         risk: "",
         html: "",

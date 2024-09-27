@@ -102,6 +102,3 @@
     </div>
 
 </aside>
-@section('scripts')
-    @vite('resources/js/SideBar.js')
-@endsection

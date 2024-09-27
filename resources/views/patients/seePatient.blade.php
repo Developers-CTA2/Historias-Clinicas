@@ -3,7 +3,7 @@
 @section('title', 'Lista de pacientes')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss','resources/sass/home.scss'])
+    {{-- @vite('resources/sass/see-patients.scss') --}}
 @endsection
 
 

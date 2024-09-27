@@ -1,4 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
+@import "bootstrap/scss/bootstrap";
 @import 'variables';
+@import 'sideBar';
+@import 'loadingScreen';
+@import "Buttons";
+
+body{ 
+    font-family: $font-family-sans-serif;    
+}
+
 
 .title-size-sm {
     font-size: 1.2rem;

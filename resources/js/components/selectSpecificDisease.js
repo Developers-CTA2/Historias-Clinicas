@@ -1,4 +1,4 @@
-import { templateAddListDisease, templateAddSelectListDiseases } from '../templates';
+import { templateAddListDisease, templateAddSelectListDiseases } from '../templates/addPatientsTemplate';
 
 let listDiseases = [];
 

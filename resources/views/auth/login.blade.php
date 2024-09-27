@@ -1,14 +1,10 @@
 @extends('layouts.auth')
 
-@section('viteConfig')
-    @vite(['resources/sass/login.scss'])
-@endsection
-
 @section('content')
 
     <div class="content-custom-login">
-        <div class="d-flex justify-content-center">
-            <img src="{{asset('images/clinic track-logo.png')}}" alt="logo" />
+        <div class="d-flex justify-content-center h-custom-logo">
+            <img class="animate__animated animate__fadeIn" src="{{asset('images/clinic track-logo.png')}}" alt="logo" />
         </div>
         <div class="hr-custom my-2"></div>
         <h2 class="fw-bold mt-3 text-center">Iniciar sesión</h2>

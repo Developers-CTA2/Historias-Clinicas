@@ -8,9 +8,9 @@
     &::after{
         content: '';
         position: absolute;
-        top: 15%;
-        left: 10%;
-        width: 80%;
+        top: 25%;
+        left: 7%;
+        width: 85%;
         height: 5px;
         background-color: $bg-color-opacity;
         z-index: -1;
@@ -56,10 +56,12 @@
             svg{
                 display: none;
             }
+  
+        }
 
-
-
-            
+        &:hover{
+            // Tooltip
+            cursor: pointer;
         }
 
 
