@@ -443,8 +443,8 @@ async function RequestUpdate(Personal, Direction, Type) {
     console.log("Editar los datos ");
     const Data = {
         Personal: Personal,
-        Direction: "",
-        Type:4,
+        Direction: Direction,
+        Type: parseInt(Type),
         Id: parseInt(id),
         Id_dom: parseInt($("#id_dom").text().trim()),
     };

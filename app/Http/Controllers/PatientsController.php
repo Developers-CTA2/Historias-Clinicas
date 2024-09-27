@@ -66,7 +66,7 @@ class PatientsController extends Controller
             $fecha2 = optional($paciente->nutricional->last())->created_at ?? 'Sin consulta';
             if ($fecha != 'Sin consulta') {
                 $consulta =
-                Carbon::parse($fecha)->locale('es')->isoFormat('D [de] MMM [de] YYYY');
+                    Carbon::parse($fecha)->locale('es')->isoFormat('D [de] MMM [de] YYYY');
             } else {
                 $consulta = 'Sin consulta';
             }
@@ -191,8 +191,7 @@ class PatientsController extends Controller
                 $estiloVida->save();
             });
 
-            return response()->json(['status' => 'success', 'message' => 'Historial guardado correctamente, el historial se ha completado. Enseguida te redireccionará para generar la consulta','idPersona'=> $validate['id_persona']], 200);
-
+            return response()->json(['status' => 'success', 'message' => 'Historial guardado correctamente, el historial se ha completado. Enseguida te redireccionará para generar la consulta', 'idPersona' => $validate['id_persona']], 200);
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Error al guardar el historial', 'error' => $e], 500);
         }
@@ -261,7 +260,6 @@ class PatientsController extends Controller
 
                 // Eliminar enfermedades familiares que se repiten en personales
                 $diseases = array_unique($diseases, SORT_REGULAR);
-
             }
 
             if ($item['type'] == 'alergia') {
@@ -357,52 +355,7 @@ class PatientsController extends Controller
     public function Update_Personal_Data(UpdatePersonalDataRequest $request)
     {
         $data = $request->validated();
-
-        // $data = $request->validate([
-        //     'Type' => 'required|numeric',
-        //     'Id_dom' => 'required|numeric',
-        //     'Id' => 'required|numeric|exists:personas,id_persona',
-        //     'Direction.country' => 'required|string',
-        //     'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
-        //     'Direction.city' => 'required|string',
-        //     'Direction.colony' => 'required|string',
-        //     'Direction.cp' => 'required|numeric',
-        //     'Direction.street' => 'required|string',
-        //     'Direction.ext' => 'required|numeric',
-        //     'Direction.int' => 'nullable|string',
-        //     'Personal.name' => 'required|string',
-        //     'Personal.tel' => 'required|string',
-        //     'Personal.gender' => 'required|string',
-        //     'Personal.birthday' => 'required|date',
-        //     'Personal.religion' => 'required|string',
-        //     'Personal.ocupation' => 'required|string',
-        //     'Personal.nss' => 'required|numeric',
-        //     'Personal.name_e' => 'required|string',
-        //     'Personal.tel_e' => 'required|string',
-        //     'Personal.parent_e' => 'required|string',
-        //     'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
-        // ]);
-
-        $name = $data['Personal']['name'];
-        $tel = $data['Personal']['tel'];
-        $birthday = $data['Personal']['birthday'];
-        $gender = $data['Personal']['gender'];
-        $religion = $data['Personal']['religion'];
-        $ocupation = $data['Personal']['ocupation'];
-        $nss = $data['Personal']['nss'];
-        $name_e = $data['Personal']['name_e'];
-        $tel_e = $data['Personal']['tel_e'];
-        $parent_e = $data['Personal']['parent_e'];
-        $school = $data['Personal']['school'];
-
-        $country = $data['Direction']['country'];
-        $state = $data['Direction']['state'];
-        $city = $data['Direction']['city'];
-        $cp = $data['Direction']['cp'];
-        $colony = $data['Direction']['colony'];
-        $num_int = $data['Direction']['int'];
-        $ext = $data['Direction']['ext'];
-        $street = $data['Direction']['street'];
+        
         $Id = $data['Id'];
 
         //  return response()->json($data);
@@ -411,19 +364,19 @@ class PatientsController extends Controller
             case 1: {  // Solo cambiaron los datos personales 
                     $Personal = Persona::where('id_persona', $Id)->first();
 
-                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $Personal, $school) {
+                    DB::transaction(function () use ($data,  $Personal) {
                         $Personal->update([
-                            'nombre' => $name,
-                            'ocupacion' => $ocupation,
-                            'fecha_nacimiento' => $birthday,
-                            'escolaridad_id' => $school,
-                            'sexo' => $gender,
-                            'telefono' => $tel,
-                            'telefono_emerge' => $tel_e,
-                            'contacto_emerge' => $name_e,
-                            'parentesco_emerge' => $parent_e,
-                            'nss' => $nss,
-                            'religion' => $religion,
+                            'nombre' => $data['Personal']['name'],
+                            'ocupacion' => $data['Personal']['ocupation'],
+                            'fecha_nacimiento' => $data['Personal']['birthday'],
+                            'escolaridad_id' => $data['Personal']['school'],
+                            'sexo' => $data['Personal']['gender'],
+                            'telefono' => $data['Personal']['tel'],
+                            'telefono_emerge' => $data['Personal']['tel_e'],
+                            'contacto_emerge' => $data['Personal']['name_e'],
+                            'parentesco_emerge' => $data['Personal']['parent_e'],
+                            'nss' => $data['Personal']['nss'],
+                            'religion' => $data['Personal']['religion'],
                             'updated_by' => Auth::id()
                         ]);
                     });
@@ -433,16 +386,16 @@ class PatientsController extends Controller
                     $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
 
                     if ($Domicilio) {
-                        DB::transaction(function () use ($country, $state, $city, $cp, $colony, $num_int, $ext, $street, $Domicilio) {
+                        DB::transaction(function () use ($data, $Domicilio) {
                             $Domicilio->update([
-                                'cuidad_municipio' => $city,
-                                'estado_id' => $state,
-                                'pais' => $country,
-                                'calle' => $street,
-                                'num' => $ext,
-                                'num_int' => $num_int,
-                                'colonia' => $colony,
-                                'cp' => $cp,
+                                'cuidad_municipio' => $data['Direction']['city'],
+                                'estado_id' => $data['Direction']['state'],
+                                'pais' => $data['Direction']['country'],
+                                'calle' => $data['Direction']['street'],
+                                'num' => $data['Direction']['ext'],
+                                'num_int' => $data['Direction']['int'],
+                                'colonia' => $data['Direction']['colony'],
+                                'cp' => $data['Direction']['cp'],
                                 'updated_by' => Auth::id()
                             ]);
                         });
@@ -455,31 +408,32 @@ class PatientsController extends Controller
                     $Personal = Persona::where('id_persona', $data['Id'])->first();
                     $Domicilio = Domicilio::where('id_domicilio', $data['Id_dom'])->first();
 
-                    DB::transaction(function () use ($name, $tel, $birthday, $gender, $religion, $ocupation, $nss, $name_e, $tel_e, $parent_e, $country, $street, $ext, $num_int, $colony, $cp, $city, $state, $Personal, $Domicilio) {
+                    DB::transaction(function () use ($data,$Personal, $Domicilio) {
                         $Personal->update([
-                            'nombre' => $name,
-                            'ocupacion' => $ocupation,
-                            'fecha_nacimiento' => $birthday,
-                            'sexo' => $gender,
-                            'telefono' => $tel,
-                            'telefono_emerge' => $tel_e,
-                            'contacto_emerge' => $name_e,
-                            'parentesco_emerge' => $parent_e,
-                            'nss' => $nss,
-                            'religion' => $religion,
+                            'nombre' => $data['Personal']['name'],
+                            'ocupacion' => $data['Personal']['ocupation'],
+                            'fecha_nacimiento' => $data['Personal']['birthday'],
+                            'escolaridad_id' => $data['Personal']['school'],
+                            'sexo' => $data['Personal']['gender'],
+                            'telefono' => $data['Personal']['tel'],
+                            'telefono_emerge' => $data['Personal']['tel_e'],
+                            'contacto_emerge' => $data['Personal']['name_e'],
+                            'parentesco_emerge' => $data['Personal']['parent_e'],
+                            'nss' => $data['Personal']['nss'],
+                            'religion' => $data['Personal']['religion'],
                             'updated_by' => Auth::id()
 
                         ]);
 
                         $Domicilio->update([
-                            'ciudad_municipio' => $city,
-                            'estado_id' => $state,
-                            'pais' => $country,
-                            'calle' => $street,
-                            'num' => $ext,
-                            'num_int' => $num_int,
-                            'colonia' => $colony,
-                            'cp' => $cp,
+                            'ciudad_municipio' => $data['Direction']['city'],
+                            'estado_id' => $data['Direction']['state'],
+                            'pais' => $data['Direction']['country'],
+                            'calle' => $data['Direction']['street'],
+                            'num' => $data['Direction']['ext'],
+                            'num_int' => $data['Direction']['int'],
+                            'colonia' => $data['Direction']['colony'],
+                            'cp' => $data['Direction']['cp'],
                             'updated_by' => Auth::id()
 
                         ]);
