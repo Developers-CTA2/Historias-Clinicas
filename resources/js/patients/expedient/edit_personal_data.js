@@ -13,6 +13,7 @@ import {
     regexNumeroEntero,
 } from "../../helpers/Regex.js";
 import { TimeAlert } from "../../helpers/Alertas.js";
+import { ShowErrorsSweet } from "../../templates/AlertsTemplate.js";
 
 import {
     IconInfo,
@@ -442,8 +443,8 @@ async function RequestUpdate(Personal, Direction, Type) {
     console.log("Editar los datos ");
     const Data = {
         Personal: Personal,
-        Direction: Direction,
-        Type: parseInt(Type),
+        Direction: "",
+        Type:4,
         Id: parseInt(id),
         Id_dom: parseInt($("#id_dom").text().trim()),
     };
@@ -467,14 +468,23 @@ async function RequestUpdate(Personal, Direction, Type) {
             1
         );
     } catch (error) {
-        timerInterval = TimeAlert(
-            2500,
-            "¡Error!",
-            "Algo salio mal, intentalo más tarde",
-            "error",
-            0
-        );
+        const { data } = error.response;
+        console.log(data);
+        // timerInterval = TimeAlert(
+        //     2500,
+        //     "¡Error!",
+        //     "Algo salio mal, intentalo más tarde",
+        //     "error",
+        //     0
+        // );
         console.log(error);
+
+        await ShowErrorsSweet(
+            "¡Error!",
+            "Se detectarón algunos errores al realizar la petición",
+            "error",
+            data.errors
+        );
     }
 }
 

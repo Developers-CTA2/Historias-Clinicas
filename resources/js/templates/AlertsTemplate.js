@@ -76,7 +76,7 @@ export async function ShowErrorsSweet(Title, Text, Icon, errors) {
         errorList = '<ul class="text-start">';
         for (const key in errors) {
             if (errors.hasOwnProperty(key)) {
-                errorList += `<li>${errors[key].join(
+                errorList += `<li >${errors[key].join(
                     "<br>"
                 )}</li>`;
             }

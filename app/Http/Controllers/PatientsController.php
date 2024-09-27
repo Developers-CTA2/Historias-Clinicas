@@ -13,6 +13,7 @@ use App\Models\Alergia;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Http\Requests\StorePatientRequest;
+use App\Http\Requests\UpdatePersonalDataRequest;
 use App\Models\Diateticas;
 use App\Models\Hemotipo;
 use App\Models\Domicilio;
@@ -197,10 +198,6 @@ class PatientsController extends Controller
         }
     }
 
-
-
-
-
     private function dataPersonalForDB($data)
     {
 
@@ -354,37 +351,37 @@ class PatientsController extends Controller
         ];
     }
 
-
-
     /*  
         Funcion para hacer un update en los datos del paciente 
     */
-    public function Update_Personal_Data(Request $request)
+    public function Update_Personal_Data(UpdatePersonalDataRequest $request)
     {
-        $data = $request->validate([
-            'Type' => 'required|numeric',
-            'Id_dom' => 'required|numeric',
-            'Id' => 'required|numeric|exists:personas,id_persona',
-            'Direction.country' => 'required|string',
-            'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
-            'Direction.city' => 'required|string',
-            'Direction.colony' => 'required|string',
-            'Direction.cp' => 'required|numeric',
-            'Direction.street' => 'required|string',
-            'Direction.ext' => 'required|numeric',
-            'Direction.int' => 'nullable|string',
-            'Personal.name' => 'required|string',
-            'Personal.tel' => 'required|string',
-            'Personal.gender' => 'required|string',
-            'Personal.birthday' => 'required|date',
-            'Personal.religion' => 'required|string',
-            'Personal.ocupation' => 'required|string',
-            'Personal.nss' => 'required|numeric',
-            'Personal.name_e' => 'required|string',
-            'Personal.tel_e' => 'required|string',
-            'Personal.parent_e' => 'required|string',
-            'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
-        ]);
+        $data = $request->validated();
+
+        // $data = $request->validate([
+        //     'Type' => 'required|numeric',
+        //     'Id_dom' => 'required|numeric',
+        //     'Id' => 'required|numeric|exists:personas,id_persona',
+        //     'Direction.country' => 'required|string',
+        //     'Direction.state' => 'required|numeric|exists:rep_estado,id_estado',
+        //     'Direction.city' => 'required|string',
+        //     'Direction.colony' => 'required|string',
+        //     'Direction.cp' => 'required|numeric',
+        //     'Direction.street' => 'required|string',
+        //     'Direction.ext' => 'required|numeric',
+        //     'Direction.int' => 'nullable|string',
+        //     'Personal.name' => 'required|string',
+        //     'Personal.tel' => 'required|string',
+        //     'Personal.gender' => 'required|string',
+        //     'Personal.birthday' => 'required|date',
+        //     'Personal.religion' => 'required|string',
+        //     'Personal.ocupation' => 'required|string',
+        //     'Personal.nss' => 'required|numeric',
+        //     'Personal.name_e' => 'required|string',
+        //     'Personal.tel_e' => 'required|string',
+        //     'Personal.parent_e' => 'required|string',
+        //     'Personal.school' => 'required|numeric|exists:escolaridad,id_escolaridad',
+        // ]);
 
         $name = $data['Personal']['name'];
         $tel = $data['Personal']['tel'];

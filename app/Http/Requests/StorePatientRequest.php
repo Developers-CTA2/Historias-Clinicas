@@ -3,11 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
-use App\Models\enfermedades_especificas;
-use App\Models\Toxicomanias;
-use App\Models\Enfermedad_especifica;
-use Illuminate\Contracts\Validation\ValidationRule;
+
 
 class StorePatientRequest extends FormRequest
 {
