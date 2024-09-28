@@ -11,10 +11,13 @@
             </div>
             <div class="modal-body">
                     {{-- Alerta de edicion  --}}
-                <div class="alert alert-danger d-none" role="alert" id="errorListAddCita"></div>
+                <div class="alert alert-danger d-none" role="alert" id="{{$errorAlertId}}"></div>
 
                 <form action="{{$routeForm}}" method="{{$methodForm}}" name="{{$formId}}" id="{{$formId}}">
                     @csrf
+                    @if ($isMethodPut)
+                        @method('PUT')
+                    @endif
                     <input type="hidden" name="fecha" value="{{ $dateCita }}">
 
                     <div class="row">
@@ -37,7 +40,7 @@
 
                         <x-button-custom type="submit"
                             class="btn-blue justify-content-center justify-content-lg-start disabled-custom"
-                            text="Agregar cita" tooltipText="Agendar la cita">
+                            text="{{$buttonSubmitText}}" tooltipText="{{$buttonSubmitText}}">
                             <x-slot name="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                     viewBox="0 0 20 20">

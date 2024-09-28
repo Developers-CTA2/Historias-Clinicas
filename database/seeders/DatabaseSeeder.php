@@ -11,6 +11,7 @@ use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Models\Alergia;
 use App\Models\Escolaridad;
+use App\Models\EstatusCita;
 use App\Models\Hemotipo;
 use App\Models\Rep_estado;
 
@@ -233,6 +234,26 @@ class DatabaseSeeder extends Seeder{
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
+
+        EstatusCita::create([
+            'status' => 'Pendiente',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Atendida',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Cancelada',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Reagendada',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'No asistió',
+        ]);
         
 
 

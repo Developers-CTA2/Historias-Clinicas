@@ -27,6 +27,8 @@ $(function () {
     const formAddCita = document.querySelector('#addCitaForm');
     const errorContainer = document.querySelector('#errorListAddCita');
 
+    console.log(errorContainer);
+
 
     // Form add cita
 
@@ -96,7 +98,7 @@ $(function () {
         });
 
 
-        if (nombre.value == '' || email.value == '' || telefono.value == '' || tipo_profesional.value == null || hora.value == null || motivo.value == '') {
+        if (nombre.value == '' && email.value == '' && telefono.value == '' && tipo_profesional.value == null && hora.value == null && motivo.value == '') {
             groupForm.forEach(group => {
                 group.parentElement.nextElementSibling.textContent = 'Este campo es obligatorio';
                 group.classList.add('border-danger', 'is-invalid');
@@ -232,7 +234,7 @@ $(function () {
         const hora = $('select[name="Hora"]').val().trim();
         const motivo = $('input[name="Motivo"]').val().trim();
 
-        if (!nombre || !email || !telefono || !tipo_profesional || !fecha || !hora || !motivo) {
+        if (!nombre && !email && !telefono || !tipo_profesional || !fecha || !hora || !motivo) {
             $('.text-danger').show();
             return false;
         }

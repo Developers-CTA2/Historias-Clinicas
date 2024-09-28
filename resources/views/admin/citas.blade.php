@@ -51,11 +51,11 @@
 
         <div class="row card shadow-custom p-3 ">
 
-            <div class="col-12 animate__animated animate__fadeInUp" id="containerTableDoctor">
+            <div class="col-12 animate__animated animate__bounceIn" id="containerTableDoctor">
                 <div id="tableCitasDoctor"></div>
             </div>
 
-            <div class="col-12 d-none animate__animated animate__fadeInUp" id="containerTableNutrition">
+            <div class="col-12 d-none animate__animated animate__bounceIn" id="containerTableNutrition">
                 <div id="tableCitasNutrition"></div>
             </div>
 
@@ -64,7 +64,7 @@
         
         {{-- Modal for add cita --}}
         <x-modal-citas modalId="addCitaModal" modalTitle="Agendar cita" :routeForm="route('guardarCita')" methodForm="POST"
-            :dateCita=$fecha buttonSubmitText="Agendar cita" formId="addCitaForm">
+            :dateCita=$fecha buttonSubmitText="Agendar cita" formId="addCitaForm" errorAlertId="errorListAddCita">
 
             {{-- Nombre completo --}}
             <x-form-group class="col-xl-12">
@@ -185,8 +185,8 @@
 
 
         {{-- Modal for edit cita --}}
-        <x-modal-citas modalId="editModalCita" modalTitle="Editar cita" methodForm="PUT"
-            :dateCita=$fecha buttonSubmitText="Guardar cambios" formId="editFormCita">
+        <x-modal-citas modalId="editModalCita" modalTitle="Editar cita"
+            :dateCita=$fecha buttonSubmitText="Guardar cambios" formId="editFormCita" :isMethodPut="false" errorAlertId="errorListEditCita">
 
             {{-- Nombre completo --}}
             <x-form-group class="col-xl-12">
@@ -201,13 +201,13 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <input class="form-control group-add-form" type="text" id="nameEdit" name="nameEdit"
+                    <input class="form-control group-edit-form" type="text" id="nameEdit" name="nameEdit"
                         oninput="this.value = this.value.toUpperCase()" />
                 </x-slot>
             </x-form-group>
 
             {{-- Correo  --}}
-            <x-form-group>
+            <x-form-group class="col-xl-12">
                 <x-slot name="label">
                     <label for="emailEdit"><span class="required-point me-1">*</span> Correo
                         Electrónico:</label>
@@ -219,7 +219,7 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <input class="form-control group-add-form" type="email" name="emailEdit" id="emailEdit"
+                    <input class="form-control group-edit-form" type="email" name="emailEdit" id="emailEdit"
                         oninput="this.value = this.value.toUpperCase()" />
                 </x-slot>
             </x-form-group>
@@ -236,7 +236,7 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <input class="form-control group-add-form" name="phoneEdit" id="phoneEdit" pattern="[0-9]{10}"
+                    <input class="form-control group-edit-form" name="phoneEdit" id="phoneEdit" pattern="[0-9]{10}"
                         maxlength="10" />
                 </x-slot>
             </x-form-group>
@@ -254,7 +254,7 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <select class="form-control group-add-form" name="typeProfessionalEdit" id="typeProfessionalEdit">
+                    <select class="form-control group-edit-form" name="typeProfessionalEdit" id="typeProfessionalEdit">
                         <option value="" disabled selected>Seleccione una opción</option>
                         <option value="Doctora">Doctora</option>
                         <option value="Nutrióloga">Nutrióloga</option>
@@ -274,13 +274,29 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <select class="form-control group-add-form" name="hourEdit" id="hourEdit" required>
+                    <select class="form-control group-edit-form" name="hourEdit" id="hourEdit" required>
                         @for ($hour = 8; $hour <= 18; $hour++)
                             @foreach (['00', '30'] as $minute)
                                 <option value="{{ sprintf('%02d:%02d', $hour, $minute) }}">
                                     {{ sprintf('%02d:%02d', $hour, $minute) }}</option>
                             @endforeach
                         @endfor
+                    </select>
+                </x-slot>
+            </x-form-group>
+
+            <x-form-group>
+                <x-slot name="label">
+                    <label for="statusEdit"><span class="required-point me-1">*</span> Estatus:</label>
+                </x-slot>
+                <x-slot name="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 16 16"><path fill="#e11d48" fill-rule="evenodd" d="M15.941 7.033a8 8 0 0 1-14.784 5.112a.75.75 0 1 1 1.283-.778a6.5 6.5 0 1 0 8.922-8.93a.75.75 0 0 1 .776-1.284a8 8 0 0 1 3.803 5.88M9 1a1 1 0 1 1-2 0a1 1 0 0 1 2 0M2.804 5a1 1 0 1 0-1.732-1a1 1 0 0 0 1.732 1M1 7a1 1 0 1 1 0 2a1 1 0 0 1 0-2m4-4.196a1 1 0 1 0-1-1.732a1 1 0 0 0 1 1.732" clip-rule="evenodd"/></svg>
+                </x-slot>
+                <x-slot name="input">
+                    <select class="form-control group-edit-form" name="statusEdit" id="statusEdit" required>
+                        @foreach ($estatus as $value)
+                            <option value="{{ $value->id }}">{{ $value->status }}</option>
+                        @endforeach
                     </select>
                 </x-slot>
             </x-form-group>
@@ -298,7 +314,7 @@
                     </svg>
                 </x-slot>
                 <x-slot name="input">
-                    <input type="text" class="form-control group-add-form" name="reasonEdit" id="reasonEdit">
+                    <input type="text" class="form-control group-edit-form" name="reasonEdit" id="reasonEdit">
                 </x-slot>
             </x-form-group>
 

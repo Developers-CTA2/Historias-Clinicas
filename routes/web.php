@@ -229,9 +229,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
 
     Route::get('/form-api', [WebServicePersonController::class, 'index'])->name('api.form');
-});
 
-// AGENDAR CITAS
+
+
+    // AGENDAR CITAS
 Route::get('/agendar_citas', function () {
     return view('admin.agenda');
 })->name('showAgenda');
@@ -247,17 +248,24 @@ Route::prefix('/citas')->group(function(){
     Route::get('/get-citas', [CitasController::class, 'getCitas'])->name('citas.get');
     Route::get('/get-citas/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
     // Edit cita
-    Route::put('/{id}/update', [CitasController::class, 'actualizar'])->name('editCita');
+    Route::post('/{id}/update', [CitasController::class, 'update'])->name('editCita');
+    Route::delete('/{id}/delete', [CitasController::class, 'delete'])->name('deleteCita');
 });
 
 Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
-Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHora']);
+// Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHora']);
 
 
 Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
 
 
-Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
+// Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
 
-Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
-Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
+// Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
+// Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
+
+});
+
+
+Route::get('/test',[CitasController::class, 'testCitas'])->name('testCitas');
+
