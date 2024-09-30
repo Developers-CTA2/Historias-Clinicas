@@ -1,8 +1,11 @@
 <aside class="sideBar-custom active d-flex flex-column" id="container-sideBar-custom">
     <div class="w-full flex-grow-1" id="sidebarContainer">
         <div class="w-full d-flex justify-content-between align-items-center header-custom">
-            {{-- <img style="height: 50px;" src="{{asset('images/clinic-track-03.png')}}" /> --}}
-            <h4 class="text-white m-0 align-self-center compressed-text" id="title">Consultorio CUAltos</h4>
+            
+            <div class="container-logo-top  animate__animated animate__backInLeft">
+                <img  src="{{ asset('images/clinic-track.png') }}" alt="Logo" class="logo-custom">
+            </div>
+            
             <button class="hamburgerMenu btn d-none d-md-inline" id="btnOpenClose">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="icon-custom-lg">

@@ -11,6 +11,7 @@
 
     @vite('resources/sass/main.scss')
     {{-- <link rel="stylesheet" href="{{asset('css/animate.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{asset('css/animate.min.css')}}"> --}}
     <!-- Cargar archivos específicos de cada vista -->
     @yield('viteConfig')
 

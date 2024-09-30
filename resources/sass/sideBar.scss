@@ -23,11 +23,6 @@
     background-color: #f0f0f0 !important;
 }
 
-/* sidebard minimizado */
-.sideBar-custom.collapsed {
-    width: 80px;
-    /* Ancho del sidebar cuando está colapsado */
-}
 
 /* Main Content */
 .container-custom {
@@ -229,9 +224,24 @@
         }
     }
 
+    .container-logo-top{
+
+        // Show logo with animation
+        display: initial;
+        animation: fadeIn 1s ease-in-out;
+
+        img{
+            height: 75px;
+        }
+    }
+
     // Sidebar compressed
     &.compressed {
         width: 80px;
+
+        .container-logo-top{
+            display: none;
+        }
 
         nav {
             ul {
@@ -507,14 +517,19 @@
 
 }
 
-
-
-
-
-
 .sideBar-custom.movil-collapse {
     // width: 0px !important;
     left: 0px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 

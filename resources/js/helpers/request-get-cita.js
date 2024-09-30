@@ -7,7 +7,7 @@ export const requestGetCita = async(id)=>{
     return new Promise( async(resolve, reject)=>{
         try{
             
-            const { data } = await axios.get(`/citas/get-citas/${id}`);
+            const { data } = await axios.get(`/agenda/citas/get-citas/get-cita/${id}`);
             
             resolve(data);
     

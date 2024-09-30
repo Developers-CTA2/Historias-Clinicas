@@ -7,7 +7,7 @@ export const requestEditCita = async(dataSend = {}, id)=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const {data} = await axios.post(`/citas/${id}/update`,dataSend);            
+            const {data} = await axios.post(`/agenda/citas/${id}/update`,dataSend);            
             resolve(data);
             
     

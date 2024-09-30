@@ -45,7 +45,7 @@ Route::middleware('guest')->group(function () {
 });
 
 
-/*  Debe haber iniciado sesion  */ 
+/*  Debe haber iniciado sesion  */
 Route::middleware('auth')->group(function () {
 
     // Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -55,7 +55,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/data-statistics-diseases/{month}/{year}', [HomeController::class, 'getDataStatisticsDiseases'])->name('data-statistics-diseases');
         Route::get('/data-statistics-sex/{month}/{year}', [HomeController::class, 'getDataStatisticsSex'])->name('data-statistics-sex');
         Route::get('/data-statistics-type-person/{month}/{year}', [HomeController::class, 'getDataStatisticsTypePerson'])->name('data-statistics-typeperson');
-
     });
 
 
@@ -150,11 +149,10 @@ Route::middleware('auth')->group(function () {
 
             Route::post('/Update_Gyo', [GYOController::class, 'Update_Gyo'])->name('Update_Gyo');
 
-            /* Solo el admnistrador  */ 
+            /* Solo el admnistrador  */
             Route::middleware('UserType:Administrador')->group(function () {
                 Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
             });
-
         });
 
         Route::prefix('/consultation/{id_persona}')->group(function () {
@@ -233,39 +231,37 @@ Route::middleware('auth')->group(function () {
 
 
     // AGENDAR CITAS
-Route::get('/agendar_citas', function () {
-    return view('admin.agenda');
-})->name('showAgenda');
-Route::get('/agendar_citas', [CitasController::class, 'agenda'])->name('showAgenda');
-Route::get('/citas-dia', [CitasController::class, 'citasDelDia']);
+    Route::prefix('/agenda')->group(function () {
+        Route::get('/', [CitasController::class, 'agenda'])->name('showAgenda');
 
-Route::get('/citas', function () {
-    return view('admin.citas');
-})->name('showCitas');
+        Route::prefix('/citas')->group(function () {
+            Route::get('/{fecha}', [CitasController::class, 'mostrarCitas'])->name('citas.index');
+            Route::get('/get-citas/{fecha}', [CitasController::class, 'getCitas'])->name('citas.get');
+            Route::get('/get-citas/get-cita/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
+            // Edit cita
+            Route::post('/{id}/update', [CitasController::class, 'update'])->name('editCita');
+            Route::delete('/{id}/delete', [CitasController::class, 'delete'])->name('deleteCita');
+            Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
 
-Route::prefix('/citas')->group(function(){
-    Route::get('/', [CitasController::class, 'mostrarCitas'])->name('citas.index');
-    Route::get('/get-citas', [CitasController::class, 'getCitas'])->name('citas.get');
-    Route::get('/get-citas/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
-    // Edit cita
-    Route::post('/{id}/update', [CitasController::class, 'update'])->name('editCita');
-    Route::delete('/{id}/delete', [CitasController::class, 'delete'])->name('deleteCita');
+        
+        });
+
+        Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+    });
+
+    // Route::get('/citas', function () {
+    //     return view('admin.citas');
+    // })->name('showCitas');
+
+
+
+
+    // Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
+
+    // Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
+    // Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
+
 });
 
-Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
-// Route::get('/validar-hora/{fecha}/{hora}/{tipo_profesional}', [CitasController::class, 'validarHora']);
 
-
-Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
-
-
-// Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
-
-// Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
-// Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
-
-});
-
-
-Route::get('/test',[CitasController::class, 'testCitas'])->name('testCitas');
-
+Route::get('/test', [CitasController::class, 'proximaCita'])->name('testCitas');
