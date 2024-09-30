@@ -327,13 +327,11 @@ async function RequestUpdate(Datos) {
             "/patients/medical_record/Update_Gyo",
             Data
         );
-        console.log(response.data);
-        const { data } = response;
-        const { title, msg } = data;
+        const { message } = response.data;
 
-        timerInterval = TimeAlert(2500, title, msg, "success", 1);
+        timerInterval = TimeAlert(2500, "¡Éxito!", message, "success", 1);
     } catch (error) {
-        const { type, msg, errors } = error.response.data;
+        const { data, status } = error.response;
 
         ShowORHideAlert(2);
         $(".Gyo-Text").html(
@@ -342,12 +340,12 @@ async function RequestUpdate(Datos) {
             )
         );
 
+        // Error del request
         await ShowErrorsSweet(
             "¡Error!",
             "Se detectarón algunos errores al realizar la petición",
             "error",
-            errors
+            data.errors
         );
-        console.log(error);
     }
 }

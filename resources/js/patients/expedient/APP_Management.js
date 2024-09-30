@@ -300,9 +300,7 @@ function ClicValidateData(Type, OldData) {
 
         if (V_desc && V_Date) {
             result = {
-                //Date: "",
                 Date: $("#New-Data").val(),
-               // Description: "",
                 Description: $("#text_Description").val().trim(),
                 Id_person: parseInt(id_person), //155, //parseInt(id_person),
             };

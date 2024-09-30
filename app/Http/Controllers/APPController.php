@@ -218,7 +218,7 @@ class APPController extends Controller
             return response()->json(['message' => 'Registro de hospitalizacíon agregado correctamente.', 'error' => null], 201);
         } catch (\Exception $e) {
 
-            return response()->json(['title' => 'Error', 'message' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
+            return response()->json(['message' => 'Algo salio mal al realizar la petición.', 'error' => $e->getMessage()], 500);
         }
     }
 
