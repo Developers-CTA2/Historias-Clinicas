@@ -17,7 +17,6 @@
                         <span class="tooltip-text">Habilitar edición.</span>
                     </div>
                 </div>
-                @include('patients.expedient_cards.modals_expedient.modal_add_toxic')
             @endrole
             {{-- Contenedor de las enfermedades --}}
             @php
@@ -241,78 +240,6 @@
                         </li>
                     </ul>
 
-
-                    {{-- <h5 class="m-0 d-flex justify-content-start mt-3">
-                        <span class="pe-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                viewBox="0 0 24 24">
-                                <path fill="#0284c7" fill-rule="evenodd"
-                                    d="M11.612 3.302c.243-.07.5-.07.743 0c.518.147 1.04.283 1.564.42c2.461.641 4.96 1.293 7.184 3.104l1.024.834c.415.338.623.84.623 1.34v7a.75.75 0 0 1-1.5 0v-4.943l-.163.133a11.946 11.946 0 0 1-2.398 1.513c.04.091.061.191.061.297v4.294a2.75 2.75 0 0 1-1.751 2.562l-4 1.56a2.75 2.75 0 0 1-1.998 0l-4-1.56a2.75 2.75 0 0 1-1.751-2.562V13c0-.108.023-.211.064-.304c-.83-.399-1.64-.89-2.417-1.522l-1.024-.834c-.83-.677-.83-2.003 0-2.68l1.04-.85c2.207-1.8 4.689-2.449 7.132-3.087a74.375 74.375 0 0 0 1.567-.421m9.638 5.699c0-.09-.036-.15-.07-.178l-1.024-.834C18 6.5 16.078 5.843 13.64 5.202a90.449 90.449 0 0 1-1.656-.446c-.57.161-1.124.307-1.662.449c-2.42.636-4.529 1.191-6.46 2.768l-1.041.849c-.035.028-.071.087-.071.177s.036.15.07.178l1.025.834c1.948 1.587 4.076 2.146 6.515 2.787c.537.14 1.088.286 1.656.446c.57-.161 1.124-.307 1.662-.449c2.42-.636 4.529-1.191 6.46-2.767l1.041-.85c.035-.028.071-.087.071-.177m-7.294 5.276c1.1-.287 2.207-.577 3.294-.972v3.989c0 .515-.316.977-.796 1.165l-4 1.559a1.25 1.25 0 0 1-.908 0l-4-1.56a1.25 1.25 0 0 1-.796-1.164v-3.998c1.099.4 2.219.692 3.33.982c.525.137 1.047.273 1.565.42c.243.07.5.07.743 0c.519-.148 1.042-.284 1.568-.421"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </span>
-                        Escolaridad
-                        <div class="ms-3 apnp-refresh-esc d-none animate__animated animate__fadeInUp">
-                            <x-icon-warning />
-                        </div>
-                    </h5>
-
-                    <ul class="list-group">
-                        <li class="list-group-item p-2 mt-2">
-                            <div class="d-flex justify-content-between">
-                                <div class="align-self-center">
-                                    {{ $escolaridad->nombre }}
-                                </div>
-                                <div class="align-self-center d-none" id="id_escolaridad">
-                                    {{ $escolaridad->id_escolaridad }}
-                                </div>
-                                <div class="align-self-center APNP-data d-none animate__animated animate__fadeInUp">
-
-                                    <x-button-custom type="button"
-                                        class="btn-blue-sec justify-content-center edit-hospital" padding="px-1 py-1"
-                                        :onlyIcon="true" data-bs-toggle="collapse" href="#Edit-escolaridad"
-                                        role="button" aria-expanded="false" aria-controls="collapseExample"
-                                        tooltipText="Editar escolaridad.">
-                                        <x-slot name="icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                viewBox="0 0 32 32">
-                                                <path
-                                                    d="M2 26h28v2H2zM25.4 9c.8-.8.8-2 0-2.8l-3.6-3.6c-.8-.8-2-.8-2.8 0l-15 15V24h6.4zm-5-5L24 7.6l-3 3L17.4 7zM6 22v-3.6l10-10l3.6 3.6l-10 10z" />
-                                            </svg>
-                                        </x-slot>
-                                    </x-button-custom>
-                                </div>
-                            </div>
-
-                            <div class="Edit-school collapse mt-1" id="Edit-escolaridad">
-                                @php
-                                    $selected = $escolaridad->id_escolaridad ?? '';
-                                @endphp
-                                <label for="new_school"> Selecciona una escolaridad <span class="red-color">
-                                        *</span></label>
-                                <select class="form-control" id="new_school" name="new_school">
-                                    @foreach ($escolaridades as $escolaridad)
-                                        <option value="{{ $escolaridad['id_escolaridad'] }}"
-                                            {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
-                                            {{ $escolaridad['nombre'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                 <div class="d-flex justify-content-center mt-2">
-                                    <x-button-custom type="button"
-                                        class="btn-sec justify-content-center justify-content-lg-start"
-                                        id="save-School" text="Guardar" tooltipText="Guardar cambios.">
-                                        <x-slot name="icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 20 20">
-                                                <path d="m15.3 5.3l-6.8 6.8l-2.8-2.8l-1.4 1.4l4.2 4.2l8.2-8.2z" />
-                                            </svg>
-                                        </x-slot>
-                                    </x-button-custom>
-                                </div>
-                            </div>
-                        </li>
-                    </ul> --}}
                 </div>
             </div>
             @role('Administrador')
@@ -339,3 +266,8 @@
         </div>
     </div>
 </div>
+
+
+@role('Administrador')
+    @include('patients.expedient_cards.modals_expedient.modal_add_toxic')
+@endrole

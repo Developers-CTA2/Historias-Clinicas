@@ -249,7 +249,9 @@ function ClicValidateData(Type, OldData) {
         console.log($("#New-Data").val());
 
         $(".Modal-Alert-Text").html(
-            IconWarning("<strong> ¡Error! </strong> no se ha agregado ningún dato.")
+            IconWarning(
+                "<strong> ¡Error! </strong> no se ha agregado ningún dato."
+            )
         );
         ShowORHideAlert(2);
 
@@ -260,7 +262,6 @@ function ClicValidateData(Type, OldData) {
             "#text_Description"
         );
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
-   
     } else {
         // Ocultar alerta
         ShowORHideAlert(1);
@@ -270,7 +271,7 @@ function ClicValidateData(Type, OldData) {
             regexDescription,
             "#text_Description"
         );
-        
+
         let V_Date = validarCampo(Date, regexFecha, "#New-Data");
 
         if (Type >= 5) {
@@ -299,9 +300,11 @@ function ClicValidateData(Type, OldData) {
 
         if (V_desc && V_Date) {
             result = {
+                //Date: "",
                 Date: $("#New-Data").val(),
+               // Description: "",
                 Description: $("#text_Description").val().trim(),
-                Id_person: parseInt(id_person),
+                Id_person: parseInt(id_person), //155, //parseInt(id_person),
             };
         }
     }
@@ -349,6 +352,9 @@ async function Request(Type, Data, Ids) {
             "/patients/medical_record/" + URL,
             Data
         );
+        const { message } = response.data;
+
+        console.log(response)
 
         $("#add-APP").modal("hide");
         $("#text_Description").val("");
@@ -361,21 +367,14 @@ async function Request(Type, Data, Ids) {
         ClicRefresh(".btn-refresh", "");
 
         //if ($("#btn-refresh-page").hasClass("d-none")) {
-            $("#btn-refresh-page").removeClass("d-none");
-     //   }
-        
+        $("#btn-refresh-page").removeClass("d-none");
+        //   }
 
-        timerInterval = TimeAlert(
-            2000,
-            "¡Éxito!",
-            "Registro agregado con éxito",
-            "success",
-            2
-        );
+        timerInterval = TimeAlert(2000, "¡Éxito!", message, "success", 2);
     } catch (error) {
         // ShowErrorsSweet;
-        const { data } = error.response;
-        console.log(data);
+        const { data, status } = error.response;
+        console.log(error);
 
         ShowSpanErrors(
             ".Modal-Alert",
@@ -383,12 +382,24 @@ async function Request(Type, Data, Ids) {
             " </strong> ¡Error! </strong> al realizar la peticion."
         );
 
-        await ShowErrorsSweet(
-            "¡Error!",
-            "No fue posible la edición de los datos",
-            "error",
-            data.errors
-        );
+        if (status == 422) { // Error del request 
+             await ShowErrorsSweet(  
+                 "¡Error!",
+                 "Se detectarón algunos errores al realizar la petición",
+                 "error",
+                 data.errors
+             );
+            
+        } else {
+            // Error especifico e ID de la persona o de registro
+            timerInterval = TimeAlert(
+                2500,
+                "¡Error!",
+                data.message,
+                "error",
+                2
+            );
+        }
     }
 }
 

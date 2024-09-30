@@ -344,7 +344,7 @@ async function RequestUpdate(Datos) {
 
         await ShowErrorsSweet(
             "¡Error!",
-            "No fue posible la edición de los datos",
+            "Se detectarón algunos errores al realizar la petición",
             "error",
             errors
         );

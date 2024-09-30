@@ -1,7 +1,7 @@
 <!-- Modal para agregar un registro de Hospitalizacion, cirugias, transfuciones o  traumatismos -->
 <div class="modal fade" id="add-APP" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-blue">
                 <h5 class="modal-title" id="staticBackdropLabel">Modificar expediente</h5>
