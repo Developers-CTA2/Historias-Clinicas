@@ -16,6 +16,8 @@ class modalCitas extends Component
     public $dateCita = '';
     public $buttonSubmitText = '';
     public $formId = '';
+    public $isMethodPut;
+    public $errorAlertId = '';
 
 
     public function __construct(
@@ -25,7 +27,9 @@ class modalCitas extends Component
         $dateCita = '',
         $buttonSubmitText = '',
         $methodForm = 'POST',
-        $formId = ''
+        $formId = '',
+        $isMethodPut = false,
+        $errorAlertId = ''
     )
     {
 
@@ -38,6 +42,8 @@ class modalCitas extends Component
         $this->buttonSubmitText = $buttonSubmitText;
         $this->methodForm = $methodForm;
         $this->formId = $formId;
+        $this->isMethodPut = $isMethodPut;
+        $this->errorAlertId = $errorAlertId;
     }
     
 

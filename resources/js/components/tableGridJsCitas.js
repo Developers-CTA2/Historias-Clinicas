@@ -2,14 +2,15 @@ import { Grid, html, h } from "gridjs";
 
 import { className, translations } from "../helpers/gridJsConfiguration";
 import { requestGetCita } from "../helpers/request-get-cita";
+import { AlertConfirmationForm, AlertError, AlertInfo, AlertSweetSuccess } from "../helpers/Alertas";
+import { regexCorreo, regexLetters, regexTelefono } from "../helpers/Regex";
+import { requestEditCita } from "../helpers/request-edit-cita";
+import { requestDeleteCita } from "../helpers/request-delete-cita";
 
 const fechaInicial = document.getElementById('dateInitial')
 const baseUrlGrid = '/citas/get-citas';
 
-const manageData = {
-    currentData: [],
-    editData: [],
-}
+let manageOldData = [];
 
 // Elements of the modal
 const nameEdit = document.getElementById('nameEdit');
@@ -19,27 +20,33 @@ const professionalEdit = document.getElementById('typeProfessionalEdit');
 const reasonEdit = document.getElementById('reasonEdit');
 const hourEdit = document.getElementById('hourEdit');
 const formEdit = document.getElementById('editFormCita');
+const statusEdit = document.getElementById('statusEdit');
+
+// Container of errors
+const errorContainerListEdit = document.getElementById('errorListEditCita');
 
 const groupFormEdit = document.querySelectorAll('.group-edit-form');
+let idCita = null;
 
 const validateData = () => {
 
     let validateForm = true;
 
     groupFormEdit.forEach(group => {
+        console.log(group);
         group.classList.remove('border-danger', 'is-invalid');
         group.parentElement.nextElementSibling.classList.add('d-none');
         group.parentElement.nextElementSibling.textContent = '';
     });
-
-
-    if (nameEdit.value == '' || emailEdit.value == '' || phoneEdit.value == '' || professionalEdit.value == null || hourEdit.value == null || motivo.value == '') {
-        groupForm.forEach(group => {
+    
+    if (nameEdit.value == '' && emailEdit.value == '' && phoneEdit.value == '' && professionalEdit.value == null && hourEdit.value == null && motivo.value == '') {
+        groupFormEdit.forEach(group => {
+            console.log(group);
             group.parentElement.nextElementSibling.textContent = 'Este campo es obligatorio';
             group.classList.add('border-danger', 'is-invalid');
             group.parentElement.nextElementSibling.classList.remove('d-none');
         });
-        AlertErrorLoadingData('Error', 'Todos los campos son obligatorios.');
+        AlertError('Error', 'Todos los campos son obligatorios.');
         return false;
     }
 
@@ -103,11 +110,11 @@ const validateData = () => {
 
 const manageEditDataCita = (data)=>{
 
-    const { nombre, email, telefono, tipo_profesional, motivo, hora } = data;
+    const { nombre, email, telefono, tipo_profesional, motivo, hora, estatus_cita } = data;
 
-    manageData.currentData = data;
+    console.log(data);
 
-    formEdit.action = `/citas/${data.id}/update`;
+    manageOldData = data;
 
     nameEdit.value = nombre;
     emailEdit.value = email;
@@ -115,18 +122,35 @@ const manageEditDataCita = (data)=>{
     professionalEdit.value = tipo_profesional;
     reasonEdit.value = motivo;
     hourEdit.value = hora;
+    statusEdit.value = estatus_cita.id;
+}
+
+
+const manageRequestDeleteCita = (id) => {
+    requestDeleteCita(id).then(successDeleteCita).catch(showErrors);
 }
 
 const showErrors = (errors) => {
-    console.log(errors);
+    console.log(errors);   
+}
+
+const successDeleteCita = (data) => {
+    const {title, message} = data;
+    AlertSweetSuccess(title, message, `/citas?fecha=${fechaInicial.value}`);
 }
 
 const editCita = (id) => {
+    idCita = id;
     requestGetCita(id).then(manageEditDataCita).catch(showErrors);
+}
+
+const deleteCita = (id) => {
+    AlertConfirmationForm('¿Estás seguro de eliminar esta cita?', 'La cita se eliminará de forma permanente.', ()=> manageRequestDeleteCita(id));
 }
 
 
 export const initialGridJs = ()=>{
+    
     new Grid({
         columns: [
             {
@@ -214,10 +238,7 @@ export const initialGridJs = ()=>{
                         ]),
                         h("button", {
                             className: "btn-red py-2 px-3",
-                           
-                            onClick: () => {
-                                console.log('Eliminar cita');
-                            }
+                            onClick: () => deleteCita(row.cells[0].data)
                         }, [
                             h("svg", {
                                 xmlns: "http://www.w3.org/2000/svg",
@@ -255,7 +276,7 @@ export const initialGridJs = ()=>{
         },
         server: {
             url: `${baseUrlGrid}?fecha=${fechaInicial.value}&tipo=1`,
-            then: ({ data }) => data.map(cita => [cita.id, cita.estado, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
+            then: ({ data }) => data.map(cita => [cita.id, cita.estatus_cita.status, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
             total: (data) => data.count
         },
         className: className,
@@ -278,9 +299,6 @@ export const initialGridJs = ()=>{
                 formatter: (cell) => {
                     const statusData = cell;
                     let statusHtml = null;
-
-                    console.log(cell);
-
 
                     if (statusData === 'Pendiente') {
                         // <span class="badge text-white"
@@ -331,9 +349,9 @@ export const initialGridJs = ()=>{
                     }, [
                         h("button", {
                             className: "btn-blue fst-normal py-2 px-3 me-2",
-                            onClick: () => {
-                                console.log('Editar cita');
-                            }
+                            'data-bs-toggle': "modal",
+                            'data-bs-target': "#editModalCita",
+                            onClick: () => editCita(row.cells[0].data)
                         }, [
                             h("svg", {
                                 xmlns: "http://www.w3.org/2000/svg",
@@ -348,9 +366,7 @@ export const initialGridJs = ()=>{
                         ]),
                         h("button", {
                             className: "btn-red py-2 px-3",
-                            onClick: () => {
-                                console.log('Eliminar cita');
-                            }
+                            onClick: () => deleteCita(row.cells[0].data)
                         }, [
                             h("svg", {
                                 xmlns: "http://www.w3.org/2000/svg",
@@ -388,7 +404,7 @@ export const initialGridJs = ()=>{
         },
         server: {
             url: `${baseUrlGrid}?fecha=${fechaInicial.value}&tipo=${2}`,
-            then: ({ data }) => data.map(cita => [cita.id, cita.estado, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
+            then: ({ data }) => data.map(cita => [cita.id, cita.estatus_cita.status, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
             total: (data) => data.count
         },
         className: className,
@@ -396,4 +412,72 @@ export const initialGridJs = ()=>{
         language: translations,
     }
     ).render(document.getElementById("tableCitasNutrition"));
+
+
+    const successEditCita = (data) => {
+        const {title, message} = data;
+        AlertSweetSuccess(title, message, `/citas?fecha=${fechaInicial.value}`);
+
+    }
+
+    const errorEditCita = (errors) => {
+        const { status } = errors;
+
+        // If errors is 422, is error from the controller Validator
+        if (status === 422) {
+            const { errorList } = errors;
+
+            // Show errors in the form
+            AlertError('Oops...!', 'Se encontraron errores en el formulario');
+
+            // Show errors in the form
+            errorContainerListEdit.innerHTML = listErrorsForStoreUser(errorList);
+            errorContainerListEdit.classList.remove('d-none');
+
+            return;
+        }
+
+        // If errors is not 422, is error from the server
+        const { title, message } = errors;
+        AlertError(title, message.message);
+    }
+
+    const compareFormEdit = ()=>{
+        const { nombre, email, telefono, tipo_profesional, motivo, hora, estatus_cita_id  } = manageOldData;
+
+        if (nameEdit.value != nombre || emailEdit.value != email || phoneEdit.value != telefono || professionalEdit.value != tipo_profesional || reasonEdit.value != motivo || hourEdit.value != hora || statusEdit.value != estatus_cita_id) {
+            return true;
+        }
+
+        return false
+
+    }
+
+
+
+    const manageFormEdit = (e)=>{
+        e.preventDefault();
+
+        // Compare if the data has changed
+        if (!compareFormEdit()) {
+            AlertInfo('Error', 'No se ha modificado ningún campo.');
+            return;
+        }
+        
+        if (!validateData()) {
+            return;
+        }
+
+        const formData = new FormData(e.target);        
+        AlertConfirmationForm('¿Estás seguro de editar esta cita?', 'Los cambios se aplicará en la cita.', ()=> manageRequestEditCita(formData));
+        
+    }
+
+    const manageRequestEditCita = (data) => {
+        requestEditCita(data, idCita).then(successEditCita).catch(errorEditCita)
+    }
+
+    
+    formEdit.addEventListener('submit', manageFormEdit);
+
 }

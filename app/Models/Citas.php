@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EstatusCita;
 
 class Citas extends Model
 {
@@ -19,8 +20,13 @@ class Citas extends Model
         'fecha',
         'hora',
         'motivo',
-        'estado',
+        'estatus_cita_id',
     ];
+
+    public function estatusCita()
+    {
+        return $this->belongsTo(EstatusCita::class);
+    }
 
 
 }
