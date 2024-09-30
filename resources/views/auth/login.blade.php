@@ -44,27 +44,8 @@
                 </div>         
         </form>
     </div>
-    {{-- 
-    <form class="mx-2" action="{{ route('login') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label for="user_name" class="form-label label">Usuario</label>
-                    <input type="text" class="form-control form-control-custom py-2" id="user_name"
-                        aria-describedby="user_name" name="user_name" oninput="this.value = this.value.toUpperCase()">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label label">Contraseña</label>
-                    <input type="password" class="form-control form-control-custom py-2" id="password" name="password">
-                </div>
-                <div class="d-flex justify-content-center pt-4 mb-1">
-                    <button type="submit" class="btn btn-primary-custom px-5 py-2 w-100 w-md-0">Ingresar</button>
-                </div>
-            </form>
-    --}}
 @endsection
 
 @section('scripts')
-
     @vite('resources/js/auth.js')
-
 @endsection
