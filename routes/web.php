@@ -197,13 +197,9 @@ Route::middleware('auth')->group(function () {
 
     ///// REGISTROS DE PACIENTES
 
-
-
     ///// VER PACIENTES
 
     // Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
-
-
     //AGREGAR PACIENTE
     // Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
     // Route::get('/agregar_paciente', [AddPatientsController::class, 'showForm'])->name('showForm');
@@ -214,7 +210,6 @@ Route::middleware('auth')->group(function () {
     //     Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details.nutrition');
 
     // });
-
 
     // Verificar rol 
 

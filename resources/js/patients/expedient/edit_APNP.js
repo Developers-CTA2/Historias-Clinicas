@@ -11,6 +11,7 @@ import {
     IconWarning,
     Confirm,
     ShowErrorsSweet,
+    IconError,
 } from "../../templates/AlertsTemplate.js";
 
 $(document).ready(function () {
@@ -29,7 +30,7 @@ function EventEditAPNP() {
             $(".alert-APNP").html(IconInfo("Ahora estás en modo de edición."));
             $(".APNP-data").removeClass("d-none").hide().fadeIn(400);
             EventHemotipo();
-           // EventSchool();
+            // EventSchool();
             listenDrugs();
         } else {
             /* Cancelar edicion */
@@ -134,7 +135,7 @@ async function RequestUpdate(Hemotipo, school, Type) {
             "error",
             errors
         );
-         console.log(error);
+        console.log(error);
     }
 }
 function ShowAlerts(type) {
@@ -188,7 +189,6 @@ async function listenDrugs() {
 
     $("#saveDrugs").off("click");
     $("#saveDrugs").on("click", function () {
-       
         if ($("#new_toxic").val() == "" || $("#new_toxic").val() == null) {
             $(".alert-add-Drug").html(
                 IconWarning("No se ha detectado ningun cambio.")
@@ -325,6 +325,12 @@ async function RequestAddiction(idPerson, Datos) {
         );
         console.log(response);
         $("#add-toxic").modal("hide");
+        // limpiar campos
+        $("#desdeCuandoFuma").val("");
+        $("#cantidadCigarros").val("");
+        $("#desdeCuandoOtros").val("");
+        $("#descripcionOtros").val("");
+
         ClicRefresh();
     } catch (error) {
         console.log(error);
@@ -332,7 +338,9 @@ async function RequestAddiction(idPerson, Datos) {
         ShowAlerts(3);
         console.log(data);
         $(".alert-AHF").html(
-            '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
+            IconError(
+                "<strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.."
+            )
         );
         await ShowErrorsSweet(
             "¡Error!",
