@@ -33,17 +33,17 @@ async function initialData() {
                         if (status === 1) {
                             return h("div", {
                                 className:
-                                    "d-flex justify-content-center align-items-center avatar avatar-Doctor p-0",
+                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-doctor p-0",
                             });
                         } else if (status === 2) {
                             return h("div", {
                                 className:
-                                    "d-flex justify-content-center align-items-center avatar avatar-Pasante-m",
+                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-pasante ",
                             });
                         } else {
                             return h("div", {
                                 className:
-                                    "d-flex justify-content-center align-items-center avatar avatar-Nutricion",
+                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-nutrition",
                             });
                         }
                     },

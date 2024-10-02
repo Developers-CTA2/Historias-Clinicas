@@ -20,7 +20,9 @@
 
             <section class="d-flex align-items-center gap-3">
                 <p id="usernameText" class="m-0">{{ auth()->user()->name }}</p>
-                <div class="avatar-container" data-bs-toggle="dropdown" aria-expanded="false"></div>
+                <div class="avatar-container" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{asset('/images/icon-doctor.png')}}" alt="Ícono doctor">
+                </div>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="{{ route('profile.details') }}" class="dropdown-item" href="#">
