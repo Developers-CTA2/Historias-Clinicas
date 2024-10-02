@@ -22,7 +22,7 @@
                         stroke-width="2" d="M3 21h18M5 21V7l8-4v18m6 0V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01" />
                 </svg>
             </div>
-            <h4 class="fw-bold title-size-sm mt-2">Externos</h4>
+            <h4 class="fw-bold title-size-sm mt-2">Externo</h4>
         </div>
     </div>
     <div class="row d-flex justify-content-center mt-3 animate__animated animate__fadeInUp d-none"

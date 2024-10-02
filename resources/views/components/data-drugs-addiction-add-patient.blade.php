@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
                             <div class="row d-flex justify-content-center">
-                                <h5 class="md-w-custom text-center text-lg-start">Lista de toxicomanias
+                                <h5 class="md-w-custom text-center text-lg-start">Lista de toxicomanías
                                 </h5>
                             </div>
                             <div class="hr-custom"></div>
@@ -48,9 +48,9 @@
                                         </div>
 
                                         <div
-                                            class="form-group container-bg-custom text-center sm-h rounded-2">
+                                            class="form-group container-bg-custom text-center rounded-2 p-2 pb-3 mt-3">
                                             <h5 class="fw-bold pt-2">Riesgo de EPOC</h5>
-                                            <p id="riegoEPOC"><span class="badge-custom badge-custom-success">Nulo</span></p>
+                                            <p id="riegoEPOC" class="mb-0"><span class="badge-custom badge-custom-success">Nulo</span></p>
                                         </div>
                                     </section>
 
@@ -89,7 +89,7 @@
                             </div>
                         </div> <!-- FIN contenedor 1  -->
                         <div class="col-lg-6 col-sm-12 mt-5 mt-lg-0">
-                            <h5 class="text-center">Toxicomanias seleccionadas</h5>
+                            <h5 class="text-center">Toxicomanías seleccionadas</h5>
                             <div class="hr-custom"></div>
                             <div
                                 class="row d-flex justify-content-center justify-content-lg-start mt-3 mx-2">

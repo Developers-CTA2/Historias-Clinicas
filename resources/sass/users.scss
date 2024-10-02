@@ -1,10 +1,4 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
-
-// Variables
 @import "variables";
-// Estilos de los botones y de los tooltips
-@import "buttons";
 
 .btn-custom-full:hover{
     background-color: $bg-color-opactity-lg;
@@ -37,27 +31,32 @@
 } 
 
 /* Imagenes de la tabla */ 
-.avatar{
-    background-size: cover; 
-    background-position: center;
-    width: 45px; 
+
+/* Imagen segun el rol del usuario*/ 
+
+.config-avatar{
+    width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 1px solid #b1b1b1;
-    cursor: pointer;   
-}
-/* Imagen segun el rol del usuario*/ 
-.avatar-Doctor{
-    background-image: url('/public/images/doctor_1.png');  
+    border: 2px solid $bg-color-opactity-md;
+    background-size: cover;
+    background-position: center;
+    // cursor: pointer;
+
+    &.avatar-doctor{
+        background-image: url('/public/images/icon-doctor.png');  
+    }
+
+    &.avatar-pasante{
+        background-image: url('/public/images/icon-pasante.png');  
+    }
+
+    &.avatar-nutrition{
+        background-image: url('/public/images/icon-nutrition.png');  
+    }
 }
 
-.avatar-Pasante-m{
-    background-image: url('/public/images/doctor.png');  
-}
 
-.avatar-Nutricion{
-    background-image: url('/public/images/Nutricion.png');  
-}
 
 
 

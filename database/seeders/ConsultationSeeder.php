@@ -14,7 +14,7 @@ class ConsultationSeeder extends Seeder
      */
     public function run(): void
     {
-        // Consulta::factory(100)->create();
-        ConsultaHasEnfermedad::factory(40)->create();
+        Consulta::factory(2000)->create();
+        ConsultaHasEnfermedad::factory(1400)->create();
     }
 }
