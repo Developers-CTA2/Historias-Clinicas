@@ -8,7 +8,7 @@ import { requestEditCita } from "../helpers/request-edit-cita";
 import { requestDeleteCita } from "../helpers/request-delete-cita";
 
 const fechaInicial = document.getElementById('dateInitial')
-const baseUrlGrid = '/citas/get-citas';
+const baseUrlGrid = '/agenda/citas/get-citas';
 
 let manageOldData = [];
 
@@ -27,6 +27,7 @@ const errorContainerListEdit = document.getElementById('errorListEditCita');
 
 const groupFormEdit = document.querySelectorAll('.group-edit-form');
 let idCita = null;
+const baseUrl = '/agenda/citas';
 
 const validateData = () => {
 
@@ -131,12 +132,14 @@ const manageRequestDeleteCita = (id) => {
 }
 
 const showErrors = (errors) => {
-    console.log(errors);   
+    const { title, message } = errors;
+
+    AlertError(title, message.message ? 'Hubo un error al obtener la cita, si el problema persiste, consulte al administrador' : message.message);
 }
 
 const successDeleteCita = (data) => {
     const {title, message} = data;
-    AlertSweetSuccess(title, message, `/citas?fecha=${fechaInicial.value}`);
+    AlertSweetSuccess(title, message, `${baseUrl}/${fechaInicial.value}`);
 }
 
 const editCita = (id) => {
@@ -150,6 +153,8 @@ const deleteCita = (id) => {
 
 
 export const initialGridJs = ()=>{
+
+    console.log(`${baseUrlGrid}/${fechaInicial.value}?tipo=${2}`);
     
     new Grid({
         columns: [
@@ -275,7 +280,7 @@ export const initialGridJs = ()=>{
             },
         },
         server: {
-            url: `${baseUrlGrid}?fecha=${fechaInicial.value}&tipo=1`,
+            url: `${baseUrlGrid}/${fechaInicial.value}?tipo=1`,
             then: ({ data }) => data.map(cita => [cita.id, cita.estatus_cita.status, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
             total: (data) => data.count
         },
@@ -403,7 +408,7 @@ export const initialGridJs = ()=>{
             },
         },
         server: {
-            url: `${baseUrlGrid}?fecha=${fechaInicial.value}&tipo=${2}`,
+            url: `${baseUrlGrid}/${fechaInicial.value}?tipo=${2}`,
             then: ({ data }) => data.map(cita => [cita.id, cita.estatus_cita.status, cita.hora, cita.nombre, cita.telefono, cita.motivo]),
             total: (data) => data.count
         },
@@ -416,7 +421,7 @@ export const initialGridJs = ()=>{
 
     const successEditCita = (data) => {
         const {title, message} = data;
-        AlertSweetSuccess(title, message, `/citas?fecha=${fechaInicial.value}`);
+        AlertSweetSuccess(title, message, `${baseUrl}/${fechaInicial.value}`);
 
     }
 

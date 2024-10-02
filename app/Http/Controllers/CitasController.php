@@ -28,7 +28,6 @@ class CitasController extends Controller
         try {
             // Obtener la fecha y hora actuales
             $now = Carbon::now();
-            $dateNow = $now->format('Y-m-d H:i');
 
             // Obtener todas las citas desde la fecha y hora actuales ordenadas por fecha y hora ascendentes
             $todasLasCitas = Citas::with(['estatusCita'])
@@ -36,26 +35,26 @@ class CitasController extends Controller
                     $query->where('status', 'Pendiente');
                 })
                 ->where('fecha', '>=', $now->format('Y-m-d'))
-                ->where('hora', '>=', $now->format('H:i'))
+                ->where(function($query) use ($now){
+                    $query->where('fecha', '>', $now->format('Y-m-d'))
+                    ->orWhere('hora', '>=', $now->format('H:i'));
+                })
+                // ->selectRaw('fecha, COUNT(*) as total_citas')
                 ->orderBy('fecha', 'asc')
                 ->orderBy('hora', 'asc')
-                ->get();
+                ->get()
+                ->groupBy('fecha');
 
-            // return response()->json($todasLasCitas);
+                $proximasCitasPorDia = $todasLasCitas->map(function($query){
+                    return [
+                        'fecha' => $query->first()->fecha,
+                        'cantidad' => $query->count()
+                    ];
+                })->values();            
 
+            // return response()->json([$citasAgrupadas,$now]);
         
-            $proximasCitasPorDia = $todasLasCitas->map(function ($cita) {
-                
-                return [
-                    'hora' => Carbon::parse($cita->hora)->format('H:i'),
-                    'nombre' => $cita->nombre,
-                    'fecha' => Carbon::parse($cita->hora)->format('Y-m-d'),
-                    'tipo_profesional' => $cita->tipo_profesional,
-                ];
-            });
-
-            
-
+    
             // Retornar el array con la próxima cita de cada día
             return response()->json($proximasCitasPorDia);
         } catch (\Exception $e) {
@@ -65,9 +64,10 @@ class CitasController extends Controller
         }
     }
 
-    public function mostrarCitas(Request $request)
+    public function mostrarCitas(Request $request, $fecha)
     {
-        $fecha = $request->query('fecha');
+        // $fechaValor = $fecha;
+
         if (!$fecha) {
             return response()->json(['error' => 'Fecha no proporcionada'], 400);
         }
@@ -92,12 +92,15 @@ class CitasController extends Controller
 
 
     // Get Citas for a specific date and professional type
-    public function getCitas(Request $request)
+    public function getCitas(Request $request, $fecha)
     {
 
         try {
 
-            $fecha = $request->input('fecha', Carbon::now()->format('Y-m-d'));
+            if(!$fecha){
+                return response()->json(['error' => 'Fecha no proporcionada'], 400);
+            }
+
             $tipo_profesional = $request->input('tipo', 1);
             $search = $request->input('search', '');
 
@@ -132,6 +135,7 @@ class CitasController extends Controller
             }
 
             return response()->json(['data' => $citas, 'count' => $count]);
+            
         } catch (\Exception $e) {
             Log::error('Error al obtener las citas: ' . $e->getMessage());
             return response()->json(['error' => 'Error al obtener las citas'], 500);
