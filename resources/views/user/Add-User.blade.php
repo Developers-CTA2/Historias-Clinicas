@@ -18,7 +18,7 @@
                 Agregar un usuario al sistema
             </x-slot>
 
-            <div class="row">
+            <div class="pe-2">
                 <div class="col-12 d-none">
                     <div class="alert alert-danger">
                         <ul class="m-0" id="listErrorsPerson"></ul>
@@ -47,9 +47,9 @@
                     </div>
                 </div>
 
-                <div class="cont-user-data container mt-3 d-none animate__backInUp">
+                <div class="col-12 cont-user-data container mt-3 d-none animate__backInUp">
                     {{-- Contenedor de los datos personales del usuario --}}
-                    <div class="row col-12 mx-2 p-1">
+                    <div class="row mx-2 p-1">
                         <h5 class="p-0 m-0 fw-bold text-muted"> Datos personales </h5>
                         <div class="col-lg-6  col-sm-12">
                             <div class="form-group mt-3">
@@ -78,7 +78,7 @@
                     {{-- Contenedor de los datos del usuario --}}
                     <div class="row col-12 mx-2 p-1 mt-1">
                         <h5 class="p-0 m-0 fw-bold text-muted">Configuración</h5>
-                        <div class="col-lg-6  col-sm-12">
+                        <div class="col-lg-6 col-sm-12">
                             <div class="form-group mt-3">
                                 {{-- <p class="fw-bold mb-0">Tipo de usuario</p> --}}
                                 <label for="Usertype">Tipo de usuario <span class="red-color"> *</span></label>
@@ -111,11 +111,9 @@
                         </div>
                     </div>
                     {{-- Botones  --}}
-                    <div class="col-12 p-0 mt-2">
-                        <div class="row">
-                            <div class="d-flex justify-content-end">
-                                <div class="mx-2">
-
+                    <div class="col-12 mt-2 row">
+                            <div class="d-flex justify-content-end gap-2">
+                
                                     <x-button-custom class="btn-red" text="Cancelar" id="cancelForm"
                                         tooltipText="Volver a la ventana anterior">
                                         <x-slot name="icon">
@@ -128,9 +126,6 @@
                                         </x-slot>
                                     </x-button-custom>
 
-
-                                </div>
-                                <div class="">
                                     <x-button-custom class="btn-sec" text="Guardar" tooltipText="Guardar el usuario"
                                         id="save-user">
                                         <x-slot name="icon">
@@ -142,14 +137,12 @@
                                                     d="M16.75 20h-1.5v-6.25h-6.5V20h-1.5v-6.5a1.25 1.25 0 0 1 1.25-1.25h7a1.25 1.25 0 0 1 1.25 1.25ZM12.47 8.75H8.53a1.29 1.29 0 0 1-1.28-1.3V4h1.5v3.25h3.5V4h1.5v3.45a1.29 1.29 0 0 1-1.28 1.3" />
                                             </svg>
                                         </x-slot>
-                                    </x-button-custom>
-                                </div>
-                            </div>
-                        </div>
+                                    </x-button-custom>                               
+                            </div>               
                     </div>
                 </div>
 
-                <div class="col-12 p-0 mt-2 buttons-cont animate__fadeOut">
+                {{-- <div class="col-12 p-0 mt-2 buttons-cont animate__fadeOut">
                     <div class="row">
                         <div class="d-flex justify-content-end">
 
@@ -167,13 +160,9 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
-
         </x-card-custom>
-       
-
-
     </div>
 
 @endsection

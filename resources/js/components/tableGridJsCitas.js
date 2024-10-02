@@ -8,7 +8,7 @@ import { requestEditCita } from "../helpers/request-edit-cita";
 import { requestDeleteCita } from "../helpers/request-delete-cita";
 
 const fechaInicial = document.getElementById('dateInitial')
-const baseUrlGrid = '/agenda/citas/get-citas';
+const baseUrlGrid = "/calendar/medical_appointment/get-citas";
 
 let manageOldData = [];
 
@@ -27,7 +27,7 @@ const errorContainerListEdit = document.getElementById('errorListEditCita');
 
 const groupFormEdit = document.querySelectorAll('.group-edit-form');
 let idCita = null;
-const baseUrl = '/agenda/citas';
+const baseUrl = "/calendar/medical_appointment";
 
 const validateData = () => {
 

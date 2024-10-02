@@ -11,7 +11,7 @@ class GyoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if ($this->user()->hasRole('Administrador') || $this->user()->hasRole('Prestador de medicina') || $this->user()->hasRole('Prestador de nutrición')) {
+        if ($this->user()->hasRole('Administrador')) {
             return true;
         }
         return false;

@@ -123,7 +123,7 @@
             <x-form-group>
                 <x-slot name="label">
                     <label for="tipo_profesional"><span class="required-point me-1">*</span> Tipo de
-                        Profesional:</label>
+                        especialista:</label>
                 </x-slot>
                 <x-slot name="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -245,7 +245,7 @@
             <x-form-group>
                 <x-slot name="label">
                     <label for="typeProfessionalEdit"><span class="required-point me-1">*</span> Tipo de
-                        Profesional:</label>
+                        especialista:</label>
                 </x-slot>
                 <x-slot name="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">

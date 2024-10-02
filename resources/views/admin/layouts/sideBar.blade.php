@@ -54,7 +54,7 @@
 
 
                 {{-- Agenda --}}
-                <x-item-sidebar title="Agenda" route="{{ route('showAgenda') }}">
+                <x-item-sidebar title="Agenda" route="{{ route('showCalendar') }}">
                     <x-slot name="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                             <path fill="#ffffff"

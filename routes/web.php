@@ -223,35 +223,22 @@ Route::middleware('auth')->group(function () {
 
 
     // AGENDAR CITAS
-    Route::prefix('/agenda')->group(function () {
-        Route::get('/', [CitasController::class, 'agenda'])->name('showAgenda');
+    Route::prefix('/calendar')->group(function () {
+        Route::get('/', [CitasController::class, 'agenda'])->name('showCalendar');
 
-        Route::prefix('/citas')->group(function () {
+        Route::prefix('/medical_appointment')->group(function () {
             Route::get('/{fecha}', [CitasController::class, 'mostrarCitas'])->name('citas.index');
             Route::get('/get-citas/{fecha}', [CitasController::class, 'getCitas'])->name('citas.get');
             Route::get('/get-citas/get-cita/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
             // Edit cita
             Route::post('/{id}/update', [CitasController::class, 'update'])->name('editCita');
             Route::delete('/{id}/delete', [CitasController::class, 'delete'])->name('deleteCita');
-            Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
-
-        
+            Route::post('/save_appointment', [CitasController::class, 'guardarCita'])->name('guardarCita');
+       
         });
 
-        Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+        Route::get('/next_appointment', [CitasController::class, 'proximaCita']);
     });
-
-    // Route::get('/citas', function () {
-    //     return view('admin.citas');
-    // })->name('showCitas');
-
-
-
-
-    // Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
-
-    // Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
-    // Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
 
 });
 
