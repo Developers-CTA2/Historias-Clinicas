@@ -6,12 +6,14 @@ import { activeLoading, disableLoading } from "../loading-screen.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
- import { validarCampo, regexPassword, TimeAlert } from "../helpers";
-
+import { validarCampo, ocultarerr } from "../helpers/ValidateFuntions.js";
+import { TimeAlert } from "../helpers/Alertas.js";
+import { regexPassword } from "../helpers/Regex.js";
 import {
     IconInfo,
     IconError,
-} from "../templates";
+  
+} from "../templates/AlertsTemplate.js";
 
 $(function () {
     clicChangePass();
@@ -27,22 +29,22 @@ function clicChangePass() {
         validatepass();
     });
 }
+
 /*
     Clic cancelar cambio de contraseña
 */
 function CancelOption() {
     $(".cancel-pass").off("click");
     $(".cancel-pass").on("click", function () {
+        $("#cont-change")
+            .addClass("animate__fadeOutUp")
+            .fadeOut(400, function () {
+                $(this).addClass("d-none").removeClass("animate__fadeOutUp");
+                $("#Change-pass").removeClass("d-none");
+                ShowOrHide(3);
+            });
 
-
- $("#cont-change")
-     .addClass("animate__fadeOutUp")
-     .fadeOut(400, function () {
-         $(this).addClass("d-none").removeClass("animate__fadeOutUp");
-         $("#Change-pass").removeClass("d-none");
-         ShowOrHide(3);
-     });
-
+        ocultarerr("#Pass");
 
         // $("#cont-change").fadeOut(1000, function () {
         //     $(this).addClass("d-none");
@@ -89,21 +91,46 @@ async function requestVerifyPass(pass) {
                 .css("cursor", "no-drop");
 
             changepassword();
-        } else {
-            // Contraseña incorrecta
+        } // else {
+
+        //     // Contraseña incorrecta
+        //     $(".step1-text").html(
+        //         IconError(
+        //             " <strong> ¡Error! </strong> la contraseña es incorrecta."
+        //         )
+        //     );
+        //     if ($(".step1-Alert").hasClass("d-none")) {
+        //         $(".step1-Alert").removeClass("d-none").hide().fadeIn(400);
+        //     }
+        // }
+    } catch (error) {
+        disableLoading();
+        const { status, data } = error.response;
+        const { errors } = data;
+
+        if (status == 400) {
+            // Error del controlador
+            console.log("Error en parametros recibidos");
+            //console.log(errors);
+            //`<p> <small>${Text}</small></p>${errorList}`,
             $(".step1-text").html(
-                IconError(
-                    " <strong> ¡Error! </strong> la contraseña es incorrecta."
-                )
+                IconError(` <strong> ¡Error! </strong> ${errors.Pass[0]}.`)
+            );
+
+            if ($(".step1-Alert").hasClass("d-none")) {
+                $(".step1-Alert").removeClass("d-none").hide().fadeIn(400);
+            }
+        } else {
+            // Error de contraseña incorrecta
+
+            console.log("Contraseña incorrecta");
+            $(".step1-text").html(
+                IconError(` <strong> ¡Error! </strong> ${errors}.`)
             );
             if ($(".step1-Alert").hasClass("d-none")) {
                 $(".step1-Alert").removeClass("d-none").hide().fadeIn(400);
             }
         }
-    } catch (error) {
-        disableLoading();
-        console.log("Error");
-        console.log(error);
     }
 }
 /*
@@ -153,27 +180,35 @@ function changepassword() {
         let V_pass = validarCampo(pass, regexPassword, "#New_Pass");
         let V_confirm = validarCampo(confirm, regexPassword, "#Confirm");
         console.log(pass);
-        if (V_pass && V_confirm) {
-            if (pass == confirm) {
-                $("#Alerta_pass").fadeOut(250).addClass("d-none");
 
+        if (pass == "" || confirm == "") {   // campos vacios 
+            // No coincide
+            $(".step2-text").html(
+                IconInfo(
+                    " <strong> ¡Ooops! </strong> Parece que hay campos vacíos."
+                )
+            );
+            if ($(".step2-Alert").hasClass("d-none")) {
+                $(".step2-Alert").removeClass("d-none").hide().fadeIn(400);
+            }
+        } else if (V_pass && V_confirm) {  // Hay dato y cumple con la ER
+            if (pass == confirm) {   // DATOS INGRESADOS SON CORRECTOS  
+                $(".step2-Alert").addClass("d-none").fadeOut(400);
                 ShowConfirm(pass);
             } else {
                 // No coincide
-                $(".step2-text").html(
-                    IconError(
-                        " <strong> ¡Error! </strong> las contraseñas no coinciden."
-                    )
-                );
-                if ($(".2-Alert").hasClass("d-none")) {
-                    $(".2-Alert").removeClass("d-none").hide().fadeIn(400);
+                $(".step2-text").html(IconError(" <strong> ¡Error! </strong> las contraseñas no coinciden."));
+                
+                if ($(".step2-Alert").hasClass("d-none")) {
+                    $(".step2-Alert").removeClass("d-none").hide().fadeIn(400);
                 }
             }
-        } else {
-            // Estructura No valida
-            console.log("eSTRUCTURA invalida");
+        } else {    // Estructura No valida
+            console.log("Estructura inválida");
             $(".step2-text").html(
-                IconInfo(" <strong> ¡Error! </strong> Contraseña inválida.")
+                IconInfo(
+                    " <strong> ¡Error! </strong> La contraseña no tiene una estructura válida."
+                )
             );
             if ($(".step2-Alert").hasClass("d-none")) {
                 $(".step2-Alert").removeClass("d-none").hide().fadeIn(400);
@@ -208,7 +243,7 @@ async function ShowConfirm(datos) {
 
 async function RequesrChangePass(pass) {
     const datos = {
-        Pass: pass,
+        Pass: "Taco",
     };
     console.log(datos);
     try {
@@ -216,23 +251,44 @@ async function RequesrChangePass(pass) {
         const response = await axios.post("/profile/change-password", datos);
         console.log(response.data);
         const { data } = response;
-        const { status, msg, errors } = data;
+        const { msg } = data;
         let timerInterval;
-        // disableLoading();
-        if (status == 200) {
-            timerInterval = TimeAlert(
-                2500,
-                "¡Éxito!",
-                msg,
-                "success",
-                1
-            );
-        } else {
-            timerInterval = TimeAlert(2500, "¡Error!", msg, "error", 0);
-        }
+
+        timerInterval = TimeAlert(2500, "¡Éxito!", msg, "success", 1);
     } catch (error) {
         disableLoading();
-        console.log("Error");
-        console.log(error);
+        const { status, data } = error.response;
+        const { errors } = data;
+        console.log(error.response);
+        if (status == 400) {
+            // Error del controlador
+            console.log("Error en parametros recibidos");
+
+            //   timerInterval = TimeAlert(2500, "¡Éxito!",  errors.Pass[0], "success", 1);  step2-Alert   step2-text
+            $(".step2-text").html(
+                IconError(`<strong> ¡Error! </strong> ${errors.Pass[0]}`)
+            );
+            if ($(".step2-Alert").hasClass("d-none")) {
+                $(".step2-Alert").removeClass("d-none").hide().fadeIn(400);
+            }
+        } else if (status == 401) {
+            // Estructura invalida
+            // No coincide
+            $(".step2-text").html(
+                IconError(`<strong> ¡Error! </strong> ${errors}`)
+            );
+
+            if ($(".step2-Alert").hasClass("d-none")) {
+                $(".step2-Alert").removeClass("d-none").hide().fadeIn(400);
+            }
+        } else {
+            timerInterval = TimeAlert(
+                2500,
+                "¡Error!",
+                "Alsgo salio mal al realizar la petición",
+                "error",
+                2
+            );
+        }
     }
 }
