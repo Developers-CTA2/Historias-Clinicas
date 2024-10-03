@@ -39,6 +39,7 @@ class AddictionsController extends Controller
         $count = $query->count();
         $Addictions = $query->offset($offset)
             ->limit($limit)
+            ->orderBy('nombre', 'asc')
             ->get();
 
         return response()->json([

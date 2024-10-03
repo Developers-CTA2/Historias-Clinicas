@@ -96,6 +96,7 @@ class UserController extends Controller
                         'user_name' => $request->code,
                         'name' => $request->name,
                         'email' => $request->email,
+                        'sex' => $request->sex,
                         'cedula' => $request->cedula,
                         'file' => $filename,
                         'estado' => 'Activo',
@@ -120,7 +121,9 @@ class UserController extends Controller
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
 
-        $query = User::query()->where('user_name', '!=', '010101')->orderby('estado');
+        $query = User::with('roles')
+                ->where('users.id', '!=', auth()->user()->id)
+                ->whereNot('users.user_name', '010101');
 
         if (!empty($search)) {
 
@@ -131,14 +134,16 @@ class UserController extends Controller
             });
         }
 
-        $total = $query->count() - 1;  // Restamos el usuario de CTA
-        $users = $query
-            ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
-            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('users.id', '!=', auth()->user()->id)
-            ->get();
+        $total = $query->count();  // Restamos el usuario de CTA
+        $users = $query->skip($offset)
+                        ->take($limit)
+                        ->get();
 
+        $users = $users->map(function($query){
+            $query->sexType =  $query->sex === 'Masculino' ? 1 : 2;
+            return $query;
+        });
+        
         return response()->json([
             'results' => $users,
             'count' => $total,

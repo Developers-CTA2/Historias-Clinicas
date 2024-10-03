@@ -3,7 +3,7 @@
 @section('title', 'Consulta médica')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/new-consultation.scss'])
+    @vite(['resources/sass/new-consultation.scss'])
 @endsection
 
 

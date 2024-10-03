@@ -115,7 +115,7 @@ class HomeController extends Controller
 
 
 
-
+            // throw new \Exception('Error en la validación');
             // $query = DB::getQueryLog();
 
             // return response()->json([$query]);

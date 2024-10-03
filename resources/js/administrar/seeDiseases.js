@@ -8,13 +8,17 @@ import "gridjs/dist/theme/mermaid.css";
 import { activeLoading, disableLoading } from "../loading-screen.js";
  
 import {
+    regexLetters,
+
+} from "../helpers/Regex.js";
+
+import { 
     className,
     translations,
-    validarCampo,
-    regexLetters,
-    ShowOrHideAlert,
-    TimeAlert,
-} from "../helpers";
+} from '../helpers/gridJsConfiguration.js';
+
+import { validarCampo, ShowOrHideAlert } from "../helpers/ValidateFuntions.js";
+import { AlertConfirmationForm, TimeAlert} from '../helpers/Alertas.js';
 
 import {
     showErrorsAlert,
@@ -62,6 +66,7 @@ async function initialData() {
                                 Editar
                              </div>`
                         ),
+                    sort : false
                 },
             ],
 
@@ -137,18 +142,18 @@ function AddNewDisease() {
     $("#Add_disease").click(function (e) {
         const name = $("#New_nombre").val().trim();
 
-        console.log(name);
         let V_name = validarCampo(name, regexLetters, "#New_nombre");
         if (name != "") {
             if (V_name) {
                   ShowOrHideAlert(1, ".Alerta_disease");
                // $("#Alerta_add").fadeOut(250).addClass("d-none");
-                RequestAdd(name);
+               AlertConfirmationForm("¿Estás seguro de agregar una nueva enfermedad?", "Asegurate que los datos sean correctos.", ()=> RequestAdd(name));
+                // RequestAdd(name);
             }
         } else {
             $(".Alerta_disease_text").html(
                 IconError(
-                    "<strong> ¡Oooops! </strong> No se ha realizado ningún cambio."
+                    "<strong> ¡Oops! </strong> No se ha realizado ningún cambio."
                 )
             );
             ShowOrHideAlert(2, ".Alerta_disease");

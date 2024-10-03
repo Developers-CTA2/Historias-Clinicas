@@ -286,9 +286,9 @@ $(function () {
         // Get type person for code, if student or worker
         typePerson = getTypePerson(valueCode);
 
-
+        console.log('Hola aqui');
         // Request for get person data
-        getPerson({ code: valueCode, type: typePerson }).then(handlePersonData).catch(handleError)
+        getPerson({ code: valueCode, type: typePerson, person : 'patient' }).then(handlePersonData).catch(handleError)
 
     });
 
@@ -317,7 +317,7 @@ $(function () {
         typePerson = getTypePerson(valueCode);
 
         // Request for get person data
-        getPerson({ code: valueCode, type: typePerson }).then(handlePersonData).catch(handleError)
+        getPerson({ code: valueCode, type: typePerson, person : 'patient' }).then(handlePersonData).catch(handleError)
     })
 
 
@@ -515,8 +515,21 @@ $(function () {
     // Handle error for request person
     const handleError = (error) => {
         const { message, status } = error;
-        let messageForAlert = message.error.data?.message || 'Ha sucedido un error al obtener los datos de la persona, por favor intenta de nuevo.';
-        showAlertError(messageForAlert , status == 404 || message.error.status == 400 ? 'alert-info' : 'alert-danger');
+
+        console.log(error);
+        
+        let messageForAlert = '';
+
+        if(status == 404 ){
+            messageForAlert = message.msg || 'Ha sucedido un error al obtener los datos de la persona, por favor intenta de nuevo.'
+        }else if(status == 400){
+            messageForAlert = message.msg || 'El paciente ya se encuentra registrado.';
+        }else{
+            messageForAlert = message.error?.data?.message || 'Ha sucedido un error al obtener los datos de la persona, por favor intenta de nuevo.';
+        }
+        
+        let alertClass = status == 404 || message.error?.status == 400 ? 'alert-info' : 'alert-danger'
+        showAlertError(messageForAlert , alertClass);
         namePerson.text('-');
         careerPerson.text('-');
     };
@@ -605,8 +618,8 @@ $(function () {
 
         // If the step is equal to 0, the form is displayed to select the person
         if (steps == 0) {
-            containerPersonSelect.removeClass('d-none');
-            containerFatherForm.addClass('d-none');
+            AlertConfirmationForm('¿Estás seguro de regresar?', 'Posiblemente la información ingresada se pierda', activeFormPersonSelect);
+            return;
         }
 
         // Hide all forms
@@ -620,7 +633,15 @@ $(function () {
             stepCicles.eq(steps - 1).removeClass('completed');
         };
 
+        
+
     });
+
+    const activeFormPersonSelect = () => {
+        console.log('Hola');
+        containerPersonSelect.removeClass('d-none');
+        containerFatherForm.addClass('d-none');
+    }
 
     btnNextStep.on('click', function () {
 
@@ -757,7 +778,7 @@ $(function () {
             if (errorList) {
 
                 // Show alert for errors
-                AlertError('Oops', 'Hubo un error al guardar los datos, por favor corrige estos errores pueden ser por campos vacíos o mal escritos, puedes verificarlos al presionar el botón "Errores", este se encuentra en la parte superior derecha.');
+                AlertError('Oops', 'Hubo un error al guardar los datos, por favor corrige estos errores, puedes verificarlos al presionar el botón "Errores", este se encuentra en la parte superior derecha.');
 
                 templateErrors = '';
                 for (const [key, messages] of Object.entries(errorList)) {
@@ -892,13 +913,16 @@ $(function () {
 
     // Insert data for gynecology and obstetrics in object patientData
     const insertDataGynecologyObstetrics = () => {
+
+        console.log(inputCesareas.val())
+
         patientData.listGynecologyObstetrics = {
             menarca: inputMenarca.val(),
             fum: inputFum.val(),
-            numGestas: inputGestas.val() ?? '0',
-            numPartos: inputPartos.val() ?? '0',
-            numCesareas: inputCesareas.val() ?? '0',
-            numAbortos: inputAbortos.val() ?? '0',
+            numGestas: inputGestas.val() == '' ? 0 : inputGestas.val(),
+            numPartos: inputPartos.val() == '' ? 0 : inputPartos.val(),
+            numCesareas: inputCesareas.val() == '' ? 0 : inputPartos.val(),
+            numAbortos: inputAbortos.val() == '' ? 0 : inputPartos.val(),
             diasSangrado: inputDiasSangrado.val(),
             diasCiclo: inputDiasCiclo.val(),
             fechaCitologia: inputfechaCitologia.val(),

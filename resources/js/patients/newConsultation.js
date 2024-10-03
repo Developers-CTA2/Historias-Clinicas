@@ -124,11 +124,11 @@ $(function () {
     // Validate form data
     const validateData = (dataVitalSigns, inputsDom, dataQuill) => {
 
-        const validateForm = true;
+        let validateForm = true;
 
         // Validate vital signs
         if (!vitalSigns(dataVitalSigns, inputsDom)) {
-            AlertError('Error..!', 'Existen campos sin llenar, por favor revisa la información antes de guardar la consulta');
+            AlertError('Error', 'Existen campos sin llenar, por favor revisa la información antes de guardar la consulta');
             validateForm = false;
         }
 

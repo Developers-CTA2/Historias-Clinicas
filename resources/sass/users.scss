@@ -20,15 +20,15 @@
 }
 
 
-.cont-user-data{
-    border-radius: 10px;
-    border: 1px solid #dad8d8;
-    padding: 10px 0px;
-    margin-left: 15px;
-    margin-right: 20px;
-    background-color: #f8f8f8 ;
+// .cont-user-data{
+//     border-radius: 10px;
+//     border: 1px solid #dad8d8;
+//     padding: 10px 0px;
+//     margin-left: 15px;
+//     margin-right: 20px;
+//     background-color: #f8f8f8 ;
 
-} 
+// } 
 
 /* Imagenes de la tabla */ 
 
@@ -44,15 +44,39 @@
     // cursor: pointer;
 
     &.avatar-doctor{
-        background-image: url('/public/images/icon-doctor.png');  
+
+        &.avatar-woman{
+            background-image: url('/public/images/icon-doctor-woman.png');  
+        }
+
+        &.avatar-man{
+            background-image: url('/public/images/icon-doctor-man.png');  
+        }
     }
 
     &.avatar-pasante{
-        background-image: url('/public/images/icon-pasante.png');  
+
+        &.avatar-woman{
+            background-image: url('/public/images/icon-pasante-woman.png');  
+        }
+
+        &.avatar-man{
+            background-image: url('/public/images/icon-pasante-man.png');  
+        }
+    
     }
 
     &.avatar-nutrition{
-        background-image: url('/public/images/icon-nutrition.png');  
+
+        &.avatar-woman{
+            background-image: url('/public/images/icon-nutrition-woman.png');  
+        }
+
+        &.avatar-man{
+            background-image: url('/public/images/icon-nutrition-man.png');  
+        }
+
+        // background-image: url('/public/images/icon-nutrition.png');  
     }
 }
 

@@ -42,6 +42,7 @@ class DiseasesController extends Controller
         $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
+            ->orderBy('nombre', 'asc')
             ->get();
 
         return response()->json([
