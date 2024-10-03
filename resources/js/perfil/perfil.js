@@ -46,11 +46,6 @@ function CancelOption() {
 
         ocultarerr("#Pass");
 
-        // $("#cont-change").fadeOut(1000, function () {
-        //     $(this).addClass("d-none");
-        //     $("#Change-pass").removeClass("d-none");
-        //     ShowOrHide(3);
-        // });
     });
 }
 /*
@@ -84,25 +79,14 @@ async function requestVerifyPass(pass) {
         const { status, msg, errors } = data;
         disableLoading();
         // contraseña correcta
-        if (status == 200) {
+      //  if (status == 200) {
             ShowOrHide(2); // mostrar paso 2
             $("#verifify-pass")
                 .attr("disabled", "disabled")
                 .css("cursor", "no-drop");
 
             changepassword();
-        } // else {
-
-        //     // Contraseña incorrecta
-        //     $(".step1-text").html(
-        //         IconError(
-        //             " <strong> ¡Error! </strong> la contraseña es incorrecta."
-        //         )
-        //     );
-        //     if ($(".step1-Alert").hasClass("d-none")) {
-        //         $(".step1-Alert").removeClass("d-none").hide().fadeIn(400);
-        //     }
-        // }
+       // } 
     } catch (error) {
         disableLoading();
         const { status, data } = error.response;
@@ -111,18 +95,14 @@ async function requestVerifyPass(pass) {
         if (status == 400) {
             // Error del controlador
             console.log("Error en parametros recibidos");
-            //console.log(errors);
-            //`<p> <small>${Text}</small></p>${errorList}`,
             $(".step1-text").html(
-                IconError(` <strong> ¡Error! </strong> ${errors.Pass[0]}.`)
+                IconError(` <strong> ¡Error! </strong> ${errors.Pass[0]}.`)   // El arreglo que retoan simpre tendra una posicion 
             );
-
             if ($(".step1-Alert").hasClass("d-none")) {
                 $(".step1-Alert").removeClass("d-none").hide().fadeIn(400);
             }
         } else {
             // Error de contraseña incorrecta
-
             console.log("Contraseña incorrecta");
             $(".step1-text").html(
                 IconError(` <strong> ¡Error! </strong> ${errors}.`)
@@ -243,7 +223,7 @@ async function ShowConfirm(datos) {
 
 async function RequesrChangePass(pass) {
     const datos = {
-        Pass: "Taco",
+        Pass: pass,
     };
     console.log(datos);
     try {
