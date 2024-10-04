@@ -1,68 +1,89 @@
 import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import { AlertError } from './helpers/Alertas';
+import { configDefaultCalendar } from './helpers/configCalendar';
 
-document.addEventListener('DOMContentLoaded', function() {
+const selectColor = (cantidad) => {
+    let color = '';
+    if (cantidad <= 2) {
+        color = colorPorTipoProfesional['Pocas'];
+    } else if (cantidad <= 5) {
+        color = colorPorTipoProfesional['Algunas'];
+    } else {
+        color = colorPorTipoProfesional['Muchas'];
+    }
+    console.log('Color:', color);
+    return color;
+}
+
+const colorPorTipoProfesional = {
+    'Pocas': 'rgb(22 163 74)',
+    'Algunas': 'rgb(234 88 12)',
+    'Muchas' : 'rgb(239 68 68)',
+};
+
+
+$(function () {
     var calendarEl = document.getElementById('calendar');
 
-    var calendar = new Calendar(calendarEl, {
-        locale: 'es',
-        headerToolbar: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'today',
-        },
-        buttonText :{
-            today: 'Hoy',
-            month: 'Mes',
-            week: 'Semana',
-            day: 'Día',
-        },
-        plugins: [dayGridPlugin, interactionPlugin],
-        initialView: 'dayGridMonth',
-        dateClick: function(info) {
-            var fechaSeleccionada = info.date;
-            var day = fechaSeleccionada.getDay();
-            // 0 = Sunday, 6 = Saturday
-            if (day === 0 || day === 6) {
-                // No hacer nada en sábado y domingo
+    const manageEventDateClick = (info) => {
+
+        const day = info.date.getDay();
+        const dateSelected = info.dateStr;
+        const currentDate = new Date().toISOString().split('T')[0];
+
+
+        // Validate if the day before the current day
+        if (dateSelected < currentDate) {
+            AlertError('Día no disponible', 'No se pueden agendar citas en días anteriores a la fecha actual');
+            return;
+        }
+
+        if (day === 0 || day === 6) {
+            AlertError('Día no disponible', 'No se pueden agendar citas en sábado y domingo');
+            return;
+        }
+
+        // Redirect to the page of details of the appointment for the selected date
+        window.location.href = `/calendar/medical_appointment/${dateSelected}`;
+    }
+
+    const manageEvents = async (_, successCallback, failureCallback) => {
+        try {
+            const { data } = await axios.get("/calendar/next_appointment");
+
+            if (!data) {
+                successCallback([]);
                 return;
             }
-            // Redirigir a la página de detalles de citas para la fecha seleccionada
-            window.location.href = '/citas?fecha=' + info.dateStr;
-        },
-        events: function(info, successCallback, failureCallback) {
-            // Obtener la cita más próxima
-            fetch('/proxima-cita')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    // Verificar si se recibió correctamente la próxima cita
-                    const colorPorTipoProfesional = {
-                        'Doctora': 'blue',
-                        'Nutrióloga': 'green',
-                    };
-                    
-                    // Dentro del mapeo de eventos
-                    const eventosCitas = Object.values(data).map(cita => ({
-                        title: `${cita.hora}\n${cita.nombre}`,
-                        start: cita.fecha,
-                        color: colorPorTipoProfesional[cita.tipo_profesional], // Color gris por defecto si no se encuentra
-                    }));
 
-                    successCallback(eventosCitas);
-                })
-                .catch(error => {
-                    console.error('Error al obtener la próxima cita:', error);
-                    failureCallback(error);
-                });
+            console.log('Próxima cita:', data);
+
+            
+            // Dentro del mapeo de eventos
+            const eventosCitas = data.map(cita => ({
+                title: `${cita.cantidad} citas pendientes`,
+                start: cita.fecha,
+                color: selectColor(cita.cantidad), // Color gris por defecto si no se encuentra
+            }));
+
+            successCallback(eventosCitas);
+        } catch (error) {
+            console.error('Error al obtener la próxima cita:', error);
+            failureCallback(error);
         }
+    }
+
+
+    var calendar = new Calendar(calendarEl, {
+        ...configDefaultCalendar,
+        dateClick: manageEventDateClick,
+        events: manageEvents,
     });
 
     calendar.render();
+
+
 });
+
+
+

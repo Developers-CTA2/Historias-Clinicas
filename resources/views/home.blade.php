@@ -16,15 +16,11 @@
         </div>
 
         <div class="row ">
-
-
-
             <div class="col-12">
 
                 <x-filter-home idYear="yearDiseaseChart" idMonth="monthDiseaseChart" :months="$months" :years="$years" class="col-lg-8" />
-
                 <x-card-custom>
-                    <x-slot name="title">Consultas realizadas por enfermedades</x-slot>
+                    <x-slot name="title">Consultas clasificadas por enfermedades</x-slot>
                     <div class="container position-relative">
                         <canvas id="lineCharDiseases" style="width: 100%;"></canvas>
 
@@ -41,7 +37,6 @@
                             </div>
                         </div>
                     </div>
-
                 </x-card-custom>
             </div>
 
@@ -51,7 +46,6 @@
 
                 <x-card-custom>
                     <x-slot name="title">Consultas clasificadas por sexo</x-slot>
-
                     <div class="container position-relative">
                         <canvas id="barCharSex" style="width: 100%;"></canvas>
                         <div class="skeleton-charts d-none">
@@ -67,16 +61,14 @@
                             </div>
                         </div>
                     </div>
-
                 </x-card-custom>
+                
             </div>
 
             <div class="col-12 col-lg-6">
-
                 <x-filter-home idYear="yearTypePersonChart" idMonth="monthTypePersonChart" :months="$months" :years="$years" class="mt-2" />
-
                 <x-card-custom>
-                    <x-slot name="title">Consultas clasificadas tipo de persona</x-slot>
+                    <x-slot name="title">Consultas clasificadas por tipo de persona</x-slot>
 
                     <div class="container position-relative">
                         <canvas id="barCharTypePerson" style="width: 100%;"></canvas>
@@ -95,23 +87,14 @@
                         </div>
                     </div>
 
-
                 </x-card-custom>
             </div>
-
-
-
-
-
-
         </div>
-
-
     </div>
 
 
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/home/home.js'])
+    @vite('resources/js/home/home.js')
 @endsection

@@ -7,6 +7,14 @@ trait ImcTrait
 
     public function calculateIMC($peso, $estatura)
     {
+
+        if($estatura == 0 || $peso == 0){
+            return [
+                'titleImc' => 'Error',
+                'url' => 'error.png'
+            ];
+        }
+
         $estatura = $estatura / 100;
         $imc = round($peso / ($estatura * $estatura));
 

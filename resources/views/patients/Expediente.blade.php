@@ -3,7 +3,7 @@
 @section('title', 'Expediente')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/expedient.scss'])
+    @vite('resources/sass/expedient.scss')
     @role('Administrador')
         <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
@@ -15,13 +15,12 @@
 
     <div class="container">
         <div class="mb-3 mx-0">
+            {{-- Botones que cambian segun el perfil del usuario --}}
             @include('patients.expedient_cards.expedientButtons')
         </div>
         {{-- Datos personales  --}}
         <div class="mb-3">
             @include('patients.expedient_cards.PersonalData')
-
-          
         </div>
         <div class="row d-flex">
             <div class="mb-3 col-lg-6 col-md-6 col-sm-6">

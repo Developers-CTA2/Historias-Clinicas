@@ -3,11 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
-use App\Models\enfermedades_especificas;
-use App\Models\Toxicomanias;
-use App\Models\Enfermedad_especifica;
-use Illuminate\Contracts\Validation\ValidationRule;
+
 
 class StorePatientRequest extends FormRequest
 {
@@ -72,9 +68,9 @@ class StorePatientRequest extends FormRequest
             'listGynecologyObstetrics' => 'required_if:gender,2',
             'listGynecologyObstetrics.menarca' => 'required_if:gender,2,numeric,between:1,100',
             'listGynecologyObstetrics.fum' => 'required_if:gender,2,date',
-            'listGynecologyObstetrics.numPartos' => 'required_if:gender,2,numeric,between:1,50',
-            'listGynecologyObstetrics.numCesareas' => 'required_if:gender,2,numeric,between:1,50',  
-            'listGynecologyObstetrics.numAbortos' => 'required_if:gender,2,numeric,between:1,50',
+            'listGynecologyObstetrics.numPartos' => 'nullable|required_if:gender,2,numeric,between:0,50',
+            'listGynecologyObstetrics.numCesareas' => 'nullable|required_if:gender,2,numeric,between:0,50',  
+            'listGynecologyObstetrics.numAbortos' => 'nullable|required_if:gender,2,numeric,between:0,50',
             'listGynecologyObstetrics.diasSangrado' => 'required_if:gender,2,numeric,between:1,50',
             'listGynecologyObstetrics.diasCiclo' => 'required_if:gender,2,numeric,between:1,50',
             'listGynecologyObstetrics.fechaCitologia' => 'required_if:gender,2,numeric,between:4,4',

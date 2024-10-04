@@ -1,11 +1,12 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Agregar nuevo paciente')
+@section('title', 'Agregar paciente')
 
 @section('viteConfig')
-    @vite(['resources/sass/add-patients.scss', 'resources/sass/form-style.scss', 'resources/sass/steps-bar.scss'])
+    @vite('resources/sass/add-patients.scss')
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
+    <link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
 @endsection
 
 
@@ -109,6 +110,6 @@
 
 @section('scripts')
     <script src="{{ asset('js/select2.min.js') }}"></script>
-    @vite(['resources/js/loading-screen.js', 'resources/js/addPatients.js'])
+    @vite('resources/js/addPatients.js')
 
 @endsection

@@ -43,13 +43,14 @@
                                 <p class="fw-bold mb-0">Menarca: </p>
                                 <div class="mt-0 Old-Data"> <span id="menarca">{{ $gyo->menarca ?? '--' }}</span> años
                                 </div>
-
-                                <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                    <label for="new_menarca">Menarca: <span class="red-color"> *</span></label>
-                                    <input class="form-control form-disabled" type="number" name="new_menarca"
-                                        id="new_menarca" value="{{ $gyo->menarca }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Dato no válido.</span>
-                                </div>
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_menarca">Menarca: <span class="red-color"> *</span></label>
+                                        <input class="form-control form-disabled" type="number" name="new_menarca"
+                                            id="new_menarca" value="{{ $gyo->menarca }}">
+                                        <span class="text-danger fw-normal" style=" display: none;">Dato no válido.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
@@ -63,32 +64,35 @@
                                             {{ Carbon::parse($gyo->fecha_um)->locale('es')->isoFormat('LL') }}</div>
                                     @endif
                                     <div class="d-none" id="last_m"> {{ $gyo->fecha_um }}</div>
-
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_last_m">F. última menstruación: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="date" name="new_last_m"
-                                            id="new_last_m" value="{{ $gyo->fecha_um }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_last_m">F. última menstruación: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="date" name="new_last_m"
+                                                id="new_last_m" value="{{ $gyo->fecha_um }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
-                            
+
                                     <p class="fw-bold mb-0">S. de gestación: </p>
-                                    <div class="mt-0 Old-Data"> <span id="s_gest">{{ $gyo->s_gestacion ?? '--' }}</span>
+                                    <div class="mt-0 Old-Data"> <span
+                                            id="s_gest">{{ $gyo->s_gestacion ?? '--' }}</span>
                                         semanas
                                     </div>
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_s_gest">S. de gestación: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_s_gest"
-                                            id="new_s_gest" value="{{ $gyo->s_gestacion }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_s_gest">S. de gestación: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_s_gest"
+                                                id="new_s_gest" value="{{ $gyo->s_gestacion }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -97,23 +101,24 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Ciclos:</p>
                                     <div class="mt-0  Old-Data" id="ciclos"> {{ $gyo->ciclos ?? '--' }} </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
 
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_ciclos">Ciclos: <span class="red-color"> *</span></label>
+                                            @php
 
-                                        <label for="new_ciclos">Ciclos: <span class="red-color"> *</span></label>
-                                        @php
+                                                $opc1 = $gyo->ciclos == 'Regular' ? 'selected' : '';
+                                                $opc2 = $gyo->ciclos === 'Irregular' ? 'selected' : '';
 
-                                            $opc1 = $gyo->ciclos == 'Regular' ? 'selected' : '';
-                                            $opc2 = $gyo->ciclos === 'Irregular' ? 'selected' : '';
-
-                                        @endphp
-                                        <select class="form-control" id="new_ciclos" name="new_ciclos">
-                                            <option value="Regular" {{ $opc1 }}>Regular</option>
-                                            <option value="Irregular" {{ $opc2 }}> Irregular </option>
-                                        </select>
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                            @endphp
+                                            <select class="form-control" id="new_ciclos" name="new_ciclos">
+                                                <option value="Regular" {{ $opc1 }}>Regular</option>
+                                                <option value="Irregular" {{ $opc2 }}> Irregular </option>
+                                            </select>
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
@@ -128,17 +133,18 @@
                                         <span class="d-none" id="dias_1"> {{ $cadena[0] }} </span>
                                         <span class="d-none" id="dias_2"> {{ $cadena[1] }} </span>
                                     </div>
-
-                                    <div class="row mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_dias_1">Días X días <span class="red-color"> *</span></label>
-                                        <div class="d-flex gap-3">
-                                            <input class="form-control form-disabled" type="number"
-                                                name="new_dias_1" id="new_dias_1" value="{{ $cadena[0] }}">
-                                            <span class="pt-2"><strong> X </strong></span>
-                                            <input class="form-control form-disabled" type="number"
-                                                name="new_dias_2" id="new_dias_2" value="{{ $cadena[1] }}">
+                                    @role('Administrador')
+                                        <div class="row mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_dias_1">Días X días <span class="red-color"> *</span></label>
+                                            <div class="d-flex gap-3">
+                                                <input class="form-control form-disabled" type="number"
+                                                    name="new_dias_1" id="new_dias_1" value="{{ $cadena[0] }}">
+                                                <span class="pt-2"><strong> X </strong></span>
+                                                <input class="form-control form-disabled" type="number"
+                                                    name="new_dias_2" id="new_dias_2" value="{{ $cadena[1] }}">
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -146,32 +152,35 @@
                             <div class="row">
                                 <div class="form-group col-6 pt-2">
                                     <p class="fw-bold mb-0">Inicio de vida sexual:</p>
-                                      <div class="mt-0 Old-Data"> <span id="inicio">{{ $gyo->ivs ?? '--' }}</span> años
-                                </div>
-                                    {{-- <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div> --}}
-
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_inicio">Inicio de vida sexual: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_inicio"
-                                            id="new_inicio" value="{{ $gyo->ivs }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
+                                    <div class="mt-0 Old-Data"> <span id="inicio">{{ $gyo->ivs ?? '--' }}</span>
+                                        años
                                     </div>
+                                    {{-- <div class="mt-0 Old-Data" id="inicio"> {{ $gyo->ivs ?? '--' }} </div> --}}
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_inicio">Inicio de vida sexual: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_inicio"
+                                                id="new_inicio" value="{{ $gyo->ivs }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-6 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Num. parejas:</p>
                                     <div class="mt-0 Old-Data" id="parejas"> {{ $gyo->parejas_s ?? '--' }}</div>
-
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_parejas">Num. parejas: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_parejas"
-                                            id="new_parejas" value="{{ $gyo->parejas_s }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_parejas">Num. parejas: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_parejas"
+                                                id="new_parejas" value="{{ $gyo->parejas_s }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
 
                                 </div>
                             </div>
@@ -181,14 +190,14 @@
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">M. de planificación: </p>
                                 <div class="mt-0 Old-Data" id="met"> {{ $gyo->metodo ?? '--' }} </div>
-
-                                <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                    <label for="new_met">M. de planificación: <span
-                                            class="red-color">*</span></label>
-                                    <textarea class="form-control" id="new_met" rows="2"> {{ $gyo->metodo }}</textarea>
-                                    <span class="text-danger fw-normal" style=" display: none;">Dato no válido.</span>
-                                </div>
-
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                        <label for="new_met">M. de planificación: <span
+                                                class="red-color">*</span></label>
+                                        <textarea class="form-control" id="new_met" rows="2"> {{ $gyo->metodo }}</textarea>
+                                        <span class="text-danger fw-normal" style=" display: none;">Dato no válido.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                     </ul>
@@ -210,63 +219,68 @@
 
                         <li class="list-group-item pt-0">
                             <div class="row">
-                                 <div class="form-group col-6 pt-2">
-                                    <p class="fw-bold mb-0">abortos:</p>
+                                <div class="form-group col-6 pt-2">
+                                    <p class="fw-bold mb-0">Abortos:</p>
                                     <div class="mt-0 Old-Data" id="abortos"> {{ $gyo->abortos ?? '--' }}</div>
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_abortos">Abortos: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_abortos"
-                                            id="new_abortos" value="{{ $gyo->abortos }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_abortos">Abortos: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_abortos"
+                                                id="new_abortos" value="{{ $gyo->abortos }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-6 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Partos:</p>
                                     <div class="mt-0 Old-Data" id="partos"> {{ $gyo->partos ?? '--' }}</div>
-
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_partos">Partos: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_partos"
-                                            id="new_partos" value="{{ $gyo->partos }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_partos">Partos: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_partos"
+                                                id="new_partos" value="{{ $gyo->partos }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
                             <div class="row">
                                 <div class="form-group col-6 pt-2">
-                                    <p class="fw-bold mb-0">cesáreas:</p>
+                                    <p class="fw-bold mb-0">Cesáreas:</p>
                                     <div class="mt-0 Old-Data" id="cesareas"> {{ $gyo->cesareas ?? '--' }} </div>
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_cesareas">Cesáreas: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_cesareas"
-                                            id="new_cesareas" value="{{ $gyo->cesareas }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_cesareas">Cesáreas: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_cesareas"
+                                                id="new_cesareas" value="{{ $gyo->cesareas }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
-                               
+
 
                                 <div class="form-group col-6 pt-2">
                                     <p class="fw-bold mb-0">Gestas:</p>
                                     <div class="mt-0 Old-Data" id="gestas"> {{ $gyo->gestas ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_gestas">Gestas: </label>
-                                        <input class="form-control form-disabled" disabled type="number" name="new_gestas"
-                                            id="new_gestas" value="{{ $gyo->gestas }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Dato no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_gestas">Gestas: </label>
+                                            <input class="form-control form-disabled" disabled type="number"
+                                                name="new_gestas" id="new_gestas" value="{{ $gyo->gestas }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Dato no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                             </div>
@@ -291,16 +305,16 @@
                                     <div class="mt-0 Old-Data" id="last_c">
                                         {{ $gyo->fecha_citologia ?? '--' }}
                                     </div>
-                                    <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_last_c">F. citología: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_last_c"
-                                            id="new_last_c" value="{{ $gyo->fecha_citologia }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Fecha no
-                                            válida.</span>
-                                    </div>
-
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1  input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_last_c">F. citología: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_last_c"
+                                                id="new_last_c" value="{{ $gyo->fecha_citologia }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Fecha no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
@@ -308,16 +322,16 @@
 
                                     <div class="mt-0 Old-Data" id="mast">
                                         {{ $gyo->mastografia ?? '--' }}</div>
-
-                                    <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
-                                        <label for="new_mast">F. mastografía: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="number" name="new_mast"
-                                            id="new_mast" value="{{ $gyo->mastografia }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Fecha no
-                                            válida.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-Gyo d-none animate__animated animate__fadeInUp">
+                                            <label for="new_mast">F. mastografía: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="number" name="new_mast"
+                                                id="new_mast" value="{{ $gyo->mastografia }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Fecha no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -348,20 +362,22 @@
                                 class="btn-blue-sec justify-content-center justify-content-lg-start" text="Guardar"
                                 id="Save_Gyo" tooltipText="Guardar cambios">
                                 <x-slot name="icon">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
-                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                 stroke-width="1.5"
-                                 d="M16.25 21v-4.765a1.59 1.59 0 0 0-1.594-1.588H9.344a1.59 1.59 0 0 0-1.594 1.588V21m8.5-17.715v2.362a1.59 1.59 0 0 1-1.594 1.588H9.344A1.59 1.59 0 0 1 7.75 5.647V3m8.5.285A3.2 3.2 0 0 0 14.93 3H7.75m8.5.285c.344.156.661.374.934.645l2.382 2.375A3.17 3.17 0 0 1 20.5 8.55v9.272A3.18 3.18 0 0 1 17.313 21H6.688A3.18 3.18 0 0 1 3.5 17.823V6.176A3.18 3.18 0 0 1 6.688 3H7.75" />
-                         </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                        viewBox="0 0 24 24">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="1.5"
+                                            d="M16.25 21v-4.765a1.59 1.59 0 0 0-1.594-1.588H9.344a1.59 1.59 0 0 0-1.594 1.588V21m8.5-17.715v2.362a1.59 1.59 0 0 1-1.594 1.588H9.344A1.59 1.59 0 0 1 7.75 5.647V3m8.5.285A3.2 3.2 0 0 0 14.93 3H7.75m8.5.285c.344.156.661.374.934.645l2.382 2.375A3.17 3.17 0 0 1 20.5 8.55v9.272A3.18 3.18 0 0 1 17.313 21H6.688A3.18 3.18 0 0 1 3.5 17.823V6.176A3.18 3.18 0 0 1 6.688 3H7.75" />
+                                    </svg>
                                 </x-slot>
                             </x-button-custom>
                         </div>
                     </div>
 
                 </div>
+                 @endrole
             </div>
         </div>
-    @endrole
+   
 
 </div>
 </div>

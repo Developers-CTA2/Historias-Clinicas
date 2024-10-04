@@ -1,16 +1,4 @@
-
-// Fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
-
-// Variables
-@import "variables";
-// Estilos de los botones y de los tooltips 
-@import "Buttons";
-
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
-
+@import 'variables';
 
 /* Header de color azul de las cards */ 
 .card .card-header {
@@ -26,10 +14,7 @@
 }
 
 /* Styles for input form*/
-.form-control{
-    border: 2px solid #dadada !important;
-    // background-color: $bg-light !important;
-}
+
 
 
 /* Asterisco de color rojo que indica campo obligatorio */

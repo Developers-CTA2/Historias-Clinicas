@@ -7,15 +7,22 @@ import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
 import {
+    regexLetters,
+} from "../helpers/Regex.js";
+
+import { 
     className,
     translations,
-    ShowOrHideAlert,
-    regexLetters,
-    validarCampo,
-    TimeAlert,
-} from "../helpers";
+} from '../helpers/gridJsConfiguration.js';
 
-import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
+import { validarCampo, ShowOrHideAlert } from "../helpers/ValidateFuntions.js";
+import { TimeAlert} from '../helpers/Alertas.js';
+
+import {
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
+
 
 $(function () {
     initialData();
@@ -49,16 +56,17 @@ async function initialData() {
                     formatter: (_, row) =>
                         html(
                             `<div class="d-flex justify-content-center">
-                            <button class="btn-blue-sec fst-normal py-2 px-3 edit-allergy" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-allergy">
-                                <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24">
-                                            <path
-                                                d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
-                                        </svg>
-                                Editar
-
+                                <button class="btn-blue-sec fst-normal py-2 px-3 edit-allergy" data-id="${row.cells[0].data}" data-name="${row.cells[1].data}" data-bs-toggle="modal" data-bs-target="#Edit-allergy">
+                                    <svg class="me-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z" />
+                                            </svg>
+                                    Editar
+                                </button>
                              </div>`
                         ),
+                    sort : false,
                 },
             ],
 

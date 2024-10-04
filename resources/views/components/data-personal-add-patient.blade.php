@@ -84,7 +84,7 @@
                     {{-- Nombre --}}
                     <x-form-group>
                         <x-slot name="label">
-                            <label for="name_P"><span class="required-point me-1">*</span> Nombre Completo:</label>
+                            <label for="name_P"><span class="required-point me-1">*</span> Nombre completo:</label>
                         </x-slot>
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ea580c" d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4"/></svg>
@@ -99,7 +99,7 @@
                     {{-- Carrera/Puesto --}}
                     <x-form-group>
                         <x-slot name="label">
-                            <label for="Puesto"><span class="required-point me-1">*</span> Carrera/Puesto: </label>
+                            <label for="Puesto"><span class="required-point me-1">*</span> Carrera/puesto: </label>
                         </x-slot>
                         <x-slot name="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0891b2" d="M4 19V8zm.616 1q-.691 0-1.153-.462T3 18.384V8.616q0-.691.463-1.153T4.615 7H9V5.615q0-.69.463-1.153T10.616 4h2.769q.69 0 1.153.462T15 5.615V7h4.385q.69 0 1.152.463T21 8.616v4.198q-.239-.152-.479-.265q-.24-.112-.521-.21V8.616q0-.27-.173-.443T19.385 8H4.615q-.269 0-.442.173T4 8.616v9.769q0 .269.173.442t.443.173h7.459q.056.275.12.516q.063.24.153.484zM10 7h4V5.615q0-.269-.173-.442T13.385 5h-2.77q-.269 0-.442.173T10 5.615zm8 15q-1.671 0-2.835-1.164Q14 19.67 14 18t1.165-2.835T18 14t2.836 1.165T22 18t-1.164 2.836T18 22m.385-4.161v-2.723h-.77v3.046l2.035 2.034l.546-.546z"/></svg>
@@ -347,7 +347,7 @@
                     {{-- Numero --}}
                     <x-form-group>
                         <x-slot name="label">
-                            <x-label-with-tooltip labelFor="num" titleLabel="Numero" :required=true />
+                            <x-label-with-tooltip labelFor="num" titleLabel="Número" :required=true />
                         </x-slot>
 
                         <x-slot name="icon">
@@ -365,7 +365,7 @@
                     {{-- Numero interior --}}
                     <x-form-group>
                         <x-slot name="label">
-                            <x-label-with-tooltip labelFor="num_int" titleLabel="Numero interior" :required=false />
+                            <x-label-with-tooltip labelFor="num_int" titleLabel="Número interior" :required=false />
                         </x-slot>
 
                         <x-slot name="icon">

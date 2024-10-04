@@ -35,14 +35,15 @@
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">Nombre completo:</p>
                                 <div class="mt-0 W-data" id="name"> {{ $Personal->nombre }}</div>
-
-                                <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                    <label for="new_name">Nombre completo: <span class="red-color"> *</span></label>
-                                    <input class="form-control form-disabled" type="text" name="new_name"
-                                        id="new_name" value="{{ $Personal->nombre }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Nombre no
-                                        válido.</span>
-                                </div>
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                        <label for="new_name">Nombre completo: <span class="red-color"> *</span></label>
+                                        <input class="form-control form-disabled" type="text" name="new_name"
+                                            id="new_name" value="{{ $Personal->nombre }}">
+                                        <span class="text-danger fw-normal" style=" display: none;">Nombre no
+                                            válido.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
@@ -50,38 +51,32 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Código:</p>
                                     <div class="mt-0 W-data" id="code"> {{ $Personal->codigo ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                        <label for="new_code">Código:</label>
-                                        <div class="mt-0 W-data"> <s>Sin código </s></div>
-
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                            <label for="new_code">Código:</label>
+                                            <div class="mt-0 W-data"> <s>Sin código </s></div>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Genero:</p>
                                     <div class="mt-0 W-data" id="gender"> {{ $Personal->sexo }} </div>
-
-                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-
-                                        <label for="new_gender">Género: <span class="red-color"> *</span></label>
-                                        @php
-
-                                            $Male = $Personal->sexo == 'Masculino' ? 'selected' : '';
-                                            $Female = $Personal->sexo === 'Femenino' ? 'selected' : '';
-
-                                        @endphp
-
-                                        <select class="form-control" id="new_gender" name="new_gender">
-                                            <option value="1" {{ $Male }}>Masculino</option>
-                                            <option value="2" {{ $Female }}> Femenino </option>
-                                        </select>
-
-                                        <span class="text-danger fw-normal" style=" display: none;">Género no
-                                            válido.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                            <label for="new_gender">Género: <span class="red-color"> *</span></label>
+                                            @php
+                                                $Male = $Personal->sexo == 'Masculino' ? 'selected' : '';
+                                                $Female = $Personal->sexo === 'Femenino' ? 'selected' : '';
+                                            @endphp
+                                            <select class="form-control" id="new_gender" name="new_gender">
+                                                <option value="1" {{ $Male }}>Masculino</option>
+                                                <option value="2" {{ $Female }}> Femenino </option>
+                                            </select>
+                                            <span class="text-danger fw-normal" style=" display: none;">Género no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -91,14 +86,15 @@
                                     <p class="fw-bold mb-0">Teléfono:</p>
                                     <div class="mt-0 W-data" id="tel"> {{ $Personal->telefono }} </div>
 
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_tel">Teléfono: <span class="red-color"> *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_tel"
-                                            id="new_tel" value="{{ $Personal->telefono }}" maxlength="10">
-                                        <span class="text-danger fw-normal" style=" display: none;">Teléfono no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_tel">Teléfono: <span class="red-color"> *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_tel"
+                                                id="new_tel" value="{{ $Personal->telefono }}" maxlength="10">
+                                            <span class="text-danger fw-normal" style=" display: none;">Teléfono no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
@@ -111,15 +107,16 @@
                                     </div>
                                     <div class="mt-0 d-none" id="birthday"> {{ $Personal->fecha_nacimiento }}
                                     </div>
-
-                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                        <label for="new_birthday">F. nacimiento: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="date" name="new_birthday"
-                                            id="new_birthday" value="{{ $Personal->fecha_nacimiento }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Fecha no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                            <label for="new_birthday">F. nacimiento: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="date" name="new_birthday"
+                                                id="new_birthday" value="{{ $Personal->fecha_nacimiento }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Fecha no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -130,41 +127,39 @@
                                     <div class="mt-0 W-data"> {{ $Personal->escolaridad->nombre }} </div>
                                     <div class="mt-0 W-data d-none" id="escolaridad">
                                         {{ $Personal->escolaridad->id_escolaridad }} </div>
-
-                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                        <label for="new_escolaridad">Escolaridad: <span class="red-color">
-                                                *</span></label>
-
-                                        @php
-                                            $selected = $Personal->escolaridad->id_escolaridad ?? '';
-                                        @endphp
-
-                                        <select class="form-control" id="new_escolaridad" name="new_escolaridad">
-                                            @foreach ($escolaridades as $escolaridad)
-                                                <option value="{{ $escolaridad['id_escolaridad'] }}"
-                                                    {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
-                                                    {{ $escolaridad['nombre'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                        <span class="text-danger fw-normal" style="display: none;">Escolaridad no
-                                            válida.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                            <label for="new_escolaridad">Escolaridad: <span class="red-color">
+                                                    *</span></label>
+                                            @php
+                                                $selected = $Personal->escolaridad->id_escolaridad ?? '';
+                                            @endphp
+                                            <select class="form-control" id="new_escolaridad" name="new_escolaridad">
+                                                @foreach ($escolaridades as $escolaridad)
+                                                    <option value="{{ $escolaridad['id_escolaridad'] }}"
+                                                        {{ $selected == $escolaridad['id_escolaridad'] ? 'selected' : '' }}>
+                                                        {{ $escolaridad['nombre'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger fw-normal" style="display: none;">Escolaridad no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">NSS:</p>
                                     <div class="mt-0 W-data" id="nss"> {{ $Personal->nss }} </div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_nss">NSS: <span class="red-color"> *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_nss"
-                                            id="new_nss" value="{{ $Personal->nss }}" maxlength="11">
-                                        <span class="text-danger fw-normal" style=" display: none;">NSS no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_nss">NSS: <span class="red-color"> *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_nss"
+                                                id="new_nss" value="{{ $Personal->nss }}" maxlength="11">
+                                            <span class="text-danger fw-normal" style=" display: none;">NSS no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -173,31 +168,30 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Ocupación:</p>
                                     <div class="mt-0 W-data" id="ocupation"> {{ $Personal->ocupacion }} </div>
-
-
-                                    <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
-                                        <label for="new_ocupation">Ocupación: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_ocupation"
-                                            id="new_ocupation" value="{{ $Personal->ocupacion }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Ocupación no
-                                            válida.</span>
-                                    </div>
-
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-optional d-none animate__animated animate__fadeInUp">
+                                            <label for="new_ocupation">Ocupación: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_ocupation"
+                                                id="new_ocupation" value="{{ $Personal->ocupacion }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Ocupación no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Religion</p>
                                     <div class="mt-0 W-data" id="religion"> {{ $Personal->religion }} </div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_religion">Religion: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_religion"
-                                            id="new_religion" value="{{ $Personal->religion }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Religión no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_religion">Religion: <span class="red-color"> *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_religion"
+                                                id="new_religion" value="{{ $Personal->religion }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Religión no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
 
                             </div>
@@ -218,15 +212,16 @@
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">Nombre del contacto:</p>
                                 <div class="mt-0 W-data" id="name_e"> {{ $Personal->contacto_emerge }} </div>
-
-                                <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                    <label for="new_name_e">Nombre del contacto: <span class="red-color">
-                                            *</span></label>
-                                    <input class="form-control form-disabled" type="text" name="new_name_e"
-                                        id="new_name_e" value="{{ $Personal->contacto_emerge }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Nombre no
-                                        válido.</span>
-                                </div>
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                        <label for="new_name_e">Nombre del contacto: <span class="red-color">
+                                                *</span></label>
+                                        <input class="form-control form-disabled" type="text" name="new_name_e"
+                                            id="new_name_e" value="{{ $Personal->contacto_emerge }}">
+                                        <span class="text-danger fw-normal" style=" display: none;">Nombre no
+                                            válido.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
@@ -235,30 +230,31 @@
                                     <p class="fw-bold mb-0">Teléfono:</p>
                                     <div class="mt-0 W-data" id="tel_e"> {{ $Personal->telefono_emerge }}
                                     </div>
-
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_tel_e">Teléfono: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_tel_e"
-                                            id="new_tel_e" value="{{ $Personal->telefono_emerge }}" maxlength="10">
-                                        <span class="text-danger fw-normal" style=" display: none;">Teléfono no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_tel_e">Teléfono: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_tel_e"
+                                                id="new_tel_e" value="{{ $Personal->telefono_emerge }}" maxlength="10">
+                                            <span class="text-danger fw-normal" style=" display: none;">Teléfono no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2 ">
                                     <p class="fw-bold mb-0">Parentesco:</p>
                                     <div class="mt-0 W-data" id="parent_e"> {{ $Personal->parentesco_emerge }}
                                     </div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_parent_e">Parentesco: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_parent_e"
-                                            id="new_parent_e" value="{{ $Personal->parentesco_emerge }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Parentesco no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_parent_e">Parentesco: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_parent_e"
+                                                id="new_parent_e" value="{{ $Personal->parentesco_emerge }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Parentesco no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -289,15 +285,16 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Pais:</p>
                                     <div class="mt-0 W-data" id="country"> {{ $domicilio->pais }}</div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_country">País: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_country"
-                                            id="new_country" value="{{ $domicilio->pais }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">País no
-                                            válido.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_country">País: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_country"
+                                                id="new_country" value="{{ $domicilio->pais }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">País no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Estado:</p>
@@ -305,27 +302,27 @@
                                         {{ $domicilio->rep_estado->nombre ?? '--' }} </div>
                                     <div class="mt-0 d-none" id="state">
                                         {{ $domicilio->rep_estado->id_estado }} </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_state">Estado: <span class="red-color">
+                                                    *</span></label>
+                                            @php
+                                                $selected = $domicilio->rep_estado->id_estado ?? '';
+                                            @endphp
 
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_state">Estado: <span class="red-color">
-                                                *</span></label>
-                                        @php
-                                            $selected = $domicilio->rep_estado->id_estado ?? '';
-                                        @endphp
+                                            <select class="form-control" id="new_state" name="new_state">
+                                                @foreach ($rep_estados as $estados)
+                                                    <option value="{{ $estados['id_estado'] }}"
+                                                        {{ $selected == $estados['id_estado'] ? 'selected' : '' }}>
+                                                        {{ $estados['nombre'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
 
-                                        <select class="form-control" id="new_state" name="new_state">
-                                            @foreach ($rep_estados as $estados)
-                                                <option value="{{ $estados['id_estado'] }}"
-                                                    {{ $selected == $estados['id_estado'] ? 'selected' : '' }}>
-                                                    {{ $estados['nombre'] }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                        <span class="text-danger fw-normal" style=" display: none;">Estado no
-                                            válido.</span>
-                                    </div>
-
+                                            <span class="text-danger fw-normal" style=" display: none;">Estado no
+                                                válido.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -334,15 +331,16 @@
                                 <p class="fw-bold mb-0">Ciudad o municipio:</p>
                                 <div class="mt-0 W-data" id="city"> {{ $domicilio->cuidad_municipio ?? '--' }}
                                 </div>
-
-                                <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                    <label for="new_city">Ciudad o municipio: <span class="red-color">
-                                            *</span></label>
-                                    <input class="form-control form-disabled" type="text" name="new_city"
-                                        id="new_city" value="{{ $domicilio->cuidad_municipio }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Ciudad no
-                                        válida.</span>
-                                </div>
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                        <label for="new_city">Ciudad o municipio: <span class="red-color">
+                                                *</span></label>
+                                        <input class="form-control form-disabled" type="text" name="new_city"
+                                            id="new_city" value="{{ $domicilio->cuidad_municipio }}">
+                                        <span class="text-danger fw-normal" style=" display: none;">Ciudad no
+                                            válida.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
@@ -350,28 +348,30 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Colonia:</p>
                                     <div class="mt-0 W-data" id="colony"> {{ $domicilio->colonia ?? '--' }}</div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_colony">Colonia: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_colony"
-                                            id="new_colony" value="{{ $domicilio->colonia }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Colonia no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_colony">Colonia: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_colony"
+                                                id="new_colony" value="{{ $domicilio->colonia }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Colonia no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2 div-cedula">
                                     <p class="fw-bold mb-0">Código postal:</p>
                                     <div class="mt-0 W-data" id="cp"> {{ $domicilio->cp ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_cp">Código postal: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_cp"
-                                            id="new_cp" value="{{ $domicilio->cp }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Código postal no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_cp">Código postal: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_cp"
+                                                id="new_cp" value="{{ $domicilio->cp }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Código postal no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>
@@ -379,15 +379,16 @@
                             <div class="form-group col-12 pt-2">
                                 <p class="fw-bold mb-0">Calle:</p>
                                 <div class="mt-0 W-data" id="street"> {{ $domicilio->calle ?? '--' }} </div>
-
-                                <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                    <label for="new_street">Calle: <span class="red-color">
-                                            *</span></label>
-                                    <input class="form-control form-disabled" type="text" name="new_street"
-                                        id="new_street" value="{{ $domicilio->calle }}">
-                                    <span class="text-danger fw-normal" style=" display: none;">Calle no
-                                        válida.</span>
-                                </div>
+                                @role('Administrador')
+                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                        <label for="new_street">Calle: <span class="red-color">
+                                                *</span></label>
+                                        <input class="form-control form-disabled" type="text" name="new_street"
+                                            id="new_street" value="{{ $domicilio->calle }}">
+                                        <span class="text-danger fw-normal" style=" display: none;">Calle no
+                                            válida.</span>
+                                    </div>
+                                @endrole
                             </div>
                         </li>
                         <li class="list-group-item pt-0">
@@ -395,27 +396,29 @@
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Num. exterior:</p>
                                     <div class="mt-0 W-data" id="ext"> {{ $domicilio->num ?? '--' }}</div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_ext">Num. exterior: <span class="red-color">
-                                                *</span></label>
-                                        <input class="form-control form-disabled" type="text" name="new_ext"
-                                            id="new_ext" value="{{ $domicilio->num }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Num. exterior no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_ext">Num. exterior: <span class="red-color">
+                                                    *</span></label>
+                                            <input class="form-control form-disabled" type="text" name="new_ext"
+                                                id="new_ext" value="{{ $domicilio->num }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Num. exterior no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12 pt-2">
                                     <p class="fw-bold mb-0">Num. interior:</p>
                                     <div class="mt-0 W-data" id="int"> {{ $domicilio->num_int ?? '--' }} </div>
-
-                                    <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
-                                        <label for="new_int">Num. exterior: </label>
-                                        <input class="form-control form-disabled" type="text" name="new_int"
-                                            id="new_int" value="{{ $domicilio->num_int }}">
-                                        <span class="text-danger fw-normal" style=" display: none;">Num. interior no
-                                            válida.</span>
-                                    </div>
+                                    @role('Administrador')
+                                        <div class="mt-2 mb-1 input-show d-none animate__animated animate__fadeInUp">
+                                            <label for="new_int">Num. exterior: </label>
+                                            <input class="form-control form-disabled" type="text" name="new_int"
+                                                id="new_int" value="{{ $domicilio->num_int }}">
+                                            <span class="text-danger fw-normal" style=" display: none;">Num. interior no
+                                                válida.</span>
+                                        </div>
+                                    @endrole
                                 </div>
                             </div>
                         </li>

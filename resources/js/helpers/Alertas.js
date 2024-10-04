@@ -1,7 +1,7 @@
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
-import { messageWarningConsultation, messageErrorConsultation } from '../templates';
+import { messageWarningConsultation, messageErrorConsultation } from '../templates/consultationTemplate';
 
 
 /* Alerta que desaparece después de un intervalo de tiempo */
@@ -93,7 +93,7 @@ export const AlertForWarningConsultation = (data) => {
             icon: "success",
             title: 'Precaución',
             html: messageWarningConsultation(data),
-            confirmButtonText: 'Si estoy seguro',
+            confirmButtonText: 'Si, confirmar',
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
         }).then((confirme) => {
@@ -106,6 +106,16 @@ export const AlertForWarningConsultation = (data) => {
         })
     })
 
+}
+
+// Exist errors of loading data
+export const AlertErrorLoadingData = (title, msg) => {
+    Swal.fire({
+        icon: "error",
+        title: title,
+        text: msg,
+        confirmButtonText: 'Aceptar',
+    });
 }
 
 export const AlertErrorConsultation = (title, data) => {

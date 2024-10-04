@@ -29,9 +29,10 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string',
             'code' => 'required|numeric|digits_between:7,9',
             'email' => 'required|email',
-            'cedula' => 'nullable|numeric|digits:10',
+            'cedula' => 'nullable|numeric|digits_between:7,8',
             'userType' => 'required|numeric|in:1,2,3',
             'file' => 'required|mimes:pdf|max:2048',
+            'sex' => 'required|in:Masculino,Femenino',
         ];
     }
 
@@ -50,13 +51,15 @@ class StoreUserRequest extends FormRequest
             'email.required' => 'El correo es requerido',
             'email.email' => 'El correo debe ser válido',
             'cedula.numeric' => 'La cédula debe ser numérica',
-            'cedula.length' => 'La cédula debe tener 10 dígitos',
+            'cedula.length' => 'La cédula debe tener entre 7 u 8 dígitos',
             'userType.required' => 'El tipo de usuario es requerido',
             'userType.numeric' => 'El tipo de usuario debe ser numérico',
             'userType.in' => 'El tipo de usuario no es válido, por favor seleccione uno de la lista',
             'file.required' => 'El archivo es requerido',
             'file.mimes' => 'El archivo debe ser un PDF',
             'file.max' => 'El archivo debe pesar menos de 2MB',
+            'sex.required' => 'El sexo es requerido',
+            'sex.in' => 'El sexo no es válido, por favor seleccione uno de la lista',
         ];
     }
 }

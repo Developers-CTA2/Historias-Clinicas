@@ -24,7 +24,6 @@ $(document).ready(function () {
     Select2Diseases();
     ListenEventDiseases();
     ListenEventAllergies();
-    console.log("dffddfd");
 });
 
 /*
@@ -243,10 +242,6 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
             } else {
                 // Editar un registro existente
 
-                //console.log("NEW " + NewAllergyId + "  Old " + Id_Old_alergia);
-
-                
-
                 if (
                     (ValuesAllergy.select.new == "" ||
                         ValuesAllergy.select.old == ValuesAllergy.select.new) &&
@@ -262,13 +257,16 @@ function ClicButtonSave(Type, Id_reg, Id_options, textdescr, Id_Old_alergia) {
                     }
                     opc = 0;
                 } else {
-                    console.log("Correcto")
+                    console.log("Correcto");
                     V_description = validarCampo(
                         textDescription,
                         regexDescription,
                         description
                     );
-                    opc = ValuesAllergy.select.new == "" ?  ValuesAllergy.select.old : ValuesAllergy.select.new;
+                    opc =
+                        ValuesAllergy.select.new == ""
+                            ? ValuesAllergy.select.old
+                            : ValuesAllergy.select.new;
                 }
             }
 
@@ -297,9 +295,14 @@ function ListenSelctAllergy(select) {
     Validar que haya algo en el select al dar clic al guardar
 */
 function ClicValidateData(Id, Span, Container) {
+    console.log($(Id).val());
     if ($(Id).val() == "" || $(Id).val() == null) {
         console.log("Nooo hay dato");
-        $(Span).html(IconInfo("No se realizó  ningun cambio."));
+        if (Id == "#New_disease") {
+            $(Span).html(IconInfo("Selcciona una enfermedad."));
+        } else {
+            $(Span).html(IconInfo("Parece que hay un campo vacío."));
+        }
 
         if ($(Container).hasClass("d-none")) {
             $(Container).removeClass("d-none").hide().fadeIn(400);
@@ -377,29 +380,27 @@ async function Request(Type, Id_reg, Id, Description) {
             Data
         );
         $(collapse).collapse("hide"); // Cerrar collapse
+        $("#Description").val("");
+
         ShowConfirmation(
             IdContainer,
             span,
             " Cambio realizado da clic en <strong> Recargar </strong>."
         );
-
-        ClicRefresh(".btn-refresh", btn);
+        ClicRefresh(".btn-refresh", btn); // Boton de refresh
         $("#btn-refresh-page").removeClass("d-none");
     } catch (error) {
-        // ShowErrors;
         console.log(error);
         const { errors } = error.response.data;
-        console.log(IdContainer);
-        console.log(span);
         ShowSpanErrors(
             IdContainer,
             span,
-            " </strong> ¡Error! </strong> al realizar la peticion."
+            " </strong> ¡Error! </strong> al realizar la petición."
         );
 
         await ShowErrorsSweet(
             "¡Error!",
-            "No fue posible la edición de los datos",
+            "Se detectarón algunos errores al realizar la petición",
             "error",
             errors
         );
@@ -407,7 +408,7 @@ async function Request(Type, Id_reg, Id, Description) {
 }
 
 /*
-    Funcion para completar la ruta al controlador 
+    Funcion para completar la ruta al controlador segun el numero que se reciba en la variable tipo
 */
 function SwitchRountes(Type) {
     let result = {};
@@ -436,7 +437,6 @@ function SwitchRountes(Type) {
             btn: ".icon-refresh-Diseases",
         };
     } else if (Type == 4) {
-        /// Alergias
         result = {
             Route: "Add_Allergy",
             IdContainer: ".Allergies",

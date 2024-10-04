@@ -1,7 +1,6 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
-@import "variables";
-@import "Buttons";
+@import 'steps-bar';
+
 
 
 .bg-avatar{
@@ -33,10 +32,10 @@
 .container-list-custom{
     background-color: $bg-color-opacity;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
     max-width: 500px;
-    min-height: 65px;
+    min-height: 200px;
     max-height: 400px;
     overflow-y: auto;
     padding-bottom: 10px;

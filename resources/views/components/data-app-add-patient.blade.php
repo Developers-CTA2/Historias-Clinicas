@@ -4,7 +4,7 @@
     <div class="col-xl-8 col-xxl-6 col-lg-12">
 
         <div class="d-flex justify-content-between my-1">
-            <h5>Antecendentes patológicos</h5>
+            <h5>Antecendentes patológicos personales</h5>
             <x-tooltip message="En esta sección debes agregar los antecedentes que ha tenido el paciente a lo largo de su vida, en caso de no tener alguno, presionar 'Siguiente'" />
         </div>
         

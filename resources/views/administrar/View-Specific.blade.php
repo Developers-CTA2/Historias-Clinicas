@@ -2,9 +2,6 @@
 
 @section('title', 'Enfermedades')
 
-@section('viteConfig')
-    @vite(['resources/sass/diseases.scss'])
-@endsection
 
 @section('content')
     <div class="container">

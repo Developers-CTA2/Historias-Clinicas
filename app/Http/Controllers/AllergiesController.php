@@ -29,7 +29,7 @@ class AllergiesController extends Controller
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
 
-        $query = Alergia::query();;
+        $query = Alergia::query();
 
         if (!empty($search)) {
             $query->where('nombre', 'like', "%$search%");
@@ -37,6 +37,7 @@ class AllergiesController extends Controller
         $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
+            ->orderBy('nombre', 'asc')
             ->get();
 
         return response()->json([
@@ -74,6 +75,8 @@ class AllergiesController extends Controller
         // Verificamos que no se duplique el nombre
         $Allergy = Alergia::where('nombre', $Name)->first();
 
+
+        
         if ($Allergy) {
             return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
         } else {

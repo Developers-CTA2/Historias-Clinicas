@@ -144,7 +144,7 @@
                     </div>
 
                     {{-- Contenedor para cambiar contraseña  --}}
-                    <div id="cont-change" class="d-none animate__animated animate__fadeInUp animate__backOutDown mt-3 ">
+                    <div id="cont-change" class="d-none animate__animated animate__fadeInUp animate__backOutDown mt-3">
                         <div class="row col-12 mx-2 border border rounded shadow ps-3 pe-2 pb-4 py-3">
                             <h5 class="text-center pt-1">Actualizar mi contraseña</h5>
                             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -165,7 +165,7 @@
                                     <p class="fs-6 text-muted"> Confirma que realmente eres <i>
                                             {{ auth()->user()->name }},</i> escribe tu contraseña actual. </p>
 
-                                    <div class="form-group col-10">
+                                    <div class="form-group col-10 ">
 
                                         {{-- Alerta de errores --}}
                                         <x-alert-manage containerClass="step1-Alert" textClass="step1-text">
@@ -176,7 +176,7 @@
                                         <span class="text-danger fw-normal" style=" display: none;">Contraseña no
                                             válida.</span>
 
-                                        <div class="d-flex justify-content-center mt-3 gap-2">
+                                        <div class="d-flex justify-content-center mt-3 gap-2  flex-column flex-sm-row">
                                             <x-button-custom type="button"
                                                 class="btn-red justify-content-center justify-content-lg-start cancel-pass"
                                                 text="Cancelar" tooltipText="Cancelar acción.">
@@ -329,17 +329,6 @@
 
                                 </div>
                                 <div class="mx-2">
-                                    {{-- <button class="btn-blue-sec fst-normal tooltip-container p-1" >
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 32 32">
-                                            <path
-                                                d="M21 2a8.998 8.998 0 0 0-8.612 11.612L2 24v6h6l10.388-10.388A9 9 0 1 0 21 2m0 16a7 7 0 0 1-2.032-.302l-1.147-.348l-.847.847l-3.181 3.181L12.414 20L11 21.414l1.379 1.379l-1.586 1.586L9.414 23L8 24.414l1.379 1.379L7.172 28H4v-3.172l9.802-9.802l.848-.847l-.348-1.147A7 7 0 1 1 21 18" />
-                                            <circle cx="22" cy="10" r="2" />
-                                        </svg>
-                                        Contraseña
-                                        <span class="tooltip-text">Cambiar contraseña.</span>
-                                    </button> --}}
-
                                     <x-button-custom type="button"
                                         class="btn-blue-sec justify-content-center justify-content-lg-start"
                                         id="Change-pass" text="Contraseña" tooltipText="Cambiar contraseña.">

@@ -1,13 +1,5 @@
-// Fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,500&display=swap");
-
 // Variables
 @import "variables";
-
-// Bootstrap
-@import "bootstrap/scss/bootstrap";
-@import "@fortawesome/fontawesome-free/css/all.css";
-
 
 
 /* Sidebar Component Styles */
@@ -31,11 +23,6 @@
     background-color: #f0f0f0 !important;
 }
 
-/* sidebard minimizado */
-.sideBar-custom.collapsed {
-    width: 80px;
-    /* Ancho del sidebar cuando está colapsado */
-}
 
 /* Main Content */
 .container-custom {
@@ -237,9 +224,24 @@
         }
     }
 
+    .container-logo-top {
+
+        // Show logo with animation
+        display: initial;
+        animation: fadeIn 1s ease-in-out;
+
+        img {
+            height: 75px;
+        }
+    }
+
     // Sidebar compressed
     &.compressed {
         width: 80px;
+
+        .container-logo-top {
+            display: none;
+        }
 
         nav {
             ul {
@@ -448,7 +450,7 @@
 }
 
 
-.max-w-custom{
+.max-w-custom {
     width: 100%;
     max-width: $max-width;
 }
@@ -468,13 +470,18 @@
 }
 
 .avatar-container {
-    background-image: url('/public/images/avatar-c.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
+    border: 2px solid $bg-color-opactity-md;
     cursor: pointer;
+    
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+
 }
 
 .avatar-custom {
@@ -515,14 +522,19 @@
 
 }
 
-
-
-
-
-
 .sideBar-custom.movil-collapse {
     // width: 0px !important;
     left: 0px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 

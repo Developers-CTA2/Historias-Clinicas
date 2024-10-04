@@ -1,4 +1,4 @@
-import { btnUpScreenFunction } from "../../components";
+import { btnUpScreenFunction } from "../../components/buttonUpScreen";
 
 $(document).ready(function () {
    

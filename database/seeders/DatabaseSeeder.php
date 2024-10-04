@@ -10,7 +10,9 @@ use App\Models\Tipos_enfermedades;
 use App\Models\Enfermedad_especifica;
 use App\Models\Toxicomanias;
 use App\Models\Alergia;
+use App\Models\Domicilio;
 use App\Models\Escolaridad;
+use App\Models\EstatusCita;
 use App\Models\Hemotipo;
 use App\Models\Rep_estado;
 
@@ -124,14 +126,15 @@ class DatabaseSeeder extends Seeder{
         $Toxicomanias = [
             ['id' => 1, 'nombre' => 'Tabaquismo','created_by'=> 1,'updated_by'=> 1], 
             ['id' => 2, 'nombre' => 'Alcoholismo','created_by'=> 1,'updated_by'=> 1],
-            // ['id' => 4, 'nombre' => 'Adicción a opiáceos'],
-            // ['id' => 5, 'nombre' => 'Adicción a estimulantes'], 
-            // ['id' => 6, 'nombre' => 'Adicción a cannabis'],
-            // ['id' => 7, 'nombre' => 'Adicción a alucinógenos'], 
-            // ['id' => 8, 'nombre' => 'Adicción a Inhalantes'], 
-            // ['id' => 9, 'nombre' => 'Adicción a Drogas de Diseño'], 
+            ['id' => 4, 'nombre' => 'Adicción a opiáceos','created_by'=> 1,'updated_by'=> 1],
+            ['id' => 5, 'nombre' => 'Adicción a estimulantes','created_by'=> 1,'updated_by'=> 1], 
+            ['id' => 6, 'nombre' => 'Adicción a cannabis','created_by'=> 1,'updated_by'=> 1],
+            ['id' => 7, 'nombre' => 'Adicción a alucinógenos','created_by'=> 1,'updated_by'=> 1], 
+            ['id' => 8, 'nombre' => 'Adicción a Inhalantes','created_by'=> 1,'updated_by'=> 1], 
+            ['id' => 9, 'nombre' => 'Adicción a Drogas de Diseño','created_by'=> 1,'updated_by'=> 1], 
             ['id' => 3, 'nombre' => 'Otras','created_by'=> 1,'updated_by'=> 1]
         ];
+
 
         //Tipo de Alergias
         // $Alergias = [
@@ -150,11 +153,26 @@ class DatabaseSeeder extends Seeder{
             ['id_alergia' => 7, 'nombre' => 'Alergias al látex','created_by'=> 1,'updated_by'=> 1],
             ['id_alergia' => 8, 'nombre' => 'Alergias oculares','created_by'=> 1,'updated_by'=> 1],
         ];
+
+        // $Domicilio = [
+        //     ['id_domicilio' => 1, 'ciudad_municipio' => 'Sed nihil qui rem at','estado'=> 1,'pais'=> 'México','calle' => 'Molestias enim qui u', 'num' => '100', 'num_int' => 'A', 'colonia' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_domicilio' => 2, 'ciudad_municipio' => 'Sed nihil qui rem at','estado'=> 2,'pais'=> 'México','calle' => 'Molestias enim qui u', 'num' => '100', 'num_int' => 'A', 'colonia' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_domicilio' => 3, 'ciudad_municipio' => 'Sed nihil qui rem at','estado'=> 3,'pais'=> 'México','calle' => 'Molestias enim qui u', 'num' => '100', 'num_int' => 'A', 'colonia' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_domicilio' => 4, 'ciudad_municipio' => 'Sed nihil qui rem at','estado'=> 5,'pais'=> 'México','calle' => 'Molestias enim qui u', 'num' => '100', 'num_int' => 'A', 'colonia' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        // ];
+
+        // $persona = [
+        //     ['id_persona ' => 1, 'domicilio_id' => 1,'estado'=> 1,'hemotipo_id '=> 1,'escolaridad_id' => 1, 'codigo' => '2025973', 'nombre' => 'CAMPOS ARÁMBULA MYRIAN ADRIANA', 'ocupacion' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_persona ' => 2, 'domicilio_id' => 2,'estado'=> 2,'hemotipo_id '=> 2,'escolaridad_id' => 2, 'codigo' => '2967353', 'nombre' => 'GONZÁLEZ RODRIGUEZ YOLANDA ROSINA', 'ocupacion' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_persona ' => 3, 'domicilio_id' => 3,'estado'=> 3,'hemotipo_id '=> 3,'escolaridad_id' => 3, 'codigo' => '2967353', 'nombre' => 'ESCOTO RODRÍGUEZ MARÍA DE JESÚS', 'ocupacion' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        //     ['id_persona ' => 4, 'domicilio_id' => 4,'estado'=> 5,'hemotipo_id '=> 4,'escolaridad_id' => 4, 'codigo' => '',        'nombre' => 'VICTORIA TRAN', 'ocupacion' => 'Dolor officia tempor', 'cp' => '144', 'created_at' => '2024-09-20 10:01:06', 'updated_at' => '2024-09-20 10:01:06'],
+        // ];
     
     
         User::create([
             'name' => 'Alecs',
             'user_name' => '286579',
+            'sex' => 'Masculino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('1234'),
@@ -163,6 +181,7 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'LOMELI ZERMEÑO JAZMIN',
             'user_name' => '2166104',
+            'sex' => 'Femenino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
@@ -171,6 +190,7 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'CTA',
             'user_name' => '010101',
+            'sex' => 'Masculino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
@@ -179,6 +199,7 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'SOLANO GUZMÁN EDUARDO',
             'user_name' => '2921073',
+            'sex' => 'Masculino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'cedula' => '12771247',
@@ -189,6 +210,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'GONZALEZ RAMIREZ JOSELIN',
             'user_name' => '2175917',
             'estado' => 'Activo',
+            'sex' => 'Femenino',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
@@ -197,7 +219,8 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'GONZÁLEZ CERVANTES JUAN LUIS',
             'user_name' => '2726319',
-            'estado' => 'Activo',
+            'sex' => 'Masculino',
+            'estado' => 'Inactivo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(3);
@@ -206,6 +229,7 @@ class DatabaseSeeder extends Seeder{
             'name' => 'DOMINGUEZ PADILLA JUAN PEDRO',
             'user_name' => '2168827',
             'estado' => 'Activo',
+            'sex' => 'Masculino',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(1);
@@ -213,6 +237,7 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'GÓMEZ FRANCO LUIS FRANCISCO',
             'user_name' => '2965531',
+            'sex' => 'Masculino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
@@ -221,6 +246,7 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'DE ANDA GARCÍA LLIN LU GUADALUPE',
             'user_name' => '2725819',
+            'sex' => 'Femenino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
@@ -229,10 +255,31 @@ class DatabaseSeeder extends Seeder{
         User::create([
             'name' => 'RAMÍREZ RODRÍGUEZ VIRGINIA',
             'user_name' => '9205195',
+            'sex' => 'Femenino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'password' => Hash::make('Aa@1'),
         ])->assignRole(2);
+
+        EstatusCita::create([
+            'status' => 'Pendiente',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Atendida',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Cancelada',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'Reagendada',
+        ]);
+
+        EstatusCita::create([
+            'status' => 'No asistió',
+        ]);
         
 
 
@@ -243,6 +290,7 @@ class DatabaseSeeder extends Seeder{
         Hemotipo::insert($Hemotipo);
         Escolaridad::insert($Escolaridad);
         Rep_estado::insert($Estados);
+      //  Domicilio::insert($Domicilio);
     }
   
 }

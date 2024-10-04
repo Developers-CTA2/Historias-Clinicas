@@ -41,7 +41,7 @@ class SpecificDiseasesController extends Controller
         $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
-            ->orderBy('id_especifica_ahf', 'desc')
+            ->orderBy('nombre', 'asc')
             ->get();
 
         return response()->json([
@@ -137,7 +137,7 @@ class SpecificDiseasesController extends Controller
                 $disease->updated_by = auth()->user()->id;
                 $disease->save();
             });
-            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamnete.']);
+            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamente.']);
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }

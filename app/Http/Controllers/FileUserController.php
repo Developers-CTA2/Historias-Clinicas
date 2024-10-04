@@ -12,11 +12,11 @@ class FileUserController extends Controller
     public function downloadTemplate()
     {
 
-        if (!Storage::disk('public')->exists('plantilla-carta-compromiso.pdf')) {
+        if (!Storage::disk('public')->exists('template-confidentiality.pdf')) {
             abort(404);
         }
 
-        $file = Storage::disk('public')->path('plantilla-carta-compromiso.pdf');
+        $file = Storage::disk('public')->path('template-confidentiality.pdf');
 
         return response()->download($file);
     }

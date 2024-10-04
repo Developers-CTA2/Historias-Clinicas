@@ -3,7 +3,7 @@
 @section('title', 'Historial de consultas')
 
 @section('viteConfig')
-    @vite(['resources/sass/form-style.scss', 'resources/sass/main.scss', 'resources/sass/history-consultation.scss'])
+    @vite(['resources/sass/history-consultation.scss'])
 @endsection
 
 

@@ -1,7 +1,8 @@
 import Chart from 'chart.js/auto';
-import { Colors, layouts, Legend, plugins } from 'chart.js';
-import { AlertError, getDataStatistics } from '../helpers';
-import { filtersHome } from '../components';
+
+import { AlertError } from '../helpers/Alertas';
+import { getDataStatistics } from '../helpers/request-get-data-statistics';
+import { filtersHome } from '../components/filtersHome';
 
 
 const options = {
@@ -163,15 +164,5 @@ $(function () {
             }
         })
     }
-
-
-
-
-
-
-    // bntUpdate.addEventListener('click', function () {
-    //     chartDiseases.data.datasets[0].data = dataUpdate.map(row => row.count);
-    //     chartDiseases.update();
-    // });
 
 });

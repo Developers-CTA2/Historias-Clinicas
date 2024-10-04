@@ -21,7 +21,7 @@ export const calculateNumGestas = (inputsDom, inputValue)=>{
 
     const getCalculateNumGestas = ()=>{
 
-        if((inputNumPartos != '' && !regexNumero.test(inputNumPartos.val())) || (inputNumCesareas.val() != '' && !regexNumero.test(inputNumCesareas.val())) || (inputNumAbortos.val() != '' && !regexNumero.test(inputNumAbortos.val()))) return 0
+        if((inputNumPartos != '' && !regexNumero.test(inputNumPartos.val())) && (inputNumCesareas.val() != '' && !regexNumero.test(inputNumCesareas.val())) && (inputNumAbortos.val() != '' && !regexNumero.test(inputNumAbortos.val()))) return 0;
         
         let numPartos = inputNumPartos.val() == '' ? 0 : inputNumPartos.val();
         let numCesareas = inputNumCesareas.val() == '' ? 0 : inputNumCesareas.val();

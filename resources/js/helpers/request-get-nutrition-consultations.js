@@ -1,6 +1,5 @@
 import { activeLoading, disableLoading } from "../loading-screen.js";
 
-
 export const requestGetNutritionConsultation = async(dataSend = {})=>{
 
     activeLoading();

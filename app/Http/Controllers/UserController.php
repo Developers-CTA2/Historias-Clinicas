@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Models\Administrativo;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Consulta;
- use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
- 
-use Illuminate\Support\Facades\Validator;
+
 use  Carbon\Carbon;
 
 class UserController extends Controller
 {
-
 
     /*
         Funcion que retorna la vista de usuarios y el breadcrumb 
@@ -29,7 +28,6 @@ class UserController extends Controller
 
         return view('user.View-Users', compact('breadcrumbs'));
     }
-
 
     /* Funcion para ver los detalles del usuario selecciondo */
     public function userDetails($id)
@@ -95,6 +93,7 @@ class UserController extends Controller
                         'user_name' => $request->code,
                         'name' => $request->name,
                         'email' => $request->email,
+                        'sex' => $request->sex,
                         'cedula' => $request->cedula,
                         'file' => $filename,
                         'estado' => 'Activo',
@@ -119,7 +118,9 @@ class UserController extends Controller
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
 
-        $query = User::query()->where('user_name', '!=', '010101')->orderby('estado');
+        $query = User::with('roles')
+                ->where('users.id', '!=', auth()->user()->id)
+                ->whereNot('users.user_name', '010101');
 
         if (!empty($search)) {
 
@@ -130,14 +131,16 @@ class UserController extends Controller
             });
         }
 
-        $total = $query->count()-1;
-        $users = $query
-            ->select('users.id', 'users.estado', 'users.user_name', 'users.name', 'roles.name as role_name', 'roles.id as role_id') // Selecciona los campos de interés
-            ->join('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
-            ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-            ->where('users.id', '!=', auth()->user()->id)
-            ->get();
+        $total = $query->count();  // Restamos el usuario de CTA
+        $users = $query->skip($offset)
+                        ->take($limit)
+                        ->get();
 
+        $users = $users->map(function($query){
+            $query->sexType =  $query->sex === 'Masculino' ? 1 : 2;
+            return $query;
+        });
+        
         return response()->json([
             'results' => $users,
             'count' => $total,
@@ -148,93 +151,71 @@ class UserController extends Controller
     /*
      Funcion para actualizar los datos de un usuario
     */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
-        // Errores en español 
-        $messages = [
-            'Id.required' => 'El campo ID es obligatorio.',
-            'Id.numeric' => 'El campo ID debe ser un número.',
-            'Id.exists' => 'El usuario no existe en la base de datos.',
-            'Email.required' => 'El campo Email es obligatorio.',
-            'Email.email' => 'El campo Email debe ser una dirección de correo válida.',
-            'Type.required' => 'El campo Tipo es obligatorio.',
-            'Type.numeric' => 'El campo Tipo debe ser un número.',
-            'Type.in' => 'El campo Tipo de usuario no es válido.',
-            'Status.required' => 'El campo Estado es obligatorio.',
-            'Status.numeric' => 'El campo Estado debe ser un número.',
-            'Status.in' => 'El campo Estado no es válido.',
-            'Cedula.numeric' => 'El campo Cedula debe ser un número válido.',
-        ];
-        // Validar datos
-        $validator = Validator::make($request->all(), [
-            'Id' => 'required|numeric|exists:users,id',
-            'Email' => 'required|email',
-            'Type' => 'required|numeric|in:1,2,3',
-            'Status' => 'required|numeric|in:1,2',
-            'Cedula' => 'nullable|numeric',
-        ], $messages);
+        $validate = $request->validated();
 
-        // Error en algun dato
-        if ($validator->fails()) {
-            return response()->json(['type' => 0, 'errors' => $validator->errors()], 400);
-        }
-
-        $Id = $request['Id'];
-        $Email = $request['Email'];
-        $Tipo = intval($request['Type']);
-        $Status = $request['Status'];
-        $Cedula = $request['Cedula'];
-
-        if ($Status == 1) {
+        
+        $Status =  ""; // FORMATO DEL ESTADO
+        if ($validate['estado'] == 1) {
             $Status = "Activo";
         } else {
             $Status = "Inactivo";
         }
-        $user = User::where('id', $Id)->first();
-
-        if ($user) {
-            DB::transaction(function () use ($Email, $Tipo, $Status, $Cedula, $user) {
+        
+        $user = User::where('id', $validate['id'])->first();
+        
+        try {
+            DB::transaction(function () use ($validate, $user, $Status) {
                 $user->update([
-                    'email' => $Email,
+                    'email' => $validate['email'],
                     'estado' => $Status,
-                    'cedula' => $Cedula,
+                    'cedula' => $validate['cedula'],
                     'updated_at' => now(),
                 ]);
-                $user->syncRoles([$Tipo]);
+                $user->syncRoles(intval($validate['userType']));
             });
-
-            return response()->json(['status' => 200, 'msg' => 'Datos editados correctamente.']);
-        } else {
-            return response()->json(['type' => 1, 'msg' => 'El usuario ya existe en la base de datos.'], 400);
+            return response()->json(['status' => 200, 'msg' => 'Datos del usuario actualizados correctamente.']);
+        } catch (\Exception $e) {
+            return response()->json(['msg' => 'Error, algo salio mal, intentalo más tarde.', 'error' => $e->getMessage()],500);
         }
-        return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }
 
     /*
         Funcion para eliminar el acceso al sistema a un usuario en especifico
     */
+
+
     public function Desactive(Request $request)
     {
-        $data = $request->validate([
-            'Id' => 'required|numeric|',
-        ]);
+        $messages = [
+            'Id.required' => 'El compo ID del usuario es obligatorio.',
+            'Id.numeric' => 'El compo ID del usuario debe ser un número.',
+            'Id.exists' => 'El ID ingresado no corresponde a ningun usuario.',
+        ];
 
-        $Id = intval($data['Id']);
+        $data = Validator::make($request->all(), [
+            'Id' => 'required|numeric|exists:users,id',
+        ], $messages);
 
+        if ($data->fails()) {
+            //return response()->json(['status' => 400, 'msg' => $data->errors()]);
+            return response()->json(['errors' => $data->errors()], 400);
+        }
 
+        $Id = intval($request['Id']);
         $user = User::where('id', $Id)->first();
 
-        if ($user) {
+        try {
             DB::transaction(function () use ($user) {
                 $user->update([
                     'estado' => "Inactivo",
                     'updated_at' => now(),
                 ]);
             });
-
             return response()->json(['status' => 200, 'msg' => 'Se elimino el acceso al sistema.']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
+        } catch (\Exception $e) {
+            return response()->json(['errors' => 'Ha ocurrido un error al realizar la petición', 'error' => $e], 500);
         }
     }
 }

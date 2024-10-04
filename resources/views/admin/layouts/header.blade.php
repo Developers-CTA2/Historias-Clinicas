@@ -19,8 +19,28 @@
             </section>
 
             <section class="d-flex align-items-center gap-3">
-                <p id="usernameText" class="m-0">{{ auth()->user()->name }}</p>
-                <div class="avatar-container" data-bs-toggle="dropdown" aria-expanded="false"></div>
+                <p id="usernameText" class="m-0">{{ auth()->user()->name }} </p>
+                <div class="avatar-container" data-bs-toggle="dropdown" aria-expanded="false">
+                    @php 
+                    
+                        $role = auth()->user()->roles[0]->id;
+                        $sex = auth()->user()->sex === 'Masculino' ? 1 : 2;
+                        $classSex = $sex == 1 ? 'man' : 'woman';
+                
+                        $avatarRole = '';
+                        if ($role == 1) {
+                            $avatarRole = 'doctor';
+                        } else if ($role == 2) {
+                            $avatarRole = 'pasante';
+                        } else {
+                            $avatarRole = 'nutrition';
+                        }
+
+                        $urlImage = 'icon-'.$avatarRole.'-'.'man'.'.png';
+
+                    @endphp
+                    <img src="{{asset('/images/'.$urlImage)}}" alt="Ícono doctor">
+                </div>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="{{ route('profile.details') }}" class="dropdown-item" href="#">

@@ -2,7 +2,7 @@
 
 @section('title', 'Agenda')
 @section('viteConfig')
-    @vite(['resources/sass/agenda.scss'])
+    @vite('resources/sass/agenda.scss')
 @endsection
 
 

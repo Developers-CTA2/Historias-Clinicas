@@ -45,6 +45,8 @@ class HistoryConsultationController extends Controller
                 return response()->json([]);
             }
 
+            // throw new \Exception('Error en la validación');
+
             $consultas = $consultas->transform(function ($consulta) {
                 $consulta->fecha = $consulta->created_at->locale('es')->format('h:i:s A') . ' - ' . $consulta->created_at->locale('es')->isoFormat('LL');
                 return $consulta;
