@@ -78,17 +78,35 @@
                     {{-- Contenedor de los datos del usuario --}}
                     <div class="row col-12 mx-2 p-1 mt-1">
                         <h5 class="p-0 m-0 fw-bold text-muted">Configuración</h5>
-                        <div class="col-lg-6 col-sm-12">
-                            <div class="form-group mt-3">
-                                {{-- <p class="fw-bold mb-0">Tipo de usuario</p> --}}
-                                <label for="Usertype">Tipo de usuario <span class="red-color"> *</span></label>
-                                <select class="form-control" id="Usertype" name="Usertype">
-                                    <option value="" disabled selected>Selecciona</option>
-                                    <option value="1">Doctor</option>
-                                    <option value="2">Prestador de medicina</option>
-                                    <option value="3">Prestador de nutrición</option>
-                                </select>
-                                <span class="text-danger fw-normal d-none"></span>
+                        <div class="col-lg-6  col-sm-12">
+
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mt-3">    
+                                        {{-- <p class="fw-bold mb-0">Tipo de usuario</p> --}}
+                                        <label for="Usertype">Tipo de usuario <span class="red-color"> *</span></label>
+                                        <select class="form-control" id="Usertype" name="Usertype">
+                                            <option value="" disabled selected>Selecciona una opción</option>
+                                            <option value="1">Doctor</option>
+                                            <option value="2">Prestador de medicina</option>
+                                            <option value="3">Prestador de nutrición</option>
+                                        </select>
+                                        <span class="text-danger fw-normal d-none"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6">
+                                    <div class="form-group mt-3">    
+                                        {{-- <p class="fw-bold mb-0">Tipo de usuario</p> --}}
+                                        <label for="Sex">Sexo <span class="red-color"> *</span></label>
+                                        <select class="form-control" id="Sex" name="Sex">
+                                            <option value="" disabled selected>Selecciona una opción</option>
+                                            <option value="1">Masculino</option>
+                                            <option value="2">Femenino</option>
+                                        </select>
+                                        <span class="text-danger fw-normal d-none"></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="Useremail">Correo <span class="red-color"> *</span></label>

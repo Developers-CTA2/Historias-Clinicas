@@ -7,15 +7,22 @@ import "gridjs/dist/theme/mermaid.css";
 
 import { activeLoading, disableLoading } from "../loading-screen.js";
 import {
+    regexLetters,
+} from "../helpers/Regex.js";
+
+import { 
     className,
     translations,
-    ShowOrHideAlert,
-    regexLetters,
-    validarCampo,
-    TimeAlert,
-} from "../helpers";
+} from '../helpers/gridJsConfiguration.js';
 
-import { showErrorsAlert, IconError } from "../templates/AlertsTemplate.js";
+import { validarCampo, ShowOrHideAlert } from "../helpers/ValidateFuntions.js";
+import { TimeAlert} from '../helpers/Alertas.js';
+
+import {
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
+
 
 $(function () {
     initialData();
@@ -59,6 +66,7 @@ async function initialData() {
                                 </button>
                              </div>`
                         ),
+                    sort : false,
                 },
             ],
 

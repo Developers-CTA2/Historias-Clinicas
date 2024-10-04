@@ -24,28 +24,38 @@ async function initialData() {
                     hidden: true,
                 },
                 {
+                    id: "sex",
+                    name: "Sexo",
+                    hidden: true,
+                },
+                {
+                    id: "role_id",
+                    name: "Rol",
+                    hidden: true,
+                },
+                {
                     /* Columna donde se muestra el icono del tipo de usuario */
                     id: "role_name",
                     name: "Rol",
                     formatter: (_, row) => {
-                        const status = row.cells[1].data;
+                        const role = row.cells[2].data;
+                        const sexo = row.cells[1].data;
 
-                        if (status === 1) {
-                            return h("div", {
-                                className:
-                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-doctor p-0",
-                            });
-                        } else if (status === 2) {
-                            return h("div", {
-                                className:
-                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-pasante ",
-                            });
+                        let classSex = sexo === 1 ? 'avatar-man' : 'avatar-woman';
+                        let avatarRole = '';
+                        if (role === 1) {
+                            avatarRole = 'avatar-doctor';
+                        } else if (role === 2) {
+                            avatarRole = 'avatar-pasante';
                         } else {
-                            return h("div", {
-                                className:
-                                    "d-flex justify-content-center align-items-center avatar-container config-avatar avatar-nutrition",
-                            });
+                            avatarRole = 'avatar-nutrition';
                         }
+
+                        return h("div", {
+                            className:
+                                `d-flex justify-content-center align-items-center avatar-container config-avatar ${avatarRole} ${classSex} p-0`,
+                        });
+
                     },
                     sort: false,
                 },
@@ -53,17 +63,13 @@ async function initialData() {
                     id: "name",
                     name: "Nombre",
 
-                    formatter: (_, row) =>
+                    formatter: (cell, row) =>
                         html(
-                            `<div class="fw-bold">${row.cells[3].data}</div>
-                                <div>${row.cells[2].data}</div>`
+                            `<div class="fw-bold">${cell}</div>
+                                <div>${row.cells[3].data}</div>`
                         ),
                 },
-                {
-                    id: "role_name",
-                    name: "Rol",
-                    hidden: true,
-                },
+
                 {
                     id: "user_name",
                     name: "Código",
@@ -72,8 +78,9 @@ async function initialData() {
                 {
                     id: "estatus",
                     name: html('<p class="mb-0 text-center">Estatus</p>'),
-                    formatter: (cell, row) => {
-                        const status = row.cells[5].data;
+                    formatter: (cell) => {
+                        const status = cell;
+
                         let statusHtml = null;
                         if (status === "Activo") {
                             statusHtml = h(
@@ -108,7 +115,7 @@ async function initialData() {
                     id: "Acciones",
                     name: html('<p class="mb-0 text-center">Opciones</p>'),
                     formatter: (cell, row) => {
-                        const status = row.cells[5].data;
+                        const status = row.cells[6].data;
                         let statusHtml = null;
                         if (status === "Activo") {
                             statusHtml = html(
@@ -161,8 +168,9 @@ async function initialData() {
                     // Mapear los datos según tu lógica
                     return data.results.map((user) => [
                         user.id,
-                        user.role_id,
-                        user.role_name, // Nombre del rol
+                        user.sexType,
+                        user.roles[0].id,
+                        user.roles[0].name, // Nombre del rol
                         user.name, // Nombre del usuario
                         user.user_name, // Nombre de usuario
                         user.estado,

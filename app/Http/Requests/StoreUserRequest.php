@@ -32,6 +32,7 @@ class StoreUserRequest extends FormRequest
             'cedula' => 'nullable|numeric|digits_between:7,8',
             'userType' => 'required|numeric|in:1,2,3',
             'file' => 'required|mimes:pdf|max:2048',
+            'sex' => 'required|in:Masculino,Femenino',
         ];
     }
 
@@ -57,6 +58,8 @@ class StoreUserRequest extends FormRequest
             'file.required' => 'El archivo es requerido',
             'file.mimes' => 'El archivo debe ser un PDF',
             'file.max' => 'El archivo debe pesar menos de 2MB',
+            'sex.required' => 'El sexo es requerido',
+            'sex.in' => 'El sexo no es válido, por favor seleccione uno de la lista',
         ];
     }
 }

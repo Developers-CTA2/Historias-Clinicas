@@ -8,6 +8,7 @@ use Carbon\Carbon;
 
 use App\Models\Citas;
 use App\Models\EstatusCita;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -304,5 +305,15 @@ class CitasController extends Controller
             ->where('tipo_profesional', 'Doctora')
             ->get();
         return response()->json($citas);
+    }
+
+    public function users(){
+        $users = User::with('roles')->get();
+
+        
+
+        return response()->json($users);
+
+    
     }
 }

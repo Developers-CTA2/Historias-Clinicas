@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\WebServiceGetPersonRequest;
+use App\Models\Persona;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 use function Laravel\Prompts\error;
@@ -16,15 +18,16 @@ class WebServicePersonController extends Controller
         return view('patients.form');
     }
 
-    public function getPersonWebService($code, $type)
+    public function getPersonWebService($code, $type, $person)
     {
 
         try {
             $validated = Validator::make(
-                ['code' => $code, 'type' => $type],
+                ['code' => $code, 'type' => $type,'person' => $person],
                 [
                     'code' => 'required|numeric|digits_between:7,9',
                     'type' => 'required|numeric|in:1,2',
+                    'person' => 'required|in:user,patient',
                 ],
                 [
                     'code.required' => 'El código es requerido',
@@ -33,6 +36,8 @@ class WebServicePersonController extends Controller
                     'type.required' => 'El tipo de persona es requerido',
                     'type.numeric' => 'El tipo de persona debe ser numérico',
                     'type.in' => 'El tipo de persona no es válido',
+                    'person.required' => 'El tipo de persona es requerido',
+                    'person.in' => 'El tipo de persona no es válido',
                 ]
             );
 
@@ -108,6 +113,31 @@ class WebServicePersonController extends Controller
 
                 return response()->json($responseWithErrors, 500);
             }
+
+            // throw new \Exception('Error en la validación');
+
+            if ($person == 'patient') {
+
+                // Verificar si la persona ya existe en la base de datos
+                $person = Persona::where('codigo', $code)->first();
+
+                if ($person) {
+                    // Mandar mensaje de que la persona ya existe
+                    $responseWithErrors['msg'] = 'El paciente ya tiene un expediente médico';
+                    $responseWithErrors['title'] = 'Expediente existente';
+                    return response()->json($responseWithErrors, 400);
+                }
+            } else {
+                $user = User::where('user_name', $code)->first();
+
+                if($user){
+                    $responseWithErrors['msg'] = 'El usuario ya está registrado en el sistema';
+                    $responseWithErrors['title'] = 'Usuario existente';
+                    return response()->json($responseWithErrors, 400);
+                }
+            }
+
+
 
             return response()->json(['title' => 'Éxito', 'msg' => 'Persona encontrada', 'data' => $dataPerson, 'type' => $type], 200);
         } catch (\Exception $e) {

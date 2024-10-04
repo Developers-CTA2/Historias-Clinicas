@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/new-user', [UserController::class, 'store'])->name('new-user');
 
             // Download PDF
-            Route::get('/carta-compromiso/{id_user}/download', [FileUserController::class, 'getUserFile'])->name('users.file');
+            Route::get('/confidentiality-letter/{id_user}/download', [FileUserController::class, 'getUserFile'])->name('users.file');
 
             // Download PDF
             Route::get('/download-template', [FileUserController::class, 'downloadTemplate'])->name('users.download-template');
@@ -193,28 +193,8 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-
-
-    ///// REGISTROS DE PACIENTES
-
-    ///// VER PACIENTES
-
-    // Route::get('/ver_pacientes', [PatientsController::class, 'breadCrumb'])->name('showPatients');
-    //AGREGAR PACIENTE
-    // Route::post('/buscar-persona', [addPatientsController::class, 'buscarPersona']);
-    // Route::get('/agregar_paciente', [AddPatientsController::class, 'showForm'])->name('showForm');
-    // Route::get('/enfermedades-relacionadas/{tipoAHFId}', [AddPatientsController::class, 'getEnfermedadesRelacionadas'])->name('enfermedades-relacionadas');
-
-
-    // Route::prefix('nutrition')->group(function () {
-    //     Route::get('/details', [ProfileController::class, 'Profile_View'])->name('profile.details.nutrition');
-
-    // });
-
-    // Verificar rol 
-
     /* APIS */
-    Route::get('/api/web-service/get-person/{code}/{type}', [WebServicePersonController::class, 'getPersonWebService'])->name('api.web-service.get-person');
+    Route::get('/api/web-service/get-person/{code}/{type}/{person}', [WebServicePersonController::class, 'getPersonWebService'])->name('api.web-service.get-person');
     Route::get('/api/get-deseases/{id}', [SpecificDiseasesController::class, 'getSpecificDiseases'])->name('api.get-deseases');
     Route::get('/api/get-all-diseases', [SpecificDiseasesController::class, 'getSpecificDiseasesAll'])->name('api.get-all-deseases');
 
@@ -243,5 +223,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/test', [CitasController::class, 'testCitas'])->name('testCitas');
-Route::get('/test', [CitasController::class, 'proximaCita'])->name('testCitas');
+Route::get('/test', [CitasController::class, 'users'])->name('testCitas');

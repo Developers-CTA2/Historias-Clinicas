@@ -4,7 +4,7 @@
 
     <div class="content-custom-login">
         <div class="d-flex justify-content-center h-custom-logo">
-            <img class="animate__animated animate__fadeIn" src="{{asset('images/clinic track-logo.png')}}" alt="logo" />
+            <img class="animate__animated animate__fadeIn" src="{{asset('images/clinic track-logo.webp')}}" alt="logo" />
         </div>
         <div class="hr-custom my-2"></div>
         <h2 class="fw-bold mt-3 text-center">Iniciar sesión</h2>

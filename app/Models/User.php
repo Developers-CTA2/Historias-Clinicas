@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;   // separacion de usuarios
 
 
@@ -27,6 +28,10 @@ class User extends Authenticatable
         'email',
         'cedula',
         'file',
-        'super_user'
+        'super_user',
+        'sex'
+
     ];
+
+
 }

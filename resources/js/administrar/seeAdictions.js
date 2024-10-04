@@ -7,14 +7,23 @@ import "sweetalert2/src/sweetalert2.scss";
 import { activeLoading, disableLoading } from "../loading-screen.js";
 
 import {
-    ShowOrHideAlert,
+    regexLetters,
+} from "../helpers/Regex.js";
+
+import { 
     className,
     translations,
-    validarCampo,
-    TimeAlert,
-    regexLetters,
-} from "../helpers";
-import { showErrorsAlert, IconError } from "../templates";
+} from '../helpers/gridJsConfiguration.js';
+
+import { validarCampo, ShowOrHideAlert } from "../helpers/ValidateFuntions.js";
+import { AlertConfirmationForm, TimeAlert} from '../helpers/Alertas.js';
+
+import {
+    IconInfo,
+    showErrorsAlert,
+    IconError,
+} from "../templates/AlertsTemplate.js";
+import { Alert } from "bootstrap";
 
 $(function () {
     initialData();
@@ -51,6 +60,7 @@ async function initialData() {
                                 Editar
                              </div>`
                         ),
+                    sort : false,
                 },
             ],
 
@@ -139,7 +149,8 @@ function AddNewAddiction() {
             if (V_name) {
                 ShowOrHideAlert(1, ".Alerta_addiction");
 
-                RequestAdd(name);
+                AlertConfirmationForm('¿Estás seguro de agregarla?', 'Asegurate que los datos sean correctos.', ()=> RequestAdd(name));
+                
             }
         } else {
             $(".Alerta_addiction_text").html(
@@ -175,27 +186,8 @@ function ValitadeData(id, name) {
 }
 
 /* Funcion para confimar que los datos seran editados  */
-async function Confirm(id, new_name) {
-    try {
-        const result = await Swal.fire({
-            title: "¿Estás seguro de editar los datos?",
-            text: "Asegurate que los datos sean correctos.",
-            icon: "warning",
-            showCancelButton: true,
-            reverseButtons: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Confirmar",
-            cancelButtonText: "Cancelar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                RequestEdit(id, new_name);
-            }
-        });
-    } catch (error) {
-        // Manejo de errores
-        console.error(error);
-    }
+function Confirm(id, new_name) {
+    AlertConfirmationForm('¿Estás seguro de editar los datos?', 'Asegurate que los datos sean correctos.', ()=> RequestEdit(id, new_name));
 }
 
 /*

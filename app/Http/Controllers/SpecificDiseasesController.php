@@ -41,7 +41,7 @@ class SpecificDiseasesController extends Controller
         $count = $query->count();
         $diseases = $query->offset($offset)
             ->limit($limit)
-            ->orderBy('id_especifica_ahf', 'desc')
+            ->orderBy('nombre', 'asc')
             ->get();
 
         return response()->json([
