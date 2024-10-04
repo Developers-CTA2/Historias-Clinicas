@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Agregar nuevo paciente')
+@section('title', 'Agregar paciente')
 
 @section('viteConfig')
     @vite('resources/sass/add-patients.scss')

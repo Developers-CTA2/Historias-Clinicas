@@ -137,7 +137,7 @@ class SpecificDiseasesController extends Controller
                 $disease->updated_by = auth()->user()->id;
                 $disease->save();
             });
-            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamnete.']);
+            return response()->json(['status' => 200, 'msg' => 'Exito, se agrego correctamente.']);
         }
         return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal.']);
     }

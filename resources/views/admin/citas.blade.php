@@ -3,7 +3,7 @@
 @section('title', 'Citas del Día')
 
 @section('viteConfig')
-    @vite(['resources/sass/citas.scss', 'resources/sass/main.scss'])
+    @vite('resources/sass/citas.scss')
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/animate.min.css') }}">
