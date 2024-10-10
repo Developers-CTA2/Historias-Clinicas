@@ -38,7 +38,7 @@
         <main class="container-custom" id="main-container">
             <div class="d-flex flex-column align-items-center">
                 <h2 class="titleView-custom">@yield('titleView')</h2>
-                  @include('admin.layouts.breadcrumb', ['breadcrumbs' => $breadcrumbs])
+                  @include('admin.layouts.breadCrumb', ['breadcrumbs' => $breadcrumbs])
     
                 @yield('content')
             </div>
