@@ -1,4 +1,4 @@
-<a href="{{$route}}" @class(['fst-normal','px-3 py-2' ,'tooltip-container','d-flex','gap-1',  $class]) id="{{$id}}">
+<a href="{{$route}}" @class(['fst-normal','px-3 py-2' ,'tooltip-container','d-flex','gap-1',  $class]) {{ $attributes }}>
     <div class="me-1">
         {!! $icon !!}
     </div>
