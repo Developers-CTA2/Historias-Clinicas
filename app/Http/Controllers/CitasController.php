@@ -18,7 +18,7 @@ class CitasController extends Controller
     public function agenda()
     {
         $breadcrumbs = [
-            ['name' => 'Agenda', 'url' => route('showAgenda')],
+            ['name' => 'Agenda', 'url' => route('showCalendar')],
         ];
 
         return view('admin.agenda', compact('breadcrumbs'));
@@ -79,7 +79,7 @@ class CitasController extends Controller
         }
 
         $breadcrumbs = [
-            ['name' => 'Agenda', 'url' => route('showAgenda')],
+            ['name' => 'Agenda', 'url' => route('showCalendar')],
             ['name' => 'Citas', '' => ''],
         ];
 

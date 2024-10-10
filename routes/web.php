@@ -122,36 +122,38 @@ Route::middleware('auth')->group(function () {
         // Medical record 
         Route::prefix('/medical_record')->group(function () {
             Route::get('/{id}', [ExpedientController::class, 'Patient_details'])->name('admin.medical_record');
-            Route::post('/Update_Personal_Data', [PatientsController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
-            //AHF
-            Route::post('/Update_Ahf', [AHFController::class, 'Update'])->name('Update_Ahf');
-            Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
-            Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
-            // APNP 
-            Route::post('/Update_BloodType', [APNPController::class, 'Update_BloodType'])->name('Update_BloodType');
-            Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
-            Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
 
-            // APP
-            Route::post('/Add_Disease', [APPController::class, 'Add_Disease'])->name('Add_Disease');
-            Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
-            Route::post('/Delete_Disease', [APPController::class, 'Delete_Disease'])->name('Delete_Disease');
-            Route::post('/Add_Allergy', [APPController::class, 'Store_Allergy'])->name('Add_Allergy');
-            Route::post('/Update_Allergy', [APPController::class, 'Update_Allergy'])->name('Update_Allergy');
-            Route::post('/Add_Hospital', [APPController::class, 'Add_Hospital'])->name('Add_Hospital');
-            Route::post('/Update_Hospital', [APPController::class, 'Update_Hospital'])->name('Update_Hospital');
-            Route::post('/Add_Transfusion', [APPController::class, 'Add_Transfusion'])->name('Add_Transfusion');
-            Route::post('/Update_Transfusion', [APPController::class, 'Update_Transfusion'])->name('Update_Transfusion');
-            Route::post('/Add_Surgery', [APPController::class, 'Add_Surgery'])->name('Add_Surgery');
-            Route::post('/Update_Surgery', [APPController::class, 'Update_Surgery'])->name('Update_Surgery');
-            Route::post('/Add_Trauma', [APPController::class, 'Add_Trauma'])->name('Add_Trauma');
-            Route::post('/Update_Trauma', [APPController::class, 'Update_Trauma'])->name('Update_Trauma');
 
-            Route::post('/Update_Gyo', [GYOController::class, 'Update_Gyo'])->name('Update_Gyo');
 
-            /* Solo el admnistrador  */
+            /* Solo el admnistrador  AGREGAR Y EDITAR EXPEDEIENTE  */
             Route::middleware('UserType:Administrador')->group(function () {
+                // PD
                 Route::get('/APP/{id}', [ExpedientController::class, 'Details_APP'])->name('admin.medical_record/APP');
+                Route::post('/Update_Personal_Data', [PatientsController::class, 'Update_Personal_Data'])->name('Update_Personal_Data');
+                //AHF
+                Route::post('/Update_Ahf', [AHFController::class, 'Update'])->name('Update_Ahf');
+                Route::post('/Store_Ahf', [AHFController::class, 'Store'])->name('Store_Ahf');
+                Route::post('/Delete_Ahf', [AHFController::class, 'Delete'])->name('Delete_Ahf');
+                // APNP 
+                Route::post('/Update_BloodType', [APNPController::class, 'Update_BloodType'])->name('Update_BloodType');
+              // Route::post('/Update_School', [APNPController::class, 'Update_School'])->name('Update_School');
+                Route::post('/Add_Adiction', [APNPController::class, 'Add_Adiction'])->name('Add_Adiction');
+                // APP
+                Route::post('/Add_Disease', [APPController::class, 'Add_Disease'])->name('Add_Disease');
+                Route::post('/Update_Disease', [APPController::class, 'Update_Disease'])->name('Update_Disease');
+                Route::post('/Delete_Disease', [APPController::class, 'Delete_Disease'])->name('Delete_Disease');
+                Route::post('/Add_Allergy', [APPController::class, 'Store_Allergy'])->name('Add_Allergy');
+                Route::post('/Update_Allergy', [APPController::class, 'Update_Allergy'])->name('Update_Allergy');
+                Route::post('/Add_Hospital', [APPController::class, 'Add_Hospital'])->name('Add_Hospital');
+                Route::post('/Update_Hospital', [APPController::class, 'Update_Hospital'])->name('Update_Hospital');
+                Route::post('/Add_Transfusion', [APPController::class, 'Add_Transfusion'])->name('Add_Transfusion');
+                Route::post('/Update_Transfusion', [APPController::class, 'Update_Transfusion'])->name('Update_Transfusion');
+                Route::post('/Add_Surgery', [APPController::class, 'Add_Surgery'])->name('Add_Surgery');
+                Route::post('/Update_Surgery', [APPController::class, 'Update_Surgery'])->name('Update_Surgery');
+                Route::post('/Add_Trauma', [APPController::class, 'Add_Trauma'])->name('Add_Trauma');
+                Route::post('/Update_Trauma', [APPController::class, 'Update_Trauma'])->name('Update_Trauma');
+                //  GYO
+                Route::post('/Update_Gyo', [GYOController::class, 'Update_Gyo'])->name('Update_Gyo');
             });
         });
 
@@ -201,35 +203,22 @@ Route::middleware('auth')->group(function () {
 
 
     // AGENDAR CITAS
-    Route::prefix('/agenda')->group(function () {
-        Route::get('/', [CitasController::class, 'agenda'])->name('showAgenda');
+    Route::prefix('/calendar')->group(function () {
+        Route::get('/', [CitasController::class, 'agenda'])->name('showCalendar');
 
-        Route::prefix('/citas')->group(function () {
+        Route::prefix('/medical_appointment')->group(function () {
             Route::get('/{fecha}', [CitasController::class, 'mostrarCitas'])->name('citas.index');
             Route::get('/get-citas/{fecha}', [CitasController::class, 'getCitas'])->name('citas.get');
             Route::get('/get-citas/get-cita/{id}', [CitasController::class, 'getCitasPersona'])->name('citas.get-person');
             // Edit cita
             Route::post('/{id}/update', [CitasController::class, 'update'])->name('editCita');
             Route::delete('/{id}/delete', [CitasController::class, 'delete'])->name('deleteCita');
-            Route::post('/guardarCita', [CitasController::class, 'guardarCita'])->name('guardarCita');
-
-        
+            Route::post('/save_appointment', [CitasController::class, 'guardarCita'])->name('guardarCita');
+       
         });
 
-        Route::get('/proxima-cita', [CitasController::class, 'proximaCita']);
+        Route::get('/next_appointment', [CitasController::class, 'proximaCita']);
     });
-
-    // Route::get('/citas', function () {
-    //     return view('admin.citas');
-    // })->name('showCitas');
-
-
-
-
-    // Route::get('/validar-hora-modificar/{id}/{fecha}/{hora}', [CitasController::class, 'validarHoraModificar']);
-
-    // Route::put('/citas/cancelar/{id}', [CitasController::class, 'cancelar'])->name('cancelarCita');
-    // Route::delete('/citas/eliminar/{id}', [CitasController::class, 'eliminar'])->name('eliminarCita');
 
 });
 

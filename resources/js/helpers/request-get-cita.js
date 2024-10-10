@@ -7,7 +7,9 @@ export const requestGetCita = async(id)=>{
     return new Promise( async(resolve, reject)=>{
         try{
             
-            const { data } = await axios.get(`/agenda/citas/get-citas/get-cita/${id}`);
+            const { data } = await axios.get(
+                `/calendar/medical_appointment/get-citas/get-cita/${id}`
+            );
             
             resolve(data);
     

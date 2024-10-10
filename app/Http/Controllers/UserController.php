@@ -5,18 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use App\Models\Administrativo;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Consulta;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-use Illuminate\Support\Facades\Validator;
 use  Carbon\Carbon;
 
 class UserController extends Controller
 {
-
 
     /*
         Funcion que retorna la vista de usuarios y el breadcrumb 
@@ -30,7 +28,6 @@ class UserController extends Controller
 
         return view('user.View-Users', compact('breadcrumbs'));
     }
-
 
     /* Funcion para ver los detalles del usuario selecciondo */
     public function userDetails($id)
@@ -158,14 +155,16 @@ class UserController extends Controller
     {
         $validate = $request->validated();
 
-        $Status =  ""; // FORMATO DEL DATO
+        
+        $Status =  ""; // FORMATO DEL ESTADO
         if ($validate['estado'] == 1) {
             $Status = "Activo";
         } else {
             $Status = "Inactivo";
-        }   
-
+        }
+        
         $user = User::where('id', $validate['id'])->first();
+        
         try {
             DB::transaction(function () use ($validate, $user, $Status) {
                 $user->update([
@@ -176,37 +175,47 @@ class UserController extends Controller
                 ]);
                 $user->syncRoles(intval($validate['userType']));
             });
-            return response()->json(['status' => 200, 'msg' => 'Datos del usuario actualzados correctamente.']);
+            return response()->json(['status' => 200, 'msg' => 'Datos del usuario actualizados correctamente.']);
         } catch (\Exception $e) {
-            return response()->json(['status' => 500, 'msg' => 'Error, algo salio mal, intentalo más tarde.', 'error' => $e->getMessage()]);
+            return response()->json(['msg' => 'Error, algo salio mal, intentalo más tarde.', 'error' => $e->getMessage()],500);
         }
     }
 
     /*
         Funcion para eliminar el acceso al sistema a un usuario en especifico
     */
+
+
     public function Desactive(Request $request)
     {
-        $data = $request->validate([
-            'Id' => 'required|numeric|',
-        ]);
+        $messages = [
+            'Id.required' => 'El compo ID del usuario es obligatorio.',
+            'Id.numeric' => 'El compo ID del usuario debe ser un número.',
+            'Id.exists' => 'El ID ingresado no corresponde a ningun usuario.',
+        ];
 
-        $Id = intval($data['Id']);
+        $data = Validator::make($request->all(), [
+            'Id' => 'required|numeric|exists:users,id',
+        ], $messages);
 
+        if ($data->fails()) {
+            //return response()->json(['status' => 400, 'msg' => $data->errors()]);
+            return response()->json(['errors' => $data->errors()], 400);
+        }
 
+        $Id = intval($request['Id']);
         $user = User::where('id', $Id)->first();
 
-        if ($user) {
+        try {
             DB::transaction(function () use ($user) {
                 $user->update([
                     'estado' => "Inactivo",
                     'updated_at' => now(),
                 ]);
             });
-
             return response()->json(['status' => 200, 'msg' => 'Se elimino el acceso al sistema.']);
-        } else {
-            return response()->json(['status' => 404, 'msg' => 'Error, algo salio mal intentalo más tarde.']);
+        } catch (\Exception $e) {
+            return response()->json(['errors' => 'Ha ocurrido un error al realizar la petición', 'error' => $e], 500);
         }
     }
 }

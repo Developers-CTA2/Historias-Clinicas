@@ -7,7 +7,9 @@ export const requestDeleteCita = async(id)=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const {data} = await axios.delete(`/agenda/citas/${id}/delete`);            
+            const { data } = await axios.delete(
+                `/calendar/medical_appointment/${id}/delete`
+            );            
             resolve(data);
             
     

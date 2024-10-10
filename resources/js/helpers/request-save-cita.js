@@ -7,7 +7,10 @@ export const requestSaveCita = async(dataSend = {})=>{
 
     return new Promise( async(resolve, reject)=>{
         try{
-            const { data } = await axios.post(`/agenda/citas/guardarCita`, dataSend);
+            const { data } = await axios.post(
+                `/calendar/medical_appointment/save_appointment`,
+                dataSend
+            );
             
             resolve(data);
     

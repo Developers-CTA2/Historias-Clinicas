@@ -3,13 +3,13 @@ import {
     IconInfo,
     IconWarning,
     ShowErrorsSweet,
-    //Confirm,
+    IconError,
 } from "../../templates/AlertsTemplate.js";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 
 $(document).ready(function () {
-    console.log("Editar AHF");
+    
     InitiliazeSelect1();
     EventEditAHF();
 });
@@ -84,7 +84,6 @@ function ClicEdit() {
         // Mostrar los datos
         $(".Old_disease").text(name);
         $(".Type-accion").text("Modificar enfermedad");
-        console.log("Old " + Id_ahf + " name " + name);
 
         // verificar que si haya cambios
         $("#New_disease").on("change", function () {
@@ -95,28 +94,28 @@ function ClicEdit() {
             console.log("NEW " + $("#New_disease").val() + " OLD " + Id_ahf);
 
             if (Id_ahf == $("#New_disease").val()) {
-                // Todo igaul regresar cambios
+                console.log("Igual ");
+              
+                // Todo igual 
                 $(".Old_disease")
                     .removeClass("font-weight-normal")
                     .addClass("text-muted");
                 // Alerta de no hay cambios
-
-                $(".alert-AHF").html(
-                    IconWarning(" No se realizó  ningun cambio.")
-                );
+                $(".alert-AHF").html(IconWarning(" No se realizó  ningun cambio."));
             } else {
-                $(".alert-AHF").html(
-                    IconWarning(
-                        " Cambio realizado da clic en <strong> Guardar </strong>."
-                    )
-                );
-
-                // $(".alert-AHF").html(
-                //     '<svg class="pe-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><path fill="#059669" fill-rule="evenodd" stroke="#059669" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="m4 24l5-5l10 10L39 9l5 5l-25 25z" clip-rule="evenodd"/></svg> Cambio realizado da clic en <strong> Guardar </strong>.'
-                // );
-                console.log("Si hay cambios");
+                console.log("Cambio ");
+                $(".alert-AHF").html(IconWarning( " Cambio detectado da clic en <strong> Guardar </strong>." ));
                 ClicSaveChanges(Id, $("#New_disease").val(), 2); // Type es para saber si es edit o add
             }
+        });
+        /* Clic a guardar sin haber modoficado nada */
+        $(".Save-changes").off("click");
+        $(".Save-changes").on("click", function () {
+            $(".alert-AHF").html(
+                IconWarning(
+                    "<strong> ¡Error! </strong> No se realizó  ningun cambio."
+                )
+            );
         });
     });
 }
@@ -140,6 +139,15 @@ function ClicAdd() {
             ClicSaveChanges(id, "", 3);
             console.log("Add collapse");
         });
+
+         $(".Save-changes").off("click");
+         $(".Save-changes").on("click", function () {
+             $(".alert-AHF").html(
+                 IconWarning(
+                     "<strong> ¡Error! </strong> No se realizó  ningun cambio."
+                 )
+             );
+         });
     });
 }
 
@@ -158,12 +166,8 @@ function ShowIcon(id_Icon) {
             }
         }
 
-         
         $(".alert-AHF").html(
-            IconWarning(
-                " Cambio realizado da clic en <strong> Recargar </strong>."
-            )
-        );
+            IconWarning( " Cambio realizado da clic en <strong> Recargar </strong>." ));
 
         // solo si teien la clase
         if ($(".AHF-data").hasClass("d-none")) {
@@ -241,10 +245,11 @@ function Confirm(Title, Text, Type, id_reg, Id_ahf) {
 */
 async function RequestUpdate(id_reg, Type, Id_ahf) {
     const Data = {
-        Id_reg: parseInt(id_reg),
-        Id_ahf: parseInt(Id_ahf),
+        Id_reg: parseInt(id_reg), //parseInt(id_reg)
+        Id_ahf: parseInt(Id_ahf), //parseInt(Id_ahf)
         Id_person: parseInt(id_reg),
     };
+    console.log(Data);
     try {
         let response = "";
         if (Type == 1) {
@@ -280,14 +285,18 @@ async function RequestUpdate(id_reg, Type, Id_ahf) {
         ClicRefresh(); // habilitar el recargar la pagina
         InitiliazeSelect1();
     } catch (error) {
-        const { type, msg, errors } = error.response.data;
-        
-         await ShowErrorsSweet("¡Error!", msg, "error", errors);
+        const { status, data } = error.response;
+        console.log(error);
 
-         $(".alert-AHF").html(
-             '<svg class="pe-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="#FF473E" d="m330.443 256l136.765-136.765c14.058-14.058 14.058-36.85 0-50.908l-23.535-23.535c-14.058-14.058-36.85-14.058-50.908 0L256 181.557L119.235 44.792c-14.058-14.058-36.85-14.058-50.908 0L44.792 68.327c-14.058 14.058-14.058 36.85 0 50.908L181.557 256L44.792 392.765c-14.058 14.058-14.058 36.85 0 50.908l23.535 23.535c14.058 14.058 36.85 14.058 50.908 0L256 330.443l136.765 136.765c14.058 14.058 36.85 14.058 50.908 0l23.535-23.535c14.058-14.058 14.058-36.85 0-50.908z"/></svg> <strong> ¡Error! </strong> Algo salio mal, intentalo más tarde.'
-         );
-         console.log(errors);
-         console.log(error);
+        if (status == 422) {
+            await ShowErrorsSweet(
+                "¡Error!",
+                "Se detectarón algunos errores al realizar la petición",
+                "error",
+                data.errors
+            );
+        } else {
+            $(".alert-AHF").html(IconError(data.msg));
+        }
     }
 }

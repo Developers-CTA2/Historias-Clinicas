@@ -44,12 +44,12 @@ $(function () {
         }
 
         // Redirect to the page of details of the appointment for the selected date
-        window.location.href = `/agenda/citas/${dateSelected}`;
+        window.location.href = `/calendar/medical_appointment/${dateSelected}`;
     }
 
     const manageEvents = async (_, successCallback, failureCallback) => {
         try {
-            const { data } = await axios.get('/agenda/proxima-cita');
+            const { data } = await axios.get("/calendar/next_appointment");
 
             if (!data) {
                 successCallback([]);

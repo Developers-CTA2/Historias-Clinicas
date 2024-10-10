@@ -13,7 +13,6 @@ class WebServicePersonController extends Controller
 {
     //
 
-
     public function index()
     {
         return view('patients.form');

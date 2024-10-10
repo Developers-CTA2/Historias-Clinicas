@@ -15,21 +15,20 @@ class GYOController extends Controller
 */
     public function Update_Gyo(GyoRequest $request)
     {
-        try{
-            $validate = $request->validated();
+        $validate = $request->validated();
+        try {
 
             $Reg = Gyo::where('id', $validate['Id_reg'])->first();
-
             $Data = $validate['Data'];
+            if ($Reg) {
 
-            if($Reg){
                 DB::transaction(function () use ($Reg, $Data) {
                     $Reg->update([
                         'menarca' => $Data['menarca'],
                         'fecha_um' => $Data['menstruacion'],
                         's_gestacion' => $Data['gest'],
                         'ciclos' => $Data['ciclos'],
-                        'dias_x_dias' => ($Data['dias_1'].",". $Data['dias_2']),
+                        'dias_x_dias' => ($Data['dias_1'] . "," . $Data['dias_2']),
                         'ivs' => $Data['inicio'],
                         'parejas_s' => $Data['parejas'],
                         'gestas' => $Data['gestas'],
@@ -43,14 +42,12 @@ class GYOController extends Controller
                         'updated_at' => now(),
                     ]);
                 });
+                return response()->json(['message' => 'Registro de GYO actualizado correctamente.', 'error' => null], 201);
             }
-
-            return response()->json(['title' => '¡Exito!', 'msg' => 'Datos actualizados exitosamente.'], 200);
-
+            //return response()->json([ 'msg' => 'Datos actualizados exitosamente.'], 200);
         } catch (\Exception $e) {
 
-            return response()->json(['title' => 'Error', 'msg' => 'Ha ocurrido un error al crear el expediente del paciente', 'error' => $e], 500);
+            return response()->json(['message' => 'Algo salio mal al realizar la petición.', 'error' => $e->getMessage()], 500);
         }
-       
     }
 }

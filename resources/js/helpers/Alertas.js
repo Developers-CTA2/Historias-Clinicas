@@ -93,7 +93,7 @@ export const AlertForWarningConsultation = (data) => {
             icon: "success",
             title: 'Precaución',
             html: messageWarningConsultation(data),
-            confirmButtonText: 'Si estoy seguro',
+            confirmButtonText: 'Si, confirmar',
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
         }).then((confirme) => {

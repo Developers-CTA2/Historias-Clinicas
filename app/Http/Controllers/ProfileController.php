@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use  Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -33,22 +34,35 @@ class ProfileController extends Controller
             return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
         }
     }
+
+
+
     /*
-        Funcion para verificar que la contraseña ingresada es la correcta
+        Funcion para verificar que la contraseña ingresada es la correcta  Cu@ltos1
     */
     public function verifyPass(Request $request)
     {
-        $data = $request->validate([
-            'Pass' => 'required|string',
-        ]);
 
-        $pass = $data['Pass'];
+        // Errores en español 
+        $messages = [
+            'Pass.required' => 'El campo de contraseña es requerido',
+            'Pass.max' => 'La contraseña excede los 13 caracteres',
+        ];
+
+        $data = Validator::make($request->all(), [
+            'Pass' => 'required|string|max:13',
+        ], $messages);
+
+        // Error en algun dato
+        if ($data->fails()) {
+            return response()->json(['type' => 0, 'errors' => $data->errors()], 400);
+        }
 
         // Verificamos si la contraseña coincide 
-        if (Hash::check($pass, auth()->user()->password)) {
-            return response()->json(['status' => 200, 'msg' => 'correcto']);
+        if (Hash::check($request['Pass'], auth()->user()->password)) {
+            return response()->json(['status' => 200]);
         } else {
-            return response()->json(['status' => 404, 'msg' => 'La contraseña  no coincide con la contraseña actual.']);
+            return response()->json(['errors' => 'La contraseña es incorrecta'], 404);
         }
     }
 
@@ -57,13 +71,25 @@ class ProfileController extends Controller
      */
     public function changePass(Request $request)
     {
-        $data = $request->validate([
-            'Pass' => 'required|string',
-        ]);
+        // Errores en español 
+        $messages = [
+            'Pass.required' => 'El campo de contraseña es requerido',
+            'Pass.max' => 'La contraseña excede los 13 caracteres',
+        ];
 
-        $pass = $data['Pass'];
-        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,})$/', $pass)) {
-            return response()->json(['status' => 400, 'msg' => '¡Error! Hubo un error al recibir los parámetros para la petición.']);
+        $data = Validator::make($request->all(), [
+            'Pass' => 'required|string|max:13',
+        ], $messages);
+
+        // Error en algun dato
+        if ($data->fails()) {
+            return response()->json(['type' => 0, 'errors' => $data->errors()], 400);
+        }
+
+        $pass = $request['Pass'];
+
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(.{4,13})$/', $pass)) {
+            return response()->json(['errors' => 'La contraseña no tiene una estructura válida.'], 401);
         } else {
             DB::transaction(
                 function () use ($pass) {
@@ -72,8 +98,8 @@ class ProfileController extends Controller
                     $usuario->save();
                 }
             );
-            return response()->json(['status' => 200, 'msg' => '¡Éxito! La contraseña fue cambiada con éxito. ']);
+            return response()->json(['msg' => '¡Éxito! La contraseña fue cambiada con exitosamente.'], 200);
         }
-        return response()->json(['resultado' => 400, 'msg' => '¡Error! Hubo un error al al realizar la petición.']);
+        return response()->json(['errors' => '¡Error! Algo salio mal ar realizar la petición'], 404);
     }
 }

@@ -168,7 +168,11 @@ $(function () {
 
     const successSaveCita = (response) => {
         const { title, message } = response;
-        AlertSweetSuccess(title, message, `/agenda/citas/${fecha.value}`)
+        AlertSweetSuccess(
+            title,
+            message,
+            `/calendar/medical_appointment/${fecha.value}`
+        );
     }
 
     const showErrors = (errors) => {

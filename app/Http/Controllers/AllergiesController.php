@@ -75,6 +75,8 @@ class AllergiesController extends Controller
         // Verificamos que no se duplique el nombre
         $Allergy = Alergia::where('nombre', $Name)->first();
 
+
+        
         if ($Allergy) {
             return response()->json(['type' => 1, 'msg' => 'El dato ya esta en la base de datos.'], 400);
         } else {

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Persona;
 use App\Models\Persona_ahf;
+use App\Http\Requests\AHFRequest;
+
 
 class AHFController extends Controller
 {
@@ -15,77 +16,49 @@ class AHFController extends Controller
     /* 
    Funcion para hacer un update en un registro de antecedente heredofamiliar
 */
-    public function Update(Request $request)
+    public function Update(AHFRequest $request)
     {
-        $messages = [
-            'Id_reg.required' => 'El ID del registro es requerido.',
-            'Id_reg.numeric' => 'El ID  del registro debe ser un número.',
-            'Id_reg.exists' => 'El ID del registro NO existe.',
-            'Id_ahf.required' => 'El ID de la enfermedad es requerido.',
-            'Id_ahf.numeric' => 'El ID de la enfermedad no es válido.',
-            'Id_ahf.exists' => 'La enfermedad no existe.',
-        ];
 
-        $validator = Validator::make($request->all(), [
-            'Id_reg' => 'required|numeric|exists:persona_ahf,id',
-            'Id_ahf' => 'required|numeric|exists:enfermedades_especificas,id_especifica_ahf',
-        ], $messages);
+        $data = $request->validated();
 
-        if ($validator->fails()) {
-            return response()->json(['msg' => "Error en los datos recibidos.", 'errors' => $validator->errors()], 400);
-        }
 
-        $id = $request['Id_reg'];
-        $ahf = $request['Id_ahf'];
 
-        $registro = persona_ahf::where('id', $id)->first();
+        $registro = persona_ahf::where('id', $data['Id_reg'])->first();
 
         if ($registro) {
             try {
-                DB::transaction(function () use ($registro, $ahf) {
+                DB::transaction(function () use ($registro, $data) {
                     $registro->update([
-                        'id_ahf' => $ahf,
+                        'id_ahf' => $data['Id_ahf'],
                         'updated_by' => Auth::id()
                     ]);
                 });
                 return response()->json(['status' => 200]);
             } catch (\Exception $e) {
-                return response()->json(['status' => 500, 'error' => $e->getMessage()]);
+                return response()->json(['msg' => 'Algo salio mal al realizar la petición', 'error' => $e->getMessage()], 500);
             }
         } else {
-            return response()->json(['status' => 404, 'error' => 'Error al actualizar los datos']);
+            return response()->json(['error' => '¡Error! El registro que se desea actualizar no existe.'], 404);
         }
     }
 
     /*
     Funcion para Agregar una nueva AHF a un registro de una perosna 
 */
-    public function store(Request $request)
+    public function store(AHFRequest $request)
     {
-        $data = $request->validate([
-            'Id_ahf' => 'required|numeric|exists:enfermedades_especificas,id_especifica_ahf',
-            'Id_person' => 'required|numeric|exists:personas,id_persona'
-        ]);
-
-        $id_persona = $data['Id_person'];
-        $id_ahf = $data['Id_ahf'];
-
-        $Persona = persona::where('id_persona', $id_persona)->first();
-        if ($Persona) { // Si encontro la persona 
-            try {
-                DB::transaction(function () use ($id_persona, $id_ahf) {
-                    $Persona_ahf = new persona_ahf();
-                    $Persona_ahf->id_persona = $id_persona;
-                    $Persona_ahf->id_ahf = $id_ahf;
-                    $Persona_ahf->created_at = Auth::id();
-                    $Persona_ahf->save();
-                });
-                return response()->json(['status' => 200]);
-            } catch (\Exception $e) {
-                return response()->json(['status' => 500, 'error' => $e->getMessage()]);
-            }
-        } else { // No encontro a la persona
-            return response()->json(['status' => 404, 'msg' => '¡Error! No se encontro el registro.']);
+        $data = $request->validated();
+        try {
+            DB::transaction(function () use ($data) {
+                $Persona_ahf = new persona_ahf();
+                $Persona_ahf->id_persona = $data['Id_person'];
+                $Persona_ahf->id_ahf = $$data['Id_ahf'];
+                $Persona_ahf->created_at = Auth::id();
+                $Persona_ahf->save();
+            });
+            return response()->json(['status' => 200]);
+        } catch (\Exception $e) {
+            return response()->json(['msg' => 'Algo salio mal al realizar la petición', 'error' => $e->getMessage()], 500);
         }
     }
 
