@@ -6,6 +6,7 @@
                     <a class="item-custom-link text-decoration-underline" href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
                 @else
                     {{ $breadcrumb['name'] }}
+                    
                 @endif
             </li>
         @endforeach
