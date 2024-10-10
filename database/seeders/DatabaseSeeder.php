@@ -177,13 +177,13 @@ class DatabaseSeeder extends Seeder{
         //     'password' => Hash::make('1234'),
         // ])->assignRole(2);
 
-        User::create([
-            'name' => 'LOMELI ZERMEÑO JAZMIN',
-            'user_name' => '2166104',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(2);
+        // User::create([
+        //     'name' => 'LOMELI ZERMEÑO JAZMIN',
+        //     'user_name' => '2166104',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(2);
 
         User::create([
             'name' => 'CTA',
@@ -191,7 +191,7 @@ class DatabaseSeeder extends Seeder{
             'sex' => 'Masculino',
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
+            'password' => Hash::make('password'),
         ])->assignRole(1);
 
         User::create([
@@ -200,57 +200,57 @@ class DatabaseSeeder extends Seeder{
             'estado' => 'Activo',
             'email' => 'ejemplo@gmail.com',
             'cedula' => '12771247',
-            'password' => Hash::make('Aa@1'),
+            'password' => Hash::make('password'),
         ])->assignRole(1);
 
-        User::create([
-            'name' => 'GONZALEZ RAMIREZ JOSELIN',
-            'user_name' => '2175917',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(2);
+        // User::create([
+        //     'name' => 'GONZALEZ RAMIREZ JOSELIN',
+        //     'user_name' => '2175917',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(2);
 
 
-        User::create([
-            'name' => 'GONZÁLEZ CERVANTES JUAN LUIS',
-            'user_name' => '2726319',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(3);
+        // User::create([
+        //     'name' => 'GONZÁLEZ CERVANTES JUAN LUIS',
+        //     'user_name' => '2726319',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(3);
 
-        User::create([
-            'name' => 'DOMINGUEZ PADILLA JUAN PEDRO',
-            'user_name' => '2168827',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(1);
+        // User::create([
+        //     'name' => 'DOMINGUEZ PADILLA JUAN PEDRO',
+        //     'user_name' => '2168827',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(1);
 
-        User::create([
-            'name' => 'GÓMEZ FRANCO LUIS FRANCISCO',
-            'user_name' => '2965531',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(3);
+        // User::create([
+        //     'name' => 'GÓMEZ FRANCO LUIS FRANCISCO',
+        //     'user_name' => '2965531',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(3);
 
-        User::create([
-            'name' => 'DE ANDA GARCÍA LLIN LU GUADALUPE',
-            'user_name' => '2725819',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(3);
+        // User::create([
+        //     'name' => 'DE ANDA GARCÍA LLIN LU GUADALUPE',
+        //     'user_name' => '2725819',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(3);
 
-        User::create([
-            'name' => 'RAMÍREZ RODRÍGUEZ VIRGINIA',
-            'user_name' => '9205195',
-            'estado' => 'Activo',
-            'email' => 'ejemplo@gmail.com',
-            'password' => Hash::make('Aa@1'),
-        ])->assignRole(2);
+        // User::create([
+        //     'name' => 'RAMÍREZ RODRÍGUEZ VIRGINIA',
+        //     'user_name' => '9205195',
+        //     'estado' => 'Activo',
+        //     'email' => 'ejemplo@gmail.com',
+        //     'password' => Hash::make('Aa@1'),
+        // ])->assignRole(2);
 
         EstatusCita::create([
             'status' => 'Pendiente',
