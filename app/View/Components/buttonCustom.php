@@ -53,7 +53,7 @@ class buttonCustom extends Component
     {
         return view('components.button-custom',
             [
-                'type' => $this->type,
+                'type' => 'button',
                 'class' => $this->class,
                 'text' => $this->text,
                 'id' => $this->id,
