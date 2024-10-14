@@ -185,7 +185,7 @@
 
 
         {{-- Modal for edit cita --}}
-        <x-modal-citas modal-id="editModalCita" modal-title="Editar cita" route-form="#"
+        <x-modal-citas modal-id="editModalCita" modal-title="Editar cita" route-form="#" method-form="POST"
             :date-cita=$fecha button-submit-text="Guardar cambios" form-id="editFormCita" :is-method-put="false" error-alert-id="errorListEditCita">
 
             {{-- Nombre completo --}}
