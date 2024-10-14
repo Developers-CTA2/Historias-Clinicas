@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\Component;
 
 class modalCitas extends Component
@@ -33,7 +34,7 @@ class modalCitas extends Component
     )
     {
 
-
+        Log::info($routeForm, $dateCita, $buttonSubmitText, $methodForm, $formId, $isMethodPut, $errorAlertId);
 
         $this->modalId = $modalId;
         $this->modalTitle = $modalTitle;
