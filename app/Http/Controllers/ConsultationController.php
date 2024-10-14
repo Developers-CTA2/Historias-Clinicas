@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Models\Persona;
 use App\Models\Consulta;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Log;
 
 use function Laravel\Prompts\error;
 
@@ -58,11 +59,11 @@ class ConsultationController extends Controller
 
             // Get id of the consultation
 
-            $data = Consulta::latest()->first();
             $idConsultation = Consulta::latest()->first()->id_consulta;
 
             return response()->json(['title' => 'Éxito..', 'message' => 'La consulta se ha guardado correctamente', 'error' => null, 'idConsultation' => $idConsultation]);
         } catch (\Exception $e) {
+            Log::error('Error al guardar la consulta del paciente: ' . $e->getMessage());
             return response()->json(['title' => 'Oops.. ha sucedido un error', 'message' => 'Error al guardar la consulta del paciente', 'error' => $e], 500);
         }
     }
