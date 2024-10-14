@@ -33,7 +33,7 @@
             <div class="mb-3 d-flex gap-3 align-items-lg-end flex-column flex-lg-row">
                 <div class="flex-grow-1">
                     <label for="code" class="form-label">Código</label>
-                    <input type="text" class="form-control" id="code" placeholder="216610402" autocomplete="false">
+                    <input type="text" class="form-control" id="code" placeholder="216610402" autocomplete="false" maxlength="9">
                 </div>
                 <button class="btn-sec fst-normal tooltip-container p-2" type="button" id="searchCode">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 26 26">

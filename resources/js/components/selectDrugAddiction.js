@@ -112,23 +112,23 @@ export const selectDynamicDrugAddiction = ( parameters )=>{
             validate = false;
         }
 
-        if(valueDrugAddiction == '2' && valueHowOtherDrugs == '' && valueDescriptionOtherDrugs == ''){
+        if(valueDrugAddiction >= '2' && valueHowOtherDrugs == '' && valueDescriptionOtherDrugs == ''){
             inputHowOtherDrugs.addClass('is-invalid border-danger');
             inputHowOtherDrugs.next().text('Debes ingresar un valor').removeClass('d-none');
             descriptionOtherDrugs.addClass('is-invalid border-danger');
-            descriptionOtherDrugs.parent().next().text('Debes ingresar un valor').removeClass('d-none');
+            descriptionOtherDrugs.parent().next().text('Debes ingresar una descripción').removeClass('d-none');
             validate = false;
         }
 
-        if(valueDrugAddiction == '2' && valueHowOtherDrugs == ''){
+        if(valueDrugAddiction >= '2' && valueHowOtherDrugs == ''){
             inputHowOtherDrugs.addClass('is-invalid border-danger');
             inputHowOtherDrugs.next().text('Debes ingresar un valor').removeClass('d-none');
             validate = false;
         }   
 
-        if(valueDrugAddiction == '2' && valueDescriptionOtherDrugs == ''){
+        if(valueDrugAddiction >= '2' && valueDescriptionOtherDrugs == ''){
             descriptionOtherDrugs.addClass('is-invalid border-danger');
-            descriptionOtherDrugs.parent().next().text('Debes ingresar un valor').removeClass('d-none');
+            descriptionOtherDrugs.parent().next().text('Debes ingresar una descripción').removeClass('d-none');
             validate = false;
         }
 
