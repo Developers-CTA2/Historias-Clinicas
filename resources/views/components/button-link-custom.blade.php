@@ -2,7 +2,7 @@
     <div class="me-1">
         {!! $icon !!}
     </div>
-    {{$text ?? ''}}
+    {{($text ?? '')}}
     <span class="tooltip-text">{{$tooltipText}}</span>
 </a>
 
