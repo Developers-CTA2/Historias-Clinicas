@@ -44,6 +44,8 @@ class buttonCustom extends Component
         $this->disabled = $disabled;
         $this->onlyIcon = $onlyIcon;
         $this->paddingClass = $paddingClass;
+
+        dd($this->paddingClass);
         
     }
 
