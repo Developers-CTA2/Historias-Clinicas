@@ -19,7 +19,7 @@ class buttonCustom extends Component
     public $icon;
     public $tooltipText;
     public $disabled;
-    public $paddingClassTest;
+    public $paddingClass;
     public $onlyIcon;
 
 
@@ -42,10 +42,10 @@ class buttonCustom extends Component
         $this->icon = $icon;
         $this->tooltipText = $tooltipText;
         $this->disabled = $disabled;
+        $this->paddingClass = $paddingClass;
         $this->onlyIcon = $onlyIcon;
-        $this->paddingClassTest = $paddingClass;
 
-        dd($this->paddingClassTest);
+        dd($this->paddingClass);
         
     }
 
