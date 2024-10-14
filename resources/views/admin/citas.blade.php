@@ -63,8 +63,8 @@
 
         
         {{-- Modal for add cita --}}
-        <x-modal-citas modalId="addCitaModal" modalTitle="Agendar cita" :routeForm="route('guardarCita')" methodForm="POST"
-            :dateCita=$fecha buttonSubmitText="Agendar cita" formId="addCitaForm" errorAlertId="errorListAddCita">
+        <x-modal-citas modal-id="addCitaModal" modal-title="Agendar cita" :route-form="route('guardarCita')" method-form="POST"
+            :date-cita=$fecha button-submit-text="Agendar cita" form-id="addCitaForm" error-alert-id="errorListAddCita">
 
             {{-- Nombre completo --}}
             <x-form-group class="col-xl-12">
@@ -185,8 +185,8 @@
 
 
         {{-- Modal for edit cita --}}
-        <x-modal-citas modalId="editModalCita" modalTitle="Editar cita"
-            :dateCita=$fecha buttonSubmitText="Guardar cambios" formId="editFormCita" :isMethodPut="false" errorAlertId="errorListEditCita">
+        <x-modal-citas modal-id="editModalCita" modal-title="Editar cita" route-form="#"
+            :date-cita=$fecha button-submit-text="Guardar cambios" form-id="editFormCita" :is-method-put="false" error-alert-id="errorListEditCita">
 
             {{-- Nombre completo --}}
             <x-form-group class="col-xl-12">
