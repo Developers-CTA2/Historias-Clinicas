@@ -4,16 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Alergia;
 use App\Models\Consulta;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Persona;
-use App\Models\Persona_ahf;
 use App\Models\Enfermedad_especifica;
 use App\Models\Escolaridad;
 use App\Models\Hemotipo;
-use App\Models\Medidas;
 use App\Models\Nutricional;
 use App\Models\Rep_estado;
 use App\Models\Toxicomanias;
@@ -85,7 +79,7 @@ class ExpedientController extends Controller
 
         $Medidas = $this->Measures($Nutri, $consul);  // Evaluar cual es más reciente
         //return response()->json($Medidas);
-        return view('patients.expediente', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
+        return view('patients.expedient', compact('breadcrumbs', 'Medidas', 'Personal', 'escolaridad', 'hemotipo', 'domicilio', 'enfermedades', 'toxicomanias', 'ahf', 'alergias', 'transfusiones', 'hospitalizaciones', 'quirurgicos', 'traumatismos', 'gyo', 'esp_ahf', 'rep_estados', 'hemotipos', 'escolaridades', 'Toxicomanias'));
 
     }
 
