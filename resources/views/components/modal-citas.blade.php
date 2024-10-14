@@ -15,7 +15,7 @@
 
                 <form action="{{$routeForm}}" method="{{$methodForm}}" name="{{$formId}}" id="{{$formId}}">
                     @csrf
-                    @if ($isMethodPut)
+                    @if (isset($isMethodPut) && $isMethodPut)
                         @method('PUT')
                     @endif
                     <input type="hidden" name="fecha" value="{{ $dateCita }}">
