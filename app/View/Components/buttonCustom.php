@@ -51,6 +51,18 @@ class buttonCustom extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.button-custom');
+        return view('components.button-custom',
+            [
+                'type' => $this->type,
+                'class' => $this->class,
+                'text' => $this->text,
+                'id' => $this->id,
+                'icon' => $this->icon,
+                'tooltipText' => $this->tooltipText,
+                'disabled' => $this->disabled,
+                'paddingClass' => $this->paddingClass, // Asegúrate de usar el mismo nombre
+                'onlyIcon' => $this->onlyIcon
+            ]
+        );
     }
 }
