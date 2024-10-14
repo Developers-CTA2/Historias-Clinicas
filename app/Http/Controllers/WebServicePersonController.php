@@ -142,7 +142,7 @@ class WebServicePersonController extends Controller
             return response()->json(['title' => 'Éxito', 'msg' => 'Persona encontrada', 'data' => $dataPerson, 'type' => $type], 200);
         } catch (\Exception $e) {
             $type = gettype($e);
-            $responseWithErrors['error'] = $urlLogin;
+            $responseWithErrors['error'] = $e;
             return response()->json($responseWithErrors, 500);
         }
     }
