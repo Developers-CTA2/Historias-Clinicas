@@ -1,4 +1,4 @@
-<button {{ $attributes->merge(['class' => 'fst-normal tooltip-container d-flex gap-1 ' . ($class ?? '') . ' ' . ($paddingClass ?? ''), 'id' => $id, 'type' => $type, 'disabled' => $disabled ? 'disabled' : null]) }}  >
+<button {{ $attributes->merge(['class' => 'fst-normal tooltip-container d-flex gap-1 ' . ($class ?? '') . ' ' . ($paddingClass ?? ''), 'id' => $id, 'type' => $typeButton, 'disabled' => $disabled ? 'disabled' : null]) }}  >
     <div @class(['me-1'=>  !$onlyIcon]) >
         {!! $icon !!}
     </div>
