@@ -66,7 +66,7 @@ class LoginController extends Controller
         // Verificar si el usuario existe pero está inactivo
         $user = User::where('user_name', $request->user_name)->first();
 
-        // return response()->json([$user]);
+        // return response()->json([$user->estado]);
 
         if ($user && $user->estado != 'Activo') {
             // Enviar un mensaje personalizado si el usuario está inactivo
@@ -74,6 +74,8 @@ class LoginController extends Controller
                 'user_name' => [trans('No puedes iniciar sesión, tu cuenta está inactiva.')],
             ]);
         }
+
+                
 
         // Si no coincide la contraseña o el usuario no existe
         throw ValidationException::withMessages([
