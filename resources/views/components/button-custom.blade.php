@@ -2,7 +2,7 @@
     <div @class(['me-1'=>  !($onlyIcon ?? false)]) >
         {!! $icon !!}
     </div>
-    {{$text}}
+    {{$text ?? ''}}
     <span class="tooltip-text">{{$tooltipText}}</span>
 </button>
 
