@@ -108,8 +108,8 @@
                                         <div class="align-self-center">
                                             <span>
                                                 @php
-                                                    $fechaInicio = Carbon::parse($toxicomania->desde_cuando);
-                                                    $años = $fechaInicio->diffInYears(Carbon::now());
+                                                    $fechaInicio = \Carbon\Carbon::parse($toxicomania->desde_cuando);
+                                                    $años = $fechaInicio->diffInYears(\Carbon\Carbon::now());
                                                 @endphp
                                                 <p class="m-0 fst-italic text-muted">Tiempo</p>
 
