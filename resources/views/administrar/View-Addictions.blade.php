@@ -30,7 +30,7 @@
         </div>
 
         {{-- Modal para editar una toxicomania --}}
-        @include('administrar.modals.Modal-Edit-addictions')
+        @include('administrar.modals.Modal-Edit-Addictions')
         {{-- Modal para agregar un nuevo registro  --}}
         @include('administrar.modals.Modal-Add-Addictions')
 

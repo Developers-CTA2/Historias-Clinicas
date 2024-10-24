@@ -34,7 +34,7 @@ class modalCitas extends Component
     )
     {
 
-        Log::info($routeForm, $dateCita, $buttonSubmitText, $methodForm, $formId, $isMethodPut, $errorAlertId);
+        // Log::info($routeForm, $dateCita, $buttonSubmitText, $methodForm, $formId, $isMethodPut, $errorAlertId);
 
         $this->modalId = $modalId;
         $this->modalTitle = $modalTitle;

@@ -26,13 +26,8 @@ class ProfileController extends Controller
         $usuario = Auth::user();
         $role = $usuario->roles->first()->name;
         $Date = Carbon::parse($usuario->created_at)->locale('es')->isoFormat('LL');
-
-        if ($usuario) {
-            return view('profile.Details-profile',   compact('breadcrumbs', 'usuario', 'role', 'Date'));
-        } else {
-            // Redirigir o manejar el caso cuando no hay un usuario autenticado
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para acceder a esta página.');
-        }
+        
+        return view('profile.Details-Profile',   compact('breadcrumbs', 'usuario', 'role', 'Date'));
     }
 
 

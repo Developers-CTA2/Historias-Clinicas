@@ -23,11 +23,11 @@
             @include('patients.expedient_cards.PersonalData')
         </div>
         <div class="row d-flex">
-            <div class="mb-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="mb-3 col-lg-6 col-12">
                   {{-- Medidas corporales--}}
                 @include('patients.expedient_cards.ExpedientBody')
             </div>
-            <div class="mb-3 col-lg-6 col-md-6 col-sm-6">
+            <div class="mb-3 col-lg-6 col-12">
                 {{-- Antecedentes heredofamiliares --}}
                 @include('patients.expedient_cards.ExpedientAHF')
             </div>

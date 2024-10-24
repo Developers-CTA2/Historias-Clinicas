@@ -12,6 +12,7 @@ use App\Models\Nutricional;
 use App\Models\Rep_estado;
 use App\Models\Toxicomanias;
 use App\Traits\ImcTrait;
+use Carbon\Carbon;
 
 class ExpedientController extends Controller
 {
@@ -56,6 +57,8 @@ class ExpedientController extends Controller
         $escolaridad = $Personal->escolaridad;
         $hemotipo = $Personal->hemotipo;
         //return response()->json($ahf);
+
+        $Personal->fecha_nacimiento = Carbon::parse($Personal->fecha_nacimiento)->locale('es')->isoFormat('LL');
 
         $ahfIds = $ahf->pluck('especificar_ahf.id_tipo_ahf');
 

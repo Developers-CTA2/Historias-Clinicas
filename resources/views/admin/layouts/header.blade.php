@@ -1,5 +1,5 @@
 <header id="header-custom" class="d-flex justify-content-between">
-
+    <div class="bg-dark-backdrop"></div>
     <nav class="navbar-custom " id="navBar">
         <div class="max-w-custom d-flex justify-content-between">
             <section class="d-flex justify-content-center align-items-center gap-3">
@@ -10,40 +10,45 @@
                             d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </div>
-                @php
-                    use Carbon\Carbon;
-                @endphp
-                <p class="m-0 fw-bold">
-                    {{ Carbon::now()->locale('es')->isoFormat('LL') }}
+                <p class="m-0 fw-bold d-none d-lg-block">
+                    {{ Carbon\Carbon::now()->locale('es')->isoFormat('LL') }}
                 </p>
             </section>
 
             <section class="d-flex align-items-center gap-3">
-                <p id="usernameText" class="m-0">{{ auth()->user()->name }} </p>
-                <div class="avatar-container" data-bs-toggle="dropdown" aria-expanded="false">
-                    @php 
+                <p class="m-0 d-none d-md-block usernameText">{{ auth()->user()->name }} </p>
+                <div data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="avatar-container" >
+                        @php 
+                        
+                            $role = auth()->user()->roles[0]->id;
+                            $sex = auth()->user()->sex === 'Masculino' ? 1 : 2;
+                            $classSex = $sex == 1 ? 'man' : 'woman';
                     
-                        $role = auth()->user()->roles[0]->id;
-                        $sex = auth()->user()->sex === 'Masculino' ? 1 : 2;
-                        $classSex = $sex == 1 ? 'man' : 'woman';
-                
-                        $avatarRole = '';
-                        if ($role == 1) {
-                            $avatarRole = 'doctor';
-                        } else if ($role == 2) {
-                            $avatarRole = 'pasante';
-                        } else {
-                            $avatarRole = 'nutrition';
-                        }
-
-                        $urlImage = 'icon-'.$avatarRole.'-'.'man'.'.png';
-
-                    @endphp
-                    <img src="{{asset('/images/'.$urlImage)}}" alt="Ícono doctor">
+                            $avatarRole = '';
+                            if ($role == 1) {
+                                $avatarRole = 'doctor';
+                            } else if ($role == 2) {
+                                $avatarRole = 'pasante';
+                            } else {
+                                $avatarRole = 'nutrition';
+                            }
+    
+                            $urlImage = 'icon-'.$avatarRole.'-'.'man'.'.png';
+    
+                        @endphp
+                        <img src="{{asset('/images/'.$urlImage)}}" alt="Ícono doctor">
+                    </div>
                 </div>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ route('profile.details') }}" class="dropdown-item" href="#">
+                        <p class="m-0 d-block d-md-none dropdown-item usernameText" >{{ auth()->user()->name }} </p>
+                    </li>
+                    <li class="d-block d-md-none">
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a href="{{ route('profile.details') }}" class="dropdown-item">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="icon-custom">
@@ -57,7 +62,7 @@
                         </a>
 
                     </li>
-                    <li>
+                    <li >
                         <hr class="dropdown-divider">
                     </li>
                     <li>

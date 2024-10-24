@@ -6,6 +6,8 @@ $(function(){
     const btncompressedSidebar = $('#btnOpenClose');
     const btnCloseSideBarMovil = $('#btn-close-sidebar-movil');
 
+    const bgSideBar = $('.bg-dark-backdrop');
+
     const links = $('.link-item-custom');
 
     
@@ -25,6 +27,7 @@ $(function(){
         containerSideBar.removeClass('movil-collapse');
         containerNavBar.removeClass('container-expanded');
         mainContainer.removeClass('container-expanded');
+        bgSideBar.removeClass('active');
     })
 
     hamburger.on('click', function(){
@@ -36,6 +39,8 @@ $(function(){
         }
 
         containerSideBar.toggleClass('movil-collapse');
+        bgSideBar.toggleClass('active');
+
     })
 
     btncompressedSidebar.on('click', function(){

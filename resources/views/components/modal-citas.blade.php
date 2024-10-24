@@ -38,7 +38,7 @@
                             </x-slot>
                         </x-button-custom>
 
-                        <x-button-custom type="submit"
+                        <x-button-custom typeButton="submit" type="submit"
                             class="btn-blue justify-content-center justify-content-lg-start disabled-custom"
                             text="{{$buttonSubmitText}}" tooltipText="{{$buttonSubmitText}}">
                             <x-slot name="icon">

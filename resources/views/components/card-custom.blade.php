@@ -1,3 +1,4 @@
+@props(['title'])
 <div class="card shadow-custom mb-4">
     <div class="card-header text-center bg-blue">
         {{$title}}

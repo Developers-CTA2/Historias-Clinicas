@@ -1,6 +1,6 @@
 {{-- Contenedor de la parte superior con los botones de crear consultas --}}
 <div class="col-12 ">
-    <div class="d-flex justify-content-end gap-2">
+    <div class="d-flex flex-column flex-md-row justify-content-end gap-md-2 gap-3">
 
 
         @if (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Prestador de medicina'))

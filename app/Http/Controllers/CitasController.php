@@ -286,7 +286,7 @@ class CitasController extends Controller
             // Devolver una respuesta de éxito
             return response()->json(['status' => 'success', 'title' => 'Éxito...',  'message' => 'Cita eliminada correctamente.']);
         } catch (\Exception $e) {
-            // Log del error
+            // `Log` del error
             Log::error('Error al cancelar la cita: ' . $e->getMessage());
 
             // Devolver una respuesta de error

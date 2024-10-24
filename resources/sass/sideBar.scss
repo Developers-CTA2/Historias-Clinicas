@@ -118,6 +118,19 @@
     border-radius: 8px;
 }
 
+.bg-dark-backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 40;
+    inset: 0;
+    display: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.bg-dark-backdrop.active {
+    display: block;
+}
+
 
 /* Section sidebar items */
 
@@ -456,7 +469,7 @@
 }
 
 
-#usernameText {
+.usernameText {
     font-size: 1.2rem;
     font-weight: bold;
     color: $primary;
