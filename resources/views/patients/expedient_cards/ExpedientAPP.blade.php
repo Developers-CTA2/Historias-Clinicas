@@ -57,8 +57,8 @@
                 </div>
             </div>
         </div> {{-- Contenedor del lado izquierdo  --}}
-        
-        <div class="col-lg-6 col-12">
+
+        <div class="col-lg-6 col-12 mt-3 mt-md-0">
 
             <div class="form-group">
                 <div class="row">
@@ -106,192 +106,201 @@
 
     </div>
     {{-- Segundo contenedor  --}}
-    <div class="row col-12 mt-2">
-        {{-- Contenedor de las enfermedades --}}
-        <div class="col-lg-6  col-12">
+    <div class="col-12 mt-3 mt-md-2">
+        <div class="row">
 
-            <div class="form-group">
-                <div class="row">
-                    <h5 class="m-0 mt-1 aling-items-center">
-                        <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                viewBox="0 0 24 24">
-                                <path fill="none" stroke="#e11d48" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.5"
-                                    d="M21.25 9.944v4.112a1.028 1.028 0 0 1-1.028 1.027h-5.139v5.14a1.028 1.028 0 0 1-1.027 1.027H9.944a1.028 1.028 0 0 1-1.027-1.028v-5.139h-5.14a1.028 1.028 0 0 1-1.027-1.027V9.944a1.028 1.028 0 0 1 1.028-1.027h5.139v-5.14A1.028 1.028 0 0 1 9.944 2.75h4.112a1.028 1.028 0 0 1 1.027 1.028v5.139h5.14a1.028 1.028 0 0 1 1.027 1.027" />
-                            </svg>
-                        </span> Hospitalizaciones
-                    </h5>
 
-                    <div class="cont-list p-2">
-                        <ul class="list-group">
-                            @if (!$hospitalizaciones || $hospitalizaciones->isEmpty())
-                                <li class="list-group-item text-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 20 20">
-                                        <path fill="#e11d48" fill-rule="evenodd"
-                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Sin registros
-                                </li>
-                            @else
-                                @foreach ($hospitalizaciones as $hospital)
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <div>
-                                            {{ $hospital->detalles }}
-                                        </div>
-                                        <div class="text-muted ">
-                                            {{ Carbon\Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }}
-                                        </div>
+            {{-- Contenedor de las enfermedades --}}
+            <div class="col-lg-6 col-12">
+
+                <div class="form-group">
+                    <div class="row">
+                        <h5 class="m-0 mt-1 aling-items-center">
+                            <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                    viewBox="0 0 24 24">
+                                    <path fill="none" stroke="#e11d48" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="1.5"
+                                        d="M21.25 9.944v4.112a1.028 1.028 0 0 1-1.028 1.027h-5.139v5.14a1.028 1.028 0 0 1-1.027 1.027H9.944a1.028 1.028 0 0 1-1.027-1.028v-5.139h-5.14a1.028 1.028 0 0 1-1.027-1.027V9.944a1.028 1.028 0 0 1 1.028-1.027h5.139v-5.14A1.028 1.028 0 0 1 9.944 2.75h4.112a1.028 1.028 0 0 1 1.027 1.028v5.139h5.14a1.028 1.028 0 0 1 1.027 1.027" />
+                                </svg>
+                            </span> Hospitalizaciones
+                        </h5>
+
+                        <div class="cont-list p-2">
+                            <ul class="list-group">
+                                @if (!$hospitalizaciones || $hospitalizaciones->isEmpty())
+                                    <li class="list-group-item text-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 20 20">
+                                            <path fill="#e11d48" fill-rule="evenodd"
+                                                d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        Sin registros
                                     </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
+                                @else
+                                    @foreach ($hospitalizaciones as $hospital)
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div>
+                                                {{ $hospital->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon\Carbon::parse($hospital->fecha)->locale('es')->isoFormat('LL') }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
-            </div>
 
-        </div> {{-- Contenedor del lado izquierdo  --}}
+            </div> {{-- Contenedor del lado izquierdo  --}}
 
-        <div class="col-lg-6  col-12">
+            <div class="col-lg-6 col-12 mt-3 mt-md-0">
 
-            <div class="form-group">
-                <div class="row">
-                    <h5 class="m-0 mt-1 aling-items-center">
-                        <span class="pe-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 14 14">
-                                <g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M1.5 7.838V3.5a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v4.338a3 3 0 0 1-2.051 2.846L9.5 11v.5a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V11l-.949-.316A3 3 0 0 1 1.5 7.838" />
-                                    <path
-                                        d="M1.5 8.039c.667-.444 2.7-1.066 5.5 0c2.8 1.065 4.833.222 5.5-.333M8.118 4.661c0-.63-1.118-2.19-1.118-2.19S5.88 4.032 5.88 4.662c0 .31.118.606.328.825c.21.218.494.341.79.341a1.1 1.1 0 0 0 .792-.341a1.19 1.19 0 0 0 .327-.825v0ZM7 12.5v1" />
-                                </g>
-                            </svg>
-                        </span> Transfusiones
-                    </h5>
+                <div class="form-group">
+                    <div class="row">
+                        <h5 class="m-0 mt-1 aling-items-center">
+                            <span class="pe-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                    viewBox="0 0 14 14">
+                                    <g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M1.5 7.838V3.5a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v4.338a3 3 0 0 1-2.051 2.846L9.5 11v.5a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V11l-.949-.316A3 3 0 0 1 1.5 7.838" />
+                                        <path
+                                            d="M1.5 8.039c.667-.444 2.7-1.066 5.5 0c2.8 1.065 4.833.222 5.5-.333M8.118 4.661c0-.63-1.118-2.19-1.118-2.19S5.88 4.032 5.88 4.662c0 .31.118.606.328.825c.21.218.494.341.79.341a1.1 1.1 0 0 0 .792-.341a1.19 1.19 0 0 0 .327-.825v0ZM7 12.5v1" />
+                                    </g>
+                                </svg>
+                            </span> Transfusiones
+                        </h5>
 
-                    <div class="cont-list p-2">
-                        <ul class="list-group">
-                            @if (!$transfusiones || $transfusiones->isEmpty())
-                                <li class="list-group-item text-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 20 20">
-                                        <path fill="#e11d48" fill-rule="evenodd"
-                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Sin registros
-                                </li>
-                            @else
-                                @foreach ($transfusiones as $transfucion)
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <div class="">
-                                            {{ $transfucion->detalles }}
-                                        </div>
-                                        <div class="text-muted ">
-                                            {{ Carbon\Carbon::parse($transfucion->fecha)->locale('es')->isoFormat('LL') }}
-
-                                        </div>
+                        <div class="cont-list p-2">
+                            <ul class="list-group">
+                                @if (!$transfusiones || $transfusiones->isEmpty())
+                                    <li class="list-group-item text-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 20 20">
+                                            <path fill="#e11d48" fill-rule="evenodd"
+                                                d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        Sin registros
                                     </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
+                                @else
+                                    @foreach ($transfusiones as $transfucion)
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div class="">
+                                                {{ $transfucion->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon\Carbon::parse($transfucion->fecha)->locale('es')->isoFormat('LL') }}
 
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
     {{-- Tercer contenedor  --}}
-    <div class="row col-12 mt-2">
-        <div class="col-lg-6  col-12">
-            <div class="form-group">
-                <div class="row">
-                    <h5 class="m-0 mt-1 aling-items-center">
-                        <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                viewBox="0 0 24 24">
-                                <circle cx="7.5" cy="11.5" r="2.5" fill="#06285c" />
-                                <path fill="#06285c"
-                                    d="M17.205 7H12a1 1 0 0 0-1 1v7H4V6H2v14h2v-3h16v3h2v-8.205A4.8 4.8 0 0 0 17.205 7M13 15V9h4.205A2.798 2.798 0 0 1 20 11.795V15z" />
-                            </svg>
-                        </span> Cirugías
-                    </h5>
+    <div class="col-12 mt-3 mt-md-2">
+        <div class="row">
 
-                    <div class="cont-list p-2">
-                        <ul class="list-group">
-                            @if (!$quirurgicos || $quirurgicos->isEmpty())
-                                <li class="list-group-item text-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 20 20">
-                                        <path fill="#e11d48" fill-rule="evenodd"
-                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Sin registros
-                                </li>
-                            @else
-                                @foreach ($quirurgicos as $quirurgico)
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <div>
-                                            {{ $quirurgico->detalles }}
-                                        </div>
-                                        <div class="text-muted ">
-                                            {{ Carbon\Carbon::parse($quirurgico->fecha)->locale('es')->isoFormat('LL') }}
 
-                                        </div>
+            <div class="col-lg-6  col-12">
+                <div class="form-group">
+                    <div class="row">
+                        <h5 class="m-0 mt-1 aling-items-center">
+                            <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                    height="25" viewBox="0 0 24 24">
+                                    <circle cx="7.5" cy="11.5" r="2.5" fill="#06285c" />
+                                    <path fill="#06285c"
+                                        d="M17.205 7H12a1 1 0 0 0-1 1v7H4V6H2v14h2v-3h16v3h2v-8.205A4.8 4.8 0 0 0 17.205 7M13 15V9h4.205A2.798 2.798 0 0 1 20 11.795V15z" />
+                                </svg>
+                            </span> Cirugías
+                        </h5>
+
+                        <div class="cont-list p-2">
+                            <ul class="list-group">
+                                @if (!$quirurgicos || $quirurgicos->isEmpty())
+                                    <li class="list-group-item text-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 20 20">
+                                            <path fill="#e11d48" fill-rule="evenodd"
+                                                d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        Sin registros
                                     </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
+                                @else
+                                    @foreach ($quirurgicos as $quirurgico)
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div>
+                                                {{ $quirurgico->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon\Carbon::parse($quirurgico->fecha)->locale('es')->isoFormat('LL') }}
 
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-6  col-12" id="Cont_APP">
+            <div class="col-lg-6 mt-3 mt-md-0 col-12" id="Cont_APP">
 
-            <div class="form-group">
-                <div class="row">
-                    <h5 class="m-0 mt-1 aling-items-center">
-                        <span class="pe-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                viewBox="0 0 16 16">
-                                <path fill="#059669"
-                                    d="M6.5 3h3a.5.5 0 0 1 .5.5V5H6V3.5a.5.5 0 0 1 .5-.5M5 3.5V5H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3.5A1.5 1.5 0 0 0 9.5 2h-3A1.5 1.5 0 0 0 5 3.5M12 6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM8.5 8a.5.5 0 0 0-1 0v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1z" />
-                            </svg>
-                        </span> Traumatismos
-                    </h5>
+                <div class="form-group">
+                    <div class="row">
+                        <h5 class="m-0 mt-1 aling-items-center">
+                            <span class="pe-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                    viewBox="0 0 16 16">
+                                    <path fill="#059669"
+                                        d="M6.5 3h3a.5.5 0 0 1 .5.5V5H6V3.5a.5.5 0 0 1 .5-.5M5 3.5V5H4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3.5A1.5 1.5 0 0 0 9.5 2h-3A1.5 1.5 0 0 0 5 3.5M12 6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM8.5 8a.5.5 0 0 0-1 0v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1z" />
+                                </svg>
+                            </span> Traumatismos
+                        </h5>
 
-                    <div class="cont-list p-2">
-                        <ul class="list-group">
-                            @if (!$traumatismos || $traumatismos->isEmpty())
-                                <li class="list-group-item text-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 20 20">
-                                        <path fill="#e11d48" fill-rule="evenodd"
-                                            d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Sin registros
-                                </li>
-                            @else
-                                @foreach ($traumatismos as $traumaticos)
-                                    <li class="list-group-item d-flex justify-content-between">
-                                        <div>
-                                            {{ $traumaticos->detalles }}
-                                        </div>
-                                        <div class="text-muted ">
-                                            {{ Carbon\Carbon::parse($traumaticos->fecha)->locale('es')->isoFormat('LL') }}
-                                        </div>
+                        <div class="cont-list p-2">
+                            <ul class="list-group">
+                                @if (!$traumatismos || $traumatismos->isEmpty())
+                                    <li class="list-group-item text-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 20 20">
+                                            <path fill="#e11d48" fill-rule="evenodd"
+                                                d="M10 18a8 8 0 1 0 0-16a8 8 0 0 0 0 16M8.707 7.293a1 1 0 0 0-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 1 0 1.414 1.414L10 11.414l1.293 1.293a1 1 0 0 0 1.414-1.414L11.414 10l1.293-1.293a1 1 0 0 0-1.414-1.414L10 8.586z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                        Sin registros
                                     </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
+                                @else
+                                    @foreach ($traumatismos as $traumaticos)
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div>
+                                                {{ $traumaticos->detalles }}
+                                            </div>
+                                            <div class="text-muted ">
+                                                {{ Carbon\Carbon::parse($traumaticos->fecha)->locale('es')->isoFormat('LL') }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>

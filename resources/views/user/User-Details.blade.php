@@ -12,10 +12,10 @@
         <div id="detalles-container" data-id="{{ $usuario->id }}"></div>
 
         <x-card-custom title="Detalles del usuario">
-            <div class="row col-12 mx-2 p-1">
-                <div class="row col-12 mx-2 p-1">
-                    <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                        <div class="form-group col-12 d-flex justify-content-start mt-sm-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12 mt-2">
+                        <div class="form-group col-12 d-flex justify-content-start align-items-start mt-sm-2">
                             <div class="border rounded p-2 shadow">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                                     <path fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round"
@@ -24,14 +24,14 @@
                                         color="#0284c7" />
                                 </svg>
                             </div>
-                            <div class="ps-2">
+                            <div class="ps-3">
                                 <p class="fw-bold mb-0">Nombre de usuario</p>
                                 <div class="mt-0" id="User_Name">{{ $usuario->name }}</div>
                             </div>
                         </div>
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
                                             d="m16.484 11.976l6.151-5.344v10.627zm-7.926.905l2.16 1.875c.339.288.781.462 1.264.462h.017h-.001h.014c.484 0 .926-.175 1.269-.465l-.003.002l2.16-1.875l6.566 5.639H1.995zM1.986 5.365h20.03l-9.621 8.356a.6.6 0 0 1-.38.132h-.014h.001h-.014a.6.6 0 0 1-.381-.133l.001.001zm-.621 1.266l6.15 5.344l-6.15 5.28zm21.6-2.441c-.24-.12-.522-.19-.821-.19H1.859a1.9 1.9 0 0 0-.835.197l.011-.005A1.86 1.86 0 0 0 0 5.855v12.172a1.86 1.86 0 0 0 1.858 1.858h20.283a1.86 1.86 0 0 0 1.858-1.858V5.855c0-.727-.419-1.357-1.029-1.66l-.011-.005z" />
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3 overflow-hidden">
                                     <p class="fw-bold mb-0">Correo electrónico</p>
                                     <div class="mt-0" id="email">{{ $usuario->email }}</div>
                                 </div>
@@ -48,7 +48,7 @@
                         </div>
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
                                         </g>
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Cédula profesional</p>
                                     <div class="mt-0" id="Cedula">{{ $usuario->cedula ?? '--' }}</div>
                                 </div>
@@ -69,7 +69,7 @@
                         </div>
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 15 15">
@@ -78,7 +78,7 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Número de consultas</p>
                                     <div class="mt-0">{{ $count }} consultas</div>
                                 </div>
@@ -89,7 +89,7 @@
 
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                         <div class="form-group col-12">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -104,7 +104,7 @@
                                         </g>
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Código (UdG)</p>
                                     <div class="mt-0" id="User_Name">{{ $usuario->user_name }}</div>
                                 </div>
@@ -114,7 +114,7 @@
 
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -122,7 +122,7 @@
                                             d="M4 18v-.65c0-.34.16-.66.41-.81C6.1 15.53 8.03 15 10 15c.03 0 .05 0 .08.01c.1-.7.3-1.37.59-1.98c-.22-.02-.44-.03-.67-.03c-2.42 0-4.68.67-6.61 1.82c-.88.52-1.39 1.5-1.39 2.53V20h9.26c-.42-.6-.75-1.28-.97-2zm6-6c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4m0-6c1.1 0 2 .9 2 2s-.9 2-2 2s-2-.9-2-2s.9-2 2-2m10.75 10c0-.22-.03-.42-.06-.63l1.14-1.01l-1-1.73l-1.45.49q-.48-.405-1.08-.63L18 11h-2l-.3 1.49q-.6.225-1.08.63l-1.45-.49l-1 1.73l1.14 1.01c-.03.21-.06.41-.06.63s.03.42.06.63l-1.14 1.01l1 1.73l1.45-.49q.48.405 1.08.63L16 21h2l.3-1.49q.6-.225 1.08-.63l1.45.49l1-1.73l-1.14-1.01c.03-.21.06-.41.06-.63M17 18c-1.1 0-2-.9-2-2s.9-2 2-2s2 .9 2 2s-.9 2-2 2" />
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Rol/Tipo de usuario</p>
                                     <div class="mt-0" id="User_Role">{{ $roleName }}</div>
                                 </div>
@@ -131,7 +131,7 @@
                         </div>
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -142,7 +142,7 @@
                                         </g>
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Fecha de ingreso</p>
                                     <div class="mt-0">
                                         {{ $created_at }}
@@ -152,7 +152,7 @@
                         </div>
 
                         <div class="form-group col-12 mt-3">
-                            <div class="form-group col-12 d-flex justify-content-start">
+                            <div class="form-group col-12 d-flex justify-content-start align-items-start">
                                 <div class="border rounded p-2 shadow">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 24 24">
@@ -166,7 +166,7 @@
                                         </g>
                                     </svg>
                                 </div>
-                                <div class="ps-2">
+                                <div class="ps-3">
                                     <p class="fw-bold mb-0">Estado:</p>
                                     <div class="mt-0" id="User_Status">{{ $usuario->estado }}</div>
                                 </div>
@@ -176,8 +176,8 @@
                 </div>
                 <div class="col-12 p-0 mt-4">
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-between">
-                            <div>
+                        <div class="col-12 d-flex flex-column flex-md-row align-items-md-start justify-content-between">
+                            <div class="mb-3">
                                 <x-button-link-custom :route="route('users.file', ['id_user' => $usuario->id])" class="btn-blue-sec" text="Descargar"
                                     tooltipText="Descarga la carta compromiso del usuario">
                                     <x-slot name="icon">
@@ -191,8 +191,8 @@
 
 
                             </div>
-                            <div class="d-flex gap-1">
-                                <x-button-link-custom :route="route('users.users')" class="btn-red me-3"
+                            <div class="d-flex flex-md-row justify-content-center gap-3">
+                                <x-button-link-custom :route="route('users.users')" class="btn-red "
                                     tooltipText="Volver a la lista de usuarios" text="Atras">
                                     <x-slot name="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -205,7 +205,7 @@
 
                                 </x-button-link-custom>
 
-                                <x-button-custom class="btn-sec" data-bs-toggle="modal" data-bs-target="#EditData"
+                                <x-button-custom class="btn-sec " data-bs-toggle="modal" data-bs-target="#EditData"
                                     text="Editar" tooltipText="Editar datos del usuario.">
                                     <x-slot name="icon">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"

@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <!--Boton de agregar paciente -->
-        <div class="col-12 mb-2 d-flex justify-content-end">
+        <div class="col-12 mb-2 d-flex flex-column flex-md-row justify-content-end">
 
             <x-button-custom class="btn-sec" data-bs-toggle="modal" data-bs-target="#Add-allergy" text="Agregar" tooltipText="Agregar nueva alérgia" >
                 <x-slot name="icon">

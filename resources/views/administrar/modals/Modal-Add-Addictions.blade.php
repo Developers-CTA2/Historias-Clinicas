@@ -4,7 +4,7 @@
        <div class="modal-dialog">
            <div class="modal-content">
                <div class="modal-header bg-blue">
-                   <h5 class="modal-title" id="staticBackdropLabel">Agregar una toxicomnía</h5>
+                   <h5 class="modal-title" id="staticBackdropLabel">Agregar una toxicomanía</h5>
                    <button type="button" class="btn-custom-close" data-bs-dismiss="modal" aria-label="Close"><svg
                            xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                            <path fill="#ffffff"

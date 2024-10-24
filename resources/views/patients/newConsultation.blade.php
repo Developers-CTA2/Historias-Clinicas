@@ -36,7 +36,7 @@
                                         </span>{{ $person->edad }}
                                         años</p>
                                 </div>
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-6 mt-4 mt-lg-0">
                                     <h5 class="fw-bold mb-2 text-muted">Atendido por</h5>
                                     <p class="m-0"><span class="fw-bold me-2 text-muted">Nombre :
                                         </span>{{ auth()->user()->name }}</p>

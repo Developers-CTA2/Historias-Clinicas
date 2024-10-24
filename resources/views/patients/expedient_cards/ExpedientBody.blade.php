@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col-lg-6 col-12  mt-2">
-            <div class="row ms-1">
+            <div class="row ">
                 <h5 class="m-0 mt-1 aling-items-center mb-2">
                     <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 48 48">
@@ -36,8 +36,8 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-12 mt-2">
-            <div class="row ms-1">
+        <div class="col-lg-6 col-12 mt-4 mt-lg-2">
+            <div class="row ">
                 <h5 class="m-0 mt-1 aling-items-center mb-2">
                     <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 48 48">
@@ -72,7 +72,7 @@
         </div>
 
         <div class="col-12 mt-3">
-            <div class="row ms-1">
+            <div class="row ">
                 <h5 class="m-0 mt-1 aling-items-center mb-2">
                     <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                             viewBox="0 0 512 512">
@@ -87,7 +87,7 @@
                         <div class="row d-flex flex-column">
                             <div class="col-12 h-avatar-imc d-flex justify-content-center">
                                 @if (!empty($Medidas['Imc']))
-                                    <img src="{{ asset('/images/' . $Medidas['Imc']['url']) }}"
+                                    <img style="width: 120px;" src="{{ asset('/images/' . $Medidas['Imc']['url']) }}"
                                         alt="Medidor indice de masa corporal">
                                 @else
                                     {{-- <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24"><path fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4.01l.01-.011M9 3H4v3m0 5v2m16-2v2M15 3h5v3M9 21H4v-3m11 3h5v-3"/></svg> --}}

@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <!--Boton de agregar paciente -->
-        <div class="col-12 mb-2 d-flex justify-content-end gap-3">
+        <div class="col-12 mb-2 d-flex flex-column flex-md-row  justify-content-md-end gap-3">
 
             <x-button-link-custom class="btn-blue-sec" :route="route('admin.specific-diseases')"  text="Enf. Específicas" tooltipText="Lista de enfermedades específicas">
                 <x-slot name="icon">

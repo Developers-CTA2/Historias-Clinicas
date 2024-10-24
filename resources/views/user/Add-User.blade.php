@@ -8,7 +8,7 @@
 
 
 @section('content')
-    <div class="container ml-2">
+    <div class="container">
         <!-- Card para mostrar todos los datos  -->
         <div id="detalles-container"></div>
 
@@ -18,7 +18,7 @@
                 Agregar un usuario al sistema
             </x-slot>
 
-            <div class="pe-2">
+            <div class="row mx-2">
                 <div class="col-12 d-none">
                     <div class="alert alert-danger">
                         <ul class="m-0" id="listErrorsPerson"></ul>
@@ -48,8 +48,9 @@
                 </div>
 
                 <div class="col-12 cont-user-data container mt-3 d-none animate__backInUp">
+
                     {{-- Contenedor de los datos personales del usuario --}}
-                    <div class="row mx-2 p-1">
+                    <div class=" p-1">
                         <h5 class="p-0 m-0 fw-bold text-muted"> Datos personales </h5>
                         <div class="col-lg-6  col-sm-12">
                             <div class="form-group mt-3">
@@ -67,7 +68,7 @@
 
                     <hr />
 
-                    <div class="row d-none">
+                    <div class=" d-none">
                         <div class="col-12">
                             <div class="alert alert-danger">
                                 <ul class="m-0" id="listErrors"></ul>
@@ -76,7 +77,7 @@
                     </div>
 
                     {{-- Contenedor de los datos del usuario --}}
-                    <div class="row col-12 mx-2 p-1 mt-1">
+                    <div class=" col-12 p-1 mt-1">
                         <h5 class="p-0 m-0 fw-bold text-muted">Configuración</h5>
                         <div class="col-lg-6  col-sm-12">
 
@@ -129,8 +130,8 @@
                         </div>
                     </div>
                     {{-- Botones  --}}
-                    <div class="col-12 mt-2 row">
-                            <div class="d-flex justify-content-end gap-2">
+                    <div class="col-12 mt-2">
+                            <div class="d-flex justify-content-md-end justify-content-center gap-2">
                 
                                     <x-button-custom class="btn-red" text="Cancelar" id="cancelForm"
                                         tooltipText="Volver a la ventana anterior">
