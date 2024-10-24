@@ -8,8 +8,7 @@
         <!--Boton de agregar paciente -->
         <div class="col-12 mb-2 d-flex justify-content-end gap-3">
 
-            <x-button-link-custom :route="route('admin.specific-diseases')" class="btn-blue-sec" text="Enf. Específicas"
-                tooltipText="Lista de enfermedades específicas">
+            <x-button-link-custom class="btn-blue-sec" :route="route('admin.specific-diseases')"  text="Enf. Específicas" tooltipText="Lista de enfermedades específicas">
                 <x-slot name="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
                         <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"

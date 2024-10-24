@@ -35,8 +35,7 @@
                </div>
                <div class="modal-footer">
 
-                   <x-button-custom class="btn-red cerrar-btn" data-bs-dismiss="modal" text="Cancelar"
-                       tooltipText="Cancelar acción">
+                   <x-button-custom class="btn-red cerrar-btn" data-bs-dismiss="modal" text="Cancelar" tooltipText="Cancelar acción">
                        <x-slot name="icon">
                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
                                <path fill="currentColor"

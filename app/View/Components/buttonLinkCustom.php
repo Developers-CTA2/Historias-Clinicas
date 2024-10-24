@@ -12,26 +12,20 @@ class buttonLinkCustom extends Component
      * Create a new component instance.
      */
     public $route;
-    public $class;
     public $text;
-    public $id;
     public $icon;
     public $tooltipText;
 
 
     public function __construct(
         string $route = '/home',
-        string $class = 'btn-primary',
         string $text = '',
-        string $id = '',
         string $icon = '',
         string $tooltipText = ''
     )
     {
         $this->route = $route;
-        $this->class = $class;
         $this->text = $text;
-        $this->id = $id;
         $this->icon = $icon;
         $this->tooltipText = $tooltipText;
         
