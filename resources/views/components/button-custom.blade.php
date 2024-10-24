@@ -1,4 +1,4 @@
-@props(['typeButton' => 'button', 'tooltiText' => ''])
+@props(['typeButton' => 'button', 'tooltipText' => ''])
 
 <button {{ $attributes->merge(['class' => 'fst-normal tooltip-container d-flex gap-1 ' . ($class ?? 'btn-primary') . ' ' . ($paddingClass ?? 'px-3 py-2'), 'id' => ($id ?? ''), 'type' => $typeButton , 'disabled' => ($disabled ?? false)]) }}  >
     <div @class(['me-1'=>  !($onlyIcon ?? false)]) >
