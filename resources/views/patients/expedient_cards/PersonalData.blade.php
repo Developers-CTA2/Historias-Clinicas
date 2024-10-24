@@ -1,5 +1,5 @@
 <x-card-custom title="Expediente clínico">
-    <div class="row col-12 m-0 p-0 cont-start">
+    <div class="row cont-start">
 
         @role('Administrador')
             <div class="d-flex justify-content-between ">
@@ -17,7 +17,7 @@
             </div>
         @endrole
         <div class="col-lg-6 col-sm-12 top-content mb-2">
-            <div class="row form-group px-2">
+            <div class="form-group">
 
                 <h5 class="aling-items-center">
                     <span class="pe-2">
@@ -257,7 +257,7 @@
         </div> {{-- Contenedor deL lado izquierdo  --}}
 
         <div class="col-lg-6 mt-4 mt-lg-0 col-sm-12">
-            <div class="row form-group px-2">
+            <div class="form-group">
                 <span class="d-none" id="id_dom"> {{ $Personal->domicilio_id }}</span>
                 <h5 class="mb-2 aling-items-center">
                     <span class="pe-2"> <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
@@ -272,7 +272,7 @@
                     </span>
                     Domicilio del paciente
                 </h5>
-                <ul class="list-group">
+                <ul class="list-group pe-0">
                     <li class="list-group-item pt-0">
                         <div class="row">
                             <div class="form-group col-md-6 col-sm-12 pt-2">
@@ -320,7 +320,7 @@
                         </div>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-start pt-0">
-                        <div class="form-group col-12 pt-2">
+                        <div class="form-group pt-2">
                             <p class="fw-bold mb-0">Ciudad o municipio:</p>
                             <div class="mt-0 W-data" id="city"> {{ $domicilio->cuidad_municipio ?? '--' }}
                             </div>

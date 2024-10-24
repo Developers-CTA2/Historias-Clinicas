@@ -19,7 +19,7 @@
 
         <div class="row mt-3">
             <div class="container">
-                <div class="row d">
+                <div class="row d-flex flex-column-reverse flex-lg-row">
                     <div class="col-12 col-xl-9">
 
                         {{-- Card de datos de la consulta --}}
@@ -47,7 +47,7 @@
                                         </span>{{ $person->edad }} años</p>
                                 </div>
 
-                                <div class="col-12 col-lg-6">
+                                <div class="col-12 col-lg-6 mt-4 mt-lg-0">
                                     <div class="d-flex">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="25" height="25"
                                             viewBox="0 0 48 48">

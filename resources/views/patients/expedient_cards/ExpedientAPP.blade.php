@@ -33,7 +33,7 @@
                     </h5>
 
                     <div class="cont-list p-2">
-                        <ul class="list-group">
+                        <ul class="list-group pe-0">
                             @if (!$enfermedades || $enfermedades->isEmpty())
                                 <li class="list-group-item text-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
